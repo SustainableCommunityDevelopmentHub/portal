@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search by Title: <input ng-model="queryTerm" type="text">&nbsp;
+      <button ng-click="search()" class="btn" type="button">Search</button>
+      <!--
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+      -->
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+      <ul class="books">
+        <li ng-repeat="book in results.hits.hits" class="book-listing">
+          <b>Title: </b><a href="#/books/{{book._id}}">{{book._source.title}}</a><br/>
+          <b>Author: </b>{{book._source.authorAll}}<br/>
+          <b>Date: </b>{{book._source.pubDate}}<br/>
+          <b>Contributor: </b>{{book._source.conributor}}<br/>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
