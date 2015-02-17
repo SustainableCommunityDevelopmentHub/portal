@@ -21,12 +21,19 @@ Check your version:
 To install ES on Ubuntu:
 
 1. Download and install the Public Signing Key
+
         wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+
 2. Add the following to your /etc/apt/sources.list to enable the repository
+
         sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+
 3. Run apt-get update and the repository is ready for use. You can install it with :
+
         sudo apt-get update && sudo apt-get install elasticsearch
+
 4. Configure Elasticsearch to automatically start during bootup :
+
         sudo update-rc.d elasticsearch defaults 95 10
 
 ### Nodejs
