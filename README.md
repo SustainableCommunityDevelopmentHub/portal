@@ -61,11 +61,11 @@ Enable CORS for the system
         http.cors.enabled: true
         http.cors.allow-origin: /https?:\/\/localhost(:[0-9]+)?/
 
-**Note:** for production you should use the server's IP address instead of localhost
-
 3. Restart the system
 
         sudo /etc/init.d/elasticsearch restart
+
+**Note:** for production you should use the server's IP address instead of localhost
 
 Load the sample data
 
@@ -82,7 +82,7 @@ Running
 ###Start the development web server
 
     npm start
-    
+
 The application should now be running on port 8000
 
 Open your browser to localhost:8000/app
