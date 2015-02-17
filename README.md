@@ -53,28 +53,19 @@ Create the Portal index
 Enable CORS for the system
 
 1. open the system yml file
+
         sudo vim /etc/elasticsearch/elasticsearch.yml
+
 2. add the following lines to the bottom
+
         http.cors.enabled: true
         http.cors.allow-origin: /https?:\/\/localhost(:[0-9]+)?/
+
 **Note:** for production you should use the server's IP address instead of localhost
+
 3. Restart the system
+
         sudo /etc/init.d/elasticsearch restart
-
-Enable CORS for the index
-
-    curl -XPOST localhost:9200/portal/_close
-    curl -XPUT  localhost:9200/portal/_settings -d '
-    {
-        "http":{
-            "cors":{
-                "enabled":true,
-                "enable-origin": /https?:\/\/localhost(:[0-9]+)?/
-            }
-        }
-    }'
-    curl -XPOST 'localhost:9200/portal/_open'
-**Note:** for production you should use the server's IP address instead of localhost
 
 Load the sample data
 
@@ -91,6 +82,7 @@ Running
 ###Start the development web server
 
     npm start
+    
 The application should now be running on port 8000
 
 Open your browser to localhost:8000/app
