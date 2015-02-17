@@ -6,7 +6,6 @@ var portalApp = angular.module('portalApp', [
   'ngRoute',
   'portalAnimations',
   'portalControllers',
-  //'portalFilters',
   'portalServices'
 ]);
 

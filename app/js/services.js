@@ -1,19 +1,13 @@
 'use strict';
 
-
-var client = new elasticsearch.Client({
-  host: 'http://153.10.131.215:9200',
-  apiVersion: '1.3',
-});
-
 /* Services */
 
-var portalServices = angular.module('portalServices', ['ngResource']);
+var portalServices = angular.module('portalServices', ['elasticsearch']);
 
-portalServices.factory('ESclient', function() {
-  var client = new elasticsearch.Client({
+portalServices.service('ESclient', function(esFactory) {
+  return esFactory({
     host: 'http://153.10.131.215:9200',
     apiVersion: '1.3',
+    log: 'trace'
   });
-  return client;
-})
+});
