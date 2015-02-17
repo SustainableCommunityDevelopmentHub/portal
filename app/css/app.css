@@ -2,6 +2,7 @@
 
 body {
   padding-top: 20px;
+  padding-left: 20px;
 }
 
 
@@ -81,7 +82,7 @@ ul.specs {
 
 ul.specs > li{
   display: inline-block;
-  width: 200px;
+  /*width: 200px;*/
   vertical-align: top;
 }
 

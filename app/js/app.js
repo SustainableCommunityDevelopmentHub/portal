@@ -17,7 +17,7 @@ portalApp.config(['$routeProvider',
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
       }).
-      when('/books/:bookId', {
+      when('/books/:bookID', {
         templateUrl: 'partials/book-detail.html',
         controller: 'BookDetailCtrl'
       }).
