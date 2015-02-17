@@ -19,6 +19,7 @@ Check your version:
 
 ### ElasticSearch
 To install ES on Ubuntu:
+
 1. Download and install the Public Signing Key
         wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
 2. Add the following to your /etc/apt/sources.list to enable the repository
