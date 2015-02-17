@@ -7,7 +7,6 @@ var portalControllers = angular.module('portalControllers', []);
 portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
   function($scope, ESclient) {
     $scope.search = function() {
-      var results = null;
       console.log('searching for ' + $scope.queryTerm);
       ESclient.search({
         index: 'portal',
