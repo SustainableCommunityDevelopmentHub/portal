@@ -10,7 +10,7 @@ portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
       ESclient.search({
         index: 'portal',
         type: 'book',
-        q: 'title:' + $scope.queryTerm
+        q: 'title.value:' + $scope.queryTerm
       }).then(function(response){
         $scope.results = response;
       }, function(error) {
