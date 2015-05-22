@@ -1,7 +1,9 @@
-<h1>{{book._source.title}}</h1>
+<h1>{{book._source.title[0].value}}</h1>
 
-<ul class="specs" ng-repeat="(key, value) in book._source">
-  <li>
-    <b>{{key}}: </b>{{value}}
+<ul class="specs" ng-repeat="(key, field) in book._source">
+  <li><b>{{key}}</b>
+    <ul class="specs" ng-repeat="entry in field">
+      <li>{{entry.value}}</li>
+    </ul>
   </li>
 </ul>
