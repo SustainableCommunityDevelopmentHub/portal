@@ -10,7 +10,42 @@ portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
       ESclient.search({
         index: 'portal',
         type: 'book',
-        q: 'title.value:' + $scope.queryTerm
+        q: $scope.queryTerm
+      }).then(function(response){
+        $scope.results = response;
+      }, function(error) {
+        console.trace(error.message);
+      });
+    }
+  }]);
+
+portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
+  function($scope, ESclient) {
+    $scope.search = function() {
+      // build term list excluding empty fields
+      var terms = [];
+      Object.keys($scope.query.terms).forEach(function(key) {
+        var value = $scope.query.terms[key];
+        if(value != '') {
+          var hash = {};
+          hash[key + '.value'] = value;
+          terms.push({'term': hash});
+        }
+      });
+
+      ESclient.search({
+        index: 'portal',
+        'body': {
+          'query': {
+            'filtered': {
+              'filter': {
+                'bool': {
+                  'must': terms
+                }
+              }
+            }            
+          }      
+        }
       }).then(function(response){
         $scope.results = response;
       }, function(error) {
