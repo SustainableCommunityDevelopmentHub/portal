@@ -2,9 +2,92 @@
 
 body {
   padding-top: 20px;
-  padding-left: 20px;
 }
 
+.header {
+  margin-left: 10%;
+  padding-bottom: 15px;
+}
+
+.header .getty-logo{
+  width: 9%;
+  margin-right: 20%;
+  margin-left: auto;
+}
+
+.header .gri-portal-logo {
+  margin-left: auto;
+  margin-right: auto;
+  width: 36%;
+}
+
+#container-test {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.main-nav {
+  height: 50px;
+  width: 100%;
+  background-color: #3a3a3a;
+}
+
+.main-nav ul {
+  padding-top: 14px;
+  width: 36%;
+  margin-right: auto;
+  margin-left: 33%;
+}
+
+.main-nav li {
+  list-style: none;
+  display: inline;
+  color: white;
+}
+
+.how-to-search {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.search-button-home {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.search-input {
+  height: 34px;
+  padding-top: 0px;
+  margin-left: 24%;
+  width: 40%;
+
+}
+
+#go-btn {
+  color: white;
+  background-color: #478ba3;
+  margin-left: -8px;
+  margin-right: auto;
+  border-radius: 0;
+}
+
+#see-all-btn {
+  display: block;
+  margin-top: 40px;
+  margin-left: 30%;
+  margin-right: auto;
+  margin-bottom: 40px;
+  width: 30%;
+}
+
+.main-body {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
 
 .book-images {
   background-color: white;
@@ -97,4 +180,64 @@ ul.specs dt {
 
 h1 {
   border-bottom: 1px solid gray;
+}
+
+.titles-lastupdated-contributors{
+  margin-right: auto;
+  width: 100%;
+}
+
+.titles-lastupdated-contributors ul {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.titles-lastupdated-contributors li {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 33%;
+  text-align: center;
+  vertical-align: top;
+}
+
+.footer {
+  width: 100%;
+}
+
+.footer ul {
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+}
+
+.footer li {
+  list-style: none;
+  display: inline;
+}
+
+.footer .getty-logo{
+  width: 35px;
+}
+
+@media (min-width: 980px){
+
+  .header .getty-logo{
+    width: 85px;
+    margin-right: 20%;
+    margin-left: auto;
+  }
+
+  .header .gri-portal-logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 330px;
+  }
+
+  .main-nav ul {
+      width: 330px;
+  }
+
 }
