@@ -5,20 +5,23 @@ body {
 }
 
 .header {
-  margin-left: 10%;
+  width: 80%;
   padding-bottom: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .header .getty-logo{
-  width: 9%;
-  margin-right: 20%;
-  margin-left: auto;
+  width: 85px;
+  margin-bottom: -5px;
 }
 
 .header .gri-portal-logo {
   margin-left: auto;
   margin-right: auto;
-  width: 36%;
+  margin-top: -85px;
+  display: block;
+  width: 280px;
 }
 
 #container-test {
@@ -35,9 +38,9 @@ body {
 
 .main-nav ul {
   padding-top: 14px;
-  width: 36%;
+  width: 350px;
   margin-right: auto;
-  margin-left: 33%;
+  margin-left: auto;
 }
 
 .main-nav li {
@@ -49,6 +52,7 @@ body {
 .how-to-search {
   margin-top: 30px;
   margin-bottom: 50px;
+  font-size: .9em;
 }
 
 .search-button-home {
@@ -58,29 +62,50 @@ body {
   width: 80%;
 }
 
+
+.search-bar {
+  display: block;
+  width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .search-input {
   height: 34px;
   padding-top: 0px;
-  margin-left: 24%;
-  width: 40%;
+  margin-left: auto;
+  margin-right: -4px;
+  width: 85%;
 
 }
 
 #go-btn {
   color: white;
   background-color: #478ba3;
-  margin-left: -8px;
   margin-right: auto;
   border-radius: 0;
+  width: 80px;
+}
+
+.adv {
+  width: 57%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: black;
 }
 
 #see-all-btn {
   display: block;
   margin-top: 40px;
-  margin-left: 30%;
+  margin-left: auto;
   margin-right: auto;
   margin-bottom: 40px;
   width: 30%;
+  border: 2px solid black;
+  border-radius: 0;: black;
+  background-color: white;
 }
 
 .main-body {
@@ -182,35 +207,43 @@ h1 {
   border-bottom: 1px solid gray;
 }
 
-.titles-lastupdated-contributors{
+.titles-lastupdated-contributors ul {
+  margin-left: auto;
   margin-right: auto;
   width: 100%;
 }
 
-.titles-lastupdated-contributors ul {
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-}
-
 .titles-lastupdated-contributors li {
   display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
   width: 33%;
   text-align: center;
   vertical-align: top;
 }
 
+/*footer*/
+
 .footer {
   width: 100%;
+  font-size: .9em;
+}
+
+.footer-hr {
+  height: 2px; 
+  background: black;
+}
+
+.footer-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer ul {
   margin-left: auto;
   margin-right: auto;
+  margin-top: -35px;
   width: 65%;
+  text-align: center;
 }
 
 .footer li {
@@ -222,22 +255,54 @@ h1 {
   width: 35px;
 }
 
-@media (min-width: 980px){
+.footer-logo {
+  display: inline-block;  
+}
+
+@media (max-width: 1100px){
 
   .header .getty-logo{
-    width: 85px;
-    margin-right: 20%;
+    width: 10%;
     margin-left: auto;
-  }
-
-  .header .gri-portal-logo {
-    margin-left: auto;
-    margin-right: auto;
-    width: 330px;
   }
 
   .main-nav ul {
-      width: 330px;
+      width: 350px;
   }
 
+  .adv {
+    width: 63%;
+  }
+
+}
+
+@media (max-width: 900px){
+  
+  .header .getty-logo{
+    display: none;
+  }
+
+  .header .gri-portal-logo {
+    margin-top: 5px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .adv {
+    text-align:left;
+    width: 100%;
+  }
+
+  .footer ul {
+    margin-top: 5px;    
+  }
+
+  .footer-logo {
+    width: 172px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
