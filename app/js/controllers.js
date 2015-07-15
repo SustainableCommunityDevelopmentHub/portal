@@ -16,7 +16,7 @@ portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
       }, function(error) {
         console.trace(error.message);
       });
-    }
+    };
   }]);
 
 portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'ESclient',
@@ -32,3 +32,18 @@ portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'EScli
         }
       });
   }]);
+
+portalControllers.controller('HeaderCtrl', ['$scope',
+  function ($scope) {
+    $scope.header = {name: "header.html", url: "header.html"};
+}]);
+
+portalControllers.controller('FooterCtrl', ['$scope',
+  function ($scope) {
+    $scope.footer = {name: "footer.html", url: "footer.html"};
+}]);
+
+portalControllers.controller('FaqsCtrl', ['$scope',
+  function ($scope) {
+    $scope.faqs = {name: "faqs.html", url: "faqs.html"};
+}]);

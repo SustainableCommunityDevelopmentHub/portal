@@ -1,15 +1,8 @@
 <div class="container-fluid" id="container-test">
-  <div class="header">
-    <a href="http://www.getty.edu/"><img src="assets/images/getty_logo.gif" alt="Getty Logo" class="getty-logo"></a>
-    <a href="/"><img src="assets/images/GRI-Portal-logo-02.png" alt="GRI Portal Logo" class="gri-portal-logo"></a>
-  </div>
-  <div class="main-nav">
-      <ul>
-        <li>Portal Home&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</li>
-        <li>Saved Records&nbsp;&nbsp;&nbsp;|</li>
-        <li>&nbsp;&nbsp;&nbsp;Help</li>
-      </ul>
-    </div>
+  <div ng-controller="HeaderCtrl">
+    <div ng-include src="header.url"></div>
+    <script type="text/ng-template" id="header.html"></script>
+</div>
   <div class="main-body">  
     <div class="search-button-home">
       <!--Body content-->
@@ -33,17 +26,9 @@
       </ul>
     </div>
   </div>
-    <div class="footer">
-      <hr class="footer-hr">
-      <div class="footer-container">
-      <a href="http://www.getty.edu/"><p class="footer-logo"><img src="assets/images/getty_logo.gif" alt="Getty Logo" class="getty-logo">&nbsp;&nbsp;The J. Paul Getty Trust</p></a>
-      <ul class="footer-list">
-        <li class="j-paul-getty-trust-cr">&copy; The J. Paul Getty Trust | </li>
-        <li>Privacy Policy    |    </li>
-        <li>Terms of Use    |    </li>
-        <li>Contact Us</li>
-      </ul>
-    </div>
+    <div ng-controller="FooterCtrl">
+    <div ng-include src="footer.url"></div>
+    <script type="text/ng-template" id="footer.html"></script>
     </div>
       <ul class="books">
         <li ng-repeat="book in results.hits.hits" class="book-listing">
