@@ -51,7 +51,7 @@ portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
       }, function(error) {
         console.trace(error.message);
       });
-    }
+    };
   }]);
 
 portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'ESclient',
@@ -67,3 +67,18 @@ portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'EScli
         }
       });
   }]);
+
+portalControllers.controller('HeaderCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.header = {name: "header.html", url: "partials/header.html"};
+}]);
+
+portalControllers.controller('FooterCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.footer = {name: "footer.html", url: "partials/footer.html"};
+}]);
+
+portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.faqs = {name: "faqs.html", url: "faqs.html"};
+}]);
