@@ -292,6 +292,57 @@ h1 {
   color: black;
 }
 
+/*FAQs*/
+
+.accordion__container {
+    width: 80%;
+    margin: 30px auto 50px auto;
+}
+.accordion__tab {
+    color: black;
+    margin: -8px 0 -8px 0;
+
+}
+
+.accordion__tab-title {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.accordion__tab-title .glyphicon {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+ 
+    color: white;
+    background: #909090;
+ 
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+ 
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+}
+
+.accordion__tab-content {
+    padding: 20px 20px 20px 30px;
+}
+
+.faqs-heading {
+  font-weight: bold;
+}
+
+.faqs-heading-hr {
+  height: 1px;
+  background-color: #909090;
+}
+
+.faqs-hr {
+  height: 1px;
+  background-color: black;
+}
+
 @media (max-width: 1100px){
 
   .header .getty-logo{
