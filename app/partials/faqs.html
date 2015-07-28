@@ -1,3 +1,7 @@
+<div ng-controller="HeaderCtrl">
+    <div ng-include src="header.url"></div>
+    <script type="text/ng-template" id="header.html"></script>
+</div>
 <ul class="accordion">
  
     <li id="one" class="files"><span>+</span><a href="#one">What is the Portal?</a></li>
@@ -21,5 +25,8 @@
     <li id="ten" class="cloud"><span>+</span><a href="#ten">How often is the Portal updated?</a></li>
  
     <li id="eleven" class="sign"><span>+</span><a href="#eleven">Who supports the Portal?</a></li>
- 
 </ul>
+<div ng-controller="FooterCtrl">
+    <div ng-include src="footer.url"></div>
+    <script type="text/ng-template" id="footer.html"></script>
+</div>

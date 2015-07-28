@@ -33,17 +33,17 @@ portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'EScli
       });
   }]);
 
-portalControllers.controller('HeaderCtrl', ['$scope',
+portalControllers.controller('HeaderCtrl', ['$scope', '$routeParams',
   function ($scope) {
-    $scope.header = {name: "header.html", url: "header.html"};
+    $scope.header = {name: "header.html", url: "partials/header.html"};
 }]);
 
-portalControllers.controller('FooterCtrl', ['$scope',
+portalControllers.controller('FooterCtrl', ['$scope', '$routeParams',
   function ($scope) {
-    $scope.footer = {name: "footer.html", url: "footer.html"};
+    $scope.footer = {name: "footer.html", url: "partials/footer.html"};
 }]);
 
-portalControllers.controller('FaqsCtrl', ['$scope',
+portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.faqs = {name: "faqs.html", url: "faqs.html"};
 }]);

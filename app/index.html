@@ -24,52 +24,7 @@
   <body>
 
     <div class="view-container">
-      <div ng-view class="view-frame">
-        <div class="container-fluid" id="container-test">
-  <div ng-controller="HeaderCtrl">
-    <div ng-include src="header.url"></div>
-    <script type="text/ng-template" id="header.html"></script>
-</div>
-  <div class="main-body">  
-    <div class="search-button-home">
-      <!--Body content-->
-      <p class="how-to-search">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="search-bar">
-        <input ng-model="queryTerm" class="search-input" type="text">
-        <button ng-click="search()" class="btn" type="button" id="go-btn">Search</button>
-      </div>
-      <a href="advanced.html" class="adv">Advanced Search</a> 
-      <button ng-click="search()" class="btn" id="see-all-btn" type="button">See All Records</button>
-    </div>
-    <div class="titles-lastupdated-contributors">
-      <ul>
-        <li><h4>TOTAL TITLES</h4>
-          <p>71,199</p></li>
-        <li><h4>LAST UPDATED</h4>
-          <p>April 1, 2015<br>1,243 Records Added</dd></p>
-        <li><h4>RECENT CONTRIBUTORS</h4>
-          <p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative
-            <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p></li>
-      </ul>
-    </div>
-  </div>
-    <div ng-controller="FooterCtrl">
-    <div ng-include src="footer.url"></div>
-    <script type="text/ng-template" id="footer.html"></script>
-    </div>
-      <ul class="books">
-        <li ng-repeat="book in results.hits.hits" class="book-listing">
-          <b>Title: </b><a href="#/books/{{book._id}}">{{book._source.title[0].value}}</a><br/>
-          <b>Author: </b>{{book._source.creator[0].value}}<br/>
-          <b>Date: </b>{{book._source.date[0].value}}<br/>
-          <b>Contributor: </b>{{book._source.contributor[0].value}}<br/>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-      </div>
+      <div ng-view class="view-frame"></div>
     </div>
 
   </body>

@@ -47,6 +47,18 @@ body {
   list-style: none;
   display: inline;
   color: white;
+  height:50px;
+}
+
+.main-nav li a {
+  list-style: none;
+  display: inline;
+  color: white;
+  height:50px;
+}
+
+.main-nav li a:hover {
+  background-color: black;
 }
 
 .how-to-search {
@@ -207,10 +219,14 @@ h1 {
   border-bottom: 1px solid gray;
 }
 
-.titles-lastupdated-contributors ul {
+.titles-lastupdated-contributors {
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+}
+
+.titles-lastupdated-contributors ul {
+  padding-left: 0px;
 }
 
 .titles-lastupdated-contributors li {
@@ -218,6 +234,12 @@ h1 {
   width: 33%;
   text-align: center;
   vertical-align: top;
+}
+
+.tlc-hr {
+  height: 3px; 
+  background: orange;
+  width: 90%;
 }
 
 /*footer*/
@@ -228,7 +250,7 @@ h1 {
 }
 
 .footer-hr {
-  height: 2px; 
+  height: 3px; 
   background: black;
 }
 
@@ -249,7 +271,17 @@ h1 {
 .footer li {
   list-style: none;
   display: inline;
+  color: black;
 }
+
+.footer li a{
+  color: black;
+}
+
+.footer li a:hover {
+  color: #478ba3;
+}
+
 
 .footer .getty-logo{
   width: 35px;
@@ -257,6 +289,7 @@ h1 {
 
 .footer-logo {
   display: inline-block;  
+  color: black;
 }
 
 @media (max-width: 1100px){
