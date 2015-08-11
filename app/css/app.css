@@ -4,6 +4,8 @@ body {
   padding-top: 20px;
 }
 
+/** header **/
+
 .header {
   width: 80%;
   padding-bottom: 15px;
@@ -58,8 +60,54 @@ body {
 }
 
 .main-nav li a:hover {
-  background-color: black;
+  color: #478ba3;
+  text-decoration: none;
 }
+
+.help_accordion__container {
+  display: inline;
+}
+
+.help_accordion__tab {
+  display: inline;
+}
+
+.help_accordion__tab-title {
+    cursor: pointer;
+    display: inline;
+}
+
+.help_accordion__tab-title:hover {
+    color: #478ba3;
+}
+
+.help_accordion__tab-title .glyphicon {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+    color: white;
+}
+
+.help_accordion__tab-content {
+    background-color: #3a3a3a;
+    width: 140px;
+    margin-left: 220px;
+}
+
+.help_accordion__tab-content ul{
+    padding: 20px 0 0 20px;
+    background-color: #3a3a3a;
+    display: block;
+    width: 140px;
+}
+
+.help_accordion__tab-content li{
+    padding: 0 0 0 0;
+    background-color: #3a3a3a;
+    display: block;
+    height: 45px;
+}
+
+/** main body **/
 
 .how-to-search {
   margin-top: 30px;
@@ -487,6 +535,26 @@ h1 {
 
   .adv {
     width: 63%;
+  }
+
+  .help_accordion__tab-content {
+    background-color: #3a3a3a;
+    width: 140px;
+    margin-left: 220px;
+}
+
+  .help_accordion__tab-content ul{
+    padding: 20px 0 0 20px;
+    background-color: #3a3a3a;
+    display: block;
+    width: 140px;
+  }
+
+  .help_accordion__tab-content li{
+    padding: 0 0 0 0;
+    background-color: #3a3a3a;
+    display: block;
+    height: 45px;
   }
 
 }

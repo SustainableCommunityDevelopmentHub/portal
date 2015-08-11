@@ -6,6 +6,23 @@
   <ul>
     <li><a class="nav-link" href="/">Portal Home&nbsp;&nbsp;&nbsp;</a>|&nbsp;&nbsp;&nbsp;</li>
     <li><a class="nav-link" href="/savedrecords">Saved Records</a>&nbsp;&nbsp;&nbsp;|</li>
-    <li>&nbsp;&nbsp;&nbsp;<a class="nav-link" href="/help">Help</a></li>
+    <li>&nbsp;&nbsp;&nbsp;
+    <!-- Simple dropdown -->
+     <accordion >
+    <div class="help_accordion__container" ng-controller="FaqsCtrl">
+      <div class="help_accordion__tab">
+            <div class="help_accordion__tab-title" ng-click="openTab('tab one')">Help<i class="glyphicon-chevron-down glyphicon" ng-class="{'glyphicon-chevron-up': isOpenTab('tab one'), 'glyphicon-chevron-down': !status.open}"></i>
+            </div>
+                <div class="help_accordion__tab-content" ng-show="isOpenTab('tab one')">
+                	<ul>
+                		<li><a href="/app/#/searchhelp">Search Help</a></li>
+                		<li><a href="/app/#/faqs">FAQs</a></li>
+                		<li><a href="/app/#/feedback">Feedback</a></li>
+                 	</ul>
+                </div>
+      </div>
+    </div>
+    </div>
+   </li>
   </ul>
 </div>
