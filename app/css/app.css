@@ -176,7 +176,8 @@ body {
 .main-body {
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 80%;
+  margin-bottom: 50px;
 }
 
 /** Search results **/
@@ -469,6 +470,30 @@ h1 {
 .footer-logo {
   display: inline-block;  
   color: black;
+}
+
+/**Search Help**/
+
+.help-topics {
+  padding-left: 15px;
+}
+
+.help-body-heading {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.help-body-subheading {
+  padding-top: 15px;
+}
+
+.example {
+  margin-left: 50px;
+}
+
+.search-help li {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /*FAQs*/
