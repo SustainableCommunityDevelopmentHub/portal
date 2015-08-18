@@ -41,6 +41,8 @@ body {
 .main-nav ul {
   padding-top: 14px;
   width: 350px;
+  position: relative;
+  z-index: 1;
   margin-right: auto;
   margin-left: auto;
 }
@@ -150,6 +152,7 @@ body {
   margin-right: auto;
   border-radius: 0;
   width: 70px;
+  vertical-align: bottom;
 }
 
 .adv {
@@ -474,7 +477,7 @@ h1 {
 
 /**Search Help**/
 
-.help-topics {
+.search-help ul {
   padding-left: 15px;
 }
 
@@ -572,7 +575,7 @@ h1 {
     padding: 20px 0 0 20px;
     background-color: #3a3a3a;
     display: block;
-    width: 140px;
+    width: 140px;    
   }
 
   .help_accordion__tab-content li{
