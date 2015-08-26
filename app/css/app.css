@@ -183,6 +183,52 @@ body {
   margin-bottom: 50px;
 }
 
+/** Advanced Search **/
+
+.adv-search-container {
+  margin-top: 30px;
+}
+
+.sbf-heading {
+  margin-top: 40px;
+}
+
+.keyword-search-input {
+  width: 600px;
+  height: 34px;
+}
+
+.keyword-search-input-subtext {
+  font-size: .8em;
+  width: 600px;
+}
+
+.select-field {
+  height: 34px;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.sf-input {
+  height: 34px;
+  margin-left: 5px;
+  width: 510px;
+}
+
+.add-field-glyph {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+    color: white;
+    background: #909090;
+    border-radius: 15px;
+}
+
+.adv-search-btn {
+  margin-top: 200px;
+  float: right;
+}
+
+
 /** Search results **/
 
 .search-bar-results {

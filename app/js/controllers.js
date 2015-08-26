@@ -54,6 +54,15 @@ portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
     };
   }]);
 
+portalControllers.controller('AdvFieldController', ['$scope', function($scope) {
+    $scope.fields = [
+      {name:'Title'},
+      {name:'Date'},
+      {name:'Subject'}
+    ];
+    $scope.myField = $scope.fields[0]; 
+  }]);
+
 portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'ESclient',
   function($scope, $routeParams, ESclient) {
     ESclient.get({

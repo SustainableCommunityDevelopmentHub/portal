@@ -1,15 +1,34 @@
+<div ng-app>
+    <div ng-controller="HeaderCtrl">
+    <div ng-include src="header.url"></div>
+    <script type="text/ng-template" id="header.html"></script>
+    </div>    
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
+    <div class="main-body">
+      <div class="adv-search-container">
       <!--Sidebar content-->
 
-      Search:
-      <ul>
-        <li>Title: <input ng-model="query.terms.title" type="text"></li>
-        <li>Date: <input ng-model="query.terms.date" type="text"></li>
-        <li>Subject: <input ng-model="query.terms.subject" type="text"></li>
-        <li><button ng-click="search()" class="btn" type="button">Search</button></li>
-      </ul>
+      <h3>Advanced Search</h3>
+      <hr class="sr-top">
+      <h5>Filter by keywords:</h5>
+      <input ng-model="queryTerm" class="keyword-search-input" type="text">
+      <p class="keyword-search-input-subtext">This search bar accepts keywords separated by comas and boolean searches 
+        (using “AND”, “OR”, etc. between keywords. For tips on using boolean searches, see <a href="/#/searchhelp">Search Help</a>.</p>
+
+      <h4 class="sbf-heading">Search by Field</h4>
+    <div ng-controller="AdvFieldController">
+    <label>
+    <select class="select-field" ng-model="myField" ng-options="field.name for field in fields">
+      <option value="Title"></option>
+      <input class="sf-input" ng-show="myField.name=='Title'" ng-model="query.terms.title" type="text">
+      <input class="sf-input" ng-show="myField.name=='Date'" ng-model="query.terms.date" type="text">
+      <input class="sf-input" ng-show="myField.name=='Subject'" ng-model="query.terms.subject" type="text">
+      <i class="glyphicon-plus glyphicon add-field-glyph"></i>
+      <button ng-click="search()" class="btn adv-search-btn" type="button">Advanced Search</button>
+    </select>
+    </label>
+    </div>
       <!--
       Sort by:
       <select ng-model="orderProp">
@@ -31,5 +50,9 @@
       </ul>
 
     </div>
+    <div ng-controller="FooterCtrl">
+    <div ng-include src="footer.url"></div>
+    <script type="text/ng-template" id="footer.html"></script>  
   </div>
+  
 </div>
