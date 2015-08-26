@@ -4,6 +4,8 @@ body {
   padding-top: 20px;
 }
 
+/** header **/
+
 .header {
   width: 80%;
   padding-bottom: 15px;
@@ -39,6 +41,8 @@ body {
 .main-nav ul {
   padding-top: 14px;
   width: 350px;
+  position: relative;
+  z-index: 1;
   margin-right: auto;
   margin-left: auto;
 }
@@ -58,8 +62,54 @@ body {
 }
 
 .main-nav li a:hover {
-  background-color: black;
+  color: #478ba3;
+  text-decoration: none;
 }
+
+.help_accordion__container {
+  display: inline;
+}
+
+.help_accordion__tab {
+  display: inline;
+}
+
+.help_accordion__tab-title {
+    cursor: pointer;
+    display: inline;
+}
+
+.help_accordion__tab-title:hover {
+    color: #478ba3;
+}
+
+.help_accordion__tab-title .glyphicon {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+    color: white;
+}
+
+.help_accordion__tab-content {
+    background-color: #3a3a3a;
+    width: 140px;
+    margin-left: 220px;
+}
+
+.help_accordion__tab-content ul{
+    padding: 20px 0 0 20px;
+    background-color: #3a3a3a;
+    display: block;
+    width: 140px;
+}
+
+.help_accordion__tab-content li{
+    padding: 0 0 0 0;
+    background-color: #3a3a3a;
+    display: block;
+    height: 45px;
+}
+
+/** main body **/
 
 .how-to-search {
   margin-top: 30px;
@@ -102,6 +152,7 @@ body {
   margin-right: auto;
   border-radius: 0;
   width: 70px;
+  vertical-align: bottom;
 }
 
 .adv {
@@ -128,7 +179,8 @@ body {
 .main-body {
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 80%;
+  margin-bottom: 50px;
 }
 
 /** Search results **/
@@ -423,6 +475,30 @@ h1 {
   color: black;
 }
 
+/**Search Help**/
+
+.search-help ul {
+  padding-left: 15px;
+}
+
+.help-body-heading {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.help-body-subheading {
+  padding-top: 15px;
+}
+
+.example {
+  margin-left: 50px;
+}
+
+.search-help li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 /*FAQs*/
 
 .accordion__container {
@@ -487,6 +563,26 @@ h1 {
 
   .adv {
     width: 63%;
+  }
+
+  .help_accordion__tab-content {
+    background-color: #3a3a3a;
+    width: 140px;
+    margin-left: 220px;
+}
+
+  .help_accordion__tab-content ul{
+    padding: 20px 0 0 20px;
+    background-color: #3a3a3a;
+    display: block;
+    width: 140px;    
+  }
+
+  .help_accordion__tab-content li{
+    padding: 0 0 0 0;
+    background-color: #3a3a3a;
+    display: block;
+    height: 45px;
   }
 
 }

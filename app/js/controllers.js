@@ -78,6 +78,11 @@ portalControllers.controller('FooterCtrl', ['$scope', '$routeParams',
     $scope.footer = {name: "footer.html", url: "partials/footer.html"};
 }]);
 
+portalControllers.controller('SearchHelpCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
+}]);
+
 portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.faqs = {name: "faqs.html", url: "faqs.html"};
