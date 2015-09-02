@@ -92,6 +92,11 @@ portalControllers.controller('SearchHelpCtrl', ['$scope', '$routeParams',
     $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
 }]);
 
+portalControllers.controller('FeedbackCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
+}]);
+
 portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.faqs = {name: "faqs.html", url: "faqs.html"};

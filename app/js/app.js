@@ -32,6 +32,10 @@ portalApp.config(['$routeProvider',
         templateUrl: 'partials/faqs.html',
         controller: 'FaqsCtrl'
       }).
+      when('/feedback', {
+        templateUrl: 'partials/feedback.html',
+        controller: 'FaqsCtrl'
+      }).
       otherwise({
         redirectTo: '/search'
       });

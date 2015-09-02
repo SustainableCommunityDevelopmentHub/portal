@@ -596,6 +596,18 @@ h1 {
   background-color: black;
 }
 
+/**Feedback**/
+
+.feedback-main-body {
+  width: 100%;
+}
+
+.feedback-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 1100px){
 
   .header .getty-logo{
