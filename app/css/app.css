@@ -658,7 +658,7 @@ h1 {
 
 .item-details .glyphicon-bookmark {
   float: left;
-  padding: 0 10px 50px 0;
+  padding: 0 10px 0 0;
   font-size: 45px;
   color: #C5C5C5;
   margin-left: 25px;
@@ -668,7 +668,7 @@ h1 {
   width: 100%;
 }
 
-.item-details h2 {
+.item-details h3 {
   color: #478ba3;
 }
 
