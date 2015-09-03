@@ -6,7 +6,13 @@
 
 <div class="item-page">
 <div class="item-details">
+<hr class="sr-top">
 <h2>{{book._source.title[0].value}}</h2>
+<a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a><a href="#/">Remove Record</a>
+<input type="submit" id="feedback-submit" value="View Digital Item" />
+<input type="submit" id="feedback-submit" value="Submit" />
+<h3>Details</h3>
+<hr class="sr-top"> 
 <ul class="specs" ng-repeat="(key, field) in book._source">
   <li><b>{{key}}</b>
     <ul class="specs" ng-repeat="entry in field">
