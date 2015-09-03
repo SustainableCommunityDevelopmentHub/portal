@@ -1,3 +1,11 @@
+<div ng-controller="HeaderCtrl">
+    <div ng-include src="header.url"></div>
+    <script type="text/ng-template" id="header.html"></script>
+    </div>
+</div>
+
+<div class="item-page">
+
 <h1>{{book._source.title[0].value}}</h1>
 
 <ul class="specs" ng-repeat="(key, field) in book._source">
@@ -7,3 +15,12 @@
     </ul>
   </li>
 </ul>
+
+</div>
+
+<div ng-controller="FooterCtrl">
+    <div ng-include src="footer.url"></div>
+    <script type="text/ng-template" id="footer.html"></script>
+    </div>      
+</div>
+
