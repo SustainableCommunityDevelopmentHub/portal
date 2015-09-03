@@ -685,6 +685,10 @@ h1 {
   color: orange;
 }
 
+.export_accordion__container {
+  width: 150px;
+}
+
 .export_accordion__tab-content {
   width: 150px;
   float: right;
