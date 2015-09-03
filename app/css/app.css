@@ -183,6 +183,52 @@ body {
   margin-bottom: 50px;
 }
 
+/** Advanced Search **/
+
+.adv-search-container {
+  margin-top: 30px;
+}
+
+.sbf-heading {
+  margin-top: 40px;
+}
+
+.keyword-search-input {
+  width: 600px;
+  height: 34px;
+}
+
+.keyword-search-input-subtext {
+  font-size: .8em;
+  width: 600px;
+}
+
+.select-field {
+  height: 34px;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.sf-input {
+  height: 34px;
+  margin-left: 5px;
+  width: 510px;
+}
+
+.add-field-glyph {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+    color: white;
+    background: #909090;
+    border-radius: 15px;
+}
+
+.adv-search-btn {
+  margin-top: 200px;
+  float: right;
+}
+
+
 /** Search results **/
 
 .search-bar-results {
@@ -303,6 +349,7 @@ body {
 .title {
   margin-bottom: 0;
   line-height: 2px;
+  display: none;
 }
 
 .results-list-hr {
@@ -312,7 +359,8 @@ body {
 
 .glyphicon-bookmark {
   float: left;
-  padding: 0 10px 50px 0;
+  padding: 0 10px 0 0;
+  margin-bottom: 60px;
   display: inline;
   font-size: 45px;
   color: #C5C5C5;
@@ -549,6 +597,112 @@ h1 {
   height: 1px;
   background-color: black;
 }
+
+/**Feedback**/
+
+.feedback-main-body {
+  width: 100%;
+}
+
+.feedback-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fb-field {
+  display: inline-block;
+  width: 49%;
+  margin-top: 10px;
+}
+.fb-field input{
+  width: 90%;
+}
+
+.fb-field select {
+  width: 90%;
+}
+.fbfields {
+  display: inline-block;
+}
+
+.user-feedback {
+  width: 97%;
+  height: 150px;
+  margin-bottom: 80px;
+}
+
+.ur-fb {
+  margin-top: 15px;
+  margin-bottom: -5px;
+}
+
+#feedback-submit {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 150px;
+  height: 40px;
+}
+
+/**Item Pages**/
+
+.item-page {
+  width: 100%;
+}
+
+.item-details {
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item-details .glyphicon-bookmark {
+  float: left;
+  padding: 0 10px 0 0;
+  font-size: 45px;
+  color: #e33e42;
+  margin-left: 25px;
+  margin-bottom: 30px;
+}
+
+.item-page .ng-binding {
+  width: 100%;
+}
+
+.item-details h3 {
+  color: #478ba3;
+}
+
+#vdi {
+  width: 150px;
+  height: 40px;
+  float: right;
+}
+
+.remove-rec {
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: -80px;
+  color: orange;
+}
+
+.export_accordion__tab-content {
+  width: 150px;
+  float: right;
+}
+
+#emailGRI {
+  width: 150px;
+  height: 40px;
+}
+
+.specs .ng-scope {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 
 @media (max-width: 1100px){
 

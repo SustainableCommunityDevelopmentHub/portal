@@ -54,6 +54,15 @@ portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
     };
   }]);
 
+portalControllers.controller('AdvFieldController', ['$scope', function($scope) {
+    $scope.fields = [
+      {name:'Title'},
+      {name:'Date'},
+      {name:'Subject'}
+    ];
+    $scope.myField = $scope.fields[0]; 
+  }]);
+
 portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'ESclient',
   function($scope, $routeParams, ESclient) {
     ESclient.get({
@@ -82,6 +91,28 @@ portalControllers.controller('SearchHelpCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
 }]);
+
+portalControllers.controller('FeedbackCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
+}]);
+
+portalControllers.controller('FeedbackFormCtrl', function($scope) {
+    $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+    $scope.reset();
+});
+
+portalControllers.controller('FeedbackFieldController', ['$scope', function($scope) {
+    $scope.feedbackFields = [
+      {name:'Problem'},
+      {name:'Question'},
+      {name:'Comment'}
+    ];
+    $scope.myFeedbackField = $scope.feedbackFields[0]; 
+  }]);
 
 portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
   function ($scope) {
