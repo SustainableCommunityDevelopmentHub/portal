@@ -97,6 +97,23 @@ portalControllers.controller('FeedbackCtrl', ['$scope', '$routeParams',
     $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
 }]);
 
+portalControllers.controller('FeedbackFormCtrl', function($scope) {
+    $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+    $scope.reset();
+});
+
+portalControllers.controller('FeedbackFieldController', ['$scope', function($scope) {
+    $scope.feedbackFields = [
+      {name:'Problem'},
+      {name:'Question'},
+      {name:'Comment'}
+    ];
+    $scope.myFeedbackField = $scope.feedbackFields[0]; 
+  }]);
+
 portalControllers.controller('FaqsCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.faqs = {name: "faqs.html", url: "faqs.html"};
