@@ -349,6 +349,7 @@ body {
 .title {
   margin-bottom: 0;
   line-height: 2px;
+  display: none;
 }
 
 .results-list-hr {
@@ -378,6 +379,10 @@ body {
   margin-left: 5%;
   margin-right: 5%;
   font-size: .8em;
+}
+
+.sfr {
+  margin-right: 10px;
 }
 
 
