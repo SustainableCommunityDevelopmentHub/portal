@@ -660,6 +660,10 @@ h1 {
   width: 100%;
 }
 
+.item-details h2 {
+  color: #478ba3;
+}
+
 
 @media (max-width: 1100px){
 
