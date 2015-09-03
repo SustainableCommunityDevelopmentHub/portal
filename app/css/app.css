@@ -660,7 +660,7 @@ h1 {
   float: left;
   padding: 0 10px 0 0;
   font-size: 45px;
-  color: #C5C5C5;
+  color: red;
   margin-left: 25px;
 }
 
@@ -682,6 +682,12 @@ h1 {
   display: inline-block;
   margin-top: 50px;
   margin-left: -80px;
+  color: orange;
+}
+
+#emailGRI {
+  width: 150px;
+  height: 40px;
 }
 
 
