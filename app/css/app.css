@@ -685,7 +685,7 @@ h1 {
   color: orange;
 }
 
-.export_accordion_tab-content ul {
+.export_accordion__tab-content ul {
   width: 150px;
   float: right;
 }
