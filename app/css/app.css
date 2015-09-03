@@ -664,6 +664,16 @@ h1 {
   color: #478ba3;
 }
 
+#vdi {
+  width: 150px;
+  height: 40px;
+  float: right;
+}
+
+.remove-rec {
+  float: left;
+}
+
 
 @media (max-width: 1100px){
 
