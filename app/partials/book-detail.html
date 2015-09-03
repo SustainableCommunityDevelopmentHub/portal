@@ -5,9 +5,8 @@
 </div>
 
 <div class="item-page">
-
+<div class="item-details">
 <h1>{{book._source.title[0].value}}</h1>
-
 <ul class="specs" ng-repeat="(key, field) in book._source">
   <li><b>{{key}}</b>
     <ul class="specs" ng-repeat="entry in field">
@@ -16,6 +15,7 @@
   </li>
 </ul>
 
+</div>
 </div>
 
 <div ng-controller="FooterCtrl">

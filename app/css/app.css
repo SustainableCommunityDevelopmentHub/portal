@@ -646,10 +646,14 @@ h1 {
 /**Item Pages**/
 
 .item-page {
+  width: 100%;
+}
+
+.item-details {
   width: 80%;
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  display: block;
 }
 
 
