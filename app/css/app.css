@@ -656,6 +656,14 @@ h1 {
   margin-right: auto;
 }
 
+.item-details .glyphicon-bookmark {
+  float: left;
+  padding: 0 10px 50px 0;
+  font-size: 45px;
+  color: #C5C5C5;
+  margin-left: 25px;
+}
+
 .item-page .ng-binding {
   width: 100%;
 }
@@ -671,7 +679,9 @@ h1 {
 }
 
 .remove-rec {
-  float: left;
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: -80px;
 }
 
 
