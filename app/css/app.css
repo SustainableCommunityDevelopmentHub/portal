@@ -685,6 +685,11 @@ h1 {
   color: orange;
 }
 
+.export_accordion_tab-content ul {
+  width: 150px;
+  float: right;
+}
+
 #emailGRI {
   width: 150px;
   height: 40px;
