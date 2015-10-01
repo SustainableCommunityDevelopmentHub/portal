@@ -89,4 +89,42 @@ Open your browser to localhost:8000/app
 
 Enter a search for "history" and click the Search button (click twice)
 
-You should get back 6 hits
+*******************************
+
+Instructions for Docker
+_______________________
+
+# Create Docker Hub Account
+# Launch boot2docker
+
+1. Pull portal image
+
+        docker pull sley/portal:v2
+
+2. Create and start container using image
+        
+        docker run -t -i -p 9200:9200 -p 8000:8000 sley/portal:v2 /bin/bash 
+
+3. Login as user "getty"
+
+        login
+        getty
+        password: getty321
+
+4. cd to portal directory
+
+        cd portal/portal
+
+5. Restart Elasticsearch
+
+        sudo /etc/init.d/elasticsearch restart
+
+6. Load the sample data
+
+        curl -s -XPOST 192.168.59.103:9200/_bulk --data-binary @sample_data/frick_batch; echo
+
+7. Start development web server
+
+        npm start
+
+Look at 192.168.59.103:8000/app/ in browser.
