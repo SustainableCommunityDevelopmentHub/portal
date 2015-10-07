@@ -445,6 +445,21 @@ ul.specs dt {
   font-weight: bold;
 }
 
+.export_dropdown {
+  width: 150px;
+  display: block;
+  background-color: #efefef;
+  list-style: none;
+  margin-left: 150px;
+  margin-top: 40px;
+  border: solid 1px gray;
+}
+
+.export_dropdown li {
+  height: 40px;
+  padding-top: 10px;
+  color: black;
+}
 h1 {
   border-bottom: 1px solid gray;
 }
@@ -669,6 +684,7 @@ h1 {
 
 .item-page .ng-binding {
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .item-details h3 {
@@ -691,6 +707,7 @@ h1 {
 .export_accordion__tab-content {
   width: 150px;
   float: right;
+  margin-left: -150px;
 }
 
 #emailGRI {
