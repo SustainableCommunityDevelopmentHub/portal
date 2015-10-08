@@ -128,3 +128,11 @@ _______________________
         npm start
 
 Look at 192.168.59.103:8000/app/ in browser.
+
+Workflow and Contributing Code
+------------------------------
+
+The two main branches are _develop_ and _master_. All work on features, etc, should be done by branching off develop.
+All pull requests should be to the develop branch. Branches are merged into develop, which, after testing, is merged into master and pushed to production.
+The source code on master should always be production-ready.
+
