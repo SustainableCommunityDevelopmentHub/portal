@@ -129,6 +129,21 @@ _______________________
 
 Look at 192.168.59.103:8000/app/ in browser.
 
+Configuration
+-------------
+
+The config setting es.host in config/default.json should be set to the IP address of your docker machine. You can check the address of your machine by running `docker-machine ip YourMachineNameHere`. You can run docker-machine ls` to see a list of all docker machines if you don't know your machine name.
+
+If es.host is not set to your docker machine's IP, create a file named local.json in the config/ directory. This file is just for you, and any settings in it override those in default.json. In this case, it should look like this:
+    {
+        "es": {
+            "host": "YourMachineIPAddressHere"
+        }
+    }
+
+local.json is included in the .gitignore file, so it is not tracked in version control.
+
+
 Workflow and Contributing Code
 ------------------------------
 
