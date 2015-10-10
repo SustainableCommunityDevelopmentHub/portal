@@ -102,8 +102,8 @@ _______________________
         docker pull sley/portal:v2
 
 2. Create and start container using image
-        
-        docker run -t -i -p 9200:9200 -p 8000:8000 sley/portal:v2 /bin/bash 
+
+        docker run -t -i -p 9200:9200 -p 8000:8000 sley/portal:v2 /bin/bash
 
 3. Login as user "getty"
 
