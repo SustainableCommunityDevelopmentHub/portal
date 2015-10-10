@@ -8,4 +8,8 @@ logs/*
 
 ENV
 
+#config file meant for a developer's local environment only
 config/local.json
+
+#client-side config settings. should be built when starting server
+app/assets/config.json

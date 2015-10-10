@@ -19,9 +19,11 @@
         "start-es": "scripts/start-es.sh",
         "stop-es": "docker stop elasticsearch",
 
+        "app-config": "node scripts/makeAppConfigFile.js",
+
         "postinstall": "bower install",
 
-        "prestart": "npm install",
+        "prestart": "npm install && npm run app-config",
         "start": "http-server -a 0.0.0.0 -p 8000",
 
         "pretest": "npm install",
