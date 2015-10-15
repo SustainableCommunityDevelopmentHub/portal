@@ -25,7 +25,7 @@ then
         echo $ES_CONTAINER_ID
 
         #Go ahead and create ES container with proper settings and assign name. Name needed for script to work.
-        docker run -dit -p 9200:9200 -p 9300:9300 --name $ES_CONTAINER_NAME elasticsearch:1.7
+        docker run -dit -p 9200:9200 -p 9300:9300 --name $ES_CONTAINER_NAME elasticsearch:1.7 -Des.http.cors.enabled=true
 
         #Set volume for ES container for elasticsearch.yml config file -- Work in progress
         #docker run -dit -p 9200:9200 -p 9300:9300 -v $(pwd)/mount/elastic_config:/user/share/elasticsearch/config --name $ES_CONTAINER_NAME elasticsearch:1.7

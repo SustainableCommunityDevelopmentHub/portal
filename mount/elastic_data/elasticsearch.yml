@@ -1,0 +1,3 @@
+http.cors:
+    enabled: true
+    allow-origin: /https?:\/\/localhost(:[0-9]+)?/
