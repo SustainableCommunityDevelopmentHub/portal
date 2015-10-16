@@ -19,6 +19,7 @@ Running the Application
           npm run init-es
           npm start
 
+If ES is already intialized, you can just run `npm start`, which will also launch ES. 
 
 4. The application should now be running on port 8000. You can now edit code in the project file *on your host machine* with your editor of choice.
 
