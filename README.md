@@ -9,14 +9,16 @@ Running the Application
 1. Make sure you have a docker virtual machine running. Use `docker-machine ls` to check the status of your docker machines. `docker-machine --help` will provide a handy list of all available commands.
 
 2. *In your project directory,* start the portal container. You can use `docker ps` to see a list of all active containers, and `docker inspect <some-container>` for container configuration information. You may find it helpful to leave a tab open in the terminal just for working in the docker container.
-        
-        bash portal_launch.sh
+
+        bash scripts/portal_launch.sh
 
 3. *In the docker container,* login as user 'getty' (pw "getty321"), navigate to project directory, and start the development web server.
 
           login getty
           cd portal
+          npm run init-es
           npm start
+
 
 4. The application should now be running on port 8000. You can now edit code in the project file *on your host machine* with your editor of choice.
 
@@ -72,11 +74,12 @@ Finally....
 
         cd portal
 
+#Build Node.js project
+
+1. *In the docker container,* navigate to the project director
+
+2. Run `npm install` to install node modules. If the operation fails and you see errors, check the version of virtualbox *on the host machine* with `vboxmanage --version`. If it is version 5.0.4, upgrade to 5.0.6 or later. You should be able to do this with `brew cask install virtualbox`. Otherwise go to the Oracle virtualbox website and download the latest version.
 #Configuring elasticsearch in the docker container
-5. Create the Portal index
-
-    curl -XPUT localhost:9200/portal
-
 Enable CORS for elasticsearch.
 
 6. Open the elasticsearch config file
@@ -87,76 +90,11 @@ Enable CORS for elasticsearch.
 
         http.cors.enabled: true
         http.cors.allow-origin: "*"
-        
-8. Set elasticsearch to run as a service on startup
-    
-        sudo update-rc.d elasticsearch defaults 95 10
 
-9. Start elasticsearch
+If there are any other `http.cors` lines, comment them out with a `#` at the beginning of the line.
 
-        sudo /etc/init.d/elasticsearch start
+5. Configure and start elasticsearch.
 
-10. Load the sample data
+    npm run init-es
 
-        curl -s -XPOST localhost:9200/_bulk --data-binary @sample_data/frick_batch; echo
-
-#Build Node.js project
-
-1. *In the docker container,* navigate to the project director
-
-2. Run `npm install` to install node modules. If the operation fails and you see errors, check the version of virtualbox *on the host machine* with `vboxmanage --version`. If it is version 5.0.4, upgrade to 5.0.6 or later. You should be able to do this with `brew cask install virtualbox`. Otherwise go to the Oracle virtualbox website and download the latest version.
-
-
-
-
-
-
-
-
-
-
-
-
-
-Setup
------
-###Configure elasticSearch in the docker container
-Create the Portal index
-
-    curl -XPUT localhost:9200/portal
-
-Enable CORS for elasticsearch.
-
-1. open the elasticsearch config file
-
-        sudo vim /etc/elasticsearch/elasticsearch.yml
-
-2. add the following lines to the bottom
-
-        http.cors.enabled: true
-        http.cors.allow-origin: /https?:\/\/localhost(:[0-9]+)?/
-
-3. Restart elasticsearch
-
-        sudo /etc/init.d/elasticsearch restart
-
-**Note:** for production you should use the server's IP address instead of localhost
-
-Load elasticsearch sample data
-
-    curl -s -XPOST localhost:9200/_bulk --data-binary @sample_data/sample_load; echo
-
-###Install Node.js modules
-
-    npm install
-
-*******************************
-
-
-Workflow and Contributing Code
-------------------------------
-
-The two main branches are _develop_ and _master_. All work on features, etc, should be done by branching off develop.
-All pull requests should be to the develop branch. Branches are merged into develop, which, after testing, is merged into master and pushed to production.
-The source code on master should always be production-ready.
-
+Run `ps aux | grep elastic` - if elasticsearch is running you should see something like "/usr/bin/java -Xms256m -Xmx1g -Xss256k -Djava.awt.headless=true" etc and so forth...
