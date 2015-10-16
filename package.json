@@ -3,7 +3,7 @@
   "private": true,
   "name": "portal",
   "description": "The Getty Research Portal",
-  "repository": "https://stash.getty.edu/projects/GRIIS/repos/portal", 
+  "repository": "https://stash.getty.edu/projects/GRIIS/repos/portal",
   "license": "MIT",
   "devDependencies": {
     "karma": "^0.12.16",
@@ -18,8 +18,11 @@
   "scripts": {
     "postinstall": "bower install",
 
-    "prestart": "npm install",
-    "start": "http-server -a 0.0.0.0 -p 8000",
+    "es-start": "sudo /etc/init.d/elasticsearch start",
+    "es-stop": "sudo /etc/init.d/elasticsearch stop",
+    "es-restart": "sudo /etc/init.d/elasticsearch restart",
+
+    "start": "npm run es-start && http-server -a 0.0.0.0 -p 8000",
 
     "pretest": "npm install",
     "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
