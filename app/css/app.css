@@ -307,7 +307,7 @@ body {
 .left_sidebar_accordion__container {
     float:left;
     margin: 0 0 50px 0;
-    padding-right: 40px;
+    padding-right: 20px;
     width: 30%;
 }
 .left_sidebar_accordion__tab {
@@ -382,6 +382,21 @@ body {
   font-size: .8em;
 }
 
+.date-range {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.date-range input {
+  width: 105px;
+  height: 30px;
+  font-size: 10px;
+}
+
+.date-range button {
+  margin-left: 4px;
+  padding-top: 3px;
+}
 
 /** Detail View **/
 img.book {
@@ -485,6 +500,10 @@ h1 {
   height: 3px; 
   background: orange;
   width: 90%;
+}
+
+.tlc-orange {
+  color: orange;
 }
 
 /*footer*/

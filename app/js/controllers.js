@@ -77,6 +77,11 @@ portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'EScli
       });
   }]);
 
+portalControllers.controller('ContributorsCtrl', ['$scope', '$routeParams',
+  function ($scope) {
+    $scope.searchHelp = {name: "contributors.html", url: "partials/contributors.html"};
+}]);
+
 portalControllers.controller('HeaderCtrl', ['$scope', '$routeParams',
   function ($scope) {
     $scope.header = {name: "header.html", url: "partials/header.html"};
