@@ -1,138 +1,101 @@
 Getty Research Portal
 =====================
-
 *******************************
 
-Dependencies
-------------
-### Java 7
-To install on Ubuntu:
 
-    sudo add-apt-repository ppa:webupd8team/java
-    sudo apt-get update
-    sudo apt-get install oracle-java8-installer
-    sudo apt-get install oracle-java8-set-default
+Running the Application
+------------------------
 
-Check your version:
+1. Make sure you have a docker virtual machine running. Use `docker-machine ls` to check the status of your docker machines. `docker-machine --help` will provide a handy list of all available commands.
 
-    java -version
+2. *In your project directory,* start the portal container. You can use `docker ps` to see a list of all active containers, and `docker inspect <some-container>` for container configuration information. You may find it helpful to leave a tab open in the terminal just for working in the docker container.
 
-### ElasticSearch
-To install ES on Ubuntu:
+        bash scripts/launch_portal.sh
 
-1. Download and install the Public Signing Key
+3. *In the docker container,* login as user 'getty' (pw "getty321"), navigate to project directory, and start the development web server.
 
-        wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+          login getty
+          cd portal
+          npm run init-es
+          npm start
 
-2. Add the following to your /etc/apt/sources.list to enable the repository
+If ES is already intialized, you can just run `npm start`, which will also launch ES. 
 
-        sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+4. The application should now be running on port 8000. You can now edit code in the project file *on your host machine* with your editor of choice.
 
-3. Run apt-get update and the repository is ready for use. You can install it with :
+In your host, open your browser to (http://192.168.99.100:8000/app). Doublecheck that this is the correct IP address of your docker machine. You can do this by typing (in your host) `docker-machine ip <my-docker-machine-name>`. The default docker machine is named 'default', and the default IP address is as above.
 
-        sudo apt-get update && sudo apt-get install elasticsearch
-
-4. Configure Elasticsearch to automatically start during bootup :
-
-        sudo update-rc.d elasticsearch defaults 95 10
-
-### Nodejs
-To install on Ubuntu:
-
-    sudo apt-get install nodejs
-
-*******************************
-
-Setup
------
-###Configure ElasticSearch
-Create the Portal index
-
-    curl -XPUT localhost:9200/portal
-
-Enable CORS for the system
-
-1. open the system yml file
-
-        sudo vim /etc/elasticsearch/elasticsearch.yml
-
-2. add the following lines to the bottom
-
-        http.cors.enabled: true
-        http.cors.allow-origin: /https?:\/\/localhost(:[0-9]+)?/
-
-3. Restart the system
-
-        sudo /etc/init.d/elasticsearch restart
-
-**Note:** for production you should use the server's IP address instead of localhost
-
-Load the sample data
-
-    curl -s -XPOST localhost:9200/_bulk --data-binary @sample_data/sample_load; echo
-
-###Install JavaScript dependencies
-
-    npm install
-
-*******************************
-
-Running
--------
-###Start the development web server
-
-    npm start
-
-The application should now be running on port 8000
-
-Open your browser to localhost:8000/app
 
 Enter a search for "history" and click the Search button (click twice)
 
 *******************************
 
-Instructions for Docker
+
+Setup
 _______________________
 
-# Create Docker Hub Account
-# Launch boot2docker
+#Install Docker Toolbox
 
-1. Pull portal image
+The recommended way to install Docker on OS X is using homebrew cask (or Macports) to install the docker toolbox.
+If you don't have either one of these, go [here](http://http://brew.sh/) for homebrew install instructions and description.
+
+Once you have homebrew, to install homebrew cask:
+        brew update
+        brew install caskroom
+
+Then use it to install Docker Toolbox:
+        brew cask install dockertoolbox
+
+Finally....
+
+1. Create an account on docker hub.
+
+2. Start a docker machine:
+        docker-machine start default
+
+
+#Build and configure Docker Container for project
+1. Pull docker image for the portal app.
 
         docker pull sley/portal:v2
 
-2. Create and start container using image
-        
-        docker run -t -i -p 9200:9200 -p 8000:8000 sley/portal:v2 /bin/bash 
+2. On your host machine create a project directory.
 
-3. Login as user "getty"
+        git clone https://github.com/gri-is/portal.git
 
-        login
-        getty
-        password: getty321
+3. *From your project directory, i.e. projects/portal* create and start the docker container. This will also mount your project directory as a data volume on the container. This will log you into to the docker container as root. On your host, you can see a list of all running docker containers with `docker ps`.
 
-4. cd to portal directory
+        bash portal_launch.sh
 
-        cd portal/portal
+3. In the container, switch to user "getty", password "getty321".
 
-5. Restart Elasticsearch
+        login getty
 
-        sudo /etc/init.d/elasticsearch restart
+4. cd to portal project directory.
 
-6. Load the sample data
+        cd portal
 
-        curl -s -XPOST 192.168.59.103:9200/_bulk --data-binary @sample_data/frick_batch; echo
+#Build Node.js project
 
-7. Start development web server
+1. *In the docker container,* navigate to the project director
 
-        npm start
+2. Run `npm install` to install node modules. If the operation fails and you see errors, check the version of virtualbox *on the host machine* with `vboxmanage --version`. If it is version 5.0.4, upgrade to 5.0.6 or later. You should be able to do this with `brew cask install virtualbox`. Otherwise go to the Oracle virtualbox website and download the latest version.
+#Configuring elasticsearch in the docker container
+Enable CORS for elasticsearch.
 
-Look at 192.168.59.103:8000/app/ in browser.
+6. Open the elasticsearch config file
 
-Workflow and Contributing Code
-------------------------------
+        sudo vim /etc/elasticsearch/elasticsearch.yml
 
-The two main branches are _develop_ and _master_. All work on features, etc, should be done by branching off develop.
-All pull requests should be to the develop branch. Branches are merged into develop, which, after testing, is merged into master and pushed to production.
-The source code on master should always be production-ready.
+7. Add the following lines to the bottom
 
+        http.cors.enabled: true
+        http.cors.allow-origin: "*"
+
+If there are any other `http.cors` lines, comment them out with a `#` at the beginning of the line.
+
+5. Configure and start elasticsearch.
+
+    npm run init-es
+
+Run `ps aux | grep elastic` - if elasticsearch is running you should see something like "/usr/bin/java -Xms256m -Xmx1g -Xss256k -Djava.awt.headless=true" etc and so forth...
