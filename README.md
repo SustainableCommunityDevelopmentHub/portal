@@ -10,7 +10,7 @@ Running the Application
 
 2. *In your project directory,* start the portal container. You can use `docker ps` to see a list of all active containers, and `docker inspect <some-container>` for container configuration information. You may find it helpful to leave a tab open in the terminal just for working in the docker container.
 
-        bash scripts/portal_launch.sh
+        bash scripts/launch_portal.sh
 
 3. *In the docker container,* login as user 'getty' (pw "getty321"), navigate to project directory, and start the development web server.
 
