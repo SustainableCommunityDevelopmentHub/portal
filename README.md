@@ -6,6 +6,7 @@ Getty Research Portal
 Running the Application
 ------------------------
 
+
 1. Make sure you have a docker virtual machine running. Use `docker-machine ls` to check the status of your docker machines. `docker-machine --help` will provide a handy list of all available commands.
 
 2. *In your project directory,* start the portal container. You can use `docker ps` to see a list of all active containers, and `docker inspect <some-container>` for container configuration information. You may find it helpful to leave a tab open in the terminal just for working in the docker container.
@@ -31,7 +32,7 @@ Enter a search for "history" and click the Search button (click twice)
 *******************************
 
 
-Setup
+Setup (OS X)
 _______________________
 
 #Install Docker Toolbox
@@ -46,12 +47,16 @@ Once you have homebrew, to install homebrew cask:
 Then use it to install Docker Toolbox:
         brew cask install dockertoolbox
 
-Finally....
+#Setup Docker Machine and hostname for project
 
 1. Create an account on docker hub.
 
 2. Start a docker machine:
         docker-machine start default
+
+3. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
+
+4. Add the following line to your /etc/hosts file: `local.portal.dev     <ip-address-of-my-docker-machine>`. You can run `docker-machine ip default` to find the IP address of your docker machine.
 
 
 #Build and configure Docker Container for project

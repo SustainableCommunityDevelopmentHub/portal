@@ -7,7 +7,7 @@ var portalServices = angular.module('portalServices', ['elasticsearch']);
 
 portalServices.service('ESclient', function(esFactory) {
   return esFactory({
-    host: '192.168.99.100:9200',
+    host: 'local.portal.dev:9200',
     apiVersion: '1.3',
     log: 'trace'
   });
