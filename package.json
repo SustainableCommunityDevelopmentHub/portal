@@ -6,7 +6,7 @@
   "repository": "https://stash.getty.edu/projects/GRIIS/repos/portal",
   "license": "MIT",
   "devDependencies": {
-    "karma": "^0.13.13",
+    "karma": "^0.13.14",
     "karma-chrome-launcher": "^0.2.1",
     "karma-jasmine": "^0.3.6",
     "protractor": "~2.5.1",
