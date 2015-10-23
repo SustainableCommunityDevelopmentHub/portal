@@ -5,10 +5,9 @@
   "description": "The Getty Research Portal",
   "repository": "https://stash.getty.edu/projects/GRIIS/repos/portal",
   "license": "MIT",
-
   "dependencies": {
     "body-parser": "^1.14.1",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
   },
   "devDependencies": {
     "karma": "^0.13.14",
@@ -22,7 +21,6 @@
     "karma-safari-launcher": "~0.1.1",
     "karma-firefox-launcher": "~0.1.6"
   },
-
   "scripts": {
     "postinstall": "bower install",
     "init-es": "bash scripts/init-es.sh",
