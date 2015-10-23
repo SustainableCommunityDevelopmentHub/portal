@@ -3,20 +3,20 @@
 /* Services */
 
 var $scope, $location;
-var portalServices = angular.module('portalServices', ['elasticsearch']);
+var portalServices = angular.module('portalServices', ['elasticsearch', 'portal.config']);
 
-portalServices.service('esClient', function(esFactory) {
+portalServices.service('esClient', function(esFactory, portalConfig) {
   return esFactory({
-    host: 'local.portal.dev:9200',
+    host: portalConfig.host + ':' + portalConfig.port,
     apiVersion: '1.3',
     log: 'trace'
   });
 });
 
 portalServices.service('anchorSmoothScroll', function(){
-    
+
     this.scrollTo = function(eID) {
-        
+
         var startY = currentYPosition();
         var stopY = elmYPosition(eID);
         var distance = stopY > startY ? stopY - startY : startY - stopY;
@@ -38,7 +38,7 @@ portalServices.service('anchorSmoothScroll', function(){
             setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
             leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
         }
-        
+
         function currentYPosition() {
             // Firefox, Chrome, Opera, Safari
             if (self.pageYOffset) return self.pageYOffset;
@@ -49,7 +49,7 @@ portalServices.service('anchorSmoothScroll', function(){
             if (document.body.scrollTop) return document.body.scrollTop;
             return 0;
         }
-        
+
         function elmYPosition(eID) {
             var elm = document.getElementById(eID);
             var y = elm.offsetTop;
@@ -61,18 +61,18 @@ portalServices.service('anchorSmoothScroll', function(){
         }
 
     };
-    
+
 });
 
 portalServices.controller('ScrollCtrl', function($scope, $location, anchorSmoothScroll) {
-    
+
     $scope.gotoElement = function (eID){
       // set the location.hash to the id of
       // the element you wish to scroll to.
       $location.hash('bottom');
- 
+
       // call $anchorScroll()
       anchorSmoothScroll.scrollTo(eID);
-      
+
     };
   });

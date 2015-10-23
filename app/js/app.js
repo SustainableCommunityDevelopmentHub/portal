@@ -6,7 +6,8 @@ var portalApp = angular.module('portalApp', [
   'ngRoute',
   'portalAnimations',
   'portalControllers',
-  'portalServices'
+  'portalServices',
+  'portal.config'
 ]);
 
 portalApp.config(['$routeProvider',
