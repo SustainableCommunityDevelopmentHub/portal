@@ -504,6 +504,11 @@ h1 {
 
 .tlc-orange {
   color: orange;
+  text-decoration: none;
+}
+
+.tlc-orange:hover {
+  text-decoration: none;
 }
 
 /*footer*/
