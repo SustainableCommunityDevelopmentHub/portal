@@ -5,7 +5,7 @@
 var $scope, $location;
 var portalServices = angular.module('portalServices', ['elasticsearch']);
 
-portalServices.service('ESclient', function(esFactory) {
+portalServices.service('esClient', function(esFactory) {
   return esFactory({
     host: 'local.portal.dev:9200',
     apiVersion: '1.3',

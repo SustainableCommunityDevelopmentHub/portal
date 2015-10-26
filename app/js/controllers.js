@@ -4,10 +4,10 @@
 
 var portalControllers = angular.module('portalControllers', []);
 
-portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
-  function($scope, ESclient) {
+portalControllers.controller('SearchCtrl', ['$scope', 'esClient',
+  function($scope, esClient) {
     $scope.search = function() {
-      ESclient.search({
+      esClient.search({
         index: 'portal',
         type: 'book',
         q: $scope.queryTerm
@@ -19,8 +19,8 @@ portalControllers.controller('SearchCtrl', ['$scope', 'ESclient',
     }
   }]);
 
-portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
-  function($scope, ESclient) {
+portalControllers.controller('AdvancedCtrl', ['$scope', 'esClient',
+  function($scope, esClient) {
     $scope.search = function() {
       // build term list excluding empty fields
       var terms = [];
@@ -33,7 +33,7 @@ portalControllers.controller('AdvancedCtrl', ['$scope', 'ESclient',
         }
       });
 
-      ESclient.search({
+      esClient.search({
         index: 'portal',
         'body': {
           'query': {
@@ -63,9 +63,9 @@ portalControllers.controller('AdvFieldController', ['$scope', function($scope) {
     $scope.myField = $scope.fields[0]; 
   }]);
 
-portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'ESclient',
-  function($scope, $routeParams, ESclient) {
-    ESclient.get({
+portalControllers.controller('BookDetailCtrl', ['$scope', '$routeParams', 'esClient',
+  function($scope, $routeParams, esClient) {
+    esClient.get({
       index: 'portal',
       type: 'book',
       id: $routeParams.bookID}, function(error, response) {

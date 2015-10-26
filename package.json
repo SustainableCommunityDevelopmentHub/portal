@@ -5,6 +5,12 @@
   "description": "The Getty Research Portal",
   "repository": "https://stash.getty.edu/projects/GRIIS/repos/portal",
   "license": "MIT",
+
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  },
+
   "devDependencies": {
     "karma": "^0.13.14",
     "karma-chrome-launcher": "^0.2.1",
@@ -17,20 +23,21 @@
     "karma-safari-launcher": "~0.1.1",
     "karma-firefox-launcher": "~0.1.6"
   },
+
   "scripts": {
     "postinstall": "bower install",
-    "init-es": "npm run restart-es && bash scripts/init_es.sh",
+    "init-es": "sudo bash scripts/init-es.sh",
     "start-es": "sudo /etc/init.d/elasticsearch start",
     "stop-es": "sudo /etc/init.d/elasticsearch stop",
     "restart-es": "sudo /etc/init.d/elasticsearch restart",
-    "start": "npm run start-es && http-server -a 0.0.0.0 -p 8000",
+    "start": "npm run init-es && node server.js",
     "pretest": "npm install",
-    "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
-    "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
+    "test": "node node_modules/karma/bin/karma start test/karma.config.js",
+    "test-single-run": "node node_modules/karma/bin/karma start test/karma.config.js  --single-run",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor test/protractor-conf.js",
+    "protractor": "protractor test/protractor.config.js",
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   }
 }
