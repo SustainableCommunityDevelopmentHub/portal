@@ -7,10 +7,10 @@
 
   angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .service('esClient', function(esFactory, server) {
+  .service('esClient', function(esFactory, elastic) {
     return esFactory({
-      host: server.host + ':' + server.port,
-      apiVersion: '1.7',
+      host: elastic.host + ':' + elastic.port,
+      apiVersion: elastic.apiVersion,
       log: 'trace'
     });
   })

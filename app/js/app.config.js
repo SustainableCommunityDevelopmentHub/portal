@@ -1,8 +1,9 @@
 (function() {
     'use strict'
     angular.module('portal.config', [])
-        .constant('server', {
+        .constant('elastic', {
             host: 'local.portal.dev',
-            port: '9200'
+            port: '9200',
+            apiVersion: '1.7'
     });
 })();
