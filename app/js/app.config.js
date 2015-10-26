@@ -1,7 +1,7 @@
 (function() {
     'use strict'
     angular.module('portal.config', [])
-        .constant('portalConfig', {
+        .constant('server', {
             host: 'local.portal.dev',
             port: '9200'
     });

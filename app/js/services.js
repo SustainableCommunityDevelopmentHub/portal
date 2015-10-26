@@ -5,11 +5,11 @@
   var $scope,
       $location;
 
-  angular.module('portalServices', ['elasticsearch'])
+  angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .service('esClient', function(esFactory) {
+  .service('esClient', function(esFactory, server) {
     return esFactory({
-      host: 'local.portal.dev:9200',
+      host: server.host + ':' + server.port,
       apiVersion: '1.7',
       log: 'trace'
     });
