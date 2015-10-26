@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  portalApp = angular.module('portalApp', [
+  angular.module('portalApp', [
     'ngRoute',
     'portalAnimations',
     'portalControllers',
