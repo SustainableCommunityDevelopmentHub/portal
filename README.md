@@ -11,7 +11,7 @@ Running the Application
 
 2. *In your project directory,* start the portal container. You can use `docker ps` to see a list of all active containers, and `docker inspect <some-container>` for container configuration information. You may find it helpful to leave a tab open in the terminal just for working in the docker container.
 
-        bash scripts/launch_portal.sh
+        bash scripts/start-portal.sh
 
 3. *In the docker container,* login as user 'getty' (pw "getty321"), navigate to project directory, and start the development web server.
 
@@ -70,7 +70,7 @@ Then use it to install Docker Toolbox:
 
 3. *From your project directory, i.e. projects/portal* create and start the docker container. This will also mount your project directory as a data volume on the container. This will log you into to the docker container as root. On your host, you can see a list of all running docker containers with `docker ps`.
 
-        bash portal_launch.sh
+        bash start-portal.sh
 
 3. In the container, switch to user "getty", password "getty321".
 

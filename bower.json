@@ -14,5 +14,8 @@
     "angular-resource": "1.4.x",
     "angular-animate": "1.4.x",
     "elasticsearch": "8.2.x"
+  },
+  "resolutions": {
+      "angular": "1.4.x"
   }
 }
