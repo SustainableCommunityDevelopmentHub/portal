@@ -57,7 +57,7 @@ Then use it to install Docker Toolbox:
 3. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
 
 4. Add the following line to your /etc/hosts file:
-       <ip-address-of-my-docker-machine>    `local.portal.dev
+       <ip-address-of-my-docker-machine>    local.portal.dev
 
 You can run `docker-machine ip default` to find the IP address of your docker machine.
 
