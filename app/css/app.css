@@ -15,10 +15,14 @@ body {
 
 .header .getty-logo{
   width: 85px;
-  margin-bottom: -5px;
+  margin-bottom: -10px;
 }
 
 .header .gri-portal-logo {
+  width: 280px;
+}
+
+.gri-logo {
   margin-left: auto;
   margin-right: auto;
   margin-top: -85px;
