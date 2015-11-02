@@ -1,16 +1,15 @@
-'use strict';
-
 /* App Module */
+(function() {
+  'use strict';
 
-var portalApp = angular.module('portalApp', [
-  'ngRoute',
-  'portalAnimations',
-  'portalControllers',
-  'portalServices'
-]);
+  angular.module('portalApp', [
+    'ngRoute',
+    'portalAnimations',
+    'portalControllers',
+    'portalServices'
+  ])
 
-portalApp.config(['$routeProvider',
-  function($routeProvider) {
+  .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/search', {
         templateUrl: 'partials/search.html',
@@ -44,3 +43,4 @@ portalApp.config(['$routeProvider',
         redirectTo: '/search'
       });
   }]);
+})();

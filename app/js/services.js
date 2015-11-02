@@ -1,78 +1,82 @@
-'use strict';
-
 /* Services */
+(function() {
+  'use strict';
 
-var $scope, $location;
-var portalServices = angular.module('portalServices', ['elasticsearch']);
+  var $scope,
+      $location;
 
-portalServices.service('esClient', function(esFactory) {
-  return esFactory({
-    host: 'local.portal.dev:9200',
-    apiVersion: '1.7',
-    log: 'trace'
-  });
-});
+  angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-portalServices.service('anchorSmoothScroll', function(){
+  .service('esClient', function(esFactory, elastic) {
+    return esFactory({
+      host: elastic.host + ':' + elastic.port,
+      apiVersion: elastic.apiVersion,
+      log: 'trace'
+    });
+  })
 
-    this.scrollTo = function(eID) {
+  .service('anchorSmoothScroll', function(){
 
-        var startY = currentYPosition();
-        var stopY = elmYPosition(eID);
-        var distance = stopY > startY ? stopY - startY : startY - stopY;
-        if (distance < 100) {
-            scrollTo(0, stopY); return;
-        }
-        var speed = Math.round(distance / 100);
-        if (speed >= 20) speed = 20;
-        var step = Math.round(distance / 25);
-        var leapY = stopY > startY ? startY + step : startY - step;
-        var timer = 0;
-        if (stopY > startY) {
-            for ( var i=startY; i<stopY; i+=step ) {
-                setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
-                leapY += step; if (leapY > stopY) leapY = stopY; timer++;
-            } return;
-        }
-        for ( var i=startY; i>stopY; i-=step ) {
-            setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
-            leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
-        }
+      this.scrollTo = function(eID) {
 
-        function currentYPosition() {
-            // Firefox, Chrome, Opera, Safari
-            if (self.pageYOffset) return self.pageYOffset;
-            // Internet Explorer 6 - standards mode
-            if (document.documentElement && document.documentElement.scrollTop)
-                return document.documentElement.scrollTop;
-            // Internet Explorer 6, 7 and 8
-            if (document.body.scrollTop) return document.body.scrollTop;
-            return 0;
-        }
+          var startY = currentYPosition();
+          var stopY = elmYPosition(eID);
+          var distance = stopY > startY ? stopY - startY : startY - stopY;
+          if (distance < 100) {
+              scrollTo(0, stopY); return;
+          }
+          var speed = Math.round(distance / 100);
+          if (speed >= 20) speed = 20;
+          var step = Math.round(distance / 25);
+          var leapY = stopY > startY ? startY + step : startY - step;
+          var timer = 0;
+          if (stopY > startY) {
+              for ( var i=startY; i<stopY; i+=step ) {
+                  setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+                  leapY += step; if (leapY > stopY) leapY = stopY; timer++;
+              } return;
+          }
+          for ( var i=startY; i>stopY; i-=step ) {
+              setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+              leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
+          }
 
-        function elmYPosition(eID) {
-            var elm = document.getElementById(eID);
-            var y = elm.offsetTop;
-            var node = elm;
-            while (node.offsetParent && node.offsetParent != document.body) {
-                node = node.offsetParent;
-                y += node.offsetTop;
-            } return y;
-        }
+          function currentYPosition() {
+              // Firefox, Chrome, Opera, Safari
+              if (self.pageYOffset) return self.pageYOffset;
+              // Internet Explorer 6 - standards mode
+              if (document.documentElement && document.documentElement.scrollTop)
+                  return document.documentElement.scrollTop;
+              // Internet Explorer 6, 7 and 8
+              if (document.body.scrollTop) return document.body.scrollTop;
+              return 0;
+          }
 
-    };
+          function elmYPosition(eID) {
+              var elm = document.getElementById(eID);
+              var y = elm.offsetTop;
+              var node = elm;
+              while (node.offsetParent && node.offsetParent != document.body) {
+                  node = node.offsetParent;
+                  y += node.offsetTop;
+              } return y;
+          }
 
-});
+      };
 
-portalServices.controller('ScrollCtrl', function($scope, $location, anchorSmoothScroll) {
+  })
 
-    $scope.gotoElement = function (eID){
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash('bottom');
+  .controller('ScrollCtrl', function($scope, $location, anchorSmoothScroll) {
 
-      // call $anchorScroll()
-      anchorSmoothScroll.scrollTo(eID);
+      $scope.gotoElement = function (eID){
+        // set the location.hash to the id of
+        // the element you wish to scroll to.
+        $location.hash('bottom');
 
-    };
-  });
+        // call $anchorScroll()
+        anchorSmoothScroll.scrollTo(eID);
+
+      };
+    });
+
+})();
