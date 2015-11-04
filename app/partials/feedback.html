@@ -7,19 +7,19 @@
   <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
     <form novalidate>
       <div class="fb-field">
-        <p>*First name:</p>
+        <p>* First name:</p>
         <input type="text" ng-model="user.firstName"><br>
       </div>
       <div class="fb-field">
-        <p class="fb-field">*Last name:</p><br>
+        <p class="fb-field">* Last name:</p><br>
         <input type="text" ng-model="user.lastName"><br>
       </div>
       <div class="fb-field">
-        <p class="fb-field">*Email:</p><br>
+        <p class="fb-field">* Email:</p><br>
         <input type="text" ng-model="user.email"><br>
       </div>
       <div class="fb-field">
-        <p class="fb-field">*Confirmation Email:</p><br>
+        <p class="fb-field">* Confirmation Email:</p><br>
         <input type="text" ng-model="user.confirmationEmail"><br>
       </div>
       <div class="fb-field">
@@ -27,13 +27,13 @@
         <input type="text" ng-model="user.organizationName"><br>
       </div>
       <div ng-controller="FeedbackFieldController" class="fb-field">
-        <p class="fb-field">*I have a:</p><br>
+        <p class="fb-field">* I have a:</p><br>
         <select class="select-field" ng-model="myFeedbackField" ng-options="feedbackField.name for feedbackField in feedbackFields">
           <option value="Title"></option><br>
         </select>
       </div>
       <div class="user-feedback">
-        <p class="ur-fb">*Your feedback:</p><br>
+        <p class="ur-fb">* Your feedback:</p><br>
         <input class="user-feedback" type="text" ng-model="user.feedback">
       </div>
        <input type="submit" id="feedback-submit" value="Submit" />
