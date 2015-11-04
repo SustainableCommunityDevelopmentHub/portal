@@ -116,8 +116,7 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-  .controller('FaqsCtrl', ['$scope', 
-    function ($scope) {
+  .controller('FaqsCtrl', ['$scope', function ($scope) {
       $scope.faqs = {name: "faqs.html", url: "faqs.html"};
       $scope.activeTabs = [];
 
