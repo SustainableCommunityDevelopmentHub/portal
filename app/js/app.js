@@ -2,45 +2,49 @@
 (function() {
   'use strict';
 
-  angular.module('portalApp', [
-    'ngRoute',
+  angular.module('portal', [
+    'ui.router',
     'portalAnimations',
     'portalControllers',
     'portalServices'
   ])
 
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-      when('/search', {
+  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    $stateProvider
+      .state('search', {
+        url: '/search',
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
-      }).
-      when('/advanced', {
-        templateUrl: 'partials/advanced.html',
-        controller: 'AdvancedCtrl'
-      }).
-      when('/books/:bookID', {
+      })
+      .state('books', {
+        url: '/books/:bookID',
         templateUrl: 'partials/book-detail.html',
         controller: 'BookDetailCtrl'
-      }).
-      when('/searchhelp', {
-        templateUrl: 'partials/searchhelp.html',
-        controller: 'SearchHelpCtrl'
-      }).
-      when('/faqs', {
-        templateUrl: 'partials/faqs.html',
-        controller: 'FaqsCtrl'
-      }).
-      when('/feedback', {
-        templateUrl: 'partials/feedback.html',
-        controller: 'FaqsCtrl'
-      }).
-      when('/contributors', {
+      })
+      .state('advanced', {
+        url: '/advanced',
+        templateUrl: 'partials/advanced.html',
+        controller: 'AdvancedCtrl'
+      })
+      .state('contributors', {
+        url: '/contributors',
         templateUrl: 'partials/contributors.html',
         controller: 'ContributorsCtrl'
-      }).
-      otherwise({
-        redirectTo: '/search'
+      })
+      .state('feedback', {
+        url: '/feedback',
+        templateUrl: 'partials/feedback.html',
+        controller: 'FaqsCtrl'
+      })
+      .state('searchhelp', {
+        url: '/searchhelp',
+        templateUrl: 'partials/searchhelp.html',
+        controller: 'SearchHelpCtrl'
+      })
+      .state('faqs', {
+        url: '/faqs',
+        templateUrl: 'partials/faqs.html',
+        controller: 'FaqsCtrl'
       });
   }]);
 })();

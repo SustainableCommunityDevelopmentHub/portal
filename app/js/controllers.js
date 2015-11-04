@@ -65,12 +65,12 @@
       $scope.myField = $scope.fields[0];
     }])
 
-  .controller('BookDetailCtrl', ['$scope', '$routeParams', 'esClient',
-    function($scope, $routeParams, esClient) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient',
+    function($scope, $stateParams, esClient) {
       esClient.get({
         index: 'portal',
         type: 'book',
-        id: $routeParams.bookID}, function(error, response) {
+        id: $stateParams.bookID}, function(error, response) {
           if(error) {
             console.log(error);
           } else {
@@ -116,8 +116,7 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-  .controller('FaqsCtrl', ['$scope', 
-    function ($scope) {
+  .controller('FaqsCtrl', ['$scope', function ($scope) {
       $scope.faqs = {name: "faqs.html", url: "faqs.html"};
       $scope.activeTabs = [];
 
