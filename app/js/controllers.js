@@ -79,28 +79,23 @@
         });
     }])
 
-  .controller('ContributorsCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('ContributorsCtrl', ['$scope', function ($scope) {
       $scope.searchHelp = {name: "contributors.html", url: "partials/contributors.html"};
   }])
 
-  .controller('HeaderCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('HeaderCtrl', ['$scope', function ($scope) {
       $scope.header = {name: "header.html", url: "partials/header.html"};
   }])
 
-  .controller('FooterCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('FooterCtrl', ['$scope', function ($scope) {
       $scope.footer = {name: "footer.html", url: "partials/footer.html"};
   }])
 
-  .controller('SearchHelpCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('SearchHelpCtrl', ['$scope', function ($scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
   }])
 
-  .controller('FeedbackCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('FeedbackCtrl', ['$scope', function ($scope) {
       $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
   }])
 
@@ -121,8 +116,7 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-  .controller('FaqsCtrl', ['$scope', '$routeParams',
-    function ($scope) {
+  .controller('FaqsCtrl', ['$scope', function ($scope) {
       $scope.faqs = {name: "faqs.html", url: "faqs.html"};
       $scope.activeTabs = [];
 
