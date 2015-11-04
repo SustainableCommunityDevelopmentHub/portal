@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  angular.module('portal', [
+  angular.module('portalApp', [
     'ui.router',
     'portalAnimations',
     'portalControllers',

@@ -4,8 +4,6 @@
 
   angular.module('portalControllers', [])
 
-  // Chain a series of controller declarations
-
   .controller('SearchCtrl', ['$scope', 'esClient',
     function($scope, esClient) {
       $scope.search = function() {
