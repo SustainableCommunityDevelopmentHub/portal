@@ -10,6 +10,7 @@
   ])
 
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    // Assign states to urls
     $stateProvider
       .state('search', {
         url: '/search',
@@ -46,5 +47,8 @@
         templateUrl: 'partials/faqs.html',
         controller: 'FaqsCtrl'
       });
+
+      // url redirection
+      $urlRouterProvider.when('', '/search');
   }]);
 })();
