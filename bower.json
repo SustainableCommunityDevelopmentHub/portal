@@ -2,7 +2,7 @@
   "name": "portal",
   "description": "The Getty Research Portal",
   "version": "0.0.0",
-  "homepage": "https://stash.getty.edu/projects/GRIIS/repos/portal", 
+  "homepage": "https://stash.getty.edu/projects/GRIIS/repos/portal",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -10,12 +10,12 @@
     "angular-mocks": "1.4.x",
     "jquery": "~2.1.1",
     "bootstrap": "~3.3.5",
-    "angular-route": "1.4.x",
     "angular-resource": "1.4.x",
     "angular-animate": "1.4.x",
-    "elasticsearch": "8.2.x"
+    "elasticsearch": "8.2.x",
+    "angular-ui-router": "~0.2.15"
   },
   "resolutions": {
-      "angular": "1.4.x"
+    "angular": "1.4.x"
   }
 }
