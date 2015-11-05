@@ -9,17 +9,8 @@
     <a href="/app/#/advanced" class="adv">Advanced Search</a>
     <button ng-click="search()" class="btn" id="see-all-btn" type="button">See All Records</button>
   </div>
-  <div class="titles-lastupdated-contributors">
-    <ul>
-      <li><hr class="tlc-hr"><h4>TOTAL TITLES</h4>
-        <p>71,199</p></li>
-      <li><hr class="tlc-hr"><h4>LAST UPDATED</h4>
-        <p>April 1, 2015<br>1,243 Records Added</dd><p><a class="tlc-orange" href="/app/#/newrecords">SEE NEW RECORDS</a></p></p>
-        <li><hr class="tlc-hr"><h4>RECENT CONTRIBUTORS</h4>
-          <p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative
-          <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p><p><a class="tlc-orange" href="/app/#/contributors">SEE ALL CONTRIBUTORS</a></p></li>
-    </ul>
-  </div>
+  <!--Stats for: Total Titles, Lastu Updated, Recent Contributors-->
+  <div data-ng-include src="'partials/app.stats.html'"></div>
 </div>
 <!--Search Results Section-->
 <div data-ng-include src="'partials/search.results.html'"></div>

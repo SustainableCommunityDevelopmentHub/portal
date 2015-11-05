@@ -1,11 +1,32 @@
-<ul class="books">
-  <li ng-repeat="book in results.hits.hits" class="book-listing">
-    <a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
-    <b><h4 class="title">Title:</h4> </b>
-    <a href="#/books/{{book._id}}">{{book._source.title[0].value}}</a><br/>
-    <b>Author: </b>{{book._source.creator[0].value}}<br/>
-    <b>Date: </b>{{book._source.date[0].value}}<br/>
-    <b>Contributor: </b>{{book._source.contributor[0].value}}<br/>
-    <a href="#/books/{{book._id}}">See Full Record</a><br/>
-  </li>
-</ul>
+<div ng-show="results">
+  <h3>Search Results</h3>
+  <hr class="sr-top">
+  <!--Faceted Search Sidebar-->
+  <div data-ng-include src="'partials/search.facets.html'"></div>
+  <div class="results-list">
+    <div class="search-bar-results">
+      <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
+        <button ng-click="search()" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></button></form>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Sort by:
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Type</a></li>
+        <li><a href="#">Subject</a></li>
+        <li><a href="#">Author</a></li>
+      </ul>
+      <span class="showing">Showing 10 of 10 items</span>
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">25</a></li>
+        <li><a href="#">50</a></li>
+        <li><a href="#">100</a></li>
+      </ul>
+    </div>
+    <!--Search Results Data-->
+    <hr class="results-list-hr">
+    <div data-ng-include="'partials/search.results.data.html'"></div>
+  </div>
+</div>
