@@ -22,34 +22,4 @@
   </div>
 </div>
 <!--Search Results Section-->
-<div ng-show="results">
-  <h3>Search Results</h3>
-  <hr class="sr-top">
-  <!--Faceted Search Sidebar-->
-  <div data-ng-include src="'partials/search.facets.html'"></div>
-  <div class="results-list">
-    <div class="search-bar-results">
-      <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
-        <button ng-click="search()" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></button></form>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Sort by:
-        <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Type</a></li>
-        <li><a href="#">Subject</a></li>
-        <li><a href="#">Author</a></li>
-      </ul>
-      <span class="showing">Showing 10 of 10 items</span>
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
-        <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">25</a></li>
-        <li><a href="#">50</a></li>
-        <li><a href="#">100</a></li>
-      </ul>
-    </div>
-    <hr class="results-list-hr">
-    <div data-ng-include="'partials/search.results.html'"></div>
-  </div>
-</div>
+<div data-ng-include src="'partials/search.results.html'"></div>
