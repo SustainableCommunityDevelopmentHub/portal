@@ -7,12 +7,16 @@
 
   angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .service('esClient', function(esFactory, elastic) {
+  .service('esClient', function(esFactory, config) {
     return esFactory({
-      host: elastic.host + ':' + elastic.port,
-      apiVersion: elastic.apiVersion,
+      host: config.elastic.host + ':' + config.elastic.port,
+      apiVersion: config.elastic.apiVersion,
       log: 'trace'
     });
+  })
+
+  .service('dataService', function(esFactory, config) {
+
   })
 
   .service('anchorSmoothScroll', function(){
