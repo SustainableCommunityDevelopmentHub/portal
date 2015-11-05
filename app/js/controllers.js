@@ -6,7 +6,7 @@
 
   // Chain a series of controller declarations
 
-  .controller('SearchCtrl', ['$scope', 'esClient',
+  .controller('SearchCtrl', ['$scope', 'esClient', 'dataService',
     function($scope, esClient) {
       $scope.search = function() {
         esClient.search({
