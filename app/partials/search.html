@@ -1,116 +1,106 @@
-  <div ng-hide="results" class="ng-hide" class="main-body">
-    <div class="search-button-home">
-      <!--Body content-->
-      <p class="how-to-search">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div class="search-bar">
-        <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
+<div ng-hide="results" class="ng-hide" class="main-body">
+  <div class="search-button-home">
+    <!--Body content-->
+    <p class="how-to-search">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="search-bar">
+      <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
         <button ng-click="search()" class="btn" type="button" id="go-btn">Search</button></form>
-      </div>
-      <a href="/app/#/advanced" class="adv">Advanced Search</a>
-      <button ng-click="search()" class="btn" id="see-all-btn" type="button">See All Records</button>
     </div>
-    <div class="titles-lastupdated-contributors">
-      <ul>
-        <li><hr class="tlc-hr"><h4>TOTAL TITLES</h4>
-          <p>71,199</p></li>
-        <li><hr class="tlc-hr"><h4>LAST UPDATED</h4>
-          <p>April 1, 2015<br>1,243 Records Added</dd><p><a class="tlc-orange" href="/app/#/newrecords">SEE NEW RECORDS</a></p></p>
+    <a href="/app/#/advanced" class="adv">Advanced Search</a>
+    <button ng-click="search()" class="btn" id="see-all-btn" type="button">See All Records</button>
+  </div>
+  <div class="titles-lastupdated-contributors">
+    <ul>
+      <li><hr class="tlc-hr"><h4>TOTAL TITLES</h4>
+        <p>71,199</p></li>
+      <li><hr class="tlc-hr"><h4>LAST UPDATED</h4>
+        <p>April 1, 2015<br>1,243 Records Added</dd><p><a class="tlc-orange" href="/app/#/newrecords">SEE NEW RECORDS</a></p></p>
         <li><hr class="tlc-hr"><h4>RECENT CONTRIBUTORS</h4>
           <p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative
-            <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p><p><a class="tlc-orange" href="/app/#/contributors">SEE ALL CONTRIBUTORS</a></p></li>
+          <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p><p><a class="tlc-orange" href="/app/#/contributors">SEE ALL CONTRIBUTORS</a></p></li>
+    </ul>
+  </div>
+</div>
+<div ng-show="results">
+  <h3>Search Results</h3>
+  <hr class="sr-top">
+  <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
+    <h4>Filter Your Results</h4>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>Type
+      </div>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')"><form role="form">
+          <div class="checkbox">
+            <label><input type="checkbox" value="">Option 1</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="">Option 2</label>
+          </div>
+          <div class="checkbox disabled">
+            <label><input type="checkbox" value="">Option 3</label>
+          </div>
+        </form></div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab two')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab two'), 'glyphicon-plus': !status.open}"></i>Subject
+      </div>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')"><div class="checkbox">
+          <label><input type="checkbox" value="">Option 1</label>
+        </div></div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>Author
+      </div>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')"><div class="checkbox">
+          <label><input type="checkbox" value="">Option 1</label>
+        </div></div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab four')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab four'), 'glyphicon-plus': !status.open}"></i>Location
+      </div>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')"><div class="checkbox">
+          <label><input type="checkbox" value="">Option 1</label>
+        </div></div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab five')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab five'), 'glyphicon-plus': !status.open}"></i>Contributed by
+      </div>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')"><div class="checkbox">
+          <label><input type="checkbox" value="">Option 1</label>
+        </div></div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <h5>Date range</h5>
+    <div class="date-range"><p>From:</p><input type="date"></div><div class="date-range"><p>To:</p><input type="date"><button ng-click="search()" class="btn" type="button" id="go-btn-results">></button></div>
+  </div>
+  <div class="results-list">
+    <div class="search-bar-results">
+      <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
+        <button ng-click="search()" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></button></form>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Sort by:
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Type</a></li>
+        <li><a href="#">Subject</a></li>
+        <li><a href="#">Author</a></li>
+      </ul>
+      <span class="showing">Showing 10 of 10 items</span>
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">25</a></li>
+        <li><a href="#">50</a></li>
+        <li><a href="#">100</a></li>
       </ul>
     </div>
-  </div>
-  <ul class="books" ng-show="results">
-    <h3>Search Results</h3>
-    <hr class="sr-top">
-    <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
-        <h4>Filter Your Results</h4>
-        <hr class="left_sidebar_hr">
-        <div class="left_sidebar_accordion__tab">
-            <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>Type
-            </div>
-                <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')"><form role="form">
-                <div class="checkbox">
-                  <label><input type="checkbox" value="">Option 1</label>
-                </div>
-                <div class="checkbox">
-                  <label><input type="checkbox" value="">Option 2</label>
-                </div>
-                <div class="checkbox disabled">
-                  <label><input type="checkbox" value="">Option 3</label>
-                </div>
-            </form></div>
-        </div>
-        <hr class="left_sidebar_hr">
-        <div class="left_sidebar_accordion__tab">
-            <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab two')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab two'), 'glyphicon-plus': !status.open}"></i>Subject
-            </div>
-                <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')"><div class="checkbox">
-                  <label><input type="checkbox" value="">Option 1</label>
-                </div></div>
-        </div>
-        <hr class="left_sidebar_hr">
-        <div class="left_sidebar_accordion__tab">
-            <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>Author
-            </div>
-                <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')"><div class="checkbox">
-                  <label><input type="checkbox" value="">Option 1</label>
-                </div></div>
-        </div>
-        <hr class="left_sidebar_hr">
-        <div class="left_sidebar_accordion__tab">
-            <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab four')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab four'), 'glyphicon-plus': !status.open}"></i>Location
-            </div>
-                <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')"><div class="checkbox">
-                  <label><input type="checkbox" value="">Option 1</label>
-                </div></div>
-        </div>
-        <hr class="left_sidebar_hr">
-        <div class="left_sidebar_accordion__tab">
-            <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab five')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab five'), 'glyphicon-plus': !status.open}"></i>Contributed by
-            </div>
-                <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')"><div class="checkbox">
-                  <label><input type="checkbox" value="">Option 1</label>
-                </div></div>
-        </div>
-        <hr class="left_sidebar_hr">
-        <h5>Date range</h5>
-        <div class="date-range"><p>From:</p><input type="date"></div><div class="date-range"><p>To:</p><input type="date"><button ng-click="search()" class="btn" type="button" id="go-btn-results">></button></div>
-    </div>
-      <div class="results-list">
-        <div class="search-bar-results">
-          <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
-          <button ng-click="search()" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></button></form>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Sort by:
-          <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Type</a></li>
-            <li><a href="#">Subject</a></li>
-            <li><a href="#">Author</a></li>
-          </ul>
-          <span class="showing">Showing 10 of 10 items</span>
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
-          <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="#">25</a></li>
-            <li><a href="#">50</a></li>
-            <li><a href="#">100</a></li>
-          </ul>
-        </div>
-        <hr class="results-list-hr">
-        <li ng-repeat="book in results.hits.hits" class="book-listing">
-          <a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
-          <b><h4 class="title">Title:</h4> </b><a href="#/books/{{book._id}}">{{book._source.title[0].value}}</a><br/>
-          <b>Author: </b>{{book._source.creator[0].value}}<br/>
-          <b>Date: </b>{{book._source.date[0].value}}<br/>
-          <b>Contributor: </b>{{book._source.contributor[0].value}}<br/>
-          <a href="#/">See Full Record</a>
-          <hr class="results-list-hr">
-        </li>
-  </ul>
-    </div>
+    <hr class="results-list-hr">
+    <div data-ng-include="'partials/search.results.html'"></div>
   </div>
 </div>
