@@ -15,9 +15,27 @@
     });
   })
 
-  .service('dataService', function(esFactory, config) {
+  .factory('dataService', ['esClient', function(esClient, config) {
 
-  })
+    var service = {
+      search: search
+    };
+
+    return service;
+
+    function search(opts){
+      esClient.search({
+        index: 'portal',
+        type: 'book',
+        q: opts.queryTerm
+      })
+      .then(function(response){
+        return response;
+      }, function(error) {
+        console.trace(error.message);
+      });
+    }
+  }])
 
   .service('anchorSmoothScroll', function(){
 
