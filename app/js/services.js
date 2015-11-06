@@ -7,15 +7,19 @@
 
   angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .factory('dataService', function(esFactory, config) {
-
-    var esClient =  esFactory({
+  .factory('esClient', ['esFactory', 'config', function(esFactory, config) {
+    return esFactory({
       host: config.elastic.host + ':' + config.elastic.port,
       apiVersion: config.elastic.apiVersion,
       log: 'trace'
     });
+  }])
 
+  .factory('dataService', ['esClient', 'config', function(esClient, config) {
 
+    /*
+     * dataService functions to be injected
+     */
     var dataService = {
       search: search,
       test: test
@@ -23,6 +27,10 @@
 
     return dataService;
 
+
+    /**
+     * dataService functions
+     */
     function test(){
       console.log('foo!');
     };
@@ -44,7 +52,7 @@
         });
 
     };
-  })
+  }])
 
   .service('anchorSmoothScroll', function(){
 
