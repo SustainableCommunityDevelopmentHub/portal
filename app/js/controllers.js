@@ -6,19 +6,31 @@
 
   // Chain a series of controller declarations
 
-  .controller('SearchCtrl', ['$scope', 'esClient', 'dataService',
-    function($scope, esClient) {
+  .controller('SearchCtrl', ['$scope', 'dataService',
+    function($scope, dataService) {
+      console.log('in searchctrl');
+
       $scope.search = function() {
-        esClient.search({
-          index: 'portal',
-          type: 'book',
-          q: $scope.queryTerm
-        }).then(function(response){
-          $scope.results = response;
+        console.log('dataservice : ' + JSON.stringify(dataService));
+        dataService.search($scope.queryTerm).then(function(response){
+          console.log('promise response');
+          return response;
         }, function(error) {
           console.trace(error.message);
         });
       }
+
+        //$scope.search = function() {
+        //esClient.search({
+          //index: 'portal',
+          //type: 'book',
+          //q: $scope.queryTerm
+        //}).then(function(response){
+          //$scope.results = response;
+        //}, function(error) {
+          //console.trace(error.message);
+        //});
+      //}
     }])
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',

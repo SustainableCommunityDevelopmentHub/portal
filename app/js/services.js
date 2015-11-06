@@ -18,22 +18,31 @@
   .factory('dataService', ['esClient', function(esClient, config) {
 
     var service = {
-      search: search
+      search: search,
+      test: test
     };
 
     return service;
 
-    function search(opts){
+    function test(){
+      console.log('foo!');
+    }
+
+    function search(queryTerm){
+      console.log('..in search func. queryTerm: ' + queryTerm);
       esClient.search({
         index: 'portal',
         type: 'book',
-        q: opts.queryTerm
-      })
-      .then(function(response){
-        return response;
+        q: queryTerm
+      }).then(function(res){
+        var results = res;
+        console.log('....search results: ' + JSON.stringify(results));
+        return results;
       }, function(error) {
         console.trace(error.message);
       });
+      console.log('...SEARCH EXECUTED: ' + JSON.stringify(res));
+      return results;
     }
   }])
 
