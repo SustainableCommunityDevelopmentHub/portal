@@ -7,44 +7,44 @@
 
   angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .service('esClient', function(esFactory, config) {
-    return esFactory({
+  .factory('dataService', function(esFactory, config) {
+
+    var esClient =  esFactory({
       host: config.elastic.host + ':' + config.elastic.port,
       apiVersion: config.elastic.apiVersion,
       log: 'trace'
     });
-  })
 
-  .factory('dataService', ['esClient', function(esClient, config) {
 
-    var service = {
+    var dataService = {
       search: search,
       test: test
     };
 
-    return service;
+    return dataService;
 
     function test(){
       console.log('foo!');
-    }
+    };
 
-    function search(queryTerm){
+    function search(queryTerm, scopeResults){
       console.log('..in search func. queryTerm: ' + queryTerm);
-      esClient.search({
+      return esClient.search({
         index: 'portal',
         type: 'book',
         q: queryTerm
-      }).then(function(res){
-        var results = res;
-        console.log('....search results: ' + JSON.stringify(results));
-        return results;
-      }, function(error) {
-        console.trace(error.message);
-      });
-      console.log('...SEARCH EXECUTED: ' + JSON.stringify(res));
-      return results;
-    }
-  }])
+      })
+        .then(function(results){
+          console.log('....search results: ' + JSON.stringify(results));
+          scopeResults = results;
+          return results;
+        })
+        .catch(function(error) {
+          console.trace(error.message);
+        });
+
+    };
+  })
 
   .service('anchorSmoothScroll', function(){
 
