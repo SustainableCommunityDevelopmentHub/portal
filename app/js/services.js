@@ -15,10 +15,10 @@
     });
   }])
 
-  .factory('dataService', ['esClient', 'config', function(esClient, config) {
+  .factory('dataService', ['esClient', function(esClient) {
 
     /*
-     * dataService functions to be injected
+     * Expose dataService functions on return object
      */
     var dataService = {
       search: search,
@@ -28,30 +28,22 @@
     return dataService;
 
 
-    /**
+    /*
      * dataService functions
      */
     function test(){
-      console.log('foo!');
+      console.log('....dataService is here!');
     };
 
-    function search(queryTerm, scopeResults){
-      console.log('..in search func. queryTerm: ' + queryTerm);
+    // Query elasticsearch
+    function search(queryTerm){
       return esClient.search({
         index: 'portal',
         type: 'book',
         q: queryTerm
-      })
-        .then(function(results){
-          console.log('....search results: ' + JSON.stringify(results));
-          scopeResults = results;
-          return results;
-        })
-        .catch(function(error) {
-          console.trace(error.message);
-        });
-
+      });
     };
+
   }])
 
   .service('anchorSmoothScroll', function(){
