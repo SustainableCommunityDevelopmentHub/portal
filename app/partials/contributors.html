@@ -1,35 +1,20 @@
 <div class="main-body">
-<h2>Contributors</h2>
+<h3>Contributors</h3>
+<hr class="faqs-hr">
 <ul class="contributors">
-	<li>Gallica Bibliotheque Nationale de France<p class="numrecords">27,274 Records </p></li>
-	<li>Getty Research Institute<p class="numrecords">27,274 Records</p></li>
-	<li>Heidelberg University Library<p class="numrecords">15,873 Records</p></li>
-	<li>Institut National d'Histoire de l'Art<p class="numrecords">5,377 Records</p></li>
-	<li>Metropolitan Museum of Art<p class="numrecords">4,647 Records</p></li>
-	<li>Smithsonian Libraries<p class="numrecords">2,991 Records</p></li>
-	<li>Library of the Philadelphia Museum of Art<p class="numrecords">1,726 Records</p></li>
-	<li>Avery Architectural & Fine Arts Library at Columbia University<p class="numrecords">1,425 Records</p></li>
-	<li>Sterling and Francine Clark Art Institute Library<p class="numrecords">335 Records</p></li>
-	<li>Frick Art Reference Library<p class="numrecords">284 Records</p></li>
-	<li>Getty Publications Virtual Library<p class="numrecords">236 Records</p></li>
-	<li>Brooklyn Museum Libraries and Archives<p class="numrecords">122 Records</p></li>
-	<li>National Gallery of Canada Library and Archives<p class="numrecords">36 Records</p></li>
-	<li>Kunsthistorisches Institut in Florenz<p class="numrecords">35 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
-	<li>Universidad de Malaga<p class="numrecords">25 Records</p></li>
-	<li>Online Scholarly Catalogue Initiative<p class="numrecords">10 Records</p></li>
+<li ng-repeat="contributor in contributors">
+	<div class="contributor-list-item">
+	<p class="name-contrib">{{contributor.name}}</p>
+	<div class="contrib-vl-center" ng-show="$even"></div> 
+	<div class="contrib-vl-right" ng-show="$odd"></div> 
+	<a href="#" class="num-contrib">{{contributor.num_records}} Records</a>
+    </div>
+    <hr class="contributors-table">
+</li>
 </ul>
+<div class="contrib-pagination">
+	<a href="#">First</a><a href="#">Prev</a>
+	<a href="#">1</a><p>2</p><a href="#">3 ... 22</a>
+	<a href="#">Next</a><a href="#">Last</a>
+</div>
 </div>
