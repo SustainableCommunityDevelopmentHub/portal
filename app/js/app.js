@@ -13,7 +13,7 @@
     // Assign states to urls
     $stateProvider
       .state('search', {
-        url: '/search',
+        url: '/',
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
       })
@@ -49,6 +49,6 @@
       });
 
       // url redirection
-      $urlRouterProvider.when('', '/search');
+      $urlRouterProvider.when('', '/');
   }]);
 })();
