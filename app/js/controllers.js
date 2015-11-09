@@ -4,22 +4,22 @@
 
   angular.module('portalControllers', [])
 
-  // Chain a series of controller declarations
+  .controller('SearchCtrl', ['$scope', 'dataService',
+  function($scope, dataService) {
 
-  .controller('SearchCtrl', ['$scope', 'esClient',
-    function($scope, esClient) {
-      $scope.search = function() {
-        esClient.search({
-          index: 'portal',
-          type: 'book',
-          q: $scope.queryTerm
-        }).then(function(response){
+    // Execute search query, handle returned promise from dataService
+    $scope.search = function() {
+      dataService.search($scope.queryTerm)
+        .then(function(response){
+          // $scope.results effects css hide/shows
           $scope.results = response;
-        }, function(error) {
-          console.trace(error.message);
+        })
+        .catch(function(err){
+          console.log(err.message);
         });
-      }
-    }])
+    };
+
+  }])
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',
     function($scope, esClient) {

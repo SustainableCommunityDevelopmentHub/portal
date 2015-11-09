@@ -7,13 +7,44 @@
 
   angular.module('portalServices', ['elasticsearch', 'portal.config'])
 
-  .service('esClient', function(esFactory, elastic) {
+  .factory('esClient', ['esFactory', 'config', function(esFactory, config) {
     return esFactory({
-      host: elastic.host + ':' + elastic.port,
-      apiVersion: elastic.apiVersion,
+      host: config.elastic.host + ':' + config.elastic.port,
+      apiVersion: config.elastic.apiVersion,
       log: 'trace'
     });
-  })
+  }])
+
+  .factory('dataService', ['esClient', function(esClient) {
+
+    /*
+     * Expose dataService functions on return object
+     */
+    var dataService = {
+      search: search,
+      test: test
+    };
+
+    return dataService;
+
+
+    /*
+     * dataService functions
+     */
+    function test(){
+      console.log('....dataService is here!');
+    };
+
+    // Query elasticsearch
+    function search(queryTerm){
+      return esClient.search({
+        index: 'portal',
+        type: 'book',
+        q: queryTerm
+      });
+    };
+
+  }])
 
   .service('anchorSmoothScroll', function(){
 
