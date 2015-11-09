@@ -4,10 +4,11 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    port = 8000,
-    root = __dirname + '/app/';
+    path = require('path');
 
-var environment = process.env.NODE_ENV;
+var port = 8000,
+    root = path.join(__dirname, '/app/'),
+    environment = process.env.NODE_ENV;
 
 app.use(bodyParser.urlencoded({extended: true}));
 
