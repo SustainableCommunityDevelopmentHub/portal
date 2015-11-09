@@ -5,16 +5,16 @@
 <li ng-repeat="contributor in contributors">
 	<div class="contributor-list-item">
 	<p class="name-contrib">{{contributor.name}}</p>
-	<div class="contrib-vl-center" ng-show="$even"></div> 
-	<div class="contrib-vl-right" ng-show="$odd"></div> 
-	<a href="#" class="num-contrib">{{contributor.num_records}} Records</a>
+	<div class="contrib-vl-center" ng-show="$even"></div>
+	<div class="contrib-vl-right" ng-show="$odd"></div>
+	<a ui-sref="#" class="num-contrib">{{contributor.num_records}} Records</a>
     </div>
     <hr class="contributors-table">
 </li>
 </ul>
 <div class="contrib-pagination">
-	<a href="#">First</a><a href="#">Prev</a>
-	<a href="#">1</a><p>2</p><a href="#">3 ... 22</a>
-	<a href="#">Next</a><a href="#">Last</a>
+	<a ui-sref="">First</a><a ui-sref="">Prev</a>
+	<a ui-sref="">1</a><p>2</p><a ui-sref="">3 ... 22</a>
+	<a ui-sref="">Next</a><a ui-sref="">Last</a>
 </div>
 </div>

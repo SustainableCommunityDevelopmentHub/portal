@@ -8,8 +8,8 @@
         <hr class="sr-top">
         <h5>Filter by keywords:</h5>
         <input ng-model="queryTerm" class="keyword-search-input" type="text">
-        <p class="keyword-search-input-subtext">This search bar accepts keywords separated by comas and boolean searches 
-        (using “AND”, “OR”, etc. between keywords. For tips on using boolean searches, see <a href="/searchhelp">Search Help</a>.</p>
+        <p class="keyword-search-input-subtext">This search bar accepts keywords separated by comas and boolean searches
+        (using “AND”, “OR”, etc. between keywords. For tips on using boolean searches, see <a ui-sref="help">Search Help</a>.</p>
 
         <h4 class="sbf-heading">Search by Field</h4>
         <div ng-controller="AdvFieldController">
@@ -37,7 +37,7 @@
         <!--Body content-->
         <ul class="books">
           <li ng-repeat="book in results.hits.hits" class="book-listing">
-            <b>Title: </b><a href="/books/{{book._id}}">{{book._source.title[0].value}}</a><br/>
+            <b>Title: </b><a ui-sref="books/{{book._id}}">{{book._source.title[0].value}}</a><br/>
             <b>Author: </b>{{book._source.creator[0].value}}<br/>
             <b>Date: </b>{{book._source.date[0].value}}<br/>
             <b>Contributor: </b>{{book._source.contributor[0].value}}<br/>

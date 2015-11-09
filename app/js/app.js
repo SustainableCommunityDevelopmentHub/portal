@@ -40,9 +40,9 @@
         templateUrl: 'partials/feedback.html',
         controller: 'FaqsCtrl'
       })
-      .state('searchhelp', {
-        url: '/searchhelp',
-        templateUrl: 'partials/searchhelp.html',
+      .state('help', {
+        url: '/help',
+        templateUrl: 'partials/help.html',
         controller: 'SearchHelpCtrl'
       })
       .state('faqs', {
