@@ -1,11 +1,11 @@
 /*jshint node:true*/
 'use strict';
 
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-//var cors = require('cors');
-var port = 8000;
+var express = require('express'),
+    app = express(),
+    bodyParser = require('body-parser'),
+    port = 8000,
+    root = __dirname + '/app/';
 
 var environment = process.env.NODE_ENV;
 
@@ -23,9 +23,14 @@ app.get('/ping', function(req, res, next) {
 });
 
 console.log('** DEV **');
-console.log('serving from ' + './app/ and ./');
-app.use('/', express.static('./app/'));
-app.use('/', express.static('./'));
+console.log('serving from ' + root);
+
+app.use('/', express.static(root));
+
+app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+  res.sendFile('index.html', { root: root });
+});
 
 app.listen(port, function() {
     console.log('Express server listening on port ' + port);

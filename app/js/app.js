@@ -9,7 +9,10 @@
     'portalServices'
   ])
 
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
+    // Redirect to home by default
+    $urlRouterProvider.when('', '/');
+
     // Assign states to urls
     $stateProvider
       .state('search', {
@@ -48,7 +51,8 @@
         controller: 'FaqsCtrl'
       });
 
-      // url redirection
-      $urlRouterProvider.when('', '/');
+      // For pretty URLs w/out '#'. Note: <base> tag required with html5Mode
+      $locationProvider.html5Mode(true);
+
   }]);
 })();
