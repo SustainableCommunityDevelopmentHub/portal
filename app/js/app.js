@@ -11,7 +11,7 @@
 
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
     // Redirect to home by default
-    $urlRouterProvider.when('', '/');
+    $urlRouterProvider.otherwise('/');
 
     // Assign states to urls
     $stateProvider
