@@ -5,7 +5,7 @@
   var $scope,
       $location;
 
-  angular.module('portalServices', ['elasticsearch', 'portal.config'])
+  angular.module('portalServices', ['elasticsearch', 'app.core'])
 
   .factory('esClient', ['esFactory', 'config', function(esFactory, config) {
     return esFactory({

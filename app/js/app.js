@@ -6,6 +6,7 @@
     'ui.router',
     'portalAnimations',
     'portalControllers',
+    'app.core',
     'portalServices'
   ])
 
