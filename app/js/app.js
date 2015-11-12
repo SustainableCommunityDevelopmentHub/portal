@@ -60,7 +60,7 @@
       .state('feedback', {
         url: '/feedback',
         templateUrl: 'partials/feedback.html',
-        controller: 'FaqsCtrl'
+        controller: 'FeedbackFormCtrl'
       })
 
       .state('help', {
