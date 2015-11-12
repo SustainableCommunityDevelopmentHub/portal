@@ -31,7 +31,7 @@
           $scope.results = response;
         })
         .then(function(){
-          console.log(JSON.stringify($scope.results.hits.hits));
+          //console.log(JSON.stringify($scope.results.hits.hits));
           $state.go('searchResults', {q: queryTerm});
         })
         .catch(function(err){
@@ -39,24 +39,6 @@
         });
     };
 
-
-  }])
-
-  // Old - To be removed. SearchController is newest
-  .controller('SearchCtrl', ['$scope', 'dataService',
-  function($scope, dataService) {
-
-    // Execute search query, handle returned promise from dataService
-    $scope.search = function() {
-      dataService.search($scope.queryTerm)
-        .then(function(response){
-          // $scope.results effects css hide/shows
-          $scope.results = response;
-        })
-        .catch(function(err){
-          console.log(err.message);
-        });
-    };
 
   }])
 
