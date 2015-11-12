@@ -6,6 +6,12 @@
 
   .controller('SearchController', ['$scope', 'dataService', '$state', '$stateParams',
   function($scope, dataService, $state, $stateParams) {
+    // Test function for whatever. Modify as needed.
+    $scope.test = function() {
+      console.log('~~~~~test!');
+      console.log(JSON.stringify($scope.results.hits.hits));
+    };
+
     // Execute search query, handle returned promise from dataService
     $scope.search = function(queryTerm) {
       dataService.search(queryTerm)
@@ -25,7 +31,7 @@
           $scope.results = response;
         })
         .then(function(){
-          console.log(JSON.stringify($scope.results));
+          console.log(JSON.stringify($scope.results.hits.hits));
           $state.go('searchResults', {q: queryTerm});
         })
         .catch(function(err){

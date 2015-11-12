@@ -1,14 +1,14 @@
   <h3>Search Results</h3>
   <hr class="sr-top">
 
-  <!--Faceted Search Sidebar-->
+  <!--Faceted Search sidebar-->
   <div ui-view="facets@searchResults"></div>
 
   <!--Search Box & Options-->
   <div class="results-list">
     <div class="search-bar-results">
       <form ng-submit="search()"><input ng-model="queryTerm" class="search-input" type="text">
-        <button ng-click="search(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+        <button ng-click="test()" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
       </form>
     </div>
     <div class="dropdown">

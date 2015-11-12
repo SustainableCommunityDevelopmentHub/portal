@@ -4,9 +4,9 @@
 
   angular.module('portalApp', [
     'ui.router',
+    'app.core',
     'portalAnimations',
     'portalControllers',
-    'app.core',
     'portalServices'
   ])
 

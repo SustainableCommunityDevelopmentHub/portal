@@ -3,7 +3,7 @@
 
   angular
     .module('app.core')
-    .factory('esClient', ['elasticsearch', 'portal.config', esClient])
+    .factory('esClient', ['elasticsearch', 'config', esClient])
     .factory('dataService', ['esClient', dataServices]);
 
   /* Elasticsearch Client
