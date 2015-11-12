@@ -4,6 +4,39 @@
 
   angular.module('portalControllers', [])
 
+  .controller('SearchController', ['$scope', 'dataService', '$state', '$stateParams',
+  function($scope, dataService, $state, $stateParams) {
+    // Execute search query, handle returned promise from dataService
+    $scope.search = function(queryTerm) {
+      dataService.search(queryTerm)
+        .then(function(response){
+          $scope.results = response;
+        })
+        .catch(function(err){
+          console.log(err.message);
+        });
+    };
+
+    // For when user inits search from homepage or anywhere not search.results. Executes search,then changes state to search.results.
+    $scope.searchAndTransition = function(queryTerm) {
+      console.log('~~~searchAndTransition! queryTerm: ' + queryTerm);
+      dataService.search(queryTerm)
+        .then(function(response){
+          $scope.results = response;
+        })
+        .then(function(){
+          console.log(JSON.stringify($scope.results));
+          $state.go('searchResults', {q: queryTerm});
+        })
+        .catch(function(err){
+          console.log(err.message);
+        });
+    };
+
+
+  }])
+
+  // Old - To be removed. SearchController is newest
   .controller('SearchCtrl', ['$scope', 'dataService',
   function($scope, dataService) {
 
