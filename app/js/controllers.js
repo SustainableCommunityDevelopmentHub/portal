@@ -4,40 +4,54 @@
 
   angular.module('portalControllers', [])
 
-  .controller('SearchController', ['$scope', 'dataService', '$state', '$stateParams',
-  function($scope, dataService, $state, $stateParams) {
+  .controller('SearchController', ['$scope', 'searchService', '$state', '$stateParams',
+  function($scope, searchService, $state, $stateParams) {
+    // Set search results
+    $scope.results = searchService.results;
+
+
     // Test function for whatever. Modify as needed.
     $scope.test = function() {
       console.log('~~~~~test!');
+      //console.log(JSON.stringify($scope.results.hits.hits));
+      console.log('SearchService:');
+      console.log(JSON.stringify(searchService.results.hits.hits));
+      $scope.results = searchService.results;
+      console.log('~~~~~~~~~~~~$scope:');
       console.log(JSON.stringify($scope.results.hits.hits));
     };
 
     // Execute search query, handle returned promise from dataService
-    $scope.search = function(queryTerm) {
-      dataService.search(queryTerm)
+    //$scope.search = function(queryTerm) {
+      //dataService.search(queryTerm)
+        //.then(function(response){
+          //$scope.results = response;
+        //})
+        //.catch(function(err){
+          //console.log(err.message);
+        //});
+    //};
+
+    // For when user inits search from homepage or anywhere not search.results. Executes search,then changes state to search.results.
+    $scope.searchAndTransition = function(queryTerm) {
+      console.log('~~~searchAndTransition! queryTerm: ' + queryTerm);
+      searchService.search({q: queryTerm})
         .then(function(response){
-          $scope.results = response;
+          searchService.results = response;
+        })
+        .then(function(){
+          console.log(JSON.stringify(searchService.results.hits.hits));
+          $state.go('search.results', {q: queryTerm});
         })
         .catch(function(err){
           console.log(err.message);
         });
     };
 
-    // For when user inits search from homepage or anywhere not search.results. Executes search,then changes state to search.results.
-    $scope.searchAndTransition = function(queryTerm) {
-      console.log('~~~searchAndTransition! queryTerm: ' + queryTerm);
-      dataService.search(queryTerm)
-        .then(function(response){
-          $scope.results = response;
-        })
-        .then(function(){
-          //console.log(JSON.stringify($scope.results.hits.hits));
-          $state.go('searchResults', {q: queryTerm});
-        })
-        .catch(function(err){
-          console.log(err.message);
-        });
-    };
+    // Initialize things when controller loads
+    $scope.$on('$viewContentLoaded', function(){
+      $scope.results = searchResults.results;
+    });
 
 
   }])

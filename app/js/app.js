@@ -16,15 +16,44 @@
 
     // Assign states to urls
     $stateProvider
+      // Abstract state used to load other search states
       .state('search', {
+        abstract: true,
         url: '/',
+        template: '<ui-view/>',
+        controller: 'SearchController'
+      })
+
+      // Homepage
+      .state('search.home', {
+        url: '',
         templateUrl: 'search/search.home.html',
         controller: 'SearchController'
       })
 
-      .state('searchResults', {
-        url: '/search?q',
+      .state('search.results', {
+        url: 'search',
         controller: 'SearchController',
+        //templateUrl: 'partials/search.results.old.html'
+        views: {
+          // Main template for searchResults
+          '': { templateUrl: 'search/search.results.html'
+          },
+
+          // Child views for searchResults
+          'facets@searchResults': {
+            templateUrl: 'search/search.facets.html'
+          },
+          'data@searchResults': {
+            templateUrl: 'search/search.data.html'
+          }
+        }
+      })
+
+      .state('ProtosearchResults', {
+        url: '/protosearch',
+        controller: 'SearchController',
+        //templateUrl: 'partials/search.results.old.html'
         views: {
           // Main template for searchResults
           '': { templateUrl: 'search/search.results.html'

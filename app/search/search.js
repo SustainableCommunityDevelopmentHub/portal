@@ -4,15 +4,12 @@
   console.log('foo!');
   angular
   .module('app.search', [])
-  .controller('Search', '$scope', 'dataService', '$stateParams', Search);
+  .controller('Search', '$scope', 'searchService', '$stateParams', Search);
 
-  function Search($scope, dataService, $stateParams) {
+  function Search($scope, searchService, $stateParams) {
     // Execute search query, handle returned promise from dataService
     $scope.search = function() {
-      dataService.search($stateParams.queryTerm)
-        .then(function(response){
-          $scope.results = response;
-        })
+      searchService.search({q: $stateParams.queryTerm})
         .catch(function(err){
           console.log(err.message);
         });
