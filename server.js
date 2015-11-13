@@ -7,7 +7,7 @@ var express = require('express'),
     path = require('path');
 
 var port = 8000,
-    root = path.join(__dirname, '/app/'),
+    rootDir = path.join(__dirname, '/app/'),
     environment = process.env.NODE_ENV;
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,13 +24,21 @@ app.get('/ping', function(req, res, next) {
 });
 
 console.log('** DEV **');
-console.log('serving from ' + root);
+console.log('serving from ' + rootDir);
 
-app.use('/', express.static(root));
+app.use('/', express.static(rootDir));
 
 app.all('/*', function(req, res, next) {
-    // Just send the index.html for other files to support HTML5Mode
-  res.sendFile('index.html', { root: root });
+  console.log('...Sending index.html in response to request: ');
+  console.log(req.headers);
+  console.log('URL: ' + req.url);
+  console.log('PARAMS: ');
+  console.log(req.params);
+  console.log('QUERY STRING: ');
+  console.log(req.query);
+  console.log('Original URL: ' + req.originalUrl + ' Base URL: ' + req.baseUrl);
+    // Just send the index.html in response to all requests, to support HTML5Mode
+  res.sendFile('index.html', { root: rootDir });
 });
 
 app.listen(port, function() {
