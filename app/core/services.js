@@ -5,7 +5,7 @@
     .module('app.core')
     .factory('esClient', ['elasticsearch', 'config', esClient])
     .factory('dataService', ['esClient', dataService])
-    .factory('searchService', ['dataService', searchService]);
+    .factory('SearchService', ['dataService', SearchService]);
 
   /* Elasticsearch Client
   * */
@@ -45,13 +45,13 @@
 
   };
 
-  /* searchService
+  /* SearchService
    *
    * Run searches, access results and search query params through this service.
    * Handles search variables, overall search state, etc.
    * Do not use dataServices directly for search.
    */
-  function searchService(dataService){
+  function SearchService(dataService){
 
     var service = {
       // Execute a search, sets search params to most recent search

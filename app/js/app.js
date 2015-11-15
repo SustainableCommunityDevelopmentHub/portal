@@ -32,9 +32,8 @@
       })
 
       .state('search.results', {
-        url: 'search',
+        url: 'search?q',
         controller: 'SearchController',
-        //templateUrl: 'partials/search.results.old.html'
         views: {
           // Main template for searchResults
           '': { templateUrl: 'search/search.results.html'
@@ -46,6 +45,10 @@
           },
           'data@searchResults': {
             templateUrl: 'search/search.data.html'
+          }
+        },
+        resolve: {
+          search: function(SearchService){
           }
         }
       })

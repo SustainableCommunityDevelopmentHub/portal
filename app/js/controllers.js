@@ -4,10 +4,10 @@
 
   angular.module('portalControllers', [])
 
-  .controller('SearchController', ['$scope', 'searchService', '$state', '$stateParams',
-  function($scope, searchService, $state, $stateParams) {
+  .controller('SearchController', ['$scope', 'SearchService', '$state', '$stateParams',
+  function($scope, SearchService, $state, $stateParams) {
     // Set search results
-    $scope.results = searchService.results;
+    $scope.results = SearchService.results;
 
 
     // Test function for whatever. Modify as needed.
@@ -15,8 +15,8 @@
       console.log('~~~~~test!');
       //console.log(JSON.stringify($scope.results.hits.hits));
       console.log('SearchService:');
-      console.log(JSON.stringify(searchService.results.hits.hits));
-      $scope.results = searchService.results;
+      console.log(JSON.stringify(SearchService.results.hits.hits));
+      $scope.results = SearchService.results;
       console.log('~~~~~~~~~~~~$scope:');
       console.log(JSON.stringify($scope.results.hits.hits));
     };
@@ -35,22 +35,23 @@
     // For when user inits search from homepage or anywhere not search.results. Executes search,then changes state to search.results.
     $scope.searchAndTransition = function(queryTerm) {
       console.log('~~~searchAndTransition! queryTerm: ' + queryTerm);
-      searchService.search({q: queryTerm})
-        .then(function(response){
-          searchService.results = response;
-        })
-        .then(function(){
-          console.log(JSON.stringify(searchService.results.hits.hits));
-          $state.go('search.results', {q: queryTerm});
-        })
-        .catch(function(err){
-          console.log(err.message);
-        });
+      $state.go('search.results', {q: queryTerm});
+      //SearchService.search({q: queryTerm})
+        //.then(function(response){
+          //SearchService.results = response;
+        //})
+        //.then(function(){
+          //console.log(JSON.stringify(SearchService.results.hits.hits));
+          //$state.go('search.results', {q: queryTerm});
+        //})
+        //.catch(function(err){
+          //console.log(err.message);
+        //});
     };
 
     // Initialize things when controller loads
     $scope.$on('$viewContentLoaded', function(){
-      $scope.results = searchResults.results;
+      //$scope.results = searchResults.results;
     });
 
 
