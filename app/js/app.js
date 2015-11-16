@@ -5,6 +5,7 @@
   angular.module('portalApp', [
     'ui.router',
     'app.core',
+    'app.debug',
     'app.search',
     'portalAnimations',
     'portalControllers',
@@ -18,27 +19,19 @@
     // Assign states to urls
     $stateProvider
       // Abstract state used to load other search states
-      .state('search', {
-        abstract: true,
+      .state('home', {
         url: '/',
-        template: '<ui-view/>',
-        controller: function(){}
-      })
-
-      // Homepage
-      .state('search.home', {
-        url: '',
         templateUrl: 'search/search.home.html',
         controller: 'HomePageCtrl'
       })
 
-      .state('search.results', {
-        url: 'search?q',
+      .state('searchResults', {
+        url: '/search?q',
         controller: 'SearchCtrl',
-        templateUrl: 'search/search.results.html',
-        resolve: {
-          // Run search and load resulting promise into controller prior to state load
-          results: function($stateParams, SearchService){
+        templateUrl: 'search/search.results.html'
+        , resolve: {
+           //Run search and load resulting promise into controller prior to state load
+          result: function($stateParams, SearchService){
             return SearchService.search({q: $stateParams.q});
           }
         }
@@ -103,4 +96,5 @@
       $locationProvider.html5Mode(true);
 
   }]);
+
 })();

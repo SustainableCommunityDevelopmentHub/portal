@@ -11,47 +11,9 @@
     // Changes state to search.results, which will trigger search operation.
     $scope.initSearch = function(queryTerm) {
       console.log('~~~initSearch! queryTerm: ' + queryTerm);
-      $state.go('search.results', {q: queryTerm});
+      $state.go('searchResults', {q: queryTerm});
     };
   }])
-
-  /****
-  .controller('SearchCtrl', ['$scope', 'SearchService', '$state',
-  function($scope, SearchService, $state, results) {
-    // Set search results
-    $scope.results = results;
-
-    // Initialize things when controller loads
-    $scope.$on('$stateChangeSuccess', function(){
-      console.log('~~~Running $stateChangeSuccess');
-      console.log('~~~Search results: ' + JSON.stringify(results));
-      ////$scope.results = search;
-    });
-
-
-    // Test function for whatever. Modify as needed.
-    $scope.test = function() {
-      console.log('~~~~~test!');
-      //console.log(JSON.stringify($scope.results.hits.hits));
-      console.log('SearchService:');
-      console.log(JSON.stringify(SearchService.results.hits.hits));
-      $scope.results = SearchService.results;
-      console.log('~~~~~~~~~~~~$scope:');
-      console.log(JSON.stringify($scope.results.hits.hits));
-    };
-
-    // Execute search query, handle returned promise from dataService
-    //$scope.search = function(queryTerm) {
-      //dataService.search(queryTerm)
-        //.then(function(response){
-          //$scope.results = response;
-        //})
-        //.catch(function(err){
-          //console.log(err.message);
-        //});
-    //};
-  }])
-   ***/
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',
     function($scope, esClient) {

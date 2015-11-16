@@ -27,6 +27,7 @@
       test: test
     };
 
+    console.log('...RETURING DataSErvice factory');
     return service;
 
     // dataService functions
@@ -36,11 +37,14 @@
 
     // Query elasticsearch
     function search(queryTerm){
-      return esClient.search({
+      console.log('...in dataService search');
+      var res = esClient.search({
         index: 'portal',
         type: 'book',
         q: queryTerm
       });
+      console.log('~~~~dataService executed, res: ' + JSON.stringify(res));
+      return res;
     };
 
   };
@@ -52,7 +56,6 @@
    * Do not use dataServices directly for search.
    */
   function SearchService(dataService){
-
     var service = {
       // Store search results and search opts
       results: null,
@@ -61,14 +64,17 @@
       // Execute a search, sets search opts to most recent search
       // Returns a promise
       search: function(opts){
+        console.log('.....in SearchService');
         // TODO: Naive implementation. Update w/promises to make sure things work successfully and handle errs.
         this.opts = opts;
-        return dataService.search(opts.q);
-        console.log('Executing search with opts: ' + JSON.stringify(opts));
+        this.results = dataService.search(opts.q);
+        console.log('Executed search with opts: ' + JSON.stringify(opts));
+        //console.log('Search result obj: ' + JSON.stringify(this.result));
+        return this.results;
       },
 
     };
-
+  
     return service;
   };
 
