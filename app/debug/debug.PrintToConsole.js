@@ -3,7 +3,7 @@
 
   angular
     .module('app.debug', [])
-    .factory('PrintToConsole', ['$rootScope', 'PrintToConsole']);
+    .factory('PrintToConsole', ['$rootScope', PrintToConsole]);
 
   /*
    * Print uirouter state changes and other data to console. Thanks to:
