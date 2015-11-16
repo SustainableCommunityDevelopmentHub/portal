@@ -5,6 +5,7 @@
   angular.module('portalApp', [
     'ui.router',
     'app.core',
+    'app.search',
     'portalAnimations',
     'portalControllers',
     'portalServices'
@@ -34,35 +35,12 @@
       .state('search.results', {
         url: 'search?q',
         controller: 'SearchCtrl',
-        views: {
-          // Main template for searchResults
-          '': {
-                templateUrl: 'search/search.results.html',
-                controller: 'SearchCtrl'
-          },
-
-          // Child views for searchResults
-          'facets@searchResults': {
-            templateUrl: 'search/search.facets.html'
-          }
-          //'data@searchResults': {
-            //templateUrl: 'search/search.data.html'
-          //}
-        },
+        templateUrl: 'search/search.results.html',
         resolve: {
+          // Run search and load resulting promise into controller prior to state load
           results: function($stateParams, SearchService){
-            console.log('.....Executing resolve on search.results');
             return SearchService.search({q: $stateParams.q});
           }
-          //search: function($stateParams, SearchService){
-            //return SearchService.search({q: $stateParams.q})
-              //.then(function(data){
-                //console.log('search.results resolver~~~');
-                //console.log('SearchService.opts: ' + JSON.stringify(SearchService.opts));
-                ////console.log(JSON.stringify(data));
-
-              //});
-          //}
         }
       })
 

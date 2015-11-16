@@ -15,16 +15,17 @@
     };
   }])
 
+  /****
   .controller('SearchCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
     // Set search results
-    $scope.results = results.hits.hits;
+    $scope.results = results;
 
     // Initialize things when controller loads
-    $scope.$on('$viewContentLoaded', function(){
-      console.log('~~~Running viewContentLoaded');
-      console.log('~~~Search results: ' + JSON.stringify(results.hits.hits));
-      //$scope.results = search;
+    $scope.$on('$stateChangeSuccess', function(){
+      console.log('~~~Running $stateChangeSuccess');
+      console.log('~~~Search results: ' + JSON.stringify(results));
+      ////$scope.results = search;
     });
 
 
@@ -50,6 +51,7 @@
         //});
     //};
   }])
+   ***/
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',
     function($scope, esClient) {
