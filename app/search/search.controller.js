@@ -6,16 +6,14 @@
     .controller('SearchCtrl', ['$scope', 'SearchService', SearchCtrl]);
 
     function SearchCtrl($scope, SearchService, result){
-      // Set search results
-      //$scope.results = results;
 
-      // Initialize things when controller loads
+      // Initialize search results, etc, once state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log("$stateChangeSuccess --- event, toState, toParams, fromState, fromParams");
         console.log(arguments);
-        //console.log('~~~Running $stateChangeSuccess');
-        //console.log('~~~Search results: ' + JSON.stringify(SearchService.results));
+        console.log('............REsolved Results: ' + JSON.stringify(result));
+        $scope.queryTerm = SearchService.opts.q;
         SearchService.results
           .then(function(results){
             // Parse result data to only return relevant information on books

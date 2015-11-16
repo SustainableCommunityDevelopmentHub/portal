@@ -28,8 +28,8 @@
       .state('searchResults', {
         url: '/search?q',
         controller: 'SearchCtrl',
-        templateUrl: 'search/search.results.html'
-        , resolve: {
+        templateUrl: 'search/search.results.html',
+        resolve: {
            //Run search and load resulting promise into controller prior to state load
           result: function($stateParams, SearchService){
             return SearchService.search({q: $stateParams.q});
