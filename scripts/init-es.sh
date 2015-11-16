@@ -9,4 +9,4 @@ echo "Creating portal index..."
 curl -XPUT http://localhost:9200/portal
 sleep 2
 echo "Uploading sample data..."
-curl -s -XPOST http://localhost:9200/_bulk --data-binary @mocks/frick_batch
+curl -s -XPOST http://localhost:9200/_bulk --data-binary @mocks/gri_batch
