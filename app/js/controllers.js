@@ -4,10 +4,28 @@
 
   angular.module('portalControllers', [])
 
-  .controller('SearchController', ['$scope', 'SearchService', '$state', '$stateParams',
-  function($scope, SearchService, $state, $stateParams) {
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
+  function($scope, SearchService, $state, results) {
+
+    // For when user inits search from any state besides search.results.
+    // Changes state to search.results, which will trigger search operation.
+    $scope.initSearch = function(queryTerm) {
+      console.log('~~~initSearch! queryTerm: ' + queryTerm);
+      $state.go('search.results', {q: queryTerm});
+    };
+  }])
+
+  .controller('SearchCtrl', ['$scope', 'SearchService', '$state',
+  function($scope, SearchService, $state, results) {
     // Set search results
-    $scope.results = SearchService.results;
+    $scope.results = results.hits.hits;
+
+    // Initialize things when controller loads
+    $scope.$on('$viewContentLoaded', function(){
+      console.log('~~~Running viewContentLoaded');
+      console.log('~~~Search results: ' + JSON.stringify(results.hits.hits));
+      //$scope.results = search;
+    });
 
 
     // Test function for whatever. Modify as needed.
@@ -31,30 +49,6 @@
           //console.log(err.message);
         //});
     //};
-
-    // For when user inits search from homepage or anywhere not search.results. Executes search,then changes state to search.results.
-    $scope.searchAndTransition = function(queryTerm) {
-      console.log('~~~searchAndTransition! queryTerm: ' + queryTerm);
-      $state.go('search.results', {q: queryTerm});
-      //SearchService.search({q: queryTerm})
-        //.then(function(response){
-          //SearchService.results = response;
-        //})
-        //.then(function(){
-          //console.log(JSON.stringify(SearchService.results.hits.hits));
-          //$state.go('search.results', {q: queryTerm});
-        //})
-        //.catch(function(err){
-          //console.log(err.message);
-        //});
-    };
-
-    // Initialize things when controller loads
-    $scope.$on('$viewContentLoaded', function(){
-      //$scope.results = searchResults.results;
-    });
-
-
   }])
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',

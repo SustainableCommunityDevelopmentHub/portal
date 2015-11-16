@@ -47,24 +47,26 @@
 
   /* SearchService
    *
-   * Run searches, access results and search query params through this service.
+   * Run searches, access results and search query opts through this service.
    * Handles search variables, overall search state, etc.
    * Do not use dataServices directly for search.
    */
   function SearchService(dataService){
 
     var service = {
-      // Execute a search, sets search params to most recent search
+      // Store search results and search opts
+      results: null,
+      opts: null,
+
+      // Execute a search, sets search opts to most recent search
       // Returns a promise
       search: function(opts){
-        // TODO: Naive implementation. Update w/promises to make sure things work successfully
-        this.params = opts;
+        // TODO: Naive implementation. Update w/promises to make sure things work successfully and handle errs.
+        this.opts = opts;
         return dataService.search(opts.q);
+        console.log('Executing search with opts: ' + JSON.stringify(opts));
       },
 
-      // Store search results and search params
-      results: null,
-      params: null,
     };
 
     return service;

@@ -29,7 +29,19 @@
       </ul>
     </div>
 
-    <!--Search Results Data-->
     <hr class="results-list-hr">
-    <div ui-view="data@searchResults"></div>
+    <!--Search Results Data-->
+    <h1>FOOBAR!!!!</h1>
+    <ul class="books">
+      <li ng-repeat="book in results" class="book-listing">
+        <a ui-sref=""><i class="glyphicon-bookmark glyphicon"></i></a>
+        <b><h4 class="title">Title:</h4> </b>
+        <a ui-sref="books({bookID: book._id})">{{book._source.title[0].value}}</a><br/>
+        <b>Author: </b>{{book._source.creator[0].value}}<br/>
+        <b>Date: </b>{{book._source.date[0].value}}<br/>
+        <b>Contributor: </b>{{book._source.contributor[0].value}}<br/>
+        <a ui-sref="books({bookID: book._id})">See Full Record</a><br/>
+      </li>
+    </ul>
+    <!--<div ui-view="data@searchResults"></div>-->
   </div>
