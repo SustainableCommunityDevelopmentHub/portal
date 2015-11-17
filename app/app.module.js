@@ -8,7 +8,7 @@
     'app.widgets',
     'app.debug',
     'app.search',
-    'portalControllers'
+    'app.controller'
   ])
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){

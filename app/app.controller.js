@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  angular.module('portalControllers', [])
+  angular.module('app.controller', [])
 
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
