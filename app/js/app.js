@@ -98,7 +98,7 @@
         controller: 'FaqsCtrl'
       });
 
-      // For pretty URLs w/out '#'. Note: <base> tag required with html5Mode
+      // For nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
       $locationProvider.html5Mode(true);
 
   }]);
