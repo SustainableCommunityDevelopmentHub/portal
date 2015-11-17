@@ -16,34 +16,6 @@
     });
   }])
 
-  .factory('dataService', ['esClient', function(esClient) {
-
-    // Expose dataService functions on return object
-    var dataService = {
-      search: search,
-      test: test
-    };
-
-    return dataService;
-
-
-    // dataService functions
-    function test(){
-      console.log('....dataService is here!');
-    };
-
-    // Query elasticsearch
-    function search(queryTerm){
-      return esClient.search({
-        index: 'portal',
-        type: 'book',
-        q: queryTerm
-      });
-    };
-
-  }])
-  /**/
-
   .service('anchorSmoothScroll', function(){
 
       this.scrollTo = function(eID) {

@@ -43,7 +43,6 @@
         type: 'book',
         q: queryTerm
       });
-      console.log('~~~~dataService executed, res: ' + JSON.stringify(res));
       return res;
     };
 
@@ -57,24 +56,22 @@
    */
   function SearchService(dataService){
     var service = {
-      // Store search results and search opts
       results: null,
       opts: null,
 
-      // Execute a search, sets search opts to most recent search
-      // Returns a promise
+      // Execute search, sets opts, results. Returns a promise.
       search: function(opts){
         console.log('.....in SearchService');
-        // TODO: Naive implementation. Update w/promises to make sure things work successfully and handle errs.
+        // TODO: Naive implementation.
+        // Update w/promises to make sure things work successfully and handle errs.
         this.opts = opts;
         this.results = dataService.search(opts.q);
         console.log('Executed search with opts: ' + JSON.stringify(opts));
-        //console.log('Search result obj: ' + JSON.stringify(this.result));
         return this.results;
       },
 
     };
-  
+
     return service;
   };
 
