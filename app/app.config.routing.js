@@ -28,25 +28,6 @@
           }
         })
 
-        .state('ProtosearchResults', {
-          url: '/protosearch',
-          controller: 'SearchCtrl',
-          //templateUrl: 'partials/search.results.old.html'
-          views: {
-            // Main template for searchResults
-            '': { templateUrl: 'search/search.results.html'
-            },
-
-            // Child views for searchResults
-            'facets@searchResults': {
-              templateUrl: 'search/search.facets.html'
-            },
-            'data@searchResults': {
-              templateUrl: 'search/search.data.html'
-            }
-          }
-        })
-
         .state('books', {
           url: '/books/:bookID',
           templateUrl: 'partials/book-detail.html',
@@ -87,5 +68,4 @@
         $locationProvider.html5Mode(true);
 
     }]);
-
 })();
