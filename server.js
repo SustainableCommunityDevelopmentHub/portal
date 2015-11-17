@@ -1,13 +1,14 @@
 /*jshint node:true*/
 'use strict';
 
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-//var cors = require('cors');
-var port = 8000;
+var express = require('express'),
+    app = express(),
+    bodyParser = require('body-parser'),
+    path = require('path');
 
-var environment = process.env.NODE_ENV;
+var port = 8000,
+    rootDir = path.join(__dirname, '/app/'),
+    environment = process.env.NODE_ENV;
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -23,9 +24,22 @@ app.get('/ping', function(req, res, next) {
 });
 
 console.log('** DEV **');
-console.log('serving from ' + './app/ and ./');
-app.use('/', express.static('./app/'));
-app.use('/', express.static('./'));
+console.log('serving from ' + rootDir);
+
+app.use('/', express.static(rootDir));
+
+app.all('/*', function(req, res, next) {
+  console.log('...Sending index.html in response to request: ');
+  console.log(req.headers);
+  console.log('URL: ' + req.url);
+  console.log('PARAMS: ');
+  console.log(req.params);
+  console.log('QUERY STRING: ');
+  console.log(req.query);
+  console.log('Original URL: ' + req.originalUrl + ' Base URL: ' + req.baseUrl);
+    // Just send the index.html in response to all requests, to support HTML5Mode
+  res.sendFile('index.html', { root: rootDir });
+});
 
 app.listen(port, function() {
     console.log('Express server listening on port ' + port);

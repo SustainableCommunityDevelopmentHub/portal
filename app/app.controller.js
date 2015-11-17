@@ -2,23 +2,17 @@
 (function() {
   'use strict';
 
-  angular.module('portalControllers', [])
+  angular.module('app.controller', [])
 
-  .controller('SearchCtrl', ['$scope', 'dataService',
-  function($scope, dataService) {
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
+  function($scope, SearchService, $state, results) {
 
-    // Execute search query, handle returned promise from dataService
-    $scope.search = function() {
-      dataService.search($scope.queryTerm)
-        .then(function(response){
-          // $scope.results effects css hide/shows
-          $scope.results = response;
-        })
-        .catch(function(err){
-          console.log(err.message);
-        });
+    // For when user inits search from any state besides search.results.
+    // Changes state to search.results, which will trigger search operation.
+    $scope.initSearch = function(queryTerm) {
+      console.log('~~~initSearch! queryTerm: ' + queryTerm);
+      $state.go('searchResults', {q: queryTerm});
     };
-
   }])
 
   .controller('AdvancedCtrl', ['$scope', 'esClient',
@@ -65,12 +59,12 @@
       $scope.myField = $scope.fields[0];
     }])
 
-  .controller('BookDetailCtrl', ['$scope', '$routeParams', 'esClient',
-    function($scope, $routeParams, esClient) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient',
+    function($scope, $stateParams, esClient) {
       esClient.get({
         index: 'portal',
         type: 'book',
-        id: $routeParams.bookID}, function(error, response) {
+        id: $stateParams.bookID}, function(error, response) {
           if(error) {
             console.log(error);
           } else {

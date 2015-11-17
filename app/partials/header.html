@@ -1,11 +1,11 @@
 <div class="header">
   <a href="http://www.getty.edu/"><img src="assets/images/getty_logo.gif" alt="Getty Logo" class="getty-logo"></a>
-  <div class="gri-logo"><a href="/app/#/search"><img src="assets/images/GRI-Portal-logo-02.png" alt="GRI Portal Logo" class="gri-portal-logo"></a></div>
+  <div class="gri-logo"><a ui-sref="home"><img src="assets/images/GRI-Portal-logo-02.png" alt="GRI Portal Logo" class="gri-portal-logo"></a></div>
 </div>
 <div class="main-nav">
   <ul>
-    <li><a class="nav-link" href="/app/#/search">Portal Home&nbsp;&nbsp;&nbsp;</a>|&nbsp;&nbsp;&nbsp;</li>
-    <li><a class="nav-link" href="/app/#/savedrecords">Saved Records</a>&nbsp;&nbsp;&nbsp;|</li>
+    <li><a class="nav-link" ui-sref="home">Portal Home&nbsp;&nbsp;&nbsp;</a>|&nbsp;&nbsp;&nbsp;</li>
+    <li><a class="nav-link" ui-sref="savedrecords">Saved Records</a>&nbsp;&nbsp;&nbsp;|</li>
     <li>&nbsp;&nbsp;&nbsp;
     <!-- Simple dropdown -->
      <accordion >
@@ -15,9 +15,9 @@
             </div>
                 <div class="help_accordion__tab-content" ng-show="isOpenTab('tab one')">
                 	<ul>
-                		<li><a href="/app/#/searchhelp">Search Help</a></li>
-                		<li><a href="/app/#/faqs">FAQs</a></li>
-                		<li><a href="/app/#/feedback">Feedback</a></li>
+                		<li><a ui-sref="help">Search Help</a></li>
+                		<li><a ui-sref="faq">FAQ</a></li>
+                		<li><a ui-sref="feedback">Feedback</a></li>
                  	</ul>
                 </div>
       </div>

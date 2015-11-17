@@ -24,7 +24,7 @@ If ES is already intialized, you can just run `npm start`, which will also launc
 
 4. The application should now be running on port 8000. You can now edit code in the project file *on your host machine* with your editor of choice.
 
-In your host, open your browser to (http://192.168.99.100:8000/app). Doublecheck that this is the correct IP address of your docker machine. You can do this by typing (in your host) `docker-machine ip <my-docker-machine-name>`. The default docker machine is named 'default', and the default IP address is as above.
+In your host, open your browser to (http://local.portal.dev:8000), or, if you have not updated your `etc/hosts` file, (http://192.168.99.100:8000). Doublecheck that this is the correct IP address of your docker machine. You can do this by typing (in your host) `docker-machine ip <my-docker-machine-name>`. The default docker machine is named 'default', and the default IP address is as above.
 
 
 Enter a search for "history" and click the Search button (click twice)

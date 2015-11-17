@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en" ng-app="portalApp">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Getty Research Portal</title>
+    <base href="/">
 
     <link rel="shortcut icon" href="assets/images/getty-favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -13,21 +14,41 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/elasticsearch/elasticsearch.angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 
-    <script src="js/app.js"></script>
-    <script src="js/app.config.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/services.js"></script>
+    <!--Main app-->
+    <script src="app.module.js"></script>
+    <script src="app.config.routing.js"></script>
+
+    <!--Core: dataService, constants, etc -->
+    <script src="core/core.module.js"></script>
+    <script src="core/constants.js"></script>
+    <script src="core/services.js"></script>
+
+    <!--Widgets: Animation, etc-->
+    <script src="widgets/widgets.module.js"></script>
+    <script src="widgets/scroll.js"></script>
+    <script src="widgets/animations.js"></script>
+
+    <!--Search-->
+    <script src="search/search.module.js"></script>
+    <script src="search/search.controller.js"></script>
+
+    <script src="app.controller.js"></script>
   </head>
+
   <body>
-
-    <div class="view-container">
-      <div ng-view class="view-frame"></div>
+    <div ng-app="app">
+      <header>
+        <div class="container-fluid" id="container-test">
+          <div data-ng-include="'partials/header.html'"></div>
+        </div>
+      </header>
+      <div ui-view></div>
+      <footer>
+        <div data-ng-include="'partials/footer.html'"></div>
+      </footer>
     </div>
-
   </body>
 </html>
