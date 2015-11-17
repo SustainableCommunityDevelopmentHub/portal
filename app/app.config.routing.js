@@ -58,8 +58,8 @@
           controller: 'SearchHelpCtrl'
         })
 
-        .state('faqs', {
-          url: '/faqs',
+        .state('faq', {
+          url: '/faq',
           templateUrl: 'partials/faqs.html',
           controller: 'FaqsCtrl'
         });
