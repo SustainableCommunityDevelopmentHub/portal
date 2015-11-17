@@ -87,7 +87,7 @@
     <!--Search Results Data-->
     <ul class="books" ng-controller="SearchCtrl">
       <li ng-repeat="book in results" class="book-listing">
-        <a ui-sref=""><i class="glyphicon-bookmark glyphicon"></i></a>
+        <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <b><h4 class="title">Title:</h4> </b>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>
