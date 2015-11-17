@@ -8,7 +8,6 @@
     'app.widgets',
     'app.debug',
     'app.search',
-    'portalAnimations',
     'portalControllers'
   ])
 

@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('portalAnimations', ['ngAnimate'])
+  angular.module('app.widgets', ['ngAnimate'])
 
   .animation('.book', function() {
 
