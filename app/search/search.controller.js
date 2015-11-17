@@ -3,57 +3,42 @@
 
   angular
     .module('app.search')
+    .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
     function SearchCtrl($scope, $state, SearchService, result){
 
-      // Initialize search results, etc, once state loads
-      $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-        console.log("$stateChangeSuccess --- event, toState, toParams, fromState, fromParams");
-        console.log(arguments);
-        console.log('............REsolved Results: ' + JSON.stringify(result));
-        $scope.queryTerm = SearchService.opts.q;
-        SearchService.results
-          .then(function(results){
-            // Parse result data to only return relevant information on books
-            $scope.results = results.hits.hits.map(function(data){
-              console.log('~~~~~~~~~~~~~~~~RESULT~~~~~~~~~~~~~~~~~~');
-              console.log(JSON.stringify(data));
+      // Transition to new search state to trigger search
+      $scope.initSearch = function(queryTerm) {
+        console.log('~~~initSearch! queryTerm: ' + queryTerm);
+        $state.go('searchResults', {q: queryTerm});
+      };
+
+      // Parse search result data to simplify object structure
+      $scope.parseResults = function(results){
+        return results.hits.hits.map(function(data){
               var book = data._source;
               // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
               book._id = data._id;
               return book;
-            });
-          });
-      });
-
-      $scope.initSearch = function(queryTerm) {
-        $state.go('searchResults', {q: queryTerm});
+        });
       };
 
       $scope.search = function(opts){
         SearchService.search(opts)
           .then(function(results){
-            // Parse result data to only return relevant information on books
-            $scope.results = results.hits.hits.map(function(data){
-              var book = data._source;
-              // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
-              book._id = data._id;
-              return book;
-            });
+            $scope.results = $scope.parseResults(results);
           });
       };
 
-      // Test function for whatever. Modify as needed.
-      $scope.test = function() {
-        console.log('~~~~~test!');
-        //console.log(JSON.stringify($scope.results.hits.hits));
-        console.log('SearchService:');
-        console.log(JSON.stringify(SearchService.results.hits.hits));
-        $scope.results = SearchService.results;
-        console.log('~~~~~~~~~~~~$scope:');
-        console.log(JSON.stringify($scope.results.hits.hits));
-      };
+      // Initialize search results, etc, once state loads
+      $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $scope.queryTerm = SearchService.opts.q;
+        SearchService.results
+          .then(function(results){
+            $scope.results = $scope.parseResults(results);
+          });
+      });
+
     };
 
 })();
