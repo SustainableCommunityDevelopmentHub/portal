@@ -12,6 +12,12 @@
     'portalServices'
   ])
 
+  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
+    // Convience to access $state, $stateParams from any scope w/out injection
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+  }])
+
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
     // Redirect to home by default
     $urlRouterProvider.otherwise('/');
