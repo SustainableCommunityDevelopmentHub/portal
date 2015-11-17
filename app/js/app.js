@@ -2,14 +2,14 @@
 (function() {
   'use strict';
 
-  angular.module('portalApp', [
+  angular.module('app', [
     'ui.router',
     'app.core',
+    'app.widgets',
     'app.debug',
     'app.search',
     'portalAnimations',
-    'portalControllers',
-    'portalServices'
+    'portalControllers'
   ])
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){

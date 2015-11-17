@@ -29,11 +29,14 @@
     <script src="core/constants.js"></script>
     <script src="core/services.js"></script>
 
+    <!--Widgets: Animation, etc-->
+    <script src="widgets/widgets.module.js"></script>
+    <script src="widgets/scroll.js"></script>
+
     <!--Search-->
     <script src="search/search.module.js"></script>
     <script src="search/search.controller.js"></script>
 
-    <script src="js/services.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/controllers.js"></script>
 
@@ -43,7 +46,7 @@
   </head>
 
   <body>
-    <div ng-app="portalApp">
+    <div ng-app="app">
       <header>
         <div class="container-fluid" id="container-test">
           <div data-ng-include="'partials/header.html'"></div>

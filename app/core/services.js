@@ -3,7 +3,7 @@
 
   angular
     .module('app.core')
-    .factory('esClient', ['elasticsearch', 'config', esClient])
+    .factory('esClient', ['esFactory', 'config', esClient])
     .factory('dataService', ['esClient', dataService])
     .factory('SearchService', ['dataService', SearchService]);
 
@@ -43,6 +43,7 @@
         type: 'book',
         q: queryTerm
       });
+      console.log('~~~~dataService executed, promise res: ' + JSON.stringify(res));
       return res;
     };
 
@@ -67,6 +68,7 @@
         this.opts = opts;
         this.results = dataService.search(opts.q);
         console.log('Executed search with opts: ' + JSON.stringify(opts));
+        console.log('......................Search result promise obj: ' + JSON.stringify(this.results));
         return this.results;
       },
 

@@ -2,7 +2,7 @@
   'use strict';
 
   // For debugging
-  angular.module('portalApp', ['app.debug'])
+  angular.module('app', ['app.debug'])
   .run(['PrintToConsole', function(PrintToConsole) {
     PrintToConsole.active = true;
   }]);
