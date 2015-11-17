@@ -6,7 +6,6 @@
     'ui.router',
     'app.core',
     'app.widgets',
-    'app.debug',
     'app.search',
     'app.controller'
   ])
