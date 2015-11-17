@@ -6,10 +6,8 @@
     .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
     function SearchCtrl($scope, $state, SearchService, result){
-
-      // Transition to new search state to trigger search
+      // Transition to search result state to trigger search
       $scope.initSearch = function(queryTerm) {
-        console.log('~~~initSearch! queryTerm: ' + queryTerm);
         $state.go('searchResults', {q: queryTerm});
       };
 
@@ -23,10 +21,14 @@
         });
       };
 
+      // Execute search and handle promise
       $scope.search = function(opts){
         SearchService.search(opts)
           .then(function(results){
             $scope.results = $scope.parseResults(results);
+          })
+          .catch(function(err){
+            console.log('Err - search.controller.js - SearchCtrl - search(): ' + e);
           });
       };
 
@@ -36,6 +38,9 @@
         SearchService.results
           .then(function(results){
             $scope.results = $scope.parseResults(results);
+          })
+          .catch(function(err){
+            console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
           });
       });
 
