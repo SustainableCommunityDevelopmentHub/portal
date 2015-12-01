@@ -42,7 +42,7 @@
 
         .state('contributors', {
           url: '/contributors',
-          templateUrl: 'partials/contributors.html',
+          templateUrl: 'contributors/contributors.html',
           controller: 'ContributorsCtrl'
         })
 

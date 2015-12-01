@@ -3,9 +3,9 @@
 
   angular
     .module('app.search')
-    .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
+    .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'dataService', SearchCtrl]);
 
-    function SearchCtrl($scope, $state, SearchService, result){
+    function SearchCtrl($scope, $state, SearchService, dataService, result){
       // Transition to search result state to trigger search
       $scope.initSearch = function(queryTerm) {
         $state.go('searchResults', {q: queryTerm});
@@ -43,6 +43,9 @@
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
           });
       });
+
+      // Bind data for stats (Recent Contributors, etc)
+      $scope.recentContributors = dataService.getContributors().slice(0, 3);
 
     };
 

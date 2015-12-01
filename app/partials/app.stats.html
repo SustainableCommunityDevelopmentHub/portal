@@ -5,7 +5,11 @@
     <li><hr class="tlc-hr"><h4>LAST UPDATED</h4>
       <p>April 1, 2015<br>1,243 Records Added</dd><p><a class="tlc-orange" ui-sref="newrecords">SEE NEW RECORDS</a></p></p>
       <li><hr class="tlc-hr"><h4>RECENT CONTRIBUTORS</h4>
-        <p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative
-        <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p><p><a class="tlc-orange" ui-sref="contributors">SEE ALL CONTRIBUTORS</a></p></li>
+        <ul>
+          <li ng-repeat="contributor in recentContributors">{{contributor.name}}</li>
+        <!--<p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative-->
+        <!--<br>Getty Publications Virtual Library<br>Smithsonian Libraries</p>-->
+        </ul>
+        <p><a class="tlc-orange" ui-sref="contributors">SEE ALL CONTRIBUTORS</a></p></li>
   </ul>
 </div>

@@ -7,7 +7,8 @@
     'app.core',
     'app.widgets',
     'app.search',
-    'app.controller'
+    'app.controller',
+    'app.contributors'
   ])
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
