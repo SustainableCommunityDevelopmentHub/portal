@@ -74,13 +74,14 @@
         <li><a ui-sref="#">Subject</a></li>
         <li><a ui-sref="#">Author</a></li>
       </ul>
-      <span class="showing">Showing 10 of {{totalHits}} items</span>
+      <span class="showing">Showing {{pagination.pageSize}} of {{totalHits}} items</span>
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
         <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a ui-sref="#">25</a></li>
-        <li><a ui-sref="#">50</a></li>
-        <li><a ui-sref="#">100</a></li>
+      <ul class="dropdown-menu" >
+          <li><a ui-sref="#">10</a></li>
+          <li><a ui-sref="#">25</a></li>
+          <li><a ui-sref="#">50</a></li>
+          <li><a ui-sref="#">100</a></li>
       </ul>
     </div>
 

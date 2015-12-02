@@ -6,12 +6,13 @@
     .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'dataService', SearchCtrl]);
 
     function SearchCtrl($scope, $state, SearchService, dataService, result){
-      // Transition to search result state to trigger search
+
+      // transition to search result state to trigger search
       $scope.initSearch = function(queryTerm) {
         $state.go('searchResults', {q: queryTerm});
       };
 
-      // Parse search result data to simplify object structure
+      // parse search result data to simplify object structure
       $scope.parseResults = function(hits){
         return hits.map(function(data){
               var book = data._source;
@@ -21,7 +22,7 @@
         });
       };
 
-      // Execute search and handle promise
+      // execute search and handle promise
       $scope.search = function(opts){
         SearchService.search(opts)
           .then(function(results){
@@ -34,10 +35,23 @@
           });
       };
 
+      // results pagination
+      $scope.pagination = {
+        current: 1,
+        pageSizeOptions: [10,25,50,100],
+        // set default pageSize here
+        pageSize: 25
+      };
+
+      $scope.updatePageSize = function(newPageSize){
+        $scope.pagination.pageSize = newPageSize;
+      }
+
+
       //TODO: Change this to use a $watch / $on, or to watch SearchService for a new search on a URL change instead of or in addition to $stateChangeSuccess.
       //That way, we can get rid of $scope.search as our watcher will execute code below on each  new search whether it involved a state change or not.
 
-      // Initialize search results, etc, once state loads
+      // initialize search results, etc, once state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.queryTerm = SearchService.opts.q;
         SearchService.response
@@ -49,9 +63,7 @@
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
           });
-
       });
-
 
     };
 
