@@ -128,9 +128,9 @@ body {
   width: 80%;
 }
 
-.ng-binding {
-  width: 300px;
-}
+/*.ng-binding {*/
+  /*width: 300px;*/
+/*}*/
 
 
 .search-bar {
@@ -236,8 +236,8 @@ body {
 /** Search results **/
 
 .search-bar-results {
-  width: 100%; 
-  display: inline-block; 
+  width: 100%;
+  display: inline-block;
 }
 
 .sr-top {
@@ -266,7 +266,7 @@ body {
   width: 20%;
   float: left;
   margin-right: 20px;
-  display: inline;  
+  display: inline;
 }
 
 .book-images {
@@ -281,7 +281,7 @@ body {
 .books {
   list-style: none;
   color: black;
-  margin-top: 30px; 
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 0px;
@@ -328,14 +328,14 @@ body {
 .left_sidebar_accordion__tab-title .glyphicon {
     padding: 3px 3px 3px 3px;
     margin-right: 10px;
- 
+
     color: white;
     background: #909090;
- 
+
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
- 
+
     -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
     -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
     box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
@@ -501,7 +501,7 @@ h1 {
 }
 
 .tlc-hr {
-  height: 3px; 
+  height: 3px;
   background: orange;
   width: 90%;
 }
@@ -524,7 +524,7 @@ h1 {
 }
 
 .footer-hr {
-  height: 3px; 
+  height: 3px;
   background: black;
 }
 
@@ -562,7 +562,7 @@ h1 {
 }
 
 .footer-logo {
-  display: inline-block;  
+  display: inline-block;
   color: black;
 }
 
@@ -677,14 +677,14 @@ h1 {
 .accordion__tab-title .glyphicon {
     padding: 3px 3px 3px 3px;
     margin-right: 10px;
- 
+
     color: white;
     background: #909090;
- 
+
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
- 
+
     -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
     -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
     box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
@@ -841,7 +841,7 @@ h1 {
     padding: 20px 0 0 20px;
     background-color: #3a3a3a;
     display: block;
-    width: 140px;    
+    width: 140px;
   }
 
   .help_accordion__tab-content li{
@@ -854,7 +854,7 @@ h1 {
 }
 
 @media (max-width: 900px){
-  
+
   .header .getty-logo{
     display: none;
   }
@@ -868,7 +868,7 @@ h1 {
   }
 
   .search-bar-results {
-    width: 100%;  
+    width: 100%;
   }
 
   .adv {
@@ -877,7 +877,7 @@ h1 {
   }
 
   .footer ul {
-    margin-top: 5px;    
+    margin-top: 5px;
   }
 
   .footer-logo {

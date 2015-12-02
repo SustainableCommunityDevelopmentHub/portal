@@ -6,6 +6,7 @@
     'ui.router',
     'app.core',
     'app.widgets',
+    'angularUtils.directives.dirPagination',
     'app.search',
     'app.controller',
     'app.contributors'

@@ -42,10 +42,9 @@
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
           });
+
       });
 
-      // Bind data for stats (Recent Contributors, etc)
-      $scope.recentContributors = dataService.getContributors().slice(0, 3);
 
     };
 
