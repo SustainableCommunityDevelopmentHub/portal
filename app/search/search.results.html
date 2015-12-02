@@ -87,7 +87,8 @@
     <hr class="results-list-hr">
     <!--Search Results Data-->
     <ul class="books" ng-controller="SearchCtrl">
-      <li ng-repeat="book in results" class="book-listing">
+      <!--<li ng-repeat="book in results" class="book-listing">-->
+      <li dir-paginate="book in results | itemsPerPage: 10" total-items="200" class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <b><h4 class="title">Title:</h4> </b>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
@@ -98,6 +99,9 @@
         <hr class="results-list-hr"><br>
       </li>
     </ul>
+    <div class="results-pagination">
+      <dir-pagination-controls boundary-links="true" max-size="5"></dir-pagination-controls>
+    </div>
     <!--<div ui-view="data@searchResults"></div>-->
   </div>
 </div>

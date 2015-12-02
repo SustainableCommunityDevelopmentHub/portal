@@ -25,7 +25,10 @@
     <!--Core: dataService, constants, etc -->
     <script src="core/core.module.js"></script>
     <script src="core/constants.js"></script>
-    <script src="core/services.js"></script>
+    <!--Must include in order of dependence: esClient, dataService, searchService-->
+    <script src="core/esClient.js"></script>
+    <script src="core/dataService.js"></script>
+    <script src="core/searchService.js"></script>
 
     <!--Widgets: Animation, etc-->
     <script src="widgets/widgets.module.js"></script>
