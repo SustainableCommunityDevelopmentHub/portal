@@ -7,27 +7,42 @@
 
   /* SearchService
    *
-   * Run searches, access results and search query opts through this service.
+   * Run searches, access the response object (a promise), search result data and search query opts through this service.
    * Handles search variables, overall search state, etc.
    * Do not use dataServices directly for search.
    */
   function SearchService(dataService){
     var service = {
-      results: null,
-      opts: null,
+      // Variables
+      response: null,
+      hits: null,
+      totalHits: null,
+      opts: {
+        q: null
+      },
 
-      // Execute search, sets opts, results. Returns a promise.
+      //Functions
+
+      // Execute search, sets opts, response. Returns a promise.
       search: function(opts){
         console.log('.....in SearchService');
+
         // TODO: Naive implementation.
         // Update w/promises to make sure things work successfully and handle errs.
         this.opts = opts;
-        this.results = dataService.search(opts.q);
+        this.response = dataService.search(opts.q);
+
         console.log('Executed search with opts: ' + JSON.stringify(opts));
-        console.log('......................Search result promise obj: ' + JSON.stringify(this.results));
-        return this.results;
+        console.log('......................Search result promise obj: ' + JSON.stringify(this.response));
+
+        return this.response;
       },
 
+      // Set SearchService results values once response promise is resolved
+      setResultsData: function(results){
+        this.hits = results.hits.hits;
+        this.totalHits = results.hits.total;
+      }
     };
 
     return service;

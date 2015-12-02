@@ -12,8 +12,8 @@
       };
 
       // Parse search result data to simplify object structure
-      $scope.parseResults = function(results){
-        return results.hits.hits.map(function(data){
+      $scope.parseResults = function(hits){
+        return hits.map(function(data){
               var book = data._source;
               // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
               book._id = data._id;
@@ -25,19 +25,26 @@
       $scope.search = function(opts){
         SearchService.search(opts)
           .then(function(results){
-            $scope.results = $scope.parseResults(results);
+            SearchService.setResultsData(results);
+            $scope.results = $scope.parseResults(SearchService.hits);
+            $scope.totalHits = SearchService.totalHits;
           })
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - search(): ' + e);
           });
       };
 
+      //TODO: Change this to use a $watch / $on, or to watch SearchService for a new search on a URL change instead of or in addition to $stateChangeSuccess.
+      //That way, we can get rid of $scope.search as our watcher will execute code below on each  new search whether it involved a state change or not.
+
       // Initialize search results, etc, once state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.queryTerm = SearchService.opts.q;
-        SearchService.results
+        SearchService.response
           .then(function(results){
-            $scope.results = $scope.parseResults(results);
+            SearchService.setResultsData(results);
+            $scope.results = $scope.parseResults(SearchService.hits);
+            $scope.totalHits = SearchService.totalHits;
           })
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);

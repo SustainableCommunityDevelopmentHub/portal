@@ -74,7 +74,7 @@
         <li><a ui-sref="#">Subject</a></li>
         <li><a ui-sref="#">Author</a></li>
       </ul>
-      <span class="showing">Showing 10 of 10 items</span>
+      <span class="showing">Showing 10 of {{totalHits}} items</span>
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="main-search-dropdown">Show: 25
         <span class="caret"></span></button>
       <ul class="dropdown-menu">
@@ -88,7 +88,7 @@
     <!--Search Results Data-->
     <ul class="books" ng-controller="SearchCtrl">
       <!--<li ng-repeat="book in results" class="book-listing">-->
-      <li dir-paginate="book in results | itemsPerPage: 10" total-items="200" class="book-listing">
+      <li dir-paginate="book in results | itemsPerPage: 10" total-items="{{totalHits}}" class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <b><h4 class="title">Title:</h4> </b>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
