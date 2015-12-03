@@ -13,7 +13,8 @@
     "angular-resource": "1.4.x",
     "angular-animate": "1.4.x",
     "elasticsearch": "8.2.x",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "angular-bootstrap": "~0.14.3"
   },
   "resolutions": {
     "angular": "1.4.x"
