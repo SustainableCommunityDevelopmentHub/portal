@@ -4,6 +4,7 @@
 
   angular.module('app', [
     'ui.router',
+    'ui.bootstrap',
     'app.core',
     'app.widgets',
     'angularUtils.directives.dirPagination',
