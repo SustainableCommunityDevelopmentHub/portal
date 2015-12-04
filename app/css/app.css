@@ -379,7 +379,7 @@ body {
   color: #C5C5C5;
 }
 
-#main-search-dropdown {
+.search-dropdown {
   color: black;
   background-color: white;
   border: solid black 1px;

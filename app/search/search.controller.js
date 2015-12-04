@@ -37,13 +37,17 @@
 
       // results pagination
       $scope.pagination = {
-        current: 1,
+        curPage: 1,
         pageSizeOptions: [10,25,50,100],
         // set default pageSize here
         pageSize: 25
       };
 
-      $scope.updatePageSize = function(newPageSize){
+      $scope.setPageSize = function(newPageSize){
+        // execute search with updated pageSize
+        if(newPageSize > $scope.pagination.pageSize){
+        }
+
         $scope.pagination.pageSize = newPageSize;
       }
 
