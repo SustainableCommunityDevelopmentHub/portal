@@ -74,7 +74,7 @@
         <li><a ui-sref="#">Subject</a></li>
         <li><a ui-sref="#">Author</a></li>
       </ul>
-      <span class="showing">Showing {{(pagination.curPage - 1) * pagination.pageSize + 1}} - {{pagination.curPage * pagination.pageSize}} of {{totalHits}} items</span>
+      <span class="showing">Showing {{(pagination.fromPage - 1) * pagination.pageSize + 1}} - {{pagination.fromPage * pagination.pageSize}} of {{totalHits}} items</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pagination.pageSize}}
           <span class="caret"></span></button>

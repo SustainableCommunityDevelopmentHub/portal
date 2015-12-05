@@ -37,20 +37,19 @@
 
       // results pagination
       $scope.pagination = {
-        curPage: 1,
+        // set defaults here
+        fromPage: SearchService.opts.fromPage || 1,
+        pageSize: SearchService.opts.pageSize || 25,
         pageSizeOptions: [10,25,50,100],
-        // set default pageSize here
-        pageSize: 25
       };
 
       $scope.setPageSize = function(newPageSize){
-        // execute search with updated pageSize
-        if(newPageSize > $scope.pagination.pageSize){
+        SearchService.opts.pageSize = newPageSize;
+        // new search if pageSize increases
+        if(newPageSize > $scope.pageSize){
         }
-
         $scope.pagination.pageSize = newPageSize;
       }
-
 
       //TODO: Change this to use a $watch / $on, or to watch SearchService for a new search on a URL change instead of or in addition to $stateChangeSuccess.
       //That way, we can get rid of $scope.search as our watcher will execute code below on each  new search whether it involved a state change or not.

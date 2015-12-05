@@ -13,12 +13,15 @@
    */
   function SearchService(dataService){
     var service = {
-      // Variables
+
+      // Variables - define structure here, but should not set values.
       response: null,
       hits: null,
       totalHits: null,
       opts: {
-        q: null
+        q: null,
+        pageSize: null,
+        fromPage: null
       },
 
       //Functions
