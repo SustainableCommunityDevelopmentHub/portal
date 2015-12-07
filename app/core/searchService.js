@@ -46,6 +46,7 @@
         this.hits = results.hits.hits;
         this.totalHits = results.hits.total;
       }
+
     };
 
     return service;

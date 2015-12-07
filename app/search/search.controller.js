@@ -7,6 +7,20 @@
 
     function SearchCtrl($scope, $state, SearchService, dataService, result){
 
+      // initialize search results, etc, when state loads
+      $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $scope.queryTerm = SearchService.opts.q;
+        SearchService.response
+          .then(function(results){
+            SearchService.setResultsData(results);
+            $scope.results = $scope.parseResults(SearchService.hits);
+            $scope.totalHits = SearchService.totalHits;
+          })
+          .catch(function(err){
+            console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
+          });
+      });
+
       // transition to search result state to trigger search
       $scope.initSearch = function(queryTerm) {
         $state.go('searchResults', {q: queryTerm});
@@ -51,22 +65,9 @@
         $scope.pagination.pageSize = newPageSize;
       }
 
-      //TODO: Change this to use a $watch / $on, or to watch SearchService for a new search on a URL change instead of or in addition to $stateChangeSuccess.
-      //That way, we can get rid of $scope.search as our watcher will execute code below on each  new search whether it involved a state change or not.
-
-      // initialize search results, etc, once state loads
-      $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        $scope.queryTerm = SearchService.opts.q;
-        SearchService.response
-          .then(function(results){
-            SearchService.setResultsData(results);
-            $scope.results = $scope.parseResults(SearchService.hits);
-            $scope.totalHits = SearchService.totalHits;
-          })
-          .catch(function(err){
-            console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
-          });
-      });
+      $scope.setPageNum = function(newPage){
+        console.log('.........New Page Num:' + newPage);
+      };
 
     };
 
