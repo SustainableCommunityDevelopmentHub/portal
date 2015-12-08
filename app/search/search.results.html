@@ -62,8 +62,8 @@
   <!--Search Box & Options-->
   <div class="results-list">
     <div class="search-bar-results">
-      <form ng-submit="initSearch(queryTerm)"><input ng-model="queryTerm" class="search-input" type="text">
-        <button ng-click="initSearch(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+      <form ng-submit="initSearch({q: queryTerm})"><input ng-model="queryTerm" class="search-input" type="text">
+        <button ng-click="initSearch({q: queryTerm})" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
       </form>
     </div>
     <div class="dropdown">

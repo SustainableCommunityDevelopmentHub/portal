@@ -9,9 +9,9 @@
 
     // For when user inits search from any state besides search.results.
     // Changes state to search.results, which will trigger search operation.
-    $scope.initSearch = function(queryTerm) {
-      console.log('~~~initSearch! queryTerm: ' + queryTerm);
-      $state.go('searchResults', {q: queryTerm});
+    $scope.initSearch = function(opts) {
+      console.log('~~~initSearch! opts: ' + JSON.stringify(opts));
+      $state.go('searchResults', opts);
     };
   }])
 

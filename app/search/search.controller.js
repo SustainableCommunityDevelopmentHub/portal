@@ -9,12 +9,16 @@
 
       // initialize search results, etc, when state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        $scope.queryTerm = SearchService.opts.q;
         SearchService.response
           .then(function(results){
+            // search result data
             SearchService.setResultsData(results);
             $scope.results = $scope.parseResults(SearchService.hits);
             $scope.totalHits = SearchService.totalHits;
+            // search opts
+            $scope.queryTerm = SearchService.opts.q;
+            //$scope.pagination.fromPage = SearchService.fromPage;
+            //$scope.pagination.pageSize = SearchService.pageSize;
           })
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
@@ -22,8 +26,8 @@
       });
 
       // transition to search result state to trigger search
-      $scope.initSearch = function(queryTerm) {
-        $state.go('searchResults', {q: queryTerm});
+      $scope.initSearch = function(opts) {
+        $state.go('searchResults', opts);
       };
 
       // parse search result data to simplify object structure
@@ -66,6 +70,8 @@
       }
 
       $scope.setPageNum = function(newPage){
+        SearchService.opts.fromPage = newPage;
+        //$scope.initSearch(SearchService.opts);
         console.log('.........New Page Num:' + newPage);
       };
 
