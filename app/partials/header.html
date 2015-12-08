@@ -8,21 +8,21 @@
     <li><a class="nav-link" ui-sref="savedrecords">Saved Records</a>&nbsp;&nbsp;&nbsp;|</li>
     <li>&nbsp;&nbsp;&nbsp;
     <!-- Simple dropdown -->
-     <accordion >
     <div class="help_accordion__container" ng-controller="FaqsCtrl">
       <div class="help_accordion__tab">
-            <div class="help_accordion__tab-title" ng-click="openTab('tab one')">Help<i class="glyphicon-chevron-down glyphicon" ng-class="{'glyphicon-chevron-up': isOpenTab('tab one'), 'glyphicon-chevron-down': !status.open}"></i>
-            </div>
-                <div class="help_accordion__tab-content" ng-show="isOpenTab('tab one')">
-                	<ul>
-                		<li><a ui-sref="help">Search Help</a></li>
-                		<li><a ui-sref="faq">FAQ</a></li>
-                		<li><a ui-sref="feedback">Feedback</a></li>
-                 	</ul>
-                </div>
+        <div class="help_accordion__tab-title" ng-click="openTab('tab one')">Help<i class="glyphicon-chevron-down glyphicon" ng-class="{'glyphicon-chevron-up': isOpenTab('tab one'), 'glyphicon-chevron-down': !status.open}"></i>
+          <!--</div>-->
+          <div class="help_accordion__tab-content" ng-show="isOpenTab('tab one')">
+
+            <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+              <li><a ui-sref="help">Search Help</a></li>
+              <li><a ui-sref="faq">FAQ</a></li>
+              <li><a ui-sref="feedback">Feedback</a></li>
+            </ul>
+          </div>
       </div>
     </div>
-    </div>
-   </li>
-  </ul>
 </div>
+    </li>
+  </ul>
+  </div>
