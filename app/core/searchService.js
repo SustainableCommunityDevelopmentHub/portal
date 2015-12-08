@@ -25,7 +25,6 @@
       },
 
       //Functions
-
       // Execute search, sets opts, response. Returns a promise.
       search: function(opts){
         console.log('.....in SearchService');
@@ -33,10 +32,10 @@
         // TODO: Naive implementation.
         // Update w/promises to make sure things work successfully and handle errs.
         this.opts = opts;
-        this.response = dataService.search(opts.q);
+        this.response = dataService.search(opts);
 
-        console.log('Executed search with opts: ' + JSON.stringify(opts));
-        console.log('......................Search result promise obj: ' + JSON.stringify(this.response));
+        console.log('SearchService.........Executed search with opts: ' + JSON.stringify(opts));
+        console.log('SearchService.........Search result promise obj: ' + JSON.stringify(this.response));
 
         return this.response;
       },

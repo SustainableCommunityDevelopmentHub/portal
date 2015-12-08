@@ -25,14 +25,15 @@
     };
 
     // Query elasticsearch
-    function search(queryTerm){
+    function search(opts){
       console.log('...in dataService search');
-      var res = esClient.search({
-        index: 'portal',
-        type: 'book',
-        q: queryTerm
-      });
-      console.log('~~~~dataService executed, promise res: ' + JSON.stringify(res));
+      // build query obj
+      var query = opts;
+      query.index = 'portal';
+      query.type = 'book';
+      // execute query return promise
+      var res = esClient.search(query);
+      console.log('DataService..... executed, promise res: ' + JSON.stringify(res));
       return res;
     };
 

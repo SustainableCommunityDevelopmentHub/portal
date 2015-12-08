@@ -11,22 +11,25 @@
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         SearchService.response
           .then(function(results){
-            // search result data
+            console.log('SearchCtrl....state change success. Results: ' + JSON.stringify(results));
+            // set search result data
             SearchService.setResultsData(results);
             $scope.results = $scope.parseResults(SearchService.hits);
             $scope.totalHits = SearchService.totalHits;
-            // search opts
+            // set search opts
             $scope.queryTerm = SearchService.opts.q;
-            //$scope.pagination.fromPage = SearchService.fromPage;
-            //$scope.pagination.pageSize = SearchService.pageSize;
+            $scope.pagination.fromPage = SearchService.fromPage;
+            $scope.pagination.pageSize = SearchService.pageSize;
           })
           .catch(function(err){
             console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
           });
       });
 
-      // transition to search result state to trigger search
+      // reload search result state to trigger search
       $scope.initSearch = function(opts) {
+        console.log('....initSearch() - opts: ' + JSON.stringify(opts));
+        //$state.go($state.current, opts, {reload: true});
         $state.go('searchResults', opts);
       };
 
@@ -61,18 +64,18 @@
         pageSizeOptions: [10,25,50,100],
       };
 
-      $scope.setPageSize = function(newPageSize){
+      $scope.updatePageSize = function(newPageSize){
         SearchService.opts.pageSize = newPageSize;
         // new search if pageSize increases
         if(newPageSize > $scope.pageSize){
+          //$scope.initSearch(SearchService.opts);
         }
         $scope.pagination.pageSize = newPageSize;
       }
 
       $scope.setPageNum = function(newPage){
         SearchService.opts.fromPage = newPage;
-        //$scope.initSearch(SearchService.opts);
-        console.log('.........New Page Num:' + newPage);
+        $scope.initSearch(SearchService.opts);
       };
 
     };
