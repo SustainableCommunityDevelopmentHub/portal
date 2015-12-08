@@ -3,41 +3,33 @@
 
   angular
     .module('app.core')
-    .factory('dataService', ['esClient', dataService])
+    .factory('dataService', ['esClient', DataService])
 
-  /* dataService - get all data through this service
-  * */
-  function dataService(esClient) {
+  /* DataService - get all data through this service */
+  function DataService(esClient) {
 
-    // Expose dataService functions on return object
     var service = {
       getContributors: getContributors,
-      search: search,
-      test: test
+      search: search
     };
 
-    console.log('...RETURING DataSErvice factory');
+    console.log('Core........Returning DataService factory');
     return service;
 
-    // dataService functions
-    function test(){
-      console.log('....dataService is here!');
-    };
-
-    // Query elasticsearch
     function search(opts){
-      console.log('...in dataService search');
+      console.log('Dataservice.search()......');
+
       // build query obj
-      var query = opts;
-      query.index = 'portal';
-      query.type = 'book';
+      var esQuery = opts;
+      esQuery.index = 'portal';
+      esQuery.type = 'book';
+
       // execute query return promise
-      var res = esClient.search(query);
-      console.log('DataService..... executed, promise res: ' + JSON.stringify(res));
+      var res = esClient.search(esQuery);
+      console.log('DataService.search..... executed, promise res: ' + JSON.stringify(res));
       return res;
     };
 
-    // Get Contributors data
     function getContributors(){
       var contributors = [
         {name:'Gallica Bibliotheque Nationale de France', num_records: '27,274'},
@@ -71,7 +63,6 @@
         {name:'Universidad de Malaga', num_records: '25'},
         {name:'Online Scholarly Catalogue Initiative', num_records: '10'}
       ];
-
       return contributors;
     };
   };
