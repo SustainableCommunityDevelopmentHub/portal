@@ -11,11 +11,14 @@
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         SearchService.response
           .then(function(results){
-            console.log('SearchCtrl....state change success. Results: ' + JSON.stringify(results));
+            console.log('SearchCtrl....state change success.');
+            //console.log('..............Results: ' + JSON.stringify(results));
+
             // set search result data
             SearchService.setResultsData(results);
             $scope.results = $scope.parseResults(SearchService.hits);
             $scope.totalHits = SearchService.totalHits;
+
             // set search opts
             $scope.queryTerm = SearchService.opts.q;
             $scope.pagination.fromPage = SearchService.fromPage;

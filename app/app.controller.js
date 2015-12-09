@@ -9,7 +9,9 @@
 
     // For when user inits search from any state besides search.results.
     // Changes state to search.results, which will trigger search operation.
-    $scope.initSearch = function(opts) {
+    $scope.newSearch = function(opts) {
+      opts.fromPage = 1;
+      opts.pageSize = 25;
       console.log('~~~initSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };
