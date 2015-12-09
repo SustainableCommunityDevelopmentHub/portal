@@ -15,7 +15,8 @@
     "angular-animate": "1.4.x",
     "elasticsearch": "8.2.x",
     "angular-ui-router": "~0.2.15",
-    "angularUtils-pagination": "angular-utils-pagination#~0.9.2"
+    "angularUtils-pagination": "angular-utils-pagination#~0.9.2",
+    "lodash": "~3.10.1"
   },
   "resolutions": {
     "angular": "1.4.x"

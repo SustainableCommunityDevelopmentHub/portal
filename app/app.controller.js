@@ -12,6 +12,9 @@
     $scope.newSearch = function(opts) {
       opts.fromPage = 1;
       opts.pageSize = 25;
+
+      //TODO: lodash not workign in SearchService.setOpts
+      //SearchService.setOpts(opts);
       console.log('~~~initSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };
