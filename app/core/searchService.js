@@ -5,16 +5,16 @@
     .module('app.core')
     .factory('SearchService', ['dataService', SearchService]);
 
-  /* SearchService
+  /* * SearchService
    *
-   * Run searches, access the response object (a promise), search result data and search query opts through this service.
+   * Used for all search-related activity.
+   * Run searches, access the response object (a promise).
+   * Search result data and search query opts through this service.
    * Handles search variables, overall search state, etc.
-   * Do not use dataServices directly for search.
-   */
+   * */
   function SearchService(dataService){
     var service = {
-
-      // Variables - define structure here, but should not set values.
+      // variables - define structure here, but should not set values.
       response: null,
       hits: null,
       totalHits: null,
@@ -23,32 +23,32 @@
         pageSize: null,
         fromPage: null
       },
-
       //Functions
-      // Execute search, sets opts, response. Returns a promise.
-      search: function(opts){
-        console.log('.....in SearchService');
-
-        // TODO: Naive implementation.
-        // Update w/promises to make sure things work successfully and handle errs.
-        this.opts = opts;
-        this.response = dataService.search(opts);
-
-        console.log('SearchService.........Executed search with opts: ' + JSON.stringify(opts));
-        console.log('SearchService.........Search result promise obj: ' + JSON.stringify(this.response));
-
-        return this.response;
-      },
-
-      // Set SearchService results values once response promise is resolved
-      setResultsData: function(results){
-        this.hits = results.hits.hits;
-        this.totalHits = results.hits.total;
-      }
-
+      search: search,
+      setResultsData: setResultsData
     };
 
     return service;
+
+    // execute search, sets opts, response. Returns a promise.
+    function search(opts){
+      console.log('SearchService.search()......opts: ' + JSON.stringify(opts));
+
+      // TODO: Naive implementation.
+      // Update w/promises to make sure things work successfully and handle errs.
+      this.opts = opts;
+      this.response = dataService.search(opts);
+
+      console.log('SearchService.search().........Search result promise obj: ' + JSON.stringify(this.response));
+
+      return this.response;
+    };
+
+    // set SearchService results values once response promise is resolved
+    function setResultsData(results){
+      this.hits = results.hits.hits;
+      this.totalHits = results.hits.total;
+    }
   };
 
 })();

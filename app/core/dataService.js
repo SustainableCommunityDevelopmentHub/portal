@@ -7,7 +7,6 @@
 
   /* DataService - get all data through this service */
   function DataService(esClient) {
-
     var service = {
       getContributors: getContributors,
       search: search
@@ -17,13 +16,23 @@
     return service;
 
     function search(opts){
-      console.log('Dataservice.search()......');
 
       // build query obj
-      var esQuery = opts;
-      esQuery.index = 'portal';
-      esQuery.type = 'book';
+      var esQuery = {
+        index: 'portal',
+        type: 'book',
+        q: opts.q
+      };
 
+      // paging
+      if(opts.pageSize){
+        esQuery.size = opts.pageSize;
+        if(opts.fromPage){
+          esQuery.from = (opts.pageSize * (opts.fromPage - 1))
+        }
+      }
+
+      console.log('Dataservice.search()......esQuery:' + JSON.stringify(esQuery));
       // execute query return promise
       var res = esClient.search(esQuery);
       console.log('DataService.search..... executed, promise res: ' + JSON.stringify(res));
