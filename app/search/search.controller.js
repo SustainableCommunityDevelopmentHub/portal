@@ -3,9 +3,9 @@
 
   angular
     .module('app.search')
-    .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'dataService', SearchCtrl]);
+    .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
-    function SearchCtrl($scope, $state, SearchService, dataService, result){
+    function SearchCtrl($scope, $state, SearchService, result){
 
       // initialize search results, etc, when state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

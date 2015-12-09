@@ -3,7 +3,7 @@
 
   angular
     .module('app.core')
-    .factory('dataService', ['esClient', DataService])
+    .factory('DataService', ['esClient', DataService])
 
   /* DataService - get all data through this service */
   function DataService(esClient) {

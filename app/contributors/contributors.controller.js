@@ -3,10 +3,10 @@
 
   angular
     .module('app.contributors')
-    .controller('ContributorsCtrl', ['$scope', 'dataService', ContributorsCtrl]);
+    .controller('ContributorsCtrl', ['$scope', 'DataService', ContributorsCtrl]);
 
-    function ContributorsCtrl($scope, dataService) {
-      //TODO: Handle asynchronously when dataService is updated to call server for data
-      $scope.contributors = dataService.getContributors();
+    function ContributorsCtrl($scope, DataService) {
+      //TODO: Handle asynchronously when DataService is updated to call server for data
+      $scope.contributors = DataService.getContributors();
     };
 })();

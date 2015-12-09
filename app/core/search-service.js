@@ -11,9 +11,9 @@
 
   angular
     .module('app.core')
-    .factory('SearchService', ['dataService', '_', SearchService]);
+    .factory('SearchService', ['DataService', '_', SearchService]);
 
-  function SearchService(dataService, _){
+  function SearchService(DataService, _){
     var service = {
       // variables - define structure
       response: null,
@@ -39,7 +39,7 @@
       // TODO: Naive implementation.
       // Update w/promises to make sure things work successfully and handle errs.
       this.opts = opts;
-      this.response = dataService.search(opts);
+      this.response = DataService.search(opts);
 
       console.log('SearchService.search().........Search result promise obj: ' + JSON.stringify(this.response));
 
