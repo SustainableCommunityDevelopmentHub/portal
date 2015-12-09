@@ -13,8 +13,8 @@
       opts.fromPage = 1;
       opts.pageSize = 25;
 
-      //TODO: lodash not workign in SearchService.setOpts
-      //SearchService.setOpts(opts);
+      //TODO: lodash not workign in SearchService.updateOpts
+      //SearchService.updateOpts(opts);
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };
