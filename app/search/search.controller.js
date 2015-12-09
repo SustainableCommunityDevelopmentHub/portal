@@ -48,7 +48,7 @@
 
       // execute search and handle promise
       $scope.search = function(opts){
-        SearchService.search(opts)
+        SearchService.newSearch(opts)
           .then(function(results){
             SearchService.setResultsData(results);
             $scope.results = $scope.parseResults(SearchService.hits);

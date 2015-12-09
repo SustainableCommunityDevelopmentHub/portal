@@ -24,8 +24,9 @@
         pageSize: null,
         fromPage: null
       },
+
       //Functions
-      search: search,
+      newSearch: newSearch,
       setOpts: setOpts,
       setResultsData: setResultsData
     };
@@ -33,15 +34,15 @@
     return service;
 
     // execute search, sets opts, response. Returns a promise.
-    function search(opts){
-      console.log('SearchService.search()......opts: ' + JSON.stringify(opts));
+    function newSearch(opts){
+      console.log('SearchService.newSearch()......opts: ' + JSON.stringify(opts));
 
       // TODO: Naive implementation.
       // Update w/promises to make sure things work successfully and handle errs.
       this.opts = opts;
       this.response = DataService.search(opts);
 
-      console.log('SearchService.search().........Search result promise obj: ' + JSON.stringify(this.response));
+      console.log('SearchService.newSearch().........Search result promise obj: ' + JSON.stringify(this.response));
 
       return this.response;
     };

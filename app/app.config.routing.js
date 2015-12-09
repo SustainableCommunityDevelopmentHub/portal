@@ -24,7 +24,7 @@
              //Run search and load resulting promise into controller prior to state load
             result: function($stateParams, SearchService){
               console.log('....in state searchResults reslove');
-              return SearchService.search({q: $stateParams.q});
+              return SearchService.newSearch({q: $stateParams.q});
             }
           }
         })
