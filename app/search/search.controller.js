@@ -11,7 +11,6 @@
         SearchService.response
         .then(function(results){
           console.log('SearchCtrl....state change success.');
-          //console.log('..............Results: ' + JSON.stringify(results));
 
           // set search result data. must do here b/c of promise
           SearchService.setResultsData(results);
@@ -43,12 +42,14 @@
       // reload search result state to trigger search
       $scope.initSearch = function(opts) {
         console.log('....initSearch() - opts: ' + JSON.stringify(opts));
-        //$state.go($state.current, opts, {reload: true});
-        $state.go('searchResults', opts);
+        $state.go($state.current, opts, {reload: true});
+        //$state.go('searchResults', opts);
       };
 
       // parse search result data to simplify object structure
       $scope.parseResults = function(hits){
+        console.log('SearchCtrl.parseResults.......Search result array length:' + hits.length);
+        //console.log('..............Results: ' + JSON.stringify(hits, null, 2));
         return hits.map(function(data){
           var book = data._source;
           // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
@@ -70,22 +71,23 @@
         });
       };
 
-      $scope.updatePageSize = function(newPageSize){
+      $scope.setPageSize = function(newPageSize){
         console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.pageSize + ' to: ' + newPageSize);
+        $scope.pagination.pageSize = newPageSize;
         SearchService.opts.pageSize = newPageSize;
         // new search if pageSize increases
-        if(newPageSize > $scope.pageSize){
+        //if(newPageSize > $scope.pageSize){
           //$scope.initSearch(SearchService.opts);
-        }
-        $scope.pagination.pageSize = newPageSize;
+        //}
       }
 
       $scope.setPageNum = function(newPage){
+        $scope.pagination.fromPage = newPage;
         SearchService.opts.fromPage = newPage;
-        $scope.initSearch(SearchService.opts);
+        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.pageNum + ' to: ' + newPage);
+        //$scope.initSearch(SearchService.opts);
       };
 
     };
-
 })();
 
