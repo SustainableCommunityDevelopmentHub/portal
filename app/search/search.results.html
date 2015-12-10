@@ -76,11 +76,12 @@
       </ul>
       <span class="showing">Showing {{(pagination.fromPage - 1) * pagination.pageSize + 1}} - {{pagination.fromPage * pagination.pageSize}} of {{totalHits}} items</span>
       <div class="btn-group" uib-dropdown>
-        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pagination.pageSize}}
-          <span class="caret"></span></button>
+        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pagination.pageSize}}<span class="caret"></span>
+        </button>
         <ul class="uib-dropdown-menu"  role="menu">
           <li ng-repeat="pageSize in pagination.pageSizeOptions">
-            <a ng-click="updatePageSize(pageSize)">{{pageSize}}</a></li>
+            <a ng-click="updatePageSize(pageSize)">{{pageSize}}</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -91,7 +92,6 @@
       <!--<li ng-repeat="book in results" class="book-listing">-->
       <li dir-paginate="book in results | itemsPerPage: 10" total-items="{{totalHits}}" class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-        <b><h4 class="title">Title:</h4> </b>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>
         <b>Date: </b>{{book.date[0].value}}<br/>

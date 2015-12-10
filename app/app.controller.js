@@ -10,8 +10,6 @@
     // For when user inits search from any state besides search.results.
     // Changes state to search.results, which will trigger search operation.
     $scope.newSearch = function(opts) {
-      opts.fromPage = 1;
-      opts.pageSize = 25;
 
       //TODO: lodash not workign in SearchService.updateOpts
       //SearchService.updateOpts(opts);

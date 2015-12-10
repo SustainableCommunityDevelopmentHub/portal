@@ -13,18 +13,31 @@
      * Handles search variables, overall search state, etc.
      */
     function SearchService(DataService, _){
+      /////////////////////////////////
+      // Vars
+      /////////////////////////////////
+      var defaults = {
+        pageSize: 25,
+        fromPage: 1
+      };
+
+      var searchOpts = {
+        q: null,
+        pageSize: null,
+        fromPage: null
+      };
+
+      /////////////////////////////////
+      // Expose Service
+      /////////////////////////////////
       var service = {
-        // variables - define structure here
+        // variables
         response: null,
         hits: null,
         totalHits: null,
-        opts: {
-          q: null,
-          pageSize: null,
-          fromPage: null
-        },
+        opts: searchOpts,
 
-        //Functions
+        // functions
         newSearch: newSearch,
         updateOpts: updateOpts,
         setResultsData: setResultsData
@@ -32,21 +45,21 @@
 
       return service;
 
+      //////////////////////////////////
+      //Public Functions
+      //////////////////////////////////
       /**
        * Executes new search. Overwrites existing opts,except defaults.
        * @param {Object} opts - search options
        * @returns {Promise} - search results
        */
+      // TODO: Naive implementation.
+      // Update w/promises to make sure things work successfully and handle errs.
       function newSearch(opts){
         console.log('SearchService.newSearch()......opts: ' + JSON.stringify(opts));
-
-        // TODO: Naive implementation.
-        // Update w/promises to make sure things work successfully and handle errs.
         this.opts = opts;
-        this.response = DataService.search(opts);
-
-        console.log('SearchService.newSearch().........Search result promise obj: ' + JSON.stringify(this.response));
-
+        this.response = search(this.opts);
+        console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
         return this.response;
       };
 
@@ -82,6 +95,23 @@
         this.hits = results.hits.hits;
         this.totalHits = results.hits.total;
       }
-    };
 
+      ///////////////////////////////////
+      //Private Functions
+      ///////////////////////////////////
+      function search(opts){
+        console.log('SearchService.search()......defaults: ' + JSON.stringify(defaults));
+        console.log('SearchService.search()......arg opts: ' + JSON.stringify(opts));
+        // if no value set default vals -- b/c of pass-by-reference this sets service.opts
+        if(!opts.pageSize){
+          opts.pageSize = defaults.pageSize;
+        }
+        if(!opts.fromPage){
+          opts.fromPage = defaults.fromPage;
+        }
+        console.log('executing search.....opts: ' +JSON.stringify(opts));
+        return DataService.search(opts);
+      };
+
+    };
 })();
