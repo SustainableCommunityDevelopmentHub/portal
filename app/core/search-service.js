@@ -18,13 +18,13 @@
       /////////////////////////////////
       var defaults = {
         pageSize: 25,
-        fromPage: 1
+        page: 1
       };
 
       var searchOpts = {
         q: null,
         pageSize: null,
-        fromPage: null
+        page: null
       };
 
       /////////////////////////////////
@@ -39,6 +39,8 @@
 
         // functions
         newSearch: newSearch,
+        updateSearch: updateSearch,
+        runSearch: runSearch,
         updateOpts: updateOpts,
         setResultsData: setResultsData
       };
@@ -69,6 +71,12 @@
        * @returns {Promise} - search results
        */
       function updateSearch(opts){
+        console.log('SearchService.updateSearch()......current opts: ' + JSON.stringify(this.opts));
+        console.log('SearchService.updateSearch()......additional opts: ' + JSON.stringify(opts));
+        _.merge(this.opts, opts);
+        this.response = search(this.opts);
+        console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
+        return this.response;
       };
 
       /**
@@ -106,8 +114,8 @@
         if(!opts.pageSize){
           opts.pageSize = defaults.pageSize;
         }
-        if(!opts.fromPage){
-          opts.fromPage = defaults.fromPage;
+        if(!opts.page){
+          opts.page = defaults.page;
         }
         console.log('executing search.....opts: ' +JSON.stringify(opts));
         return DataService.search(opts);

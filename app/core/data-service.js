@@ -27,8 +27,8 @@
       // paging
       if(opts.pageSize){
         esQuery.size = opts.pageSize;
-        if(opts.fromPage){
-          esQuery.from = (opts.pageSize * (opts.fromPage - 1))
+        if(opts.page){
+          esQuery.from = (opts.pageSize * (opts.page - 1))
         }
       }
 

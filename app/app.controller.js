@@ -10,9 +10,7 @@
     // For when user inits search from any state besides search.results.
     // Changes state to search.results, which will trigger search operation.
     $scope.newSearch = function(opts) {
-
-      //TODO: lodash not workign in SearchService.updateOpts
-      //SearchService.updateOpts(opts);
+      opts.from = 1;
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };

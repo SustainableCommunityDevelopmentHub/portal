@@ -17,7 +17,7 @@
         })
 
         .state('searchResults', {
-          url: '/search?q',
+          url: '/search?q&from',
           controller: 'SearchCtrl',
           templateUrl: 'search/search.results.html',
           resolve: {

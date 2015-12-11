@@ -30,7 +30,7 @@
       // bind search opts to scope
       $scope.queryTerm = SearchService.opts.q;
       $scope.pagination = {
-        fromPage: SearchService.opts.fromPage,
+        page: SearchService.opts.page,
         pageSize: SearchService.opts.pageSize,
         pageSizeOptions: [10,25,50,100]
       };
@@ -40,8 +40,8 @@
       /////////////////////////////////
 
       // reload search result state to trigger search
-      $scope.initSearch = function(opts) {
-        console.log('....initSearch() - opts: ' + JSON.stringify(opts));
+      $scope.updateSearch = function(opts) {
+        console.log('....updateSearch() - opts: ' + JSON.stringify(opts));
         $state.go($state.current, opts, {reload: true});
         //$state.go('searchResults', opts);
       };
@@ -77,15 +77,15 @@
         SearchService.opts.pageSize = newPageSize;
         // new search if pageSize increases
         //if(newPageSize > $scope.pageSize){
-          //$scope.initSearch(SearchService.opts);
+          //$scope.updateSearch(SearchService.opts);
         //}
       }
 
       $scope.setPageNum = function(newPage){
-        $scope.pagination.fromPage = newPage;
-        SearchService.opts.fromPage = newPage;
+        $scope.pagination.page = newPage;
+        SearchService.opts.page = newPage;
         console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.pageNum + ' to: ' + newPage);
-        //$scope.initSearch(SearchService.opts);
+        //$scope.updateSearch(SearchService.opts);
       };
 
     };
