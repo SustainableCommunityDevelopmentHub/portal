@@ -4,8 +4,8 @@ describe('Portal', function() {
   var searchBtn = element(by.id('go-btn'));
   var seeAllBtn = element(by.id('see-all-button'));
   var testQuery = 'paintings';
-  var bookListing = element.all(by.class('li.book-listing'));
-  var resultsCount = element.all(by.class('li.book-listing')).count();
+  var bookListing = element.all(by.css('li.book-listing'));
+  var resultsCount = element.all(by.css('li.book-listing')).count();
 
   beforeEach(function() {
     browser.get('http://local.portal.dev:8000');
@@ -33,4 +33,8 @@ describe('Portal', function() {
     expect($('[ng-repeat=key, field in book._source]').toBeTruthy());
   });
 
+
+  afterEach(function() {
+    browser.refresh();
+  });
 });
