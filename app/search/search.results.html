@@ -73,12 +73,12 @@
         <li><a ui-sref="#">Subject</a></li>
         <li><a ui-sref="#">Author</a></li>
       </ul>
-      <span class="showing">Showing {{(pagination.page - 1) * pagination.pageSize + 1}} - {{pagination.page * pagination.pageSize}} of {{totalHits}} items</span>
+      <span class="showing">Showing {{(page - 1) * pageSize + 1}} - {{page * pageSize}} of {{totalHits}} items</span>
       <div class="btn-group" uib-dropdown>
-        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pagination.pageSize}}<span class="caret"></span>
+        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pageSize}}<span class="caret"></span>
         </button>
         <ul class="uib-dropdown-menu"  role="menu">
-          <li ng-repeat="pageSize in pagination.pageSizeOptions">
+          <li ng-repeat="pageSize in validPageSizeOptions">
             <a ng-click="setPageSize(pageSize)">{{pageSize}}</a>
           </li>
         </ul>
@@ -87,7 +87,7 @@
 
     <hr class="results-list-hr">
     <!--Search Results Data-->
-    <li dir-paginate="book in results | itemsPerPage: pagination.pageSize" total-items="{{totalHits}}" class="book-listing">
+    <li dir-paginate="book in results | itemsPerPage: pageSize" total-items="{{totalHits}}" class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>

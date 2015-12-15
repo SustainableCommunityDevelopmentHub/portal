@@ -71,9 +71,8 @@
        * @returns {Promise} - search results
        */
       function updateSearch(opts){
-        console.log('SearchService.updateSearch()......current opts: ' + JSON.stringify(this.opts));
-        console.log('SearchService.updateSearch()......additional opts: ' + JSON.stringify(opts));
         _.merge(this.opts, opts);
+        console.log('SearchService.updateSearch()......new opts: ' + JSON.stringify(opts));
         this.response = search(this.opts);
         console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
         return this.response;
@@ -91,7 +90,6 @@
        * @param {Object} opts - search options
        */
       function updateOpts(newOpts){
-        //TODO: lodash not working
         _.merge(this.opts, newOpts);
       }
 
@@ -112,6 +110,7 @@
         console.log('SearchService.search()......arg opts: ' + JSON.stringify(opts));
         // if no value set default vals -- b/c of pass-by-reference this sets service.opts
         if(!opts.pageSize){
+          console.log('SearchService....settting pageSize');
           opts.pageSize = defaults.pageSize;
         }
         if(!opts.page){

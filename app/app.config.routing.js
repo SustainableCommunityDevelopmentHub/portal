@@ -22,8 +22,8 @@
           templateUrl: 'search/search.results.html',
           resolve: {
              //Run search and load resulting promise into controller prior to state load
-            result: function($stateParams, SearchService){
-              console.log('Router....in state searchResults reslove');
+            searchResults: function($stateParams, SearchService){
+              console.log('Router....in state searchResults resolve. opts: ');
               return SearchService.newSearch({q: $stateParams.q});
             }
           }
