@@ -73,7 +73,8 @@
         <li><a ui-sref="#">Subject</a></li>
         <li><a ui-sref="#">Author</a></li>
       </ul>
-      <span class="showing">Showing {{(page - 1) * pageSize + 1}} - {{page * pageSize}} of {{totalHits}} items</span>
+      <!--pageSize-related logic to never display more than total number of results-->
+      <span class="showing">Showing {{(page - 1) * pageSize + 1}} - {{((page * pageSize) < totalHits) ? (page * pageSize) : totalHits}} of {{totalHits}} items</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pageSize}}<span class="caret"></span>
         </button>

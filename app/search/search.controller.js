@@ -17,7 +17,19 @@
       ss.response
         .then(function(results){
           console.log('SearchCtrl....state change success.');
-          handleSearchResults(results);
+
+          // once search result promise is resolved,
+          // update SearchService and scope with new search values.
+          // set search result data. must do here b/c of promise
+          ss.setResultsData(results);
+          $scope.results = parseResults(ss.hits);
+          $scope.totalHits = ss.totalHits;
+
+          // bind search opts to scope
+          $scope.queryTerm = ss.opts.q;
+          $scope.page = ss.opts.page;
+          $scope.pageSize = ss.opts.pageSize;
+          $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.totalHits);
         })
         .catch(function(err){
           console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
@@ -35,24 +47,6 @@
     ///////////////////////////
 
     /**
-     * once search result promise is resolved,
-     * update SearchService and scope with new search values.
-     */
-    function handleSearchResults(results){
-      // set search result data. must do here b/c of promise
-      ss.setResultsData(results);
-      $scope.results = parseResults(ss.hits);
-      $scope.totalHits = ss.totalHits;
-
-      // bind search opts to scope
-      $scope.queryTerm = ss.opts.q;
-      $scope.page = ss.opts.page;
-      $scope.pageSize = ss.opts.pageSize;
-      $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.totalHits);
-      console.log('SearchCtrl.handleSearchResults........page: '+ $scope.page);
-    };
-
-    /**
      * parse search result data to simplify object structure
      */
     function parseResults(hits){
@@ -68,7 +62,7 @@
      * reload search result state to trigger search.
      * if no opts passed uses SearchService.opts.
      */
-     function updateSearch(opts) {
+    function updateSearch(opts) {
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
       console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
@@ -81,10 +75,17 @@
     /////////////////////////////////
 
     $scope.getValidPageSizeOptions = function (totalHits){
+      var passedThreshold = false;
       return $scope.allPageSizeOptions
-      .filter(function(pageSize){
-        return pageSize <= totalHits;
-      });
+        .filter(function(pageSize){
+          // return pageSizeOption 1 greater than totalHits,
+          // so all hits can be viewed on 1 page.
+          if(!passedThreshold && (pageSize >= totalHits)){
+            passedThreshold = true;
+            return pageSize;
+          }
+          return pageSize <= totalHits;
+        });
     };
 
     /**
@@ -92,7 +93,7 @@
      */
     $scope.newQuerySearch = function(query){
       var opts = {
-          q: query
+        q: query
       };
 
       // if new query term, need to reset pagination
@@ -123,7 +124,7 @@
      */
     $scope.setPageNum = function(newPage){
       console.log('SearchCtrl........updating pageNum from: ' + $scope.page + ' to: ' + newPage);
-      $scope.updateSearch({page: newPage});
+      updateSearch({page: newPage});
     };
 
   };
