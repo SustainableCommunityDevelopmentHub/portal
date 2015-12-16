@@ -40,18 +40,18 @@ _______________________
 The recommended way to install Docker on OS X is using homebrew cask (or Macports) to install the docker toolbox.
 If you don't have either one of these, go [here](http://http://brew.sh/) for homebrew install instructions and description.
 
-Once you have homebrew, to install homebrew cask:
-        brew update
+Once you have homebrew, update it to most recent.
+        `brew update`
 
-Then use it to install Docker Toolbox:
-        brew cask install dockertoolbox
+Then use it to install Docker Toolbox
+        `brew cask install dockertoolbox`
 
 #Setup Docker Machine and hostname for project
 
 1. Create an account on docker hub.
 
-2. Start a docker machine:
-        docker-machine start default
+2. Start a docker machine.
+        `docker-machine start default`
 
 3. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
 
