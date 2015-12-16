@@ -4,12 +4,12 @@
   angular
     .module('app')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
-      // Redirect to home by default
+      // redirect to home by default
       $urlRouterProvider.otherwise('/');
 
-      // Assign states to urls
+      // assign states to urls
       $stateProvider
-        // Abstract state used to load other search states
+        // abstract state used to load other search states
         .state('home', {
           url: '/',
           templateUrl: 'search/search.home.html',
@@ -21,17 +21,18 @@
           controller: 'SearchCtrl',
           templateUrl: 'search/search.results.html',
           resolve: {
-             //Run search and load resulting promise into controller prior to state load
+             // run search and load resulting promise into controller prior to state load
             searchResults: function($stateParams, SearchService){
               console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
+
+              // do this to separate $stateParam prop names from searchOpts prop names
               var searchOpts = {
                 q: $stateParams.q,
                 page: $stateParams.page,
                 pageSize: $stateParams.pageSize
               };
 
-
-              return SearchService.updateSearch({q: $stateParams.q});
+              return SearchService.updateSearch(searchOpts);
             }
           }
         })
@@ -72,8 +73,7 @@
           controller: 'FaqsCtrl'
         });
 
-        // For nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
+        // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
         $locationProvider.html5Mode(true);
-
     }]);
 })();
