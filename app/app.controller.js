@@ -7,10 +7,13 @@
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
 
-    // For when user inits search from any state besides search.results.
-    // Changes state to search.results, which will trigger search operation.
+    // for when user inits new search.
+    // changes state to search.results, which will trigger search operation.
     $scope.newSearch = function(opts) {
-      opts.from = 1;
+      SearchService.resetOpts();
+      // set these here so it shows up in url
+      opts.page = 1;
+      opts.size = 25;
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };

@@ -87,7 +87,7 @@
 
     <hr class="results-list-hr">
     <!--Search Results Data-->
-    <li dir-paginate="book in results | itemsPerPage: pageSize" total-items="{{totalHits}}" class="book-listing">
+    <li dir-paginate="book in results | itemsPerPage: pageSize" current-page="page" total-items="totalHits"  class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>

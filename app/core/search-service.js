@@ -16,15 +16,10 @@
       /////////////////////////////////
       // Vars
       /////////////////////////////////
-      var defaults = {
+      var defaultOpts = {
+        q: null,
         pageSize: 25,
         page: 1
-      };
-
-      var searchOpts = {
-        q: null,
-        pageSize: null,
-        page: null
       };
 
       /////////////////////////////////
@@ -35,14 +30,15 @@
         response: null,
         hits: null,
         totalHits: null,
-        opts: searchOpts,
+        opts: _.clone(defaultOpts),
 
         // functions
         newSearch: newSearch,
         updateSearch: updateSearch,
         runSearch: runSearch,
         updateOpts: updateOpts,
-        setResultsData: setResultsData
+        setResultsData: setResultsData,
+        resetOpts: resetOpts
       };
 
       return service;
@@ -71,8 +67,11 @@
        * @returns {Promise} - search results
        */
       function updateSearch(opts){
-        _.merge(this.opts, opts);
         console.log('SearchService.updateSearch()......new opts: ' + JSON.stringify(opts));
+        // allow for no opts to be passed
+        opts = opts || {};
+        _.merge(this.opts, opts);
+        console.log('SearchService.updateSearch()...........merged opts: ' + JSON.stringify(opts));
         this.response = search(this.opts);
         console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
         return this.response;
@@ -102,19 +101,26 @@
         this.totalHits = results.hits.total;
       }
 
+      /**
+       * Clear search opts and reset defaults
+       */
+      function resetOpts(){
+        this.opts = defaultOpts;
+      }
+
       ///////////////////////////////////
       //Private Functions
       ///////////////////////////////////
       function search(opts){
-        console.log('SearchService.search()......defaults: ' + JSON.stringify(defaults));
+        console.log('SearchService.search()......defaults: ' + JSON.stringify(defaultOpts));
         console.log('SearchService.search()......arg opts: ' + JSON.stringify(opts));
         // if no value set default vals -- b/c of pass-by-reference this sets service.opts
         if(!opts.pageSize){
           console.log('SearchService....settting pageSize');
-          opts.pageSize = defaults.pageSize;
+          opts.pageSize = defaultOpts.pageSize;
         }
         if(!opts.page){
-          opts.page = defaults.page;
+          opts.page = defaultOpts.page;
         }
         console.log('executing search.....opts: ' +JSON.stringify(opts));
         return DataService.search(opts);

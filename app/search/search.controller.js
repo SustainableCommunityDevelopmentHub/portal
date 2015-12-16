@@ -6,9 +6,12 @@
     .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
     function SearchCtrl($scope, $state, SearchService){
+      var ss = SearchService;
+
       // initialize search results, etc, when state loads
       $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        SearchService.response
+
+        ss.response
         .then(function(results){
           console.log('SearchCtrl....state change success.');
           handleSearchResults(results);
@@ -18,32 +21,31 @@
         });
       });
 
-      // set initial scope vals
-      $scope.queryTerm = SearchService.opts.q;
-      $scope.page =  SearchService.opts.page;
-      $scope.pageSize =  SearchService.opts.pageSize;
-      $scope.allPageSizeOptions = [10,25,50,100];
-
       ///////////////////////////
       //Private/Helper Functions
       ///////////////////////////
 
-      // once search result promise is resolved, 
-      // update SearchService and scope with new search values.
+      /**
+       * once search result promise is resolved,
+       * update SearchService and scope with new search values.
+       */
       function handleSearchResults(results){
         // set search result data. must do here b/c of promise
-        SearchService.setResultsData(results);
-        $scope.results = parseResults(SearchService.hits);
-        $scope.totalHits = SearchService.totalHits;
+        ss.setResultsData(results);
+        $scope.results = parseResults(ss.hits);
+        $scope.totalHits = ss.totalHits;
 
         // bind search opts to scope
-        $scope.queryTerm = SearchService.opts.q;
-        $scope.page = SearchService.opts.page;
-        $scope.pageSize = SearchService.opts.pageSize;
+        $scope.queryTerm = ss.opts.q;
+        $scope.page = ss.opts.page;
+        $scope.pageSize = ss.opts.pageSize;
         $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.totalHits);
+        console.log('SearchCtrl.handleSearchResults........page: '+ $scope.page);
       };
 
-      // parse search result data to simplify object structure
+      /**
+       * parse search result data to simplify object structure
+       */
        function parseResults(hits){
         return hits.map(function(data){
           var book = data._source;
@@ -52,6 +54,8 @@
           return book;
         });
       };
+
+      $scope.allPageSizeOptions = [10,25,50,100];
 
       $scope.getValidPageSizeOptions = function (totalHits){
         return $scope.allPageSizeOptions
@@ -64,31 +68,23 @@
       //Functions
       /////////////////////////////////
 
-      // reload search result state to trigger search.
-      // if no opts passed uses SearchService.opts.
+      /**
+       * reload search result state to trigger search.
+       * if no opts passed uses SearchService.opts.
+       */
       $scope.updateSearch = function(opts) {
-        opts = opts || SearchService.opts;
+        // use SearchService.opts as canonical
+        ss.updateOpts(opts);
         console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
-        SearchService.updateSearch(opts)
-          .then(handleSearchResults);
-      };
-
-      // execute search and handle promise
-      $scope.search = function(opts){
-        SearchService.newSearch(opts)
-        .then(function(results){
-          SearchService.setResultsData(results);
-          $scope.results = parseResults(SearchService.hits);
-          $scope.totalHits = SearchService.totalHits;
-        })
-        .catch(function(err){
-          console.log('Err - search.controller.js - SearchCtrl - search(): ' + e);
-        });
+        console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
+        $state.go('searchResults', ss.opts);
+        //ss.updateSearch(opts)
+          //.then(handleSearchResults);
       };
 
       $scope.setPageSize = function(newPageSize){
         console.log('SearchCtrl.....updating page size from: ' + $scope.pageSize + ' to: ' + newPageSize);
-        SearchService.updateOpts({pageSize: newPageSize});
+        ss.updateOpts({pageSize: newPageSize});
         // new search if pageSize increases
         if(newPageSize > $scope.pageSize){
           $scope.updateSearch({pageSize: newPageSize});
@@ -97,13 +93,12 @@
         $scope.pageSize = newPageSize;
       }
 
-      // trigger search to populate new page and update $scope / state
+      /**
+       * trigger search to populate new page and update $scope / state
+       */
       $scope.setPageNum = function(newPage){
-        // need if clause bc dir-paginate triggers this unnecessarily sometimes
-        if($scope.page != newPage){
           console.log('SearchCtrl........updating pageNum from: ' + $scope.page + ' to: ' + newPage);
           $scope.updateSearch({page: newPage});
-        }
       };
 
     };
