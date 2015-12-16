@@ -56,6 +56,8 @@ Then use it to install Docker Toolbox:
 3. Start a docker machine:
         `docker-machine start default`
 
+You can now run `docker run hello-world` to test that docker is working correctly inside your docker machine.
+
 4. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
 
 5. Add the following line to your /etc/hosts file:
