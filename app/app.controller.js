@@ -13,7 +13,7 @@
       SearchService.resetOpts();
       // set these here so it shows up in url
       opts.page = 1;
-      opts.size = 25;
+      opts.pageSize = 25;
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', opts);
     };

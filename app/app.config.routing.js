@@ -17,16 +17,17 @@
         })
 
         .state('searchResults', {
-          url: '/search?q&page&size',
+          url: '/search?q&page&pageSize',
           controller: 'SearchCtrl',
           templateUrl: 'search/search.results.html',
           resolve: {
              //Run search and load resulting promise into controller prior to state load
             searchResults: function($stateParams, SearchService){
-              console.log('Router....in state searchResults resolve. opts: ');
+              console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
               var searchOpts = {
                 q: $stateParams.q,
-                page: $stateParams.page
+                page: $stateParams.page,
+                pageSize: $stateParams.pageSize
               };
 
 
