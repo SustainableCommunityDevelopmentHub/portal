@@ -51,10 +51,10 @@ Then use it to install Docker Toolbox:
 
 1. Create an account on docker hub.
 2. Create the default docker machine:
-        docker-machine create
+        `docker-machine create`
 
 3. Start a docker machine:
-        docker-machine start default
+        `docker-machine start default`
 
 4. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
 
