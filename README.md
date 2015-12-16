@@ -43,7 +43,7 @@ If you don't have either one of these, go [here](http://http://brew.sh/) for hom
 Once you have homebrew, update it to most recent.
         `brew update`
 
-Then use it to install Docker Toolbox
+Then use it to install Docker Toolbox.
         `brew cask install dockertoolbox`
 
 #Setup Docker Machine and hostname for project
