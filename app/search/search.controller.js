@@ -6,6 +6,9 @@
   .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
   function SearchCtrl($scope, $state, SearchService){
+    /////////////////////////////////
+    //Init
+    /////////////////////////////////
     var ss = SearchService;
 
     // initialize search results, etc, when state loads
@@ -20,6 +23,12 @@
           console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
         });
     });
+
+    /////////////////////////////////
+    //Variables
+    /////////////////////////////////
+    $scope.allPageSizeOptions = [10,25,50,100];
+
 
     ///////////////////////////
     //Private/Helper Functions
@@ -55,7 +64,21 @@
       });
     };
 
-    $scope.allPageSizeOptions = [10,25,50,100];
+    /**
+     * reload search result state to trigger search.
+     * if no opts passed uses SearchService.opts.
+     */
+     function updateSearch(opts) {
+      // use SearchService.opts as canonical
+      ss.updateOpts(opts);
+      console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
+      console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
+      $state.go('searchResults', ss.opts);
+    };
+
+    /////////////////////////////////
+    //Functions
+    /////////////////////////////////
 
     $scope.getValidPageSizeOptions = function (totalHits){
       return $scope.allPageSizeOptions
@@ -64,32 +87,34 @@
       });
     };
 
-    /////////////////////////////////
-    //Functions
-    /////////////////////////////////
-
     /**
-     * reload search result state to trigger search.
-     * if no opts passed uses SearchService.opts.
+     * init search on new query term
      */
-    $scope.updateSearch = function(opts) {
-      // use SearchService.opts as canonical
-      ss.updateOpts(opts);
-      console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
-      console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      $state.go('searchResults', ss.opts);
-      //ss.updateSearch(opts)
-      //.then(handleSearchResults);
+    $scope.newQuerySearch = function(query){
+      var opts = {
+          q: query
+      };
+
+      // if new query term, need to reset pagination
+      if(opts.q.toLowerCase() !== ss.opts.q.toLowerCase()){
+        opts.page = 1;
+      }
+
+      updateSearch(opts);
     };
 
+    /**
+     * update pagesize. init new search if pagesize increases
+     */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl.....updating page size from: ' + $scope.pageSize + ' to: ' + newPageSize);
       ss.updateOpts({pageSize: newPageSize});
-      // new search if pageSize increases
+
       if(newPageSize > $scope.pageSize){
-        $scope.updateSearch({pageSize: newPageSize});
+        updateSearch({pageSize: newPageSize});
         return;
       }
+
       $scope.pageSize = newPageSize;
     }
 

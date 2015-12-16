@@ -11,11 +11,14 @@
     // changes state to search.results, which will trigger search operation.
     $scope.newSearch = function(opts) {
       SearchService.resetOpts();
-      // set these here so it shows up in url
+      // set these here so they show up in url
       opts.page = 1;
       opts.pageSize = 25;
+
+      // convention is to always pass SearchService.opts
+      SearchService.updateOpts(opts);
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
-      $state.go('searchResults', opts);
+      $state.go('searchResults', SearchService.opts);
     };
   }])
 
