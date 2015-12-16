@@ -71,11 +71,11 @@ You can run `docker-machine ip default` to find the IP address of your docker ma
 
         docker pull sley/portal:v2
 
-2. On your host machine create a project directory.
+2. On your host machine clone the portal repo.
 
         git clone https://github.com/gri-is/portal.git
 
-3. *From your project directory, i.e. projects/portal* create and start the docker container. This will also mount your project directory as a data volume on the container. This will log you into to the docker container as root. On your host, you can see a list of all running docker containers with `docker ps`.
+3. *From your project directory, i.e. myprojects/portal* create and start the docker container. This will also mount your project directory as a data volume on the container. This will log you into to the docker container as root. On your host, you can see a list of all running docker containers with `docker ps`.
 
         bash start-portal.sh
 
