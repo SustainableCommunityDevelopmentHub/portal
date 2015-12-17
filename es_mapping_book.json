@@ -1,54 +1,55 @@
 {
-  "properties": {
-    "creator": {
-      "type": "nested",
-      "properties": {
-        "value": {"type": "string"}
-      }
-    },
-    "date": {
-      "type": "nested",
-      "properties": {
-        "qualifier": {"type": "string"},
-        "value": {
-          "type": "date",
-          "format": "YYYY"
+  "book": {
+    "properties": {
+      "creator": {
+        "type": "nested",
+        "properties": {
+          "value": {"type": "string"}
         }
-      }
-    },
-    "language": {
-      "type": "nested",
-      "properties": {
-        "value": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "encoding": {
-          "type": "string",
-          "index": "not_analyzed"
+      },
+      "date": {
+        "type": "nested",
+        "properties": {
+          "qualifier": {"type": "string"},
+          "value": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "subject": {
-      "type": "nested",
-      "properties": {
-        "value": {"type": "string"},
-        "encoding": {
-          "type": "string",
-          "index": "not_analyzed"
+      },
+      "language": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "encoding": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
         }
-      }
-    },
-    "type": {
-      "type": "nested",
-      "properties": {
-        "value": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "encoding": {
-          "type": "string",
-          "index": "not_analyzed"
+      },
+      "subject": {
+        "type": "nested",
+        "properties": {
+          "value": {"type": "string"},
+          "encoding": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "type": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "encoding": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
         }
       }
     }
