@@ -7,12 +7,17 @@
     'ui.bootstrap',
     'app.core',
     'app.widgets',
+    'angularUtils.directives.dirPagination',
     'app.search',
-    'app.controller'
+    'app.controller',
+    'app.contributors'
   ])
 
+  // make lodash injectable
+  .constant('_', window._)
+
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
-    // Convience to access $state, $stateParams from any scope w/out injection
+    // Convenience to access $state, $stateParams from any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
   }]);

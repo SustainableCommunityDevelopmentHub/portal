@@ -4,12 +4,12 @@
   angular
     .module('app')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
-      // Redirect to home by default
+      // redirect to home by default
       $urlRouterProvider.otherwise('/');
 
-      // Assign states to urls
+      // assign states to urls
       $stateProvider
-        // Abstract state used to load other search states
+        // abstract state used to load other search states
         .state('home', {
           url: '/',
           templateUrl: 'search/search.home.html',
@@ -17,13 +17,22 @@
         })
 
         .state('searchResults', {
-          url: '/search?q',
+          url: '/search?q&page&pageSize',
           controller: 'SearchCtrl',
           templateUrl: 'search/search.results.html',
           resolve: {
-             //Run search and load resulting promise into controller prior to state load
-            result: function($stateParams, SearchService){
-              return SearchService.search({q: $stateParams.q});
+             // run search and load resulting promise into controller prior to state load
+            searchResults: function($stateParams, SearchService){
+              console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
+
+              // do this to separate $stateParam prop names from searchOpts prop names
+              var searchOpts = {
+                q: $stateParams.q,
+                page: $stateParams.page,
+                pageSize: $stateParams.pageSize
+              };
+
+              return SearchService.updateSearch(searchOpts);
             }
           }
         })
@@ -42,7 +51,7 @@
 
         .state('contributors', {
           url: '/contributors',
-          templateUrl: 'partials/contributors.html',
+          templateUrl: 'contributors/contributors.html',
           controller: 'ContributorsCtrl'
         })
 
@@ -64,8 +73,7 @@
           controller: 'FaqsCtrl'
         });
 
-        // For nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
+        // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
         $locationProvider.html5Mode(true);
-
     }]);
 })();
