@@ -4,15 +4,46 @@
       "creator": {
         "type": "nested",
         "properties": {
-          "value": {"type": "string"}
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
         }
       },
       "date": {
         "type": "nested",
         "properties": {
-          "qualifier": {"type": "string"},
           "value": {
-            "type": "string"
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "qualifier": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "grp_contributing_institution": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
           }
         }
       },
@@ -22,31 +53,41 @@
           "value": {
             "type": "string",
             "index": "not_analyzed"
-          },
-          "encoding": {
-            "type": "string",
-            "index": "not_analyzed"
           }
         }
       },
       "subject": {
         "type": "nested",
         "properties": {
-          "value": {"type": "string"},
-          "encoding": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "qualifier": {
             "type": "string",
             "index": "not_analyzed"
           }
         }
+
       },
       "type": {
         "type": "nested",
         "properties": {
           "value": {
             "type": "string",
-            "index": "not_analyzed"
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
           },
-          "encoding": {
+          "qualifier": {
             "type": "string",
             "index": "not_analyzed"
           }

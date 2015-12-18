@@ -1,0 +1,87 @@
+{
+    "query": {
+        "match": {
+            "_all": "getty"
+        }
+    },
+ 	"aggregations": {
+        "creator": {
+            "nested": {
+                "path": "creator"
+            },
+            "aggs": {
+                "creator": {
+                    "terms": {
+                        "field": "creator.value.raw"
+                     }
+                 }
+            
+            }
+        },
+    	"language": {
+    		"nested": {
+            	"path": "language"
+         	},
+         	"aggs": {
+    	    	"language": {
+                	"terms": {
+                   		"field": "language.value"
+                	 }
+    	       	 }
+    		
+    	 	}
+    	},
+        "grp_contributing_institution": {
+            "nested": {
+                "path": "grp_contributing_institution"
+            },
+            "aggs": {
+                "creator": {
+                    "terms": {
+                        "field": "grp_contributing_institution.raw"
+                     }
+                 }
+            
+            }
+        },
+         "grp_contributing_institution": {
+            "nested": {
+                "path": "grp_contributing_institution"
+            },
+            "aggs": {
+                "creator": {
+                    "terms": {
+                        "field": "grp_contributing_institution.raw"
+                     }
+                 }
+            
+            }
+        },
+        "subject": {
+            "nested": {
+                "path": "subject"
+            },
+            "aggs": {
+                "subject": {
+                    "terms": {
+                        "field": "subject.value.raw"
+                     }
+                 }
+            
+            }
+        },
+        "type": {
+            "nested": {
+                "path": "type"
+            },
+            "aggs": {
+                "type": {
+                    "terms": {
+                        "field": "type.value.raw"
+                     }
+                 }
+            
+            }
+        }
+	}
+}
