@@ -23,7 +23,7 @@ Enter a search for "history" and click the Search button (click twice)
 *******************************
 
 
-Setup (OS X)
+#Setup (OS X)
 _______________________
 
 #Install node.js
