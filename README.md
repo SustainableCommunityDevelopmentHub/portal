@@ -24,7 +24,6 @@ Enter a search for "history" and click the Search button (click twice)
 
 
 #Setup (OS X)
-_______________________
 
 #Install node.js
 1. Make sure Xcode is installed on your machine. `xcode-select -p` should list the directory where Xcode is located, if it is installed. Running `gcc` will also throw an error if Xcode is not installed.
@@ -34,14 +33,12 @@ _______________________
 The recommended way to install Docker on OS X is using homebrew cask (or Macports) to install the docker toolbox.
 If you don't have either one of these, go [here](http://http://brew.sh/) for homebrew install instructions and description.
 
-Once you have homebrew, to install homebrew cask:
-        brew update
-        brew install caskroom
+Once you have homebrew, make sure it is up to date with:`brew update`
 
 Then use it to install Docker Toolbox:
-        brew cask install dockertoolbox
+        `brew cask install dockertoolbox`
 
-#Setup Docker Machine and hostname for project
+#Setup Docker Machine 
 
 1. Create an account on docker hub.
 2. Create the default docker machine:
@@ -54,10 +51,11 @@ You can now run `docker run hello-world` to test that docker is working correctl
 
 4. Run `docker-machine env default`. You will see instructions on how to create environment variable for you docker machine. Follow the instructions, and then also add the `EXPORT` commands into you .bash_profile so the environment variables will be set automatically in the future.
 
-5. Add the following line to your /etc/hosts file:
+#Set hostname 
+1. Add the following line to your /etc/hosts file:
        `<ip-address-of-my-docker-machine>    local.portal.dev`
 
-You can run `docker-machine ip default` to find the IP address of your docker machine.
+You can run `docker-machine ip default` to find the IP address of the default docker machine.
 
 #Troubleshooting
 
