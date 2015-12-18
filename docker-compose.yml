@@ -2,14 +2,19 @@ webserver:
   build: ./docker_files/node
   ports:
     - "8000:8000"
-  #working_dir must match dir we mount host volume to
+  # working_dir must match dir we mount host volume to
   volumes:
     - ./:/usr/src/app
   working_dir: /usr/src/app
-  #correctly install bower, node packages, and starts server
+
+  # install bower, node packages, and starts server
+  # --unsafe-perm option needed on npm to install bower correctly w/docker
+  # --allow-root needed when using bower w/docker
   command: bash -c "npm install --unsafe-perm && bower --allow-root install && node server.js"
 
 elasticsearch:
   image: elasticsearch:2.1
   ports:
     - "9200:9200"
+  # enable CORS
+  command: elasticsearch -Des.http.cors.enabled=true -Des.http.cors.allow-origin="*"
