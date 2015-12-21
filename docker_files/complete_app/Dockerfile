@@ -7,7 +7,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean tru
 RUN apt-get -y install oracle-java8-installer
 RUN apt-get install oracle-java8-set-default
 RUN wget -qO - hwget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
-RUN add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"
+RUN add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/2.1/debian stable main"
 RUN apt-get -y update && apt-get -y install elasticsearch
 RUN update-rc.d elasticsearch defaults 95 10
 RUN apt-get -y install nodejs

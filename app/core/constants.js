@@ -6,7 +6,7 @@
         elastic: {
           host: 'local.portal.dev',
           port: '9200',
-          apiVersion: '1.7'
+          apiVersion: '2.0'
         }
     });
 })();
