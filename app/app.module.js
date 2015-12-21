@@ -8,7 +8,8 @@
     'app.core',
     'app.widgets',
     'app.search',
-    'app.controller'
+    'app.controller',
+    'AngularPrint'
   ])
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
