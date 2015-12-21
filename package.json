@@ -25,12 +25,12 @@
   },
 
   "scripts": {
-    "postinstall": "bower install",
+    "preinstall": "npm install -g bower",
     "init-es": "sudo bash scripts/init-es.sh",
     "start-es": "sudo /etc/init.d/elasticsearch start",
     "stop-es": "sudo /etc/init.d/elasticsearch stop",
     "restart-es": "sudo /etc/init.d/elasticsearch restart",
-    "start": "npm run init-es && node server.js",
+    "start": "node server.js",
     "pretest": "npm install",
     "test": "node node_modules/karma/bin/karma start test/karma.config.js",
     "test-single-run": "node node_modules/karma/bin/karma start test/karma.config.js  --single-run",
