@@ -25,6 +25,7 @@
   },
 
   "scripts": {
+    "delete-all-containers": "docker rm $(docker ps --no-trunc -aq)",
     "preinstall": "npm install -g bower",
     "init-es": "sudo bash scripts/init-es.sh",
     "start-es": "sudo /etc/init.d/elasticsearch start",

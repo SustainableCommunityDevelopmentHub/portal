@@ -25,12 +25,8 @@
       };
 
       // paging
-      if(opts.pageSize){
-        esQuery.size = opts.pageSize;
-        if(opts.page){
-          esQuery.from = (opts.pageSize * (opts.page - 1))
-        }
-      }
+      esQuery.size = opts.size;
+      esQuery.from = opts.from;
 
       console.log('Dataservice.search()......esQuery:' + JSON.stringify(esQuery));
       // execute query return promise

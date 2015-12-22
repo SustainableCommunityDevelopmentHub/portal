@@ -74,13 +74,13 @@
         <li><a ui-sref="#">Author</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing">Showing {{(totalHits === 0) ? totalHits : (page - 1) * pageSize + 1}} - {{((page * pageSize) < totalHits) ? (page * pageSize) : totalHits}} of {{totalHits}} items</span>
+      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < totalHits) ? (pagination.from + pagination.size) : totalHits}} of {{totalHits}} items</span>
       <div class="btn-group" uib-dropdown>
-        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show {{pageSize}}<span class="caret"></span>
+        <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
         </button>
         <ul class="uib-dropdown-menu"  role="menu">
-          <li ng-repeat="pageSize in validPageSizeOptions">
-            <a ng-click="setPageSize(pageSize)">{{pageSize}}</a>
+          <li ng-repeat="pageSizeOption in validPageSizeOptions">
+            <a ng-click="setPageSize(pageSizeOption)">{{pageSizeOption}}</a>
           </li>
         </ul>
       </div>
@@ -88,7 +88,7 @@
 
     <hr class="results-list-hr">
     <!--Search Results Data-->
-    <li dir-paginate="book in results | itemsPerPage: pageSize" current-page="page" total-items="totalHits"  class="book-listing">
+    <li dir-paginate="book in results | itemsPerPage: pagination.size" current-page="pagination.page" total-items="totalHits"  class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>

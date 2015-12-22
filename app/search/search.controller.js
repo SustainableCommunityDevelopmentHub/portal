@@ -16,7 +16,7 @@
 
       ss.response
         .then(function(results){
-          console.log('SearchCtrl....state change success.');
+          console.log('SearchCtrl....state change success. SearchService.opts: ' + JSON.stringify(ss.opts));
 
           // once search result promise is resolved,
           // update SearchService and scope with new search values.
@@ -27,8 +27,15 @@
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
-          $scope.page = ss.opts.page;
-          $scope.pageSize = ss.opts.pageSize;
+          $scope.pagination = {
+            // must parseInt so is treated as int in code
+            page : parseInt(ss.opts.page),
+            size : parseInt(ss.opts.size),
+            from : parseInt(ss.opts.from)
+          };
+
+          console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
+          console.log('.....$scope.totalHits: ' + $scope.totalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.totalHits);
         })
         .catch(function(err){
@@ -108,23 +115,27 @@
      * update pagesize. init new search if pagesize increases
      */
     $scope.setPageSize = function(newPageSize){
-      console.log('SearchCtrl.....updating page size from: ' + $scope.pageSize + ' to: ' + newPageSize);
+      console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
       ss.updateOpts({pageSize: newPageSize});
 
-      if(newPageSize > $scope.pageSize){
-        updateSearch({pageSize: newPageSize});
+      //if(newPageSize > $scope.pagination.size){
+        updateSearch({size: newPageSize});
         return;
-      }
+      //}
 
-      $scope.pageSize = newPageSize;
+      //$scope.pagination.size = newPageSize;
     }
 
     /**
      * trigger search to populate new page and update $scope / state
      */
     $scope.setPageNum = function(newPage){
-      console.log('SearchCtrl........updating pageNum from: ' + $scope.page + ' to: ' + newPage);
-      updateSearch({page: newPage});
+      if(ss.page !== newPage){
+        var newFrom = ss.opts.size * (newPage - 1);
+        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
+        console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
+        updateSearch({from: newFrom, page: newPage});
+      }
     };
 
   };
