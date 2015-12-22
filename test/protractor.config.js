@@ -1,8 +1,10 @@
 exports.config = {
   allScriptsTimeout: 11000,
 
+  rootElement: '.app',
+
   specs: [
-    'e2e/*.js'
+    'spec.js'
   ],
 
   capabilities: {
@@ -14,6 +16,11 @@ exports.config = {
   baseUrl: 'http://localhost:8000/',
 
   framework: 'jasmine',
+
+  onPrepare: function() {
+    browser.driver.manage().window().maximize();
+    return browser.get('http://local.portal.dev:8000/'); // Added return statement here
+  },
 
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000
