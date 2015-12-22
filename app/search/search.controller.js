@@ -99,12 +99,13 @@
      * init search on new query term
      */
     $scope.newQuerySearch = function(query){
+      console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
         q: query
       };
 
-      // if new query term, need to reset pagination
-      if(opts.q.toLowerCase() !== ss.opts.q.toLowerCase()){
+      // if new query term or empty string query term, need to reset pagination
+      if(!opts.q || !opts.q.length || (opts.q.toLowerCase() !== ss.opts.q.toLowerCase()) ){
         opts.page = 1;
       }
 
@@ -116,14 +117,13 @@
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
-      ss.updateOpts({pageSize: newPageSize});
+      // update page when pageSize changes so it stays accurate
+      var newPage = Math.ceil(parseInt(ss.from / newPageSize));
+      console.log('SearchCtrl.setPageSize.....newPage: ' + newPage);
 
-      //if(newPageSize > $scope.pagination.size){
-        updateSearch({size: newPageSize});
-        return;
-      //}
-
-      //$scope.pagination.size = newPageSize;
+      // NOTE: choosing to update search on all pageSize changes for now. 12-20-15
+      updateSearch({size: newPageSize, page: newPage});
+      return;
     }
 
     /**

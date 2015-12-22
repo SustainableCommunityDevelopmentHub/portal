@@ -25,6 +25,9 @@
         searchResults: function($stateParams, SearchService){
           console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
 
+          // NOTE: SearchService.opts should always have current opts prior to this step, making below redundant.
+          //       May remove later, choosing to keep for now. 12-20-15
+
           // do this to separate $stateParam prop names from searchOpts prop names
           var searchOpts = {
             q: $stateParams.q,
