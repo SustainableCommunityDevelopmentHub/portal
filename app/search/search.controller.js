@@ -114,15 +114,15 @@
 
     /**
      * update pagesize. init new search if pagesize increases
+     * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
       // update page when pageSize changes so it stays accurate
-      var newPage = Math.ceil(parseInt(ss.from / newPageSize));
-      console.log('SearchCtrl.setPageSize.....newPage: ' + newPage);
+      console.log('SearchCtrl.setPageSize.....reset to page 1');
 
       // NOTE: choosing to update search on all pageSize changes for now. 12-20-15
-      updateSearch({size: newPageSize, page: newPage});
+      updateSearch({size: newPageSize, page: 1, from: 0});
       return;
     }
 
