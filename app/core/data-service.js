@@ -21,12 +21,18 @@
       var esQuery = {
         index: 'portal',
         type: 'book',
-        q: opts.q
+        size: opts.size,
+        from: opts.from
       };
 
-      // paging
-      esQuery.size = opts.size;
-      esQuery.from = opts.from;
+      // handle case if q is empty string
+      if(!opts.q || !opts.q.length){
+        console.log('MATCH ALL!');
+        esQuery.query = { match_all: {} };
+      }
+      else {
+        esQuery.q = opts.q;
+      }
 
       console.log('Dataservice.search()......esQuery:' + JSON.stringify(esQuery));
       // execute query return promise

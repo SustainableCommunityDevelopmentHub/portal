@@ -99,31 +99,30 @@
      * init search on new query term
      */
     $scope.newQuerySearch = function(query){
+      console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
         q: query
       };
 
-      // if new query term, need to reset pagination
-      if(opts.q.toLowerCase() !== ss.opts.q.toLowerCase()){
+      // if new query term or empty string query term, need to reset pagination
+      if(!opts.q || !opts.q.length || (opts.q.toLowerCase() !== ss.opts.q.toLowerCase()) ){
         opts.page = 1;
+        opts.from = 0;
       }
 
       updateSearch(opts);
     };
 
     /**
-     * update pagesize. init new search if pagesize increases
+     * update pagesize. reset search results to be from 0 if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
-      ss.updateOpts({pageSize: newPageSize});
+      console.log('SearchCtrl.setPageSize.....reset to page 1');
 
-      //if(newPageSize > $scope.pagination.size){
-        updateSearch({size: newPageSize});
-        return;
-      //}
-
-      //$scope.pagination.size = newPageSize;
+      // NOTE: choosing to update search on all pageSize changes for now.
+      updateSearch({size: newPageSize, page: 1, from: 0});
+      return;
     }
 
     /**

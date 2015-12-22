@@ -13,18 +13,6 @@
    * Handles search variables, overall search state, etc.
    */
   function SearchService(DataService, _){
-    /////////////////////////////////
-    // Vars
-    /////////////////////////////////
-    var defaultOpts = {
-      // search term
-      q: null,
-      // pagination
-      from: 0,
-      size: 25,
-      // 'page' just used for UI but we want to track in SearchService
-      page: 1
-    };
 
     /////////////////////////////////
     // Expose Service
@@ -34,7 +22,7 @@
       response: null,
       hits: null,
       totalHits: null,
-      opts: _.clone(defaultOpts),
+      opts: {},
 
       // functions
       newSearch: newSearch,
@@ -109,30 +97,35 @@
      * Clear search opts and reset defaults
      */
     function resetOpts(){
-      this.opts = defaultOpts;
+      this.opts = {
+        q: null,
+        from: 0,
+        size: 25,
+        page: 1
+      };
+      console.log('SearchService.resetOpts....opts: ' + JSON.stringify(this.opts));
     }
 
     ///////////////////////////////////
     //Private Functions
     ///////////////////////////////////
     function search(opts){
-      console.log('SearchService.search()......defaults: ' + JSON.stringify(defaultOpts));
       console.log('SearchService.search()......arg opts: ' + JSON.stringify(opts));
 
-      // if no value set default vals -- b/c of pass-by-reference this sets service.opts
+      // if no value set default vals
       if(!opts.from){
-        opts.from = defaultOpts.from;
+        opts.from = 0;
       }
       if(!opts.size){
-        console.log('SearchService....settting size');
-        opts.size = defaultOpts.size;
+        opts.size = 25;
       }
+      // 'page' just used for UI but we want to track in SearchService
       if(!opts.page){
-        opts.page = defaultOpts.page;
+        opts.page = 1;
       }
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
     };
 
-};
+  };
 })();
