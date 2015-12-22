@@ -6,12 +6,20 @@
 
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
+    //  clear SearchService.opts when state loads
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      SearchService.resetOpts();
+    });
 
-    // For when user inits search from any state besides search.results.
-    // Changes state to search.results, which will trigger search operation.
-    $scope.initSearch = function(queryTerm) {
-      console.log('~~~initSearch! queryTerm: ' + queryTerm);
-      $state.go('searchResults', {q: queryTerm});
+    // for when user inits new search.
+    // changes state to search.results, which will trigger search operation.
+    $scope.newSearch = function(opts) {
+      SearchService.resetOpts();
+
+      // convention is to always pass SearchService.opts
+      SearchService.updateOpts(opts);
+      console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
+      $state.go('searchResults', SearchService.opts);
     };
   }])
 
@@ -72,42 +80,6 @@
           }
         });
     }])
-
-  .controller('ContributorsCtrl', ['$scope', function ($scope) {
-      $scope.searchHelp = {name: "contributors.html", url: "partials/contributors.html"};
-      $scope.contributors = [
-        {name:'Gallica Bibliotheque Nationale de France', num_records: '27,274'},
-        {name:'Getty Research Institute', num_records: '27,274'},
-        {name:'Heidelberg University Library', num_records: '15,873'},
-        {name:'Institut National d\'Histoire de l\'Art', num_records: '5,377'},
-        {name:'Metropolitan Museum of Art', num_records: '4,647'},
-        {name:'Smithsonian Libraries', num_records: '2,991'},
-        {name:'Library of the Philadelphia Museum of Art', num_records: '1,726'},
-        {name:'Avery Architectural & Fine Arts Library at Columbia University', num_records: '1,425'},
-        {name:'Sterling and Francine Clark Art Institute Library', num_records: '335'},
-        {name:'Frick Art Reference Library', num_records: '284'},
-        {name:'Getty Publications Virtual Library', num_records: '236'},
-        {name:'Brooklyn Museum Libraries and Archives', num_records: '122'},
-        {name:'National Gallery of Canada Library and Archives', num_records: '36'},
-        {name:'Kunsthistorisches Institut in Florenz', num_records: '35'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'},
-        {name:'Universidad de Malaga', num_records: '25'},
-        {name:'Online Scholarly Catalogue Initiative', num_records: '10'}
-      ];
-  }])
 
   .controller('HeaderCtrl', ['$scope', function ($scope) {
       $scope.header = {name: "header.html", url: "partials/header.html"};
