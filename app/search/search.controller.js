@@ -114,13 +114,12 @@
     };
 
     /**
-     * update pagesize. reset search results to be from 0 if pageSize changes
+     * update pagesize. init new search if pagesize increases
+     * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
       console.log('SearchCtrl.setPageSize.....reset to page 1');
-
-      // NOTE: choosing to update search on all pageSize changes for now.
       updateSearch({size: newPageSize, page: 1, from: 0});
       return;
     }
