@@ -1,14 +1,16 @@
+<div class="getty-portal-app">
 <div class="item-page">
 <div class="item-details">
 <hr class="sr-top">
-<h3>{{book._source.title[0].value}}</h3>
+<h3 class="book-detail-title" print-section>{{book._source.title[0].value}}</h3>
+<div class="rec-options">
 <a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
-<input type="submit" id="vdi" value="Print" />
+<button print-btn class="vdi">Print</button>
 <!-- Simple dropdown -->
     <accordion>
     <div class="export_accordion__container" ng-controller="FaqsCtrl">
       <div class="export_accordion__tab">
-            <div class="export_accordion__tab-title" ng-click="openTab('tab one')"><input id="vdi" type="submit" value="Export" /></div>
+            <div class="export_accordion__tab-title" ng-click="openTab('tab one')"><input class="vdi" type="submit" value="Export" /></div>
                 <div class="export_accordion__tab-content" ng-show="isOpenTab('tab one')">
                 	<ul class="export_dropdown">
                 		<li><a ui-sref="app/#">RIS</a></li>
@@ -20,14 +22,15 @@
             </div>
       </div>
    </accordion>
-<input type="submit" id="vdi" value="View Digital Item" />
+<input type="submit" class="vdi" value="View Digital Item" />
 <a class="remove-rec" ui-sref="/">Remove Record</a>
-<h4>Details</h4>
-<hr class="sr-top"> 
-<ul class="specs" ng-repeat="(key, field) in book._source">
-  <li><b>{{key | uppercase}}</b>
+</div>
+<h4 class="detail-begin">Details</h4>
+<hr class="sr-top">
+<ul print-section class="specs" ng-repeat="(key, field) in book._source">
+  <li class="book-field-key"><b>{{key | uppercase}}</b>
     <ul class="specs" ng-repeat="entry in field">
-      <li>{{entry.value}}</li>
+      <li class="book-field-val">{{entry.value}}</li>
     </ul>
   </li>
 </ul>
@@ -35,3 +38,4 @@
 <input type="submit" id="emailGRI" value="Email the GRI" />
 </div>
 </div>
+<div ng-app="app" class="app">

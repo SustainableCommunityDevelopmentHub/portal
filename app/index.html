@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="bower_components/angular-print/angularPrint.css">
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
@@ -17,6 +18,7 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-print/angularPrint.js"></script>
 
     <!--Main app-->
     <script src="app.module.js"></script>
@@ -40,7 +42,8 @@
   </head>
 
   <body>
-    <div ng-app="app">
+    <div class="getty-portal-app">
+    <div ng-app="app" class="app">
       <header>
         <div class="container-fluid" id="container-test">
           <div data-ng-include="'partials/header.html'"></div>
@@ -51,5 +54,6 @@
         <div data-ng-include="'partials/footer.html'"></div>
       </footer>
     </div>
+  </div>
   </body>
 </html>

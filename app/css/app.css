@@ -786,7 +786,7 @@ h1 {
   color: #478ba3;
 }
 
-#vdi {
+.vdi {
   width: 150px;
   height: 40px;
   float: right;
@@ -813,6 +813,56 @@ h1 {
 .specs .ng-scope {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+@media print {
+  .header-complete {
+    display: none;
+  }
+
+  .book-detail-title {
+    margin-bottom: 20px;
+    padding-bottom: 0;
+    font-size: 16px;
+  }
+
+  .detail-begin {
+    display: none;
+  }
+
+  .sr-top {
+    display: none;
+  }
+
+  .rec-options {
+    display: none;
+  }
+
+  .book-field-key {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .book-field-val {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1em;
+  }
+
+  .ng-binding b {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .footer {
+    display: none;
+  }
 }
 
 
