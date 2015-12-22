@@ -33,9 +33,10 @@ Enter a search for "history" and click the Search button (click twice)
 The recommended way to install Docker on OS X is using homebrew cask (or Macports) to install the docker toolbox.
 If you don't have either one of these, go [here](http://http://brew.sh/) for homebrew install instructions and description.
 
-Once you have homebrew, make sure it is up to date with:`brew update`
+Once you have homebrew, update it to most recent.
+        `brew update`
 
-Then use it to install Docker Toolbox:
+Then use it to install Docker Toolbox.
         `brew cask install dockertoolbox`
 
 #Setup Docker Machine 
