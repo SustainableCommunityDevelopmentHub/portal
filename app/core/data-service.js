@@ -21,15 +21,17 @@
       var esQuery = {
         index: 'portal',
         type: 'book',
-        q: opts.q
+        size: opts.size,
+        from: opts.from
       };
 
-      // paging
-      if(opts.pageSize){
-        esQuery.size = opts.pageSize;
-        if(opts.page){
-          esQuery.from = (opts.pageSize * (opts.page - 1))
-        }
+      // handle case if q is empty string
+      if(!opts.q || !opts.q.length){
+        console.log('MATCH ALL!');
+        esQuery.query = { match_all: {} };
+      }
+      else {
+        esQuery.q = opts.q;
       }
 
       console.log('Dataservice.search()......esQuery:' + JSON.stringify(esQuery));

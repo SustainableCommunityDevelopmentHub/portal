@@ -10,14 +10,14 @@
     'angularUtils.directives.dirPagination',
     'app.search',
     'app.controller',
-    'app.contributors'
+    'AngularPrint'
   ])
 
   // make lodash injectable
   .constant('_', window._)
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
-    // Convenience to access $state, $stateParams from any scope w/out injection
+    // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
   }]);

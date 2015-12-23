@@ -6,14 +6,15 @@
 
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
+    //  clear SearchService.opts when state loads
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      SearchService.resetOpts();
+    });
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.
     $scope.newSearch = function(opts) {
       SearchService.resetOpts();
-      // set these here so they show up in url
-      opts.page = 1;
-      opts.pageSize = 25;
 
       // convention is to always pass SearchService.opts
       SearchService.updateOpts(opts);
