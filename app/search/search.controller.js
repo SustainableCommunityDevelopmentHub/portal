@@ -17,6 +17,8 @@
       ss.response
         .then(function(results){
           console.log('SearchCtrl....state change success. SearchService.opts: ' + JSON.stringify(ss.opts));
+          //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(results, null, 2));
+
 
           // once search result promise is resolved,
           // update SearchService and scope with new search values.
