@@ -19,7 +19,7 @@
      * General Elasticsearch query function
      */
     function search(opts){
-      // build full ES query
+      // build full ES query obj
       var fullQuery = {
         index: 'portal',
         type: 'book',
@@ -28,10 +28,16 @@
         body: getBaseQuery()
       };
 
+
       // add q / search term if not empty string
       if(opts.q && opts.q.length){
         console.log('DataService.search.......opts.q: ' + opts.q);
         fullQuery.body.query.match._all = opts.q;
+      }
+      // else empty string, return all records
+      else{
+        delete fullQuery.body.query.match._all;
+        fullQuery.body.query.match_all = {};
       }
 
       console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));

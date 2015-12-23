@@ -74,7 +74,7 @@
         <li><a ui-sref="#">Author</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < totalHits) ? (pagination.from + pagination.size) : totalHits}} of {{totalHits}} items</span>
+      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
         </button>
@@ -88,7 +88,7 @@
 
     <hr class="results-list-hr">
     <!--Search Results Data-->
-    <li dir-paginate="book in results | itemsPerPage: pagination.size" current-page="pagination.page" total-items="totalHits"  class="book-listing">
+    <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
         <b>Author: </b>{{book.creator[0].value}}<br/>

@@ -14,7 +14,7 @@
     // initialize search results, etc, when state loads
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-      ss.response
+      ss.returnedPromise
         .then(function(results){
           console.log('SearchCtrl....state change success. SearchService.opts: ' + JSON.stringify(ss.opts));
           //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(results, null, 2));
@@ -24,8 +24,8 @@
           // update SearchService and scope with new search values.
           // set search result data. must do here b/c of promise
           ss.setResultsData(results);
-          $scope.results = parseResults(ss.hits);
-          $scope.totalHits = ss.totalHits;
+          $scope.hits = parseResults(ss.results.hits);
+          $scope.numTotalHits = ss.results.numTotalHits;
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
@@ -37,11 +37,11 @@
           };
 
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
-          console.log('.....$scope.totalHits: ' + $scope.totalHits);
-          $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.totalHits);
+          console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
+          $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
         })
         .catch(function(err){
-          console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + e);
+          console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + err);
         });
     });
 
@@ -83,17 +83,17 @@
     //Functions
     /////////////////////////////////
 
-    $scope.getValidPageSizeOptions = function (totalHits){
+    $scope.getValidPageSizeOptions = function (numTotalHits){
       var passedThreshold = false;
       return $scope.allPageSizeOptions
         .filter(function(pageSize){
-          // return pageSizeOption 1 greater than totalHits,
+          // return pageSizeOption 1 greater than numTotalHits,
           // so all hits can be viewed on 1 page.
-          if(!passedThreshold && (pageSize >= totalHits)){
+          if(!passedThreshold && (pageSize >= numTotalHits)){
             passedThreshold = true;
             return pageSize;
           }
-          return pageSize <= totalHits;
+          return pageSize <= numTotalHits;
         });
     };
 
