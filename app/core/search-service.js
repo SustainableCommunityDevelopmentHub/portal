@@ -18,16 +18,18 @@
     // Expose Service
     /////////////////////////////////
     var service = {
-      // variables
+      // variables //
       returnedPromise: null,
       results: {
         hits: null,
         numTotalHits: null,
         facetOptions: null
       },
+      // search query options/params
       opts: {},
 
-      // functions
+
+      // functions //
       newSearch: newSearch,
       updateSearch: updateSearch,
       runSearch: runSearch,

@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'FacetList', 'SearchService', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService){
+  function SearchCtrl($scope, $state, FacetList, SearchService){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -20,12 +20,28 @@
           //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(results, null, 2));
 
 
+          /////////////////////////////////////////////////////////
           // once search result promise is resolved,
-          // update SearchService and scope with new search values.
+          // update SearchService and scope
+          /////////////////////////////////////////////////////////
+
           // set search result data. must do here b/c of promise
           ss.setResultsData(results);
           $scope.hits = parseResults(ss.results.hits);
           $scope.numTotalHits = ss.results.numTotalHits;
+
+
+          $scope.facets = {};
+          $scope.appliedFacets = {};
+
+          // set returned facet options for query executed
+          var allAggregations = results.aggregations
+          FacetList.forEach(function(facet){
+            // date is a range and needs to be handled differently
+            if(facet.key !== 'date'){
+              $scope.facets[facet.key]= parseAggregationResults(allAggregations[facet.key], facet.key);
+            }
+          });
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
@@ -56,7 +72,8 @@
     ///////////////////////////
 
     /**
-     * parse search result data to simplify object structure
+     * parse search result hits data to simplify object structure
+     * @param {array} hits from ES response obj. contains search results (hits returned)
      */
     function parseResults(hits){
       return hits.map(function(data){
@@ -64,6 +81,25 @@
         // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
         book._id = data._id;
         return book;
+      });
+    };
+
+    /**
+     * parse search result aggregation data for a single aggregation
+     * to simplify object struction
+     * @param {object} agg from ES response obj. contains an aggregation
+     * @param {string} name name of the aggregation. this matches the name of the facet
+     */
+    function parseAggregationResults(agg, name){
+      return agg[name].buckets.map(function(facetOption){
+        console.log('SearchCtrl.parseAggregationResults -- raw facet option: ' + JSON.stringify(facetOption));
+        var option = {
+          facet: name,
+          option: facetOption.key,
+          count: facetOption.doc_count
+        };
+        console.log('SearchCtrl.parseAggregationResults -- parsed facet option: ' + JSON.stringify(option));
+        return option;
       });
     };
 
