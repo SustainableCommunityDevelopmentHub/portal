@@ -36,7 +36,7 @@
       }
       // else empty string, return all records
       else{
-        delete fullQuery.body.query.match._all;
+        delete fullQuery.body.query.match;
         fullQuery.body.query.match_all = {};
       }
 
@@ -103,7 +103,7 @@
                   "path": "grp_contributing_institution"
                 },
                 "aggs": {
-                  "creator": {
+                  "grp_contributing_institution": {
                     "terms": {
                       "field": "grp_contributing_institution.raw"
                     }
