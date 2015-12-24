@@ -18,13 +18,18 @@
     // Expose Service
     /////////////////////////////////
     var service = {
-      // variables
-      response: null,
-      hits: null,
-      totalHits: null,
+      // variables //
+      returnedPromise: null,
+      results: {
+        hits: null,
+        numTotalHits: null,
+        facetOptions: null
+      },
+      // search query options/params
       opts: {},
 
-      // functions
+
+      // functions //
       newSearch: newSearch,
       updateSearch: updateSearch,
       runSearch: runSearch,
@@ -48,9 +53,9 @@
     function newSearch(opts){
       console.log('SearchService.newSearch()......opts: ' + JSON.stringify(opts));
       this.opts = opts;
-      this.response = search(this.opts);
-      console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
-      return this.response;
+      this.returnedPromise = search(this.opts);
+      console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
+      return this.returnedPromise;
     };
 
     /**
@@ -64,9 +69,9 @@
       opts = opts || {};
       _.merge(this.opts, opts);
       console.log('SearchService.updateSearch()...........merged opts: ' + JSON.stringify(opts));
-      this.response = search(this.opts);
-      console.log('SearchService.newSearch() response: ' + JSON.stringify(this.response));
-      return this.response;
+      this.returnedPromise = search(this.opts);
+      console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
+      return this.returnedPromise;
     };
 
     /**
@@ -89,8 +94,8 @@
      * @param {Object} results - Results object from Elasticsearch
      */
     function setResultsData(results){
-      this.hits = results.hits.hits;
-      this.totalHits = results.hits.total;
+      this.results.hits = results.hits.hits;
+      this.results.numTotalHits = results.hits.total;
     }
 
     /**

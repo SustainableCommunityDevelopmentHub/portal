@@ -1,0 +1,98 @@
+{
+  "book": {
+    "properties": {
+      "creator": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "date": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "qualifier": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "grp_contributing_institution": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
+      },
+      "language": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "subject": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "qualifier": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+
+      },
+      "type": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "raw": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "qualifier": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      }
+    }
+  }
+}

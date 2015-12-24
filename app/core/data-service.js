@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('app.core')
-    .factory('DataService', ['esClient', DataService])
+  .module('app.core')
+  .factory('DataService', ['esClient', DataService])
 
   /* DataService - get all data through this service */
   function DataService(esClient) {
@@ -15,32 +15,138 @@
     console.log('Core........Returning DataService factory');
     return service;
 
+    /**
+     * General Elasticsearch query function
+     */
     function search(opts){
-
-      // build query obj
-      var esQuery = {
+      // build full ES query obj
+      var fullQuery = {
         index: 'portal',
         type: 'book',
         size: opts.size,
-        from: opts.from
+        from: opts.from,
+        body: getBaseQuery()
       };
 
-      // handle case if q is empty string
-      if(!opts.q || !opts.q.length){
-        console.log('MATCH ALL!');
-        esQuery.query = { match_all: {} };
+
+      // add q / search term if not empty string
+      if(opts.q && opts.q.length){
+        console.log('DataService.search.......opts.q: ' + opts.q);
+        fullQuery.body.query.match._all = opts.q;
       }
-      else {
-        esQuery.q = opts.q;
+      // else empty string, return all records
+      else{
+        delete fullQuery.body.query.match;
+        fullQuery.body.query.match_all = {};
       }
 
-      console.log('Dataservice.search()......esQuery:' + JSON.stringify(esQuery));
+      console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));
+
       // execute query return promise
-      var res = esClient.search(esQuery);
+      var res = esClient.search(fullQuery);
+
       console.log('DataService.search..... executed, promise res: ' + JSON.stringify(res));
       return res;
+
+      ////////////////////////////
+      //Private/Helper Functions
+      ////////////////////////////
+
+      /**
+       * Return copy of base ES query object.
+       * This is the basic structure of all our ES queries.
+       * The returned copy can then be modified as needed
+       * for a particular query.
+       * Default query term is empty string.
+       */
+      function getBaseQuery(){
+        // see ES documentation on 'nested' data type (related to mapping) and 'nested' terms aggregation,
+        // and 'multi-fields' for more information on how the aggregations work.
+        // be sure to read documentation for correct version as there were significant changes from v1.x to v2.x
+        var baseQuery =
+          {
+            // fulltext query across all fields - the "search term"
+            "query": {
+              "match": { "_all": "" }
+            },
+            // aggregations to get facet options for our query
+            "aggregations": {
+              // creator
+              "creator": {
+                "nested": {
+                  "path": "creator"
+                },
+                "aggs": {
+                  "creator": {
+                    "terms": {
+                      "field": "creator.value.raw"
+                    }
+                  }
+                }
+              },
+              // language
+              "language": {
+                "nested": {
+                  "path": "language"
+                },
+                "aggs": {
+                  "language": {
+                    "terms": {
+                      "field": "language.value"
+                    }
+                  }
+                }
+              },
+              // contributing institution
+              "grp_contributing_institution": {
+                "nested": {
+                  "path": "grp_contributing_institution"
+                },
+                "aggs": {
+                  "grp_contributing_institution": {
+                    "terms": {
+                      "field": "grp_contributing_institution.raw"
+                    }
+                  }
+                }
+              },
+              // subject
+              "subject": {
+                "nested": {
+                  "path": "subject"
+                },
+                "aggs": {
+                  "subject": {
+                    "terms": {
+                      "field": "subject.value.raw"
+                    }
+                  }
+                }
+              },
+              // type
+              "type": {
+                "nested": {
+                  "path": "type"
+                },
+                "aggs": {
+                  "type": {
+                    "terms": {
+                      "field": "type.value.raw"
+                    }
+                  }
+                }
+              }
+            }
+          };
+
+        return _.cloneDeep(baseQuery);
+      };
+
     };
 
+    /**
+     * Get Contributors information
+     */
     function getContributors(){
       var contributors = [
         {name:'Gallica Bibliotheque Nationale de France', num_records: '27,274'},
