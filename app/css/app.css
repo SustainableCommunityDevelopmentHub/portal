@@ -300,6 +300,7 @@ body {
 .book-listing {
   color:black;
   width: 100%;
+  list-style: none;
 }
 
 .thumb {
