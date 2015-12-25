@@ -3,7 +3,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', '_', SearchService]);
+  .factory('SearchService', ['DataService', '_', 'FacetList',SearchService]);
 
   /* SearchService
    *
@@ -12,7 +12,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, _){
+  function SearchService(DataService, _, FacetList){
 
     /////////////////////////////////
     // Expose Service
@@ -23,7 +23,7 @@
       results: {
         hits: null,
         numTotalHits: null,
-        facetOptions: null
+        facetOptions: {}
       },
       // search query options/params
       opts: {},
@@ -91,11 +91,34 @@
 
     /**
      * Set SearchService results values once response promise is resolved
+     * Parse data from ES into desired format. Assign to SearchService and return
+     *
      * @param {Object} results - Results object from Elasticsearch
+     * @return {Object} object with a property for each search result type we're interested in.
      */
     function setResultsData(results){
-      this.results.hits = results.hits.hits;
+      // set hits returned by search
+      this.results.hits = parseResults(results.hits.hits);
       this.results.numTotalHits = results.hits.total;
+
+      // set facet options
+      var allAggregations = results.aggregations
+
+      // TODO: Get this working using FacetList.foreach(). The 'this' was undefined when attempting before.
+      this.results.facetOptions['language'] = parseAggregationResults(allAggregations['language'], 'language');
+      this.results.facetOptions['creator'] = parseAggregationResults(allAggregations['creator'], 'creator');
+      this.results.facetOptions['type'] = parseAggregationResults(allAggregations['type'], 'type');
+      this.results.facetOptions['subject'] = parseAggregationResults(allAggregations['subject'], 'subject');
+      this.results.facetOptions['grp_contributing_institution'] = parseAggregationResults(allAggregations['grp_contributing_institution'], 'grp_contributing_institution');
+
+      // return parsed data so it can be assigned on scope or elsewhere
+      var obj = {
+        hits: this.results.hits,
+        numTotalHits: this.results.numTotalHits,
+        facets: this.results.facetOptions
+      };
+
+      return obj;
     }
 
     /**
@@ -131,6 +154,41 @@
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
     };
+
+    /**
+     * parse search result hits data to simplify object structure
+     * @param {array} hits from ES response obj. contains search results (hits returned)
+     */
+    function parseResults(hits){
+      return hits.map(function(data){
+        var book = data._source;
+        // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
+        book._id = data._id;
+        return book;
+      });
+    };
+
+    /**
+     * parse search result aggregation data for a single aggregation
+     * to simplify object struction
+     * @param {object} agg from ES response obj. contains an aggregation
+     * @param {string} name name of the aggregation. this matches the name of the facet
+     */
+    function parseAggregationResults(agg, name){
+      return agg[name].buckets.map(function(facetOption){
+        //console.log('SearchService.parseAggregationResults -- raw facet option: ' + JSON.stringify(facetOption));
+
+        var option = {
+          facet: name,
+          option: facetOption.key,
+          count: facetOption.doc_count
+        };
+        //console.log('SearchService.parseAggregationResults -- parsed facet option: ' + JSON.stringify(option));
+
+        return option;
+      });
+    };
+
 
   };
 })();
