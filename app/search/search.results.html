@@ -31,7 +31,7 @@
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>Author
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>Creator
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')"><div class="checkbox">
           <label><input type="checkbox" value="">Option 1</label>
@@ -71,7 +71,7 @@
       <ul class="dropdown-menu">
         <li><a ui-sref="#">Type</a></li>
         <li><a ui-sref="#">Subject</a></li>
-        <li><a ui-sref="#">Author</a></li>
+        <li><a ui-sref="#">Creator</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
       <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>
@@ -91,7 +91,7 @@
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
         <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
         <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
-        <b>Author: </b>{{book.creator[0].value}}<br/>
+        <b>Creator: </b>{{book.creator[0].value}}<br/>
         <b>Date: </b>{{book.date[0].value}}<br/>
         <b>Contributor: </b>{{book.contributor[0].value}}<br/>
         <a ui-sref="books({bookID: book._id})">See Full Record</a><br/>
