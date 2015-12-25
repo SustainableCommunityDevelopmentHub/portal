@@ -7,9 +7,12 @@
     <h4>Filter Your Results</h4>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>Type
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>
+        Type
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')"><form role="form">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')">
+        <form role="form">
           <div class="checkbox">
             <label><input type="checkbox" value="">Option 1</label>
           </div>
@@ -19,43 +22,63 @@
           <div class="checkbox disabled">
             <label><input type="checkbox" value="">Option 3</label>
           </div>
-        </form></div>
+        </form>
+      </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab two')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab two'), 'glyphicon-plus': !status.open}"></i>Subject
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab two')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab two'), 'glyphicon-plus': !status.open}"></i>
+        Subject
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')"><div class="checkbox">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')">
+        <div class="checkbox">
           <label><input type="checkbox" value="">Option 1</label>
-        </div></div>
+        </div>
+      </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>Creator
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>
+        Creator
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')"><div class="checkbox">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')">
+        <div class="checkbox">
           <label><input type="checkbox" value="">Option 1</label>
-        </div></div>
+        </div>
+      </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab four')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab four'), 'glyphicon-plus': !status.open}"></i>Location
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab four')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab four'), 'glyphicon-plus': !status.open}"></i>
+        Language
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')"><div class="checkbox">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')">
+        <div class="checkbox">
           <label><input type="checkbox" value="">Option 1</label>
-        </div></div>
+        </div>
+      </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab five')"><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab five'), 'glyphicon-plus': !status.open}"></i>Contributed by
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab five')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab five'), 'glyphicon-plus': !status.open}"></i>
+        Contributed by
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')"><div class="checkbox">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')">
+        <div class="checkbox">
           <label><input type="checkbox" value="">Option 1</label>
-        </div></div>
+        </div>
+      </div>
     </div>
     <hr class="left_sidebar_hr">
     <h5>Date range</h5>
-    <div class="date-range"><p>From:</p><input type="date"></div><div class="date-range"><p>To:</p><input type="date"><button ng-click="search()" class="btn" type="button" id="go-btn-results">></button></div>
+    <div class="date-range"><p>From:</p><input type="date"></div>
+      <div class="date-range"><p>To:</p><input type="date">
+        <button ng-click="search()" class="btn" type="button" id="go-btn-results">></button>
+      </div>
   </div>
 
   <!--Search Box & Options-->
@@ -89,14 +112,14 @@
     <hr class="results-list-hr">
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-        <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-        <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
-        <b>Creator: </b>{{book.creator[0].value}}<br/>
-        <b>Date: </b>{{book.date[0].value}}<br/>
-        <b>Contributor: </b>{{book.contributor[0].value}}<br/>
-        <a ui-sref="books({bookID: book._id})">See Full Record</a><br/>
-        <hr class="results-list-hr"><br>
-      </li>
+      <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
+      <a ui-sref="books({bookID: book._id})">{{book.title[0].value}}</a><br/>
+      <b>Creator: </b>{{book.creator[0].value}}<br/>
+      <b>Date: </b>{{book.date[0].value}}<br/>
+      <b>Contributor: </b>{{book.contributor[0].value}}<br/>
+      <a ui-sref="books({bookID: book._id})">See Full Record</a><br/>
+      <hr class="results-list-hr"><br>
+    </li>
     </ul>
     <!--Pagination-->
     <div class="results-pagination">
