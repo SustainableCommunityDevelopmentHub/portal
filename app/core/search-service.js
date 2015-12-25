@@ -111,6 +111,7 @@
       this.results.facetOptions['subject'] = parseAggregationResults(allAggregations['subject'], 'subject');
       this.results.facetOptions['grp_contributing_institution'] = parseAggregationResults(allAggregations['grp_contributing_institution'], 'grp_contributing_institution');
 
+      console.log('SearchService.setResultsData.........facetOptions.grp_contributing_institution: ' + JSON.stringify(this.results.facetOptions.grp_contributing_institution));
       // return parsed data so it can be assigned on scope or elsewhere
       var obj = {
         hits: this.results.hits,

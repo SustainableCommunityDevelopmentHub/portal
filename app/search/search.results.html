@@ -44,8 +44,8 @@
         Creator
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')">
-        <div class="checkbox">
-          <label><input type="checkbox" value="">Option 1</label>
+        <div ng-repeat="facet in facets.creator | limitTo: 10" class="checkbox">
+          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -56,8 +56,8 @@
         Language
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')">
-        <div class="checkbox">
-          <label><input type="checkbox" value="">Option 1</label>
+        <div ng-repeat="facet in facets.language | limitTo: 10" class="checkbox">
+          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -68,8 +68,8 @@
         Contributed by
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')">
-        <div class="checkbox">
-          <label><input type="checkbox" value="">Option 1</label>
+        <div ng-repeat="facet in facets.grp_contributing_institution | limitTo: 10" class="checkbox">
+          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
