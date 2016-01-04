@@ -12,17 +12,9 @@
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')">
-        <form role="form">
-          <div class="checkbox">
-            <label><input type="checkbox" value="">Option 1</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" value="">Option 2</label>
-          </div>
-          <div class="checkbox disabled">
-            <label><input type="checkbox" value="">Option 3</label>
-          </div>
-        </form>
+        <div ng-repeat="facet in facets.type | limitTo: 10" class="checkbox">
+          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+        </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
@@ -32,8 +24,8 @@
         Subject
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')">
-        <div class="checkbox">
-          <label><input type="checkbox" value="">Option 1</label>
+        <div ng-repeat="facet in facets.subject | limitTo: 10" class="checkbox">
+          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
