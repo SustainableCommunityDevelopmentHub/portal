@@ -28,16 +28,50 @@
         body: getBaseQuery()
       };
 
-
       // add q / search term if not empty string
       if(opts.q && opts.q.length){
         console.log('DataService.search.......opts.q: ' + opts.q);
-        fullQuery.body.query.match._all = opts.q;
+        fullQuery.body.query.filtered.query.match = { _all: opts.q };
       }
+
       // else empty string, return all records
       else{
-        delete fullQuery.body.query.match;
-        fullQuery.body.query.match_all = {};
+        fullQuery.body.query.filtered.query.match_all = {};
+      }
+
+      /* build filters */
+      if(opts.facets.length){
+        console.log('....Facet filters detected!');
+        // build structure to place multiple nested filters in
+        fullQuery.body.query.filtered.filter = { bool: { must: [] } };
+
+        opts.facets.forEach(function(facet){
+          console.log('...Adding filter on facet: ' + JSON.stringify(facet));
+          var fieldKey = '';
+          switch(facet.name){
+            case 'language':
+              fieldKey = 'language.value';
+              break;
+            case 'subject':
+              fieldKey = 'subject.value';
+              break;
+            case 'type':
+              fieldKey = 'type.value';
+              break;
+            case 'creator':
+              fieldKey = 'creator.value';
+              break;
+            case 'grp_contributing_institution':
+              fieldKey = 'grp_contributing_institution.value';
+              break;
+          }
+
+          if(fieldKey.length){
+            fullQuery.body.query.filtered
+              .filter.bool.must.push(createFilter(facet.name, fieldKey, facet.options));
+          }
+
+        });
       }
 
       console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));
@@ -51,6 +85,31 @@
       ////////////////////////////
       //Private/Helper Functions
       ////////////////////////////
+
+      /**
+       * Construct ES query for terms filter over nested object.
+       * Used to apply specific facet type, with one or more options, to a query.
+       * Add to base query to filter on particular facet and facet options
+       *
+       * @returns {object} elasticsearch query DSL for terms filter
+       */
+      function createFilter(field, fieldKey, filterValuesArr){
+        var nestedTermsFilter =
+          {
+            nested: {
+              path: field,
+              filter: {
+                terms: {}
+              }
+            }
+          };
+
+        nestedTermsFilter.nested.filter.terms[fieldKey] =  filterValuesArr;
+
+        console.log('Created Nested Term Filter: ' + JSON.stringify(nestedTermsFilter) + ' on key: ' + fieldKey + ' for vals: ' + JSON.stringify(filterValuesArr));
+
+        return nestedTermsFilter;
+      };
 
       /**
        * Return copy of base ES query object.
@@ -67,7 +126,10 @@
           {
             // fulltext query across all fields - the "search term"
             "query": {
-              "match": { "_all": "" }
+              "filtered": {
+                "query": {
+                }
+              }
             },
             // aggregations to get facet options for our query
             "aggregations": {

@@ -33,7 +33,7 @@
 
           $scope.appliedFacets = {};
 
-          console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
+          //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
           //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(parsedResults));
 
           // bind search opts to scope
