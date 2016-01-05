@@ -26,15 +26,15 @@
           /////////////////////////////////////////////////////////
 
           // set search result data. must do here b/c of promise
-          var parsedResults = ss.setResultsData(results);
-          $scope.hits = parsedResults.hits;
-          $scope.numTotalHits = parsedResults.numTotalHits;
-          $scope.facets = parsedResults.facets;
+          var searchResults = ss.setResultsData(results);
+          $scope.hits = searchResults.hits;
+          $scope.numTotalHits = searchResults.numTotalHits;
+          $scope.facets = searchResults.facets;
 
           $scope.appliedFacets = {};
 
           //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
-          //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(parsedResults));
+          //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
@@ -48,6 +48,12 @@
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
+
+          //$scope.facets = [];
+          //if(ss.opts.facets){
+            //$scope.facets = ss.opts.facets;
+          //}
+
         })
         .catch(function(err){
           console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + err);
