@@ -59,8 +59,8 @@
     };
 
     /**
-     * Updates opts and executes search.
-     * @param {Object} opts - search options
+     * Updates opts (changed object properties are overwritten) and executes search.
+     * @param {Object} opts - changed search options
      * @returns {Promise} - search results
      */
     function updateSearch(opts){
@@ -132,7 +132,7 @@
         from: 0,
         size: 25,
         page: 1,
-        facets: {}
+        facets: []
       };
       console.log('SearchService.resetOpts....opts: ' + JSON.stringify(this.opts));
     }

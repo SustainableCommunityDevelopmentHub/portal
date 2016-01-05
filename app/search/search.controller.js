@@ -49,10 +49,9 @@
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
 
-          //$scope.facets = [];
-          //if(ss.opts.facets){
-            //$scope.facets = ss.opts.facets;
-          //}
+          if(ss.opts.facets){
+            $scope.activeFacets = ss.opts.facets;
+          }
 
         })
         .catch(function(err){
@@ -80,6 +79,7 @@
       console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
       console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
       $state.go('searchResults', ss.opts);
+      console.log("past state.go!");
     };
 
     /////////////////////////////////
@@ -155,6 +155,8 @@
           return aFacet.option === facetOption.option;
         });
       }
+
+      updateSearch({facets: $scope.activeFacets});
     };
 
   };

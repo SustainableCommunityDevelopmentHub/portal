@@ -38,41 +38,55 @@
         fullQuery.body.query.filtered.query.match_all = {};
       }
 
-      // build filters
+      // build filters for faceted search
       if(opts.facets.length){
         console.log('....Facet filters detected!');
         // build structure to place multiple nested filters in
         fullQuery.body.query.filtered.filter = { bool: { must: [] } };
 
+        // container for facet categories
+        var facetCategories = {
+          language: {
+            name: 'language',
+            fieldKey: 'language.value',
+            options:[]
+          },
+          subject: {
+            name: 'subject',
+            fieldKey: 'subject.value',
+            options:[]
+          },
+          type: {
+            name: 'type',
+            fieldKey: 'type.value',
+            options:[]
+          },
+          creator: {
+            name: 'creator',
+            fieldKey: 'creator.value',
+            options:[]
+          },
+          grp_contributing_institution: {
+            name: 'grp_contributing_institution',
+            fieldKey: 'grp_contributing_institution.value',
+            options:[]
+          }
+        };
+
+        // collect facets by category
         opts.facets.forEach(function(facet){
           console.log('...Adding filter on facet: ' + JSON.stringify(facet));
-
-          var fieldKey = '';
-          switch(facet.name){
-            case 'language':
-              fieldKey = 'language.value';
-              break;
-            case 'subject':
-              fieldKey = 'subject.value';
-              break;
-            case 'type':
-              fieldKey = 'type.value';
-              break;
-            case 'creator':
-              fieldKey = 'creator.value';
-              break;
-            case 'grp_contributing_institution':
-              fieldKey = 'grp_contributing_institution.value';
-              break;
-          }
-
-          if(fieldKey.length){
-            fullQuery.body.query.filtered
-              .filter.bool.must.push(createFilter(facet.name, fieldKey, facet.options));
-          }
-
+          // TODO: Add validation that facet.name is valid facet category
+          facetCategories[facet.name].options.push(facet.option);
         });
       }
+
+      // add filter to query for each facet category
+      _.values(facetCategories).forEach(function(facetCategory){
+        fullQuery.body.query.filtered
+        .filter.bool.must
+        .push(createFilter(facetCategory.name, facetCategory.fieldKey, facetCategory.options));
+      });
 
       console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));
 
@@ -104,11 +118,11 @@
             }
           };
 
-        nestedTermsFilter.nested.filter.terms[fieldKey] =  filterValuesArr;
+          nestedTermsFilter.nested.filter.terms[fieldKey] =  filterValuesArr;
 
-        console.log('Created Nested Term Filter: ' + JSON.stringify(nestedTermsFilter) + ' on key: ' + fieldKey + ' for vals: ' + JSON.stringify(filterValuesArr));
+          console.log('Created Nested Term Filter: ' + JSON.stringify(nestedTermsFilter) + ' on key: ' + fieldKey + ' for vals: ' + JSON.stringify(filterValuesArr));
 
-        return nestedTermsFilter;
+          return nestedTermsFilter;
       };
 
       /**
@@ -201,7 +215,7 @@
             }
           };
 
-        return _.cloneDeep(baseQuery);
+          return _.cloneDeep(baseQuery);
       };
 
     };
