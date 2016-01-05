@@ -105,7 +105,7 @@
                 "aggs": {
                   "grp_contributing_institution": {
                     "terms": {
-                      "field": "grp_contributing_institution.raw"
+                      "field": "grp_contributing_institution.value.raw"
                     }
                   }
                 }

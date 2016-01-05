@@ -26,22 +26,15 @@
           /////////////////////////////////////////////////////////
 
           // set search result data. must do here b/c of promise
-          ss.setResultsData(results);
-          $scope.hits = parseResults(ss.results.hits);
-          $scope.numTotalHits = ss.results.numTotalHits;
+          var parsedResults = ss.setResultsData(results);
+          $scope.hits = parsedResults.hits;
+          $scope.numTotalHits = parsedResults.numTotalHits;
+          $scope.facets = parsedResults.facets;
 
-
-          $scope.facets = {};
           $scope.appliedFacets = {};
 
-          // set returned facet options for query executed
-          var allAggregations = results.aggregations
-          FacetList.forEach(function(facet){
-            // date is a range and needs to be handled differently
-            if(facet.key !== 'date'){
-              $scope.facets[facet.key]= parseAggregationResults(allAggregations[facet.key], facet.key);
-            }
-          });
+          console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
+          //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(parsedResults));
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
@@ -70,38 +63,6 @@
     ///////////////////////////
     //Private/Helper Functions
     ///////////////////////////
-
-    /**
-     * parse search result hits data to simplify object structure
-     * @param {array} hits from ES response obj. contains search results (hits returned)
-     */
-    function parseResults(hits){
-      return hits.map(function(data){
-        var book = data._source;
-        // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
-        book._id = data._id;
-        return book;
-      });
-    };
-
-    /**
-     * parse search result aggregation data for a single aggregation
-     * to simplify object struction
-     * @param {object} agg from ES response obj. contains an aggregation
-     * @param {string} name name of the aggregation. this matches the name of the facet
-     */
-    function parseAggregationResults(agg, name){
-      return agg[name].buckets.map(function(facetOption){
-        console.log('SearchCtrl.parseAggregationResults -- raw facet option: ' + JSON.stringify(facetOption));
-        var option = {
-          facet: name,
-          option: facetOption.key,
-          count: facetOption.doc_count
-        };
-        console.log('SearchCtrl.parseAggregationResults -- parsed facet option: ' + JSON.stringify(option));
-        return option;
-      });
-    };
 
     /**
      * reload search result state to trigger search.

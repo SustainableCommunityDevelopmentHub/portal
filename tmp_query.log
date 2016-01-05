@@ -1,0 +1,78 @@
+{
+  "query": {
+    "match": {
+      "_all": "art"
+    }
+  },
+  "aggregations": {
+    "creator": {
+      "nested": {
+        "path": "creator"
+      },
+      "aggs": {
+        "creator": {
+          "terms": {
+            "field": "creator.value.raw"
+          }
+        }
+      }
+    },
+    "language": {
+      "nested": {
+        "path": "language"
+      },
+      "aggs": {
+        "language": {
+          "terms": {
+            "field": "language.value"
+          }
+        }
+      }
+    },
+    "grp_contributing_institution": {
+      "nested": {
+        "path": "grp_contributing_institution"
+      },
+      "aggs": {
+        "grp_contributing_institution": {
+          "terms": {
+            "field": "grp_contributing_institution.value.raw"
+          }
+        }
+      }
+    },
+    "subject": {
+      "nested": {
+        "path": "subject"
+      },
+      "aggs": {
+        "subject": {
+          "terms": {
+            "field": "subject.value.raw"
+          }
+        }
+      }
+    },
+    "type": {
+      "nested": {
+        "path": "type"
+      },
+      "aggs": {
+        "type": {
+          "filter": {
+            "term": {
+              "type.qualifier": "DCMI Type Vocabulary"
+            }
+          },
+          "aggs": {
+            "type": {
+              "terms": {
+                "field": "type.value.raw"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
