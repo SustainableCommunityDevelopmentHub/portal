@@ -7,13 +7,20 @@
     <h4>Filter Your Results</h4>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
+      <p>Active Facets:</p>
+      <div ng-repeat="activeFacet in activeFacets">
+        <span>{{activeFacet.option}}</span>
+      </div>
+    </div>
+    <hr class="left_sidebar_hr">
+    <div class="left_sidebar_accordion__tab">
       <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')">
         <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')">
         <div ng-repeat="facet in facets.type | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacets(facet)">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -25,7 +32,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')">
         <div ng-repeat="facet in facets.subject | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacets(facet)">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -37,7 +44,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')">
         <div ng-repeat="facet in facets.creator | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacets(facet)">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -49,7 +56,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')">
         <div ng-repeat="facet in facets.language | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacets(facet)">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>
@@ -61,7 +68,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')">
         <div ng-repeat="facet in facets.grp_contributing_institution | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacets(facet)">{{facet.option}} ({{facet.count}})</label>
         </div>
       </div>
     </div>

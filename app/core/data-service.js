@@ -29,17 +29,16 @@
       };
 
       // add q / search term if not empty string
+      // else empty string, return all records
       if(opts.q && opts.q.length){
         console.log('DataService.search.......opts.q: ' + opts.q);
         fullQuery.body.query.filtered.query.match = { _all: opts.q };
       }
-
-      // else empty string, return all records
       else{
         fullQuery.body.query.filtered.query.match_all = {};
       }
 
-      /* build filters */
+      // build filters
       if(opts.facets.length){
         console.log('....Facet filters detected!');
         // build structure to place multiple nested filters in
@@ -47,6 +46,7 @@
 
         opts.facets.forEach(function(facet){
           console.log('...Adding filter on facet: ' + JSON.stringify(facet));
+
           var fieldKey = '';
           switch(facet.name){
             case 'language':

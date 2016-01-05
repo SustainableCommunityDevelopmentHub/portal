@@ -172,8 +172,9 @@
     };
 
     /**
-     * parse search result aggregation data for a single aggregation
-     * to simplify object struction
+     * Parse search result aggregation data for a single aggregation
+     * to simplify object struction.
+     * Also add a bool property to allow facet to be activated
      * @param {object} agg from ES response obj. contains an aggregation
      * @param {string} name name of the aggregation. this matches the name of the facet
      */
@@ -181,14 +182,15 @@
       return agg[name].buckets.map(function(facetOption){
         //console.log('SearchService.parseAggregationResults -- raw facet option: ' + JSON.stringify(facetOption));
 
-        var option = {
+        var parsedOption = {
           facet: name,
           option: facetOption.key,
-          count: facetOption.doc_count
+          count: facetOption.doc_count,
+          active: false
         };
         //console.log('SearchService.parseAggregationResults -- parsed facet option: ' + JSON.stringify(option));
 
-        return option;
+        return parsedOption;
       });
     };
 

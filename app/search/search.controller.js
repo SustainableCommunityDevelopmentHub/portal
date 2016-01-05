@@ -31,7 +31,7 @@
           $scope.numTotalHits = searchResults.numTotalHits;
           $scope.facets = searchResults.facets;
 
-          $scope.appliedFacets = {};
+          $scope.activeFacets = [];
 
           //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
           //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
@@ -138,6 +138,22 @@
         console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom, page: newPage});
+      }
+    };
+
+    /**
+     * Used to activate or deactivate a facet.Updates $scope / state
+     */
+    $scope.updateFacets = function(facetOption){
+      console.log('SearchCtrl.updateFacets.....facetOption: ' + JSON.stringify(facetOption));
+      if(facetOption.active){
+        console.log('.....facet has been set');
+        $scope.activeFacets.push(facetOption);
+      }
+      else{
+        _.remove($scope.activeFacets, function(aFacet){
+          return aFacet.option === facetOption.option;
+        });
       }
     };
 
