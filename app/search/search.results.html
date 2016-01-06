@@ -87,7 +87,7 @@
     <div class="facet">
       <ul>
         <li ng-repeat="activeFacet in activeFacets">
-          <a><span class="glyphicon glyphicon-remove" style="color:red"></span>  {{activeFacet.option}}</a>
+          <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove" style="color:red"></span>  {{activeFacet.option}}</a>
         </li>
       </ul>
     </div>
