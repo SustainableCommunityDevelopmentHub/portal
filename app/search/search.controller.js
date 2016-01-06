@@ -31,7 +31,7 @@
           $scope.numTotalHits = searchResults.numTotalHits;
           $scope.facets = searchResults.facets;
 
-          $scope.activeFacets = [];
+          $scope.activeFacets = ss.opts.facets || [];
 
           //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
           //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
@@ -158,16 +158,32 @@
 
     /**
      * Used to activate or deactivate a facet.Updates $scope / state
+     * @param facetOption {object} Facet option object
+     * @param active {boolean} Set true to activate facet, false to deactivate
      */
-    $scope.updateFacets = function(facetOption){
-      console.log('SearchCtrl.updateFacets.....facetOption: ' + JSON.stringify(facetOption));
-      if(facetOption.active){
+    $scope.updateFacet = function(facetOption, active){
+      console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
+      if(active){
         console.log('.....facet has been set');
+        facetOption.active = true;
         $scope.activeFacets.push(facetOption);
+
+        // remove facet option from facets sidebar once selected
+        // we are using the $$hashkey id prop which angular adds...
+        // ...to arr elements when ng-repeat is applied.
+        //_.remove($scope.facets[facetOption.facet], function(f){
+          //if(f.$$hashkey === facetOption.$$hashkey){
+            //console.log('Remove facet, hashkeys match. Facet to remove: ' + JSON.stringify(facetOption));
+            //return true;
+          //}
+        //});
       }
       else{
+        facetOption.active = false;
         _.remove($scope.activeFacets, function(aFacet){
           return aFacet.option === facetOption.option;
+
+          // return facet option to facets sidebar when deselected
         });
       }
 
