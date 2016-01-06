@@ -78,8 +78,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
       console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      $state.go('searchResults', ss.opts);
-      console.log("past state.go!");
+      $state.go('searchResults', ss.opts, {reload: true});
     };
 
     /////////////////////////////////

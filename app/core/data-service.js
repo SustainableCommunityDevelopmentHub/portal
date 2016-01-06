@@ -77,15 +77,19 @@
         opts.facets.forEach(function(facet){
           console.log('...Adding filter on facet: ' + JSON.stringify(facet));
           // TODO: Add validation that facet.name is valid facet category
-          facetCategories[facet.name].options.push(facet.option);
+          facetCategories[facet.facet].options.push(facet.option);
+          console.log('.....facetCategories:' + JSON.stringify(facetCategories));
         });
       }
 
-      // add filter to query for each facet category
+      console.log('foo');
+      // add filter to query for each active facet category
       _.values(facetCategories).forEach(function(facetCategory){
-        fullQuery.body.query.filtered
-        .filter.bool.must
-        .push(createFilter(facetCategory.name, facetCategory.fieldKey, facetCategory.options));
+        if(facetCategory.options.length){
+          fullQuery.body.query.filtered
+          .filter.bool.must
+          .push(createFilter(facetCategory.name, facetCategory.fieldKey, facetCategory.options));
+        }
       });
 
       console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));
