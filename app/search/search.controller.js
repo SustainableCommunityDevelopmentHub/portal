@@ -70,6 +70,18 @@
     ///////////////////////////
 
     /**
+     * Clear all active facets from controller. Does not update SearchService or retrigger search.
+     * Should always run updateSearch() w/new facet opts after executing this function.
+     */
+    function clearActiveFacets(){
+      // need to do this so facets don't reset themselves
+      $scope.activeFacets.forEach(function(facet){
+        facet.active = false;
+      });
+      $scope.activeFacets = [];
+    };
+
+    /**
      * reload search result state to trigger search.
      * if no opts passed uses SearchService.opts.
      */
@@ -113,6 +125,10 @@
         opts.page = 1;
         opts.from = 0;
       }
+
+      // we want to clear active facets when user queries on new term
+      clearActiveFacets();
+      opts.facets = [];
 
       updateSearch(opts);
     };
@@ -158,12 +174,8 @@
       updateSearch({facets: $scope.activeFacets});
     };
 
-    $scope.clearFacets = function(){
-      // need to do this so facets don't reset themselves
-      $scope.activeFacets.forEach(function(facet){
-        facet.active = false;
-      });
-      $scope.activeFacets = [];
+    $scope.clearFacetsAndUpdate = function(){
+      clearActiveFacets();
       updateSearch({facets: []});
     };
 
