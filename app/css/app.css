@@ -4,6 +4,10 @@ body {
   padding-top: 20px;
 }
 
+a:hover {
+  cursor:pointer;
+}
+
 /** header **/
 
 .header {
