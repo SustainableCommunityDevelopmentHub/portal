@@ -5,16 +5,10 @@
   <!--Faceted Search sidebar-->
   <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
     <h4>Filter Your Results</h4>
-    <hr class="left_sidebar_hr">
-    <!--View applied facets-->
     <div class="left_sidebar_accordion__tab">
       <button type="button" class="btn btn-primary" ng-click="clearFacetsAndUpdate()">
         Clear all Facets 
       </button>
-      <p>Active Facets:</p>
-      <div ng-repeat="activeFacet in activeFacets">
-        <span>{{activeFacet.option}}</span>
-      </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
@@ -91,6 +85,11 @@
         <button ng-click="newQuerySearch(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
       </form>
     </div>
+    <!--View active facets-->
+      <p>Active Facets:</p>
+      <div ng-repeat="activeFacet in activeFacets">
+        <span>{{activeFacet.option}}</span>
+      </div>
     <div class="dropdown">
       <button class="btn btn-primary search-dropdown dropdown-toggle" type="button">Sort by:
         <span class="caret"></span></button>
