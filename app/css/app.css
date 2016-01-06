@@ -416,6 +416,26 @@ a:hover {
   padding-top: 3px;
 }
 
+.facet {
+  margin-top: 10px;
+}
+
+.facet ul li {
+  display: inline;
+}
+
+.facet ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.facet li {
+  list-style: none;
+  padding-right: 10px;
+}
+
+
 /** Detail View **/
 img.book {
   float: left;

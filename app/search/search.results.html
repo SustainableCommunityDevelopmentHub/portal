@@ -84,10 +84,13 @@
       </form>
     </div>
     <!--View active facets-->
-      <p>Active Facets:</p>
-      <div ng-repeat="activeFacet in activeFacets">
-        <span>{{activeFacet.option}}</span>
-      </div>
+    <div class="facet">
+      <ul>
+        <li ng-repeat="activeFacet in activeFacets">
+          <a><span class="glyphicon glyphicon-remove" style="color:red"></span>  {{activeFacet.option}}</a>
+        </li>
+      </ul>
+    </div>
     <div class="dropdown">
       <button class="btn btn-primary search-dropdown dropdown-toggle" type="button">Sort by:
         <span class="caret"></span></button>
