@@ -87,6 +87,11 @@
      */
     function updateOpts(newOpts){
       _.merge(this.opts, newOpts);
+
+      // hack to handle correctly deleting all facets
+      if(newOpts.facets && !newOpts.facets.length){
+        this.opts.facets = [];
+      }
     }
 
     /**

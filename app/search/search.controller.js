@@ -158,6 +158,15 @@
       updateSearch({facets: $scope.activeFacets});
     };
 
+    $scope.clearFacets = function(){
+      // need to do this so facets don't reset themselves
+      $scope.activeFacets.forEach(function(facet){
+        facet.active = false;
+      });
+      $scope.activeFacets = [];
+      updateSearch({facets: []});
+    };
+
   };
 })();
 

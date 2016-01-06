@@ -53,22 +53,22 @@
           },
           subject: {
             name: 'subject',
-            fieldKey: 'subject.value',
+            fieldKey: 'subject.value.raw',
             options:[]
           },
           type: {
             name: 'type',
-            fieldKey: 'type.value',
+            fieldKey: 'type.value.raw',
             options:[]
           },
           creator: {
             name: 'creator',
-            fieldKey: 'creator.value',
+            fieldKey: 'creator.value.raw',
             options:[]
           },
           grp_contributing_institution: {
             name: 'grp_contributing_institution',
-            fieldKey: 'grp_contributing_institution.value',
+            fieldKey: 'grp_contributing_institution.value.raw',
             options:[]
           }
         };

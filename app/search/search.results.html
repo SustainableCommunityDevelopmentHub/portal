@@ -6,7 +6,11 @@
   <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
     <h4>Filter Your Results</h4>
     <hr class="left_sidebar_hr">
+    <!--View applied facets-->
     <div class="left_sidebar_accordion__tab">
+      <button type="button" class="btn btn-primary" ng-click="clearFacets()">
+        Clear all Facets 
+      </button>
       <p>Active Facets:</p>
       <div ng-repeat="activeFacet in activeFacets">
         <span>{{activeFacet.option}}</span>
