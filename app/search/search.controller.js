@@ -182,8 +182,6 @@
         facetOption.active = false;
         _.remove($scope.activeFacets, function(aFacet){
           return aFacet.option === facetOption.option;
-
-          // return facet option to facets sidebar when deselected
         });
       }
 
