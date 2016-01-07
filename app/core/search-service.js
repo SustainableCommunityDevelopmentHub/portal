@@ -158,7 +158,7 @@
       }
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
-    };
+    }
 
     /**
      * parse search result hits data to simplify object structure
@@ -169,9 +169,15 @@
         var book = data._source;
         // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
         book._id = data._id;
+        book.identifier.forEach(function(item){
+          if (item.encoding === "URI") {
+            book._sourceLink = item.value;
+          }
+        });
         return book;
       });
-    };
+
+    }
 
     /**
      * parse search result aggregation data for a single aggregation

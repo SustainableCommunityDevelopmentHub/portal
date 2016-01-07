@@ -124,7 +124,7 @@
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: 1, from: 0});
       return;
-    }
+    };
 
     /**
      * trigger search to populate new page and update $scope / state
@@ -138,6 +138,8 @@
       }
     };
 
-  };
+    
+
+  }
 })();
 
