@@ -35,8 +35,7 @@
       runSearch: runSearch,
       updateOpts: updateOpts,
       setResultsData: setResultsData,
-      resetOpts: resetOpts,
-      parseResults: parseResults
+      resetOpts: resetOpts
     };
 
     return service;
