@@ -16,7 +16,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')">
         <div ng-repeat="facet in facets.type | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacet(facet, true)">{{facet.option}} ({{facet.count}})</label>
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-plus-sign" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@
     <div class="facet">
       <ul>
         <li ng-repeat="activeFacet in activeFacets">
-          <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove" style="color:red"></span>  {{activeFacet.option}}</a>
+          <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  {{activeFacet.option}}</a>
         </li>
       </ul>
     </div>
