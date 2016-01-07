@@ -5,63 +5,64 @@
   <!--Faceted Search sidebar-->
   <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
     <h4>Filter Your Results</h4>
+    <a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  Clear all </a>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab one')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab one'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('type')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('type'), 'glyphicon-plus': !status.open}"></i>
         Type
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab one')">
-        <div ng-repeat="facet in facets.type | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
+        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 10" class="checkbox">
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab two')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab two'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('subject')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('subject'), 'glyphicon-plus': !status.open}"></i>
         Subject
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')">
-        <div ng-repeat="facet in facets.subject | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('subject')">
+        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 10" class="checkbox">
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab three')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab three'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('creator')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('creator'), 'glyphicon-plus': !status.open}"></i>
         Creator
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')">
-        <div ng-repeat="facet in facets.creator | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('creator')">
+        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 10" class="checkbox">
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab four')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab four'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('language')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('language'), 'glyphicon-plus': !status.open}"></i>
         Language
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')">
-        <div ng-repeat="facet in facets.language | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('language')">
+        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 10" class="checkbox">
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey;"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('tab five')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('tab five'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('grp_contributing_institution')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('grp_contributing_institution'), 'glyphicon-plus': !status.open}"></i>
         Contributed by
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')">
-        <div ng-repeat="facet in facets.grp_contributing_institution | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" value="">{{facet.option}} ({{facet.count}})</label>
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributing_institution')">
+        <div ng-repeat="facet in facets.grp_contributing_institution | filter:{active:false} |  limitTo: 10" class="checkbox">
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
@@ -79,6 +80,14 @@
       <form ng-submit="newQuerySearch(queryTerm)"><input ng-model="queryTerm" class="search-input" type="text">
         <button ng-click="newQuerySearch(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
       </form>
+    </div>
+    <!--View active facets-->
+    <div class="facet">
+      <ul>
+        <li ng-repeat="activeFacet in activeFacets">
+          <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  {{activeFacet.option}}</a>
+        </li>
+      </ul>
     </div>
     <div class="dropdown">
       <button class="btn btn-primary search-dropdown dropdown-toggle" type="button">Sort by:
@@ -109,7 +118,7 @@
       <b>Creator: </b>{{book.creator[0].value}}<br/>
       <b>Date: </b>{{book.date[0].value}}<br/>
       <b>Contributor: </b>{{book.contributor[0].value}}<br/>
-      <a ui-sref="books({bookID: book._id})">See Full Record</a><br/>
+      <a ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
       <hr class="results-list-hr"><br>
     </li>
     </ul>

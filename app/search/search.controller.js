@@ -26,15 +26,15 @@
           /////////////////////////////////////////////////////////
 
           // set search result data. must do here b/c of promise
-          var parsedResults = ss.setResultsData(results);
-          $scope.hits = parsedResults.hits;
-          $scope.numTotalHits = parsedResults.numTotalHits;
-          $scope.facets = parsedResults.facets;
+          var searchResults = ss.setResultsData(results);
+          $scope.hits = searchResults.hits;
+          $scope.numTotalHits = searchResults.numTotalHits;
+          $scope.facets = searchResults.facets;
 
-          $scope.appliedFacets = {};
+          $scope.activeFacets = ss.opts.facets || [];
 
-          console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
-          //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(parsedResults));
+          //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
+          //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
 
           // bind search opts to scope
           $scope.queryTerm = ss.opts.q;
@@ -48,6 +48,11 @@
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
+
+          if(ss.opts.facets){
+            $scope.activeFacets = ss.opts.facets;
+          }
+
         })
         .catch(function(err){
           console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + err);
@@ -65,6 +70,18 @@
     ///////////////////////////
 
     /**
+     * Clear all active facets from controller. Does not update SearchService or retrigger search.
+     * Should always run updateSearch() w/new facet opts after executing this function.
+     */
+    function clearActiveFacets(){
+      // need to do this so facets don't reset themselves
+      $scope.activeFacets.forEach(function(facet){
+        facet.active = false;
+      });
+      $scope.activeFacets = [];
+    };
+
+    /**
      * reload search result state to trigger search.
      * if no opts passed uses SearchService.opts.
      */
@@ -73,7 +90,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
       console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      $state.go('searchResults', ss.opts);
+      $state.go('searchResults', ss.opts, {reload: true});
     };
 
     /////////////////////////////////
@@ -103,14 +120,15 @@
         q: query
       };
 
-      if(opts.q){
-        opts.q = opts.q.toLowerCase();
-      }
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
       }
+
+      // we want to clear active facets when user queries on new term
+      clearActiveFacets();
+      opts.facets = [];
 
       updateSearch(opts);
     };
@@ -138,8 +156,44 @@
       }
     };
 
-    
+    /**
+     * Used to activate or deactivate a facet.Updates $scope / state
+     * @param facetOption {object} Facet option object
+     * @param active {boolean} Set true to activate facet, false to deactivate
+     */
+    $scope.updateFacet = function(facetOption, active){
+      console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
+      if(active){
+        console.log('.....facet has been set');
+        facetOption.active = true;
+        $scope.activeFacets.push(facetOption);
 
-  }
+        // remove facet option from facets sidebar once selected
+        // we are using the $$hashkey id prop which angular adds...
+        // ...to arr elements when ng-repeat is applied.
+        //_.remove($scope.facets[facetOption.facet], function(f){
+          //if(f.$$hashkey === facetOption.$$hashkey){
+            //console.log('Remove facet, hashkeys match. Facet to remove: ' + JSON.stringify(facetOption));
+            //return true;
+          //}
+        //});
+      }
+      else{
+        facetOption.active = false;
+        _.remove($scope.activeFacets, function(aFacet){
+          return aFacet.option === facetOption.option;
+        });
+      }
+
+      updateSearch({facets: $scope.activeFacets});
+    };
+
+    $scope.clearFacetsAndUpdate = function(){
+      clearActiveFacets();
+      updateSearch({facets: []});
+    };
+
+  };
+
 })();
 

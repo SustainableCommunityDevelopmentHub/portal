@@ -67,8 +67,8 @@
       $scope.myField = $scope.fields[0];
     }])
 
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient', 'SearchService',
-    function($scope, $stateParams, esClient, SearchService) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'esClient', 'SearchService',
+    function($scope, $stateParams, $window, esClient, SearchService) {
       esClient.get({
         index: 'portal',
         type: 'book',
@@ -82,7 +82,13 @@
                 response._source._sourceLink = item.value;
               }
             });
+
             $scope.book = response;
+
+            $scope.redirect = function(){
+              $window.location.assign($scope.book._source._sourceLink);
+              return false;
+            };
           }
         });
     }])
@@ -120,9 +126,10 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-    .controller('FaqsCtrl', ['$scope', function ($scope) {
+  .controller('FaqsCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+      // sync with the rootScope var so open tabs persist across state changes
+      $scope.activeTabs = $rootScope.$activeTabs;
       $scope.faqs = {name: "faqs.html", url: "faqs.html"};
-      $scope.activeTabs = [];
 
       // check if the tab is active
       $scope.isOpenTab = function (tab) {

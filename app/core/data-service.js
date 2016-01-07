@@ -28,17 +28,69 @@
         body: getBaseQuery()
       };
 
-
       // add q / search term if not empty string
+      // else empty string, return all records
       if(opts.q && opts.q.length){
         console.log('DataService.search.......opts.q: ' + opts.q);
-        fullQuery.body.query.match._all = opts.q;
+        fullQuery.body.query.filtered.query.match = { _all: opts.q };
       }
-      // else empty string, return all records
       else{
-        delete fullQuery.body.query.match;
-        fullQuery.body.query.match_all = {};
+        fullQuery.body.query.filtered.query.match_all = {};
       }
+
+      // build filters for faceted search
+      if(opts.facets.length){
+        console.log('....Facet filters detected!');
+        // build structure to place multiple nested filters in
+        fullQuery.body.query.filtered.filter = { bool: { must: [] } };
+
+        // container for facet categories
+        var facetCategories = {
+          language: {
+            name: 'language',
+            fieldKey: 'language.value',
+            options:[]
+          },
+          subject: {
+            name: 'subject',
+            fieldKey: 'subject.value.raw',
+            options:[]
+          },
+          type: {
+            name: 'type',
+            fieldKey: 'type.value.raw',
+            options:[]
+          },
+          creator: {
+            name: 'creator',
+            fieldKey: 'creator.value.raw',
+            options:[]
+          },
+          grp_contributing_institution: {
+            name: 'grp_contributing_institution',
+            fieldKey: 'grp_contributing_institution.value.raw',
+            options:[]
+          }
+        };
+
+        // collect facets by category
+        opts.facets.forEach(function(facet){
+          console.log('...Adding filter on facet: ' + JSON.stringify(facet));
+          // TODO: Add validation that facet.name is valid facet category
+          facetCategories[facet.facet].options.push(facet.option);
+          console.log('.....facetCategories:' + JSON.stringify(facetCategories));
+        });
+      }
+
+      console.log('foo');
+      // add filter to query for each active facet category
+      _.values(facetCategories).forEach(function(facetCategory){
+        if(facetCategory.options.length){
+          fullQuery.body.query.filtered
+          .filter.bool.must
+          .push(createFilter(facetCategory.name, facetCategory.fieldKey, facetCategory.options));
+        }
+      });
 
       console.log('Dataservice.search()......fullQuery:' + JSON.stringify(fullQuery));
 
@@ -51,6 +103,31 @@
       ////////////////////////////
       //Private/Helper Functions
       ////////////////////////////
+
+      /**
+       * Construct ES query for terms filter over nested object.
+       * Used to apply specific facet type, with one or more options, to a query.
+       * Add to base query to filter on particular facet and facet options
+       *
+       * @returns {object} elasticsearch query DSL for terms filter
+       */
+      function createFilter(field, fieldKey, filterValuesArr){
+        var nestedTermsFilter =
+          {
+            nested: {
+              path: field,
+              filter: {
+                terms: {}
+              }
+            }
+          };
+
+          nestedTermsFilter.nested.filter.terms[fieldKey] =  filterValuesArr;
+
+          console.log('Created Nested Term Filter: ' + JSON.stringify(nestedTermsFilter) + ' on key: ' + fieldKey + ' for vals: ' + JSON.stringify(filterValuesArr));
+
+          return nestedTermsFilter;
+      };
 
       /**
        * Return copy of base ES query object.
@@ -67,7 +144,10 @@
           {
             // fulltext query across all fields - the "search term"
             "query": {
-              "match": { "_all": "" }
+              "filtered": {
+                "query": {
+                }
+              }
             },
             // aggregations to get facet options for our query
             "aggregations": {
@@ -139,7 +219,7 @@
             }
           };
 
-        return _.cloneDeep(baseQuery);
+          return _.cloneDeep(baseQuery);
       };
 
     };

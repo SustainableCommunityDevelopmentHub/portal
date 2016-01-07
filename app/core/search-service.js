@@ -26,7 +26,9 @@
         facetOptions: {}
       },
       // search query options/params
-      opts: {},
+      opts: {
+        facets: []
+      },
 
 
       // functions //
@@ -59,8 +61,8 @@
     };
 
     /**
-     * Updates opts and executes search.
-     * @param {Object} opts - search options
+     * Updates opts (changed object properties are overwritten) and executes search.
+     * @param {Object} opts - changed search options
      * @returns {Promise} - search results
      */
     function updateSearch(opts){
@@ -91,6 +93,11 @@
         newOpts.q = newOpts.q.toLowerCase();
       }
       _.merge(this.opts, newOpts);
+
+      // hack to handle correctly deleting all facets
+      if(newOpts.facets && !newOpts.facets.length){
+        this.opts.facets = [];
+      }
     }
 
     /**
@@ -109,13 +116,14 @@
       var allAggregations = results.aggregations
 
       // TODO: Get this working using FacetList.foreach(). The 'this' was undefined when attempting before.
-      this.results.facetOptions['language'] = parseAggregationResults(allAggregations['language'], 'language');
-      this.results.facetOptions['creator'] = parseAggregationResults(allAggregations['creator'], 'creator');
-      this.results.facetOptions['type'] = parseAggregationResults(allAggregations['type'], 'type');
-      this.results.facetOptions['subject'] = parseAggregationResults(allAggregations['subject'], 'subject');
-      this.results.facetOptions['grp_contributing_institution'] = parseAggregationResults(allAggregations['grp_contributing_institution'], 'grp_contributing_institution');
+      this.results.facetOptions['language'] = parseAggregationResults(allAggregations['language'], 'language', this.opts.facets);
+      this.results.facetOptions['creator'] = parseAggregationResults(allAggregations['creator'], 'creator', this.opts.facets);
+      this.results.facetOptions['type'] = parseAggregationResults(allAggregations['type'], 'type', this.opts.facets);
+      this.results.facetOptions['subject'] = parseAggregationResults(allAggregations['subject'], 'subject', this.opts.facets);
+      this.results.facetOptions['grp_contributing_institution'] = parseAggregationResults(allAggregations['grp_contributing_institution'], 'grp_contributing_institution', this.opts.facets);
 
-      console.log('SearchService.setResultsData.........facetOptions.grp_contributing_institution: ' + JSON.stringify(this.results.facetOptions.grp_contributing_institution));
+      //console.log('SearchService.setResultsData.........facetOptions.grp_contributing_institution: ' + JSON.stringify(this.results.facetOptions.grp_contributing_institution));
+
       // return parsed data so it can be assigned on scope or elsewhere
       var obj = {
         hits: this.results.hits,
@@ -134,7 +142,8 @@
         q: "",
         from: 0,
         size: 25,
-        page: 1
+        page: 1,
+        facets: []
       };
       console.log('SearchService.resetOpts....opts: ' + JSON.stringify(this.opts));
     }
@@ -180,23 +189,37 @@
     }
 
     /**
-     * parse search result aggregation data for a single aggregation
-     * to simplify object struction
+     * Parse search result aggregation data for a single aggregation
+     * to simplify object struction.
+     * Also add a bool property to allow facet to be activated
      * @param {object} agg from ES response obj. contains an aggregation
      * @param {string} name name of the aggregation. this matches the name of the facet
      */
-    function parseAggregationResults(agg, name){
+    function parseAggregationResults(agg, name, activeFacets){
       return agg[name].buckets.map(function(facetOption){
         //console.log('SearchService.parseAggregationResults -- raw facet option: ' + JSON.stringify(facetOption));
 
-        var option = {
+        var parsedOption = {
           facet: name,
           option: facetOption.key,
-          count: facetOption.doc_count
+          count: facetOption.doc_count,
+          active: false
         };
+
+        // set active facets so available facets sidebar does not show them
+        // validate inputs bc w/bad input application breaks, and the facet objs are brittle.
+        if(activeFacets.length){
+          activeFacets.forEach(function(facet){
+            if(facet.facet && facet.option && parsedOption.facet && parsedOption.option){
+              if(facet.facet === parsedOption.facet && facet.option === parsedOption.option){
+                parsedOption.active = true;
+              }
+            }
+          });
+        }
         //console.log('SearchService.parseAggregationResults -- parsed facet option: ' + JSON.stringify(option));
 
-        return option;
+        return parsedOption;
       });
     };
 
