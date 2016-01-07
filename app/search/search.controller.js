@@ -103,8 +103,11 @@
         q: query
       };
 
+      if(opts.q){
+        opts.q = opts.q.toLowerCase();
+      }
       // if new query term or empty string query term, need to reset pagination
-      if(!opts.q || !opts.q.length || (opts.q.toLowerCase() !== ss.opts.q.toLowerCase()) ){
+      if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
       }
