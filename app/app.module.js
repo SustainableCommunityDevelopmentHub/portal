@@ -10,6 +10,7 @@
     'angularUtils.directives.dirPagination',
     'app.search',
     'app.controller',
+    'app.contributors',
     'AngularPrint'
   ])
 
