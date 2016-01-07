@@ -28,7 +28,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab two')">
         <div ng-repeat="facet in facets.subject | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacet(facet, true)">{{facet.option}} ({{facet.count}})</label>
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-plus-sign" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab three')">
         <div ng-repeat="facet in facets.creator | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacet(facet, true)">{{facet.option}} ({{facet.count}})</label>
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-plus-sign" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab four')">
         <div ng-repeat="facet in facets.language | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacet(facet, true)">{{facet.option}} ({{facet.count}})</label>
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-plus-sign" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('tab five')">
         <div ng-repeat="facet in facets.grp_contributing_institution | limitTo: 10" class="checkbox">
-          <label><input type="checkbox" ng-model="facet.active" ng-change="updateFacet(facet, true)">{{facet.option}} ({{facet.count}})</label>
+          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-plus-sign" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
       </div>
     </div>
