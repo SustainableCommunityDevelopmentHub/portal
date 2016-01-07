@@ -86,6 +86,10 @@
      * @param {Object} opts - search options
      */
     function updateOpts(newOpts){
+      // search query terms always handled as lowercase
+      if(newOpts.q){
+        newOpts.q = newOpts.q.toLowerCase();
+      }
       _.merge(this.opts, newOpts);
     }
 
@@ -127,7 +131,7 @@
      */
     function resetOpts(){
       this.opts = {
-        q: null,
+        q: "",
         from: 0,
         size: 25,
         page: 1
