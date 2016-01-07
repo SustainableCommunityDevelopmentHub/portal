@@ -114,9 +114,10 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-  .controller('FaqsCtrl', ['$scope', function ($scope) {
+  .controller('FaqsCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+      // sync with the rootScope var so open tabs persist across state changes
+      $scope.activeTabs = $rootScope.$activeTabs;
       $scope.faqs = {name: "faqs.html", url: "faqs.html"};
-      $scope.activeTabs = [];
 
       // check if the tab is active
       $scope.isOpenTab = function (tab) {

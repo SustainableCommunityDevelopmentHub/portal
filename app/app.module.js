@@ -20,6 +20,9 @@
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
+
+    // assign this here to persist open tabs across stage changes
+    $rootScope.$activeTabs = [];
   }]);
 
 })();
