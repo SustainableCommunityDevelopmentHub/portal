@@ -121,7 +121,7 @@
       };
 
       // if new query term or empty string query term, need to reset pagination
-      if(!opts.q || !opts.q.length || (opts.q.toLowerCase() !== ss.opts.q.toLowerCase()) ){
+      if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
       }
@@ -142,7 +142,7 @@
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: 1, from: 0});
       return;
-    }
+    };
 
     /**
      * trigger search to populate new page and update $scope / state
@@ -194,5 +194,6 @@
     };
 
   };
+
 })();
 

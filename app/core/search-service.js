@@ -88,6 +88,10 @@
      * @param {Object} opts - search options
      */
     function updateOpts(newOpts){
+      // search query terms always handled as lowercase
+      if(newOpts.q){
+        newOpts.q = newOpts.q.toLowerCase();
+      }
       _.merge(this.opts, newOpts);
 
       // hack to handle correctly deleting all facets
@@ -135,7 +139,7 @@
      */
     function resetOpts(){
       this.opts = {
-        q: null,
+        q: "",
         from: 0,
         size: 25,
         page: 1,
@@ -163,7 +167,7 @@
       }
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
-    };
+    }
 
     /**
      * parse search result hits data to simplify object structure
@@ -174,9 +178,15 @@
         var book = data._source;
         // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
         book._id = data._id;
+        book.identifier.forEach(function(item){
+          if (item.encoding === "URI") {
+            book._sourceLink = item.value;
+          }
+        });
         return book;
       });
-    };
+
+    }
 
     /**
      * Parse search result aggregation data for a single aggregation

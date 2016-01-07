@@ -67,8 +67,8 @@
       $scope.myField = $scope.fields[0];
     }])
 
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient',
-    function($scope, $stateParams, esClient) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient', 'SearchService',
+    function($scope, $stateParams, esClient, SearchService) {
       esClient.get({
         index: 'portal',
         type: 'book',
@@ -76,36 +76,42 @@
           if(error) {
             console.log(error);
           } else {
+            // set _sourceLink
+            response._source.identifier.forEach(function(item){
+              if (item.encoding === "URI") {
+                response._source._sourceLink = item.value;
+              }
+            });
             $scope.book = response;
           }
         });
     }])
 
-  .controller('HeaderCtrl', ['$scope', function ($scope) {
+    .controller('HeaderCtrl', ['$scope', function ($scope) {
       $scope.header = {name: "header.html", url: "partials/header.html"};
-  }])
+    }])
 
-  .controller('FooterCtrl', ['$scope', function ($scope) {
+    .controller('FooterCtrl', ['$scope', function ($scope) {
       $scope.footer = {name: "footer.html", url: "partials/footer.html"};
-  }])
+    }])
 
-  .controller('SearchHelpCtrl', ['$scope', function ($scope) {
+    .controller('SearchHelpCtrl', ['$scope', function ($scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
-  }])
+    }])
 
-  .controller('FeedbackCtrl', ['$scope', function ($scope) {
+    .controller('FeedbackCtrl', ['$scope', function ($scope) {
       $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
-  }])
+    }])
 
-  .controller('FeedbackFormCtrl', function($scope) {
+    .controller('FeedbackFormCtrl', function($scope) {
       $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
       $scope.reset = function() {
-          $scope.user = angular.copy($scope.master);
+        $scope.user = angular.copy($scope.master);
       };
       $scope.reset();
-  })
+    })
 
-  .controller('FeedbackFieldController', ['$scope', function($scope) {
+    .controller('FeedbackFieldController', ['$scope', function($scope) {
       $scope.feedbackFields = [
         {name:'Problem'},
         {name:'Question'},
@@ -121,28 +127,28 @@
 
       // check if the tab is active
       $scope.isOpenTab = function (tab) {
-          // check if this tab is already in the activeTabs array
-          if ($scope.activeTabs.indexOf(tab) > -1) {
-              // if so, return true
-              return true;
-          } else {
-              // if not, return false
-              return false;
-          }
+        // check if this tab is already in the activeTabs array
+        if ($scope.activeTabs.indexOf(tab) > -1) {
+          // if so, return true
+          return true;
+        } else {
+          // if not, return false
+          return false;
+        }
       };
 
       // function to 'open' a tab
       $scope.openTab = function (tab) {
-          // check if tab is already open
-          if ($scope.isOpenTab(tab)) {
-              //if it is, remove it from the activeTabs array
-              $scope.activeTabs.splice($scope.activeTabs.indexOf(tab), 1);
+        // check if tab is already open
+        if ($scope.isOpenTab(tab)) {
+          //if it is, remove it from the activeTabs array
+          $scope.activeTabs.splice($scope.activeTabs.indexOf(tab), 1);
 
-          } else {
-              // if it's not, add it!
-              $scope.activeTabs.push(tab);
-          }
+        } else {
+          // if it's not, add it!
+          $scope.activeTabs.push(tab);
+        }
       };
-  }]);
+    }]);
 
 })();
