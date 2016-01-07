@@ -67,8 +67,8 @@
       $scope.myField = $scope.fields[0];
     }])
 
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', 'esClient', 'SearchService',
-    function($scope, $stateParams, esClient, SearchService) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'esClient', 'SearchService',
+    function($scope, $stateParams, $window, esClient, SearchService) {
       esClient.get({
         index: 'portal',
         type: 'book',
@@ -82,7 +82,13 @@
                 response._source._sourceLink = item.value;
               }
             });
+
             $scope.book = response;
+
+            $scope.redirect = function(){
+              $window.location.assign($scope.book._source._sourceLink);
+              return false;
+            };
           }
         });
     }])
