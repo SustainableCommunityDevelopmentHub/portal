@@ -105,7 +105,7 @@
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
       <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-      <a ng-href="{{book.identifier[0].value}}">{{book.title[0].value}}</a><br/>
+      <a ng-href="{{book._sourceLink}}">{{book.title[0].value}}</a><br/>
       <b>Creator: </b>{{book.creator[0].value}}<br/>
       <b>Date: </b>{{book.date[0].value}}<br/>
       <b>Contributor: </b>{{book.contributor[0].value}}<br/>
