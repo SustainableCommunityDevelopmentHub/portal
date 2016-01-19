@@ -935,6 +935,15 @@ h1 {
     height: 45px;
   }
 
+  .search-bar {
+    width: 73%;
+  }
+
+  .adv {
+    text-align:left;
+    width: 73%;
+  }
+
 }
 
 @media (max-width: 900px){
