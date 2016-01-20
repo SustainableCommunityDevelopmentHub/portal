@@ -7,7 +7,7 @@ printf "Deleting existing index and data...\n"
 curl -XDELETE http://local.portal.dev:9200/portal
 sleep 2
 echo "Creating portal index..."
-curl -XPUT http://local.portal.dev:9200/portal
+curl -XPUT http://local.portal.dev:9200/portal -d @es_settings.json
 sleep 2
 printf "\n Creating book mapping...\n"
 curl -XPUT http://local.portal.dev:9200/portal/_mapping/book -d @es_mapping_book.json
@@ -19,3 +19,4 @@ curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/inha_batc
 curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/malaga_batch
 curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/met_batch
 curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/uh_batch
+

@@ -4,7 +4,8 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    'spec.js'
+    'spec.js',
+    'sort_spec.js'
   ],
 
   capabilities: {

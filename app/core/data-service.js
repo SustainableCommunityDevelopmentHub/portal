@@ -38,6 +38,74 @@
         fullQuery.body.query.filtered.query.match_all = {};
       }
 
+      if(opts.sort){
+        if(opts.sort == "date asc"){
+          fullQuery.body.sort = {
+          "date.value": {
+            "order": "asc",
+            "nested_path": "date",
+            "nested_filter": {
+              "term": {
+                "date.qualifier": "portal_facet"
+              }
+            }
+          }
+          }
+        }
+        if(opts.sort == "date desc"){
+          fullQuery.body.sort = {
+          "date.value": {
+            "order": "desc",
+            "nested_path": "date",
+            "nested_filter": {
+              "term": {
+                "date.qualifier": "portal_facet"
+              }
+            }
+          }
+          }
+        }
+        if(opts.sort == "date added"){
+          fullQuery.body.sort = {
+            "grp_ingest_date.value": {
+              "order": "desc"
+            }
+          }
+        }
+        if(opts.sort == "title az"){
+          fullQuery.body.sort = {
+            "title.value.lower_case_sort": {
+              "order": "asc",
+              "nested_path": "title",
+              "nested_filter": {
+                "not": {
+                "term": {
+                  "title.qualifier": "alternative"
+                }}
+              }
+            }
+          }
+        }
+        if(opts.sort == "title za"){
+          fullQuery.body.sort = {
+            "title.value.lower_case_sort": {
+              "order": "desc",
+              "nested_path": "title",
+              "nested_filter": {
+                "not": {
+                  "term": {
+                    "title.qualifier": "alternative"
+                  }
+                }
+              }
+              
+            }
+          }
+        }
+        console.log('DataService.search.....opts.sort:' + opts.sort);
+        
+      }
+
       // build filters for faceted search
       if(opts.facets.length){
         console.log('....Facet filters detected!');

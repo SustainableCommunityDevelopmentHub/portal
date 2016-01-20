@@ -1,0 +1,25 @@
+{
+  "analysis": {
+    "analyzer": {
+      "sortable": {
+            "tokenizer": "keyword",    
+              "filter":  [ "strip_punctuation", "strip_bracket", "asciifolding", "lowercase" ] 
+        }
+      },
+      "filter": {
+        "strip_punctuation": {
+        "type": "pattern_replace",
+        "pattern": "\"",
+        "replacement": ""
+
+        
+      },
+      "strip_bracket": {
+        "type": "pattern_replace",
+        "pattern": "\\[",
+        "replacement": ""
+      }
+    }
+
+   }
+  }

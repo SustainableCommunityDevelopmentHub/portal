@@ -96,6 +96,34 @@
             "index": "not_analyzed"
           }
         }
+      },
+      "title": {
+        "type": "nested",
+        "properties": {
+          "value": {
+            "type": "string",
+            "fields": {
+              "lower_case_sort": {
+                "type": "string",
+                "analyzer": "sortable"
+             }
+            }
+
+          }
+        }
+      },
+      "grp_ingest_date": {
+        "properties": {
+          "value": {
+            "type": "date",
+            "fields": {
+              "sort": {
+                "type": "date",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
       }
     }
   }

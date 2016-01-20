@@ -44,10 +44,39 @@
             size : parseInt(ss.opts.size),
             from : parseInt(ss.opts.from)
           };
+          
 
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
+
+          $scope.validSortModes = {
+            relevance : {
+              display: "Relevance",
+              mode: "relevance"
+            },
+            dateAdded : {
+              display: "Newly Added First",
+              mode: "date added"
+            },
+            titleAZ : {
+              display: "Title: A-Z",
+              mode: "title az"
+            },
+            titleZA : {
+              display: "Title: Z-A",
+              mode: "title za"
+            },
+            dateAscend : {
+              display: "Date (ascending)",
+              mode: "date asc"
+            },
+            dateDesc : {
+              display: "Date (descending)",
+              mode: "date desc"
+            }
+        };
+          console.log($scope.validSortModes);
 
           if(ss.opts.facets){
             $scope.activeFacets = ss.opts.facets;
@@ -124,6 +153,7 @@
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
+        opts.sort = 'relevance';
       }
 
       // we want to clear active facets when user queries on new term
@@ -143,6 +173,12 @@
       updateSearch({size: newPageSize, page: 1, from: 0});
       return;
     };
+
+    $scope.setSortMode = function(sortMode) {
+      console.log('Changing sort to ' + sortMode);
+      updateSearch({sort: sortMode});
+      return;
+    }
 
     /**
      * trigger search to populate new page and update $scope / state
