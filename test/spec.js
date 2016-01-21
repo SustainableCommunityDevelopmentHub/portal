@@ -7,7 +7,6 @@ describe('Portal', function() {
 
   it('should return correct search results', function() {
     browser.get('search');
-    console.log(browser.params.baseUrl);
     element(by.model('queryTerm')).sendKeys(testQuery);
     searchBtn.click();
     var testQueryResults;
