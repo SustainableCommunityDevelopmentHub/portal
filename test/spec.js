@@ -6,7 +6,8 @@ describe('Portal', function() {
   var testQuery = 'paintings';
 
   it('should return correct search results', function() {
-    browser.get('http://local.portal.dev:8000/search');
+    browser.get('search');
+    console.log(browser.params.baseUrl);
     element(by.model('queryTerm')).sendKeys(testQuery);
     searchBtn.click();
     var testQueryResults;
@@ -17,22 +18,17 @@ describe('Portal', function() {
   });
 
   it('should return all search results', function() {
-    browser.get('http://local.portal.dev:8000');
+    browser.get('');
     seeAllBtn.click();
     var numAllResults;
     $('.showing').evaluate('numTotalHits').then(function(value) {
       numAllResults = value;
       expect(numAllResults).toEqual(446);
     });
-    // why not this way?
-    // expect(element(by.binding('numTotalHits')).getText()).toEqual(446);
-    // Doing it this way will result in grabbing all text in that DOM element: 
-    // in this case: "Showing 1 - 25 of 446 items" instead of just "446", 
-    // evaluating the variable returns the value of the variable exclusively.
   });
 
   it('should return an item page', function() {
-    browser.get('http://local.portal.dev:8000/books/AVIOOU1PJaRRJZcuIwVG');
+    browser.get('books/AVIOOU1PJaRRJZcuIwVG');
     element.all(by.repeater('(key, field) in book._source')).then(function(posts) {
       expect(posts.length).toEqual(13);
       var titleElement = posts[9].$('.book-field-val');
