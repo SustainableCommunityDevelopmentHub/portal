@@ -13,8 +13,11 @@
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
-        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'type')" ng-if="facets.type.length > 5">See All</a>
         </div>
       </div>
     </div>

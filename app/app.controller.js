@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  angular.module('app.controller', [])
+  angular.module('app.controller', ['ui.bootstrap'])
 
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
   function($scope, SearchService, $state, results) {
@@ -155,6 +155,43 @@
           $scope.activeTabs.push(tab);
         }
       };
-    }]);
+    }])
+  .controller('FacetModalCtrl', ['$scope', '$rootScope', '$uibModal', function ($scope, $rootScope, $uibModal){
+    $scope.openFacetModal = function(facets, category) {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        scope: $scope,
+        templateUrl: 'search/search.facet_modal.html',
+        controller: FacetModalInstanceCtrl,
+        resolve: {
+          facets: function(){
+            console.log(facets);
+            return facets;
+          },
+          category: function(){
+            return category;
+          }
+        }
+      })
+    };
 
+  }]);
+  var FacetModalInstanceCtrl = function ($scope, $uibModalInstance, facets, category) {
+    console.log(category);
+    if(category === 'subject'){
+
+      $scope.currentFacets = facets.subject;
+    }
+    if(category === 'type'){
+
+      $scope.currentFacets = facets.type;
+    }
+    console.log(facets);
+    $scope.allFacets = facets;
+    $scope.ok = function () {
+    //$uibModalInstance.close($scope.selected.item);
+    console.log($scope);
+    console.log($scope.allFacets);
+  };
+};
 })();
