@@ -2,34 +2,21 @@
   <h4 class="modal-title">Filter Your Results</h4>
 </div>
 <div class="modal-body">
-  <div>
+  <div class="tab-container">
     <ul class="facet-tabs">
-      <li>
-        <div class="borderBottom"><a>Type</a></div>
+      <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
+        <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
       </li>
-      <li>
-        <div class="borderBottom"><a>Creator</a></div>
-      </li>
-      <li>
-        <div class="borderBottom"><a>Subject</a></div>
-      </li>
-      <li>
-        <div class="borderBottom"><a>Contributor</a></div>
-      </li>
-      <li>
-        <div class="borderBottom"><a>Language</a></div>
-      </li>
-      <li id="facet-placeholder">
-      </li>
+      
     </ul>
     <div class="facet-tab-content">
       <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>
-      <input class="search-filters" type="text" placeholder="Search filters">
+      <input class="search-filters" type="text" placeholder="Search filters" ng-model="text" ng-change="searchFilters()">
       <p class="checked-filters"><a href="#">See Only Checked Filters</a></p>
       <ul class="checkbox-list">
         <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
-          <input type="checkbox" id="{{facet.option}}">
-          <label for="{{facet.option}}">{{ facet.option }}
+          <input type="checkbox" id="{{facet.option}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
+          <label for="{{facet.option}}"><div class="filter-labels">{{ facet.option }}</div>
         </label>
         </li>
       </ul>
@@ -38,6 +25,6 @@
     </div>
   </div>
 <div class="modal-footer">
-  <div class="filters-selected">FILTERS SELECTED(1)</div>
-  <button class="apply-btn" type="button" ng-click="ok()">Apply</button>
+  <div class="filters-selected">FILTERS SELECTED ({{ count }})</div>
+  <button class="apply-btn" type="button" ng-click="apply()">Apply</button>
 </div>

@@ -172,26 +172,137 @@
             return category;
           }
         }
-      })
+      });
+      modalInstance.result.then(function (facetsToApply) {
+        console.log(facetsToApply);
+        for(var i = 0; i < facetsToApply.length; i++){
+          var facet = facetsToApply[i];
+          $scope.updateFacet(facet, facet.active);
+        }
+      });
     };
 
   }]);
   var FacetModalInstanceCtrl = function ($scope, $uibModalInstance, facets, category) {
-    console.log(category);
-    if(category === 'subject'){
-
-      $scope.currentFacets = facets.subject;
-    }
-    if(category === 'type'){
-
-      $scope.currentFacets = facets.type;
-    }
+    $scope.activeCategory = category;
+    $scope.facetCategories = [{
+      name: 'type',
+      display: 'Type'
+    },
+    {
+      name: 'subject',
+      display: 'Subject'
+    },
+    {
+      name: 'creator',
+      display: 'Creator'
+    },
+    {
+      name: 'language',
+      display: 'Language'
+    },
+    {
+      name: 'grp_contributing_institution',
+      display: 'Contributors'
+    }];
+    console.log($scope.activeCategory);
+    $scope.currentFacets = facets[category];
+    $scope.categoryFacets = facets[category];
+    $scope.count = 0;
+    
     console.log(facets);
     $scope.allFacets = facets;
-    $scope.ok = function () {
-    //$uibModalInstance.close($scope.selected.item);
-    console.log($scope);
-    console.log($scope.allFacets);
-  };
+    $scope.text = "";
+    $scope.selectedFacets = {};
+    $scope.categoryCounts = {};
+    
+    $scope.setChecked = function(){
+      for(var prop in $scope.allFacets){
+        var facetsByProp = $scope.allFacets[prop];
+        for(var i = 0; i < facetsByProp.length; i++){
+          var facet = facetsByProp[i];
+          if(facet.active){
+            $scope.count++;
+            if($scope.categoryCounts[prop]){
+              $scope.categoryCounts[prop]++;
+            } else {
+              $scope.categoryCounts[prop] = 1;
+            }
+            
+          }
+          $scope.selectedFacets[facet.option] = facet.active;
+        }
+      }
+    }
+
+    $scope.setChecked();
+
+    $scope.switchFacetCategory = function(newCategory){
+      $scope.currentFacets = $scope.allFacets[newCategory];
+      $scope.categoryFacets = $scope.currentFacets;
+      $scope.activeCategory = newCategory;
+      $scope.text = "";
+    };
+
+    $scope.isActive = function(cat){
+      console.log("checking active");
+      return ($scope.activeCategory === cat);
+    };
+
+    $scope.checkFacet = function(facet){
+      console.log($scope.selectedFacets);
+      if($scope.selectedFacets[facet.option]){
+        if($scope.categoryCounts[facet.facet]){
+          $scope.categoryCounts[facet.facet]++;
+        } else {
+          $scope.categoryCounts[facet.facet] = 1;
+        }
+        $scope.count++;
+      } else {
+        $scope.count--;
+        $scope.categoryCounts[facet.facet]--;
+      }
+
+
+    };
+
+    $scope.isCategorySelected = function(category){
+      console.log($scope.categoryCounts);
+      return $scope.categoryCounts[category];
+    }
+
+    $scope.apply = function(){
+      $scope.applyFacets = [];
+      for(var prop in $scope.allFacets){
+        var subjs = $scope.allFacets[prop];
+        for(var i = 0; i < subjs.length; i++){
+        var facet = subjs[i];
+        if($scope.selectedFacets[facet.option]){
+          facet.active = true;
+          $scope.applyFacets.push(facet);
+        }
+      }
+      }
+      $uibModalInstance.close($scope.applyFacets);
+    };
+
+
+
+    $scope.searchFilters = function(){
+      
+      var filteredFacets = [];
+      console.log($scope.currentFacets);
+      for(var i = 0; i < $scope.categoryFacets.length; i++){
+        var facet = $scope.categoryFacets[i];
+        if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
+
+          filteredFacets.push(facet);
+        }
+      }
+      $scope.currentFacets = filteredFacets;
+      console.log($scope.text);
+    };
+    
+
 };
 })();

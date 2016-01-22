@@ -442,17 +442,21 @@ a:hover {
   padding-top: 0;
   padding-left: 0;
 }
-
+.tab-container {
+}
 .facet-tabs {
   float: left;
   width: 140px;
   padding-left: 0;
+  border-right: 1px solid #ddd;
+  height: 268px;
+
 }
 
 .facet-tabs li {
   list-style: none;
   height: 40px;
-  border-right: 1px solid #ddd;
+  
   
 }
 
@@ -491,6 +495,22 @@ a:hover {
   margin-left: 140px;
   padding-top: 10px;
   padding-left: 18px;
+}
+
+.active-facet-tab {
+  background-color: #eee;
+  text-decoration: none;
+}
+
+.selected-facet-tabs:before {
+  content: "\25cf";
+  font-size: 1em;
+  padding-right: 0.25em;
+  color: orange;
+}
+
+.selected-facet-tabs {
+  margin-left: -.825em;
 }
 
 .modal-footer {
@@ -555,12 +575,37 @@ a:hover {
   display: inline-block;
   font-weight: normal;
   line-height: 24px;
+  vertical-align: top;
+  position: relative;
 }
 
 .filter-checkboxes label {
   font-weight: normal;
   padding-left: 4px;
   font-size: 13px;
+  max-width: 200px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.modal-dialog {
+  
+}
+
+@media screen and (min-width: 768px){
+  .modal-dialog {
+    min-width: 700px;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .filter-checkboxes {
+    width: 100%;
+  }
+  .facet-tabs {
+    height: 413px;
+  }
 }
 
 /** Detail View **/

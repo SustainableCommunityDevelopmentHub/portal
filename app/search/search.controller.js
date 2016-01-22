@@ -166,7 +166,13 @@
       if(active){
         console.log('.....facet has been set');
         facetOption.active = true;
+        console.log($scope.activeFacets);
+        _.remove($scope.activeFacets, function(aFacet){
+          return aFacet.option === facetOption.option;
+        })
         $scope.activeFacets.push(facetOption);
+        
+        
 
         // remove facet option from facets sidebar once selected
         // we are using the $$hashkey id prop which angular adds...
