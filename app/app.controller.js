@@ -75,14 +75,8 @@
         id: $stateParams.bookID}, function(error, response) {
           if(error) {
             console.log(error);
-          } else {
-            // set _sourceLink
-            response._source.identifier.forEach(function(item){
-              if (item.encoding === "URI") {
-                response._source._sourceLink = item.value;
-              }
-            });
-
+          }
+          else {
             $scope.book = response;
 
             $scope.saveAsJson = function (data, filename) {
@@ -113,7 +107,7 @@
             };
 
             $scope.redirect = function(){
-              $window.location.assign($scope.book._source._sourceLink);
+              $window.location.assign($scope.book._source._record_link);
               return false;
             };
           }

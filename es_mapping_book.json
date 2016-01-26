@@ -1,99 +1,82 @@
 {
   "book": {
     "properties": {
-      "creator": {
-        "type": "nested",
-        "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "raw": {
-                "type": "string",
-                "index": "not_analyzed"
-              }
-            }
-          }
-        }
+      "_record_link": {
+        "type": "string",
+        "index": "not_analyzed"
       },
-      "date": {
-        "type": "nested",
-        "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "raw": {
-                "type": "string",
-                "index": "not_analyzed"
-              }
-            }
-          },
-          "qualifier": {
+      "_language": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "_grp_type": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "raw": {
             "type": "string",
             "index": "not_analyzed"
           }
         }
       },
-      "grp_contributing_institution": {
-        "type": "nested",
-        "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "raw": {
-                "type": "string",
-                "index": "not_analyzed"
-              }
-            }
-          },
-          "qualifier": {
+      "_ingest_date": {
+        "type": "date"
+      },
+      "_title_display": {
+        "type": "string"
+      },
+      "_subject_facets": {
+        "type": "string",
+        "fields": {
+          "raw": {
             "type": "string",
             "index": "not_analyzed"
           }
         }
       },
-      "language": {
-        "type": "nested",
-        "properties": {
-          "value": {
+      "_creator_display": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "_creator_facet": {
+        "type": "string",
+        "fields": {
+          "raw": {
             "type": "string",
             "index": "not_analyzed"
           }
         }
       },
-      "subject": {
-        "type": "nested",
-        "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "raw": {
-                "type": "string",
-                "index": "not_analyzed"
-              }
-            }
-          },
-          "qualifier": {
+      "_date_facet": {
+        "type": "date"
+      },
+      "_date_display": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "_grp_contributor": {
+        "type": "string",
+        "fields": {
+          "raw": {
             "type": "string",
             "index": "not_analyzed"
           }
         }
-
       },
-      "type": {
-        "type": "nested",
+      "_grp_id": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "dublin_core":{
+        "type": "object",
         "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "raw": {
-                "type": "string",
-                "index": "not_analyzed"
+          "date":{
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string"
               }
             }
-          },
-          "qualifier": {
-            "type": "string",
-            "index": "not_analyzed"
           }
         }
       }
