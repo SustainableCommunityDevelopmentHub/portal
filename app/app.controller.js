@@ -184,49 +184,67 @@
 
   }]);
   var FacetModalInstanceCtrl = function ($scope, $uibModalInstance, facets, category) {
-    $scope.activeCategory = category;
-    $scope.facetCategories = [{
-      name: 'type',
-      display: 'Type'
-    },
-    {
-      name: 'subject',
-      display: 'Subject'
-    },
-    {
-      name: 'creator',
-      display: 'Creator'
-    },
-    {
-      name: 'language',
-      display: 'Language'
-    },
-    {
-      name: 'grp_contributing_institution',
-      display: 'Contributors'
-    }];
-    console.log($scope.activeCategory);
-    $scope.currentFacets = facets[category];
-    $scope.categoryFacets = facets[category];
-    $scope.count = 0;
-    
-    console.log(facets);
-    $scope.allFacets = facets;
     $scope.text = "";
-    $scope.selectedFacets = {};
-    $scope.categoryCounts = {};
+    $scope.filterCount = 0;
+    $scope.currentFacets = [];
+    $scope.selectedFacets = [];
+    $scope.facetCategories = [];
+
+    $scope.isActive = isActive;
+    $scope.switchFacetCategory = switchFacetCategory;
+    $scope.isCategorySelected = isCategorySelected;
+    $scope.searchFilters = searchFilters;   
+    $scope.apply = apply;
+    $scope.checkFacet = checkFacet;
+
+    var activeCategory = "";
+    var allFacets = [];
+    var categoryCounts = {};
+
+    initialize();
+
+    function initialize(){
+      console.log($scope.text);
+      allFacets = facets;
+      activeCategory = category;
+      $scope.facetCategories = [{
+        name: 'type',
+        display: 'Type'
+      },
+      {
+        name: 'subject',
+        display: 'Subject'
+      },
+      {
+        name: 'creator',
+        display: 'Creator'
+      },
+      {
+        name: 'language',
+        display: 'Language'
+      },
+      {
+        name: 'grp_contributing_institution',
+        display: 'Contributors'
+      }];
+
+      $scope.currentFacets = facets[category];
+      $scope.categoryFacets = facets[category];
+      setChecked();
+    };
     
-    $scope.setChecked = function(){
-      for(var prop in $scope.allFacets){
-        var facetsByProp = $scope.allFacets[prop];
+    
+    function setChecked(){
+      for(var prop in allFacets){
+        var facetsByProp = allFacets[prop];
         for(var i = 0; i < facetsByProp.length; i++){
           var facet = facetsByProp[i];
           if(facet.active){
-            $scope.count++;
-            if($scope.categoryCounts[prop]){
-              $scope.categoryCounts[prop]++;
+            $scope.filterCount++;
+            if(categoryCounts[prop]){
+              categoryCounts[prop]++;
             } else {
-              $scope.categoryCounts[prop] = 1;
+              categoryCounts[prop] = 1;
             }
             
           }
@@ -235,72 +253,67 @@
       }
     }
 
-    $scope.setChecked();
-
-    $scope.switchFacetCategory = function(newCategory){
-      $scope.currentFacets = $scope.allFacets[newCategory];
-      $scope.categoryFacets = $scope.currentFacets;
-      $scope.activeCategory = newCategory;
+    function switchFacetCategory(newCategory){
+      $scope.currentFacets = allFacets[newCategory];
+      $scope.categoryFacets = this.currentFacets;
+      activeCategory = newCategory;
       $scope.text = "";
     };
 
-    $scope.isActive = function(cat){
-      console.log("checking active");
-      return ($scope.activeCategory === cat);
+    function isActive(cat){
+      return (activeCategory === cat);
     };
 
-    $scope.checkFacet = function(facet){
-      console.log($scope.selectedFacets);
-      if($scope.selectedFacets[facet.option]){
-        if($scope.categoryCounts[facet.facet]){
-          $scope.categoryCounts[facet.facet]++;
+    function checkFacet(facet){
+      var facetCategory = facet.facet;
+      var facetText = facet.option;
+
+      if($scope.selectedFacets[facetText]){
+        if(categoryCounts[facetCategory]){
+          categoryCounts[facetCategory]++;
         } else {
-          $scope.categoryCounts[facet.facet] = 1;
+          categoryCounts[facetCategory] = 1;
         }
-        $scope.count++;
+        $scope.filterCount++;
       } else {
-        $scope.count--;
-        $scope.categoryCounts[facet.facet]--;
+        $scope.filterCount--;
+        categoryCounts[facetCategory]--;
       }
-
-
     };
 
-    $scope.isCategorySelected = function(category){
-      console.log($scope.categoryCounts);
-      return $scope.categoryCounts[category];
+    function isCategorySelected(category){
+      return categoryCounts[category];
     }
 
-    $scope.apply = function(){
-      $scope.applyFacets = [];
-      for(var prop in $scope.allFacets){
-        var subjs = $scope.allFacets[prop];
-        for(var i = 0; i < subjs.length; i++){
-        var facet = subjs[i];
-        if($scope.selectedFacets[facet.option]){
-          facet.active = true;
-          $scope.applyFacets.push(facet);
+    function apply(){
+      var applyFacets = [];
+      for(var prop in allFacets){
+        var facetsByCategory = allFacets[prop];
+
+        for(var i = 0; i < facetsByCategory.length; i++){
+          var facet = facetsByCategory[i];
+          if($scope.selectedFacets[facet.option]){
+            facet.active = true;
+            applyFacets.push(facet);
+          }
         }
       }
-      }
-      $uibModalInstance.close($scope.applyFacets);
+      $uibModalInstance.close(applyFacets);
     };
 
 
 
-    $scope.searchFilters = function(){
+    function searchFilters(){
       
       var filteredFacets = [];
-      console.log($scope.currentFacets);
+
       for(var i = 0; i < $scope.categoryFacets.length; i++){
         var facet = $scope.categoryFacets[i];
         if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
-
           filteredFacets.push(facet);
         }
       }
       $scope.currentFacets = filteredFacets;
-      console.log($scope.text);
     };
     
 
