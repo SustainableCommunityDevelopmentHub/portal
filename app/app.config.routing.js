@@ -55,7 +55,15 @@
     .state('contributors', {
       url: '/contributors',
       templateUrl: 'contributors/contributors.html',
-      controller: 'ContributorsCtrl'
+      controller: 'ContributorsCtrl',
+      resolve: {
+
+        contributors: function($stateParams, DataService){
+          console.log('Router....in state contributors resolve. $stateParams: ' + JSON.stringify($stateParams));
+          return DataService.getContributors();
+
+        }
+      }
     })
 
     .state('feedback', {
