@@ -202,18 +202,13 @@
             }
           }
         };
-      console.log('getContributorsQuery executed: ' + JSON.stringify(contributorsQuery));
+      console.log('DataService.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
       return _.cloneDeep(contributorsQuery);
     }
     
-
-
-    
-      
-      
-    }
-
-
   }
+
+
+}
 
 })();
