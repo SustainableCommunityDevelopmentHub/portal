@@ -92,6 +92,7 @@
               
               if (typeof data === 'object') {
                 data = angular.toJson(data, undefined, 2);
+                $scope.fileContents = data;
               }
 
               var blob = new Blob([data], {type: 'text/json'}),

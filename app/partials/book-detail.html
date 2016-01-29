@@ -10,12 +10,12 @@
     <accordion>
     <div class="export_accordion__container" ng-controller="FaqsCtrl">
       <div class="export_accordion__tab">
-            <div class="export_accordion__tab-title" ng-click="openTab('tab one')"><input class="vdi" type="submit" value="Export" /></div>
+            <div class="export_accordion__tab-title" ng-click="openTab('tab one')"><input class="vdi" id="exportBtn" type="submit" value="Export" /></div>
                 <div class="export_accordion__tab-content" ng-show="isOpenTab('tab one')">
                 	<ul class="export_dropdown">
                 		<li><a ui-sref="app/#">RIS</a></li>
                 		<li><a ui-sref="app/#">DC-XML</a></li>
-                		<li><a ng-click="saveAsJson(book._source)">DC-JSON</a></li>
+                		<li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
                 		<li><a ui-sref="app/#">DC-YML</a></li>
                  	</ul>
                 </div>
