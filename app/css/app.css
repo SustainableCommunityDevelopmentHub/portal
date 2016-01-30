@@ -8,31 +8,17 @@ a:hover {
   cursor:pointer;
 }
 
-/** header **/
-
-.header {
-  width: 80%;
-  padding-bottom: 15px;
-  margin-right: auto;
-  margin-left: auto;
+.row-centered {
+  text-align: center;
 }
 
-.header .getty-logo{
-  width: 85px;
-  margin-bottom: -10px;
+.col-centered {
+  display:inline-block;
+  float:none;
 }
 
-.header .gri-portal-logo {
-  width: 280px;
-}
 
-.gri-logo {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -85px;
-  display: block;
-  width: 280px;
-}
+/* Header */
 
 #container-test {
   width: 100%;
@@ -40,82 +26,107 @@ a:hover {
   padding-right: 0;
 }
 
-.main-nav {
-  height: 50px;
-  width: 100%;
-  background-color: #3a3a3a;
+.header .getty-logo {
+  width: 85px;
+  padding-top: 3px;
 }
 
-.main-nav ul {
-  padding-top: 14px;
-  width: 350px;
-  position: relative;
-  z-index: 1;
-  margin-right: auto;
-  margin-left: auto;
+.gri-logo {
+  text-align: center;
 }
 
-.main-nav li {
-  list-style: none;
-  display: inline;
-  color: white;
-  height:50px;
+.header .gri-portal-logo {
+  width: 280px;
 }
 
-.main-nav li a {
-  list-style: none;
-  display: inline;
-  color: white;
-  height:50px;
-}
 
-.main-nav li a:hover {
-  color: #478ba3;
-  text-decoration: none;
-}
+  /* Main Nav */
 
-.help_accordion__container {
-  display: inline;
-}
 
-.help_accordion__tab {
-  display: inline;
-}
+  .navbar-default {
+    background-color: #333;
+    border: none;
+    border-radius: 0;
+    margin-top: 20px;
+  }
 
-.help_accordion__tab-title {
-    cursor: pointer;
-    display: inline;
-}
 
-.help_accordion__tab-title:hover {
-    color: #478ba3;
-}
+  .navbar-default .navbar-nav > li > a {
+    color: #ddd;
+  }
 
-.help_accordion__tab-title .glyphicon {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-    color: white;
-}
+  .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #ddd;
+    background-color: #000;
+  }
 
-.help_accordion__tab-content {
-    background-color: #3a3a3a;
-    width: 140px;
-    margin-left: 220px;
-}
+  .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #ddd;
+    background-color: #000;
+  }
 
-.help_accordion__tab-content ul{
-    padding: 20px 0 0 20px;
-    background-color: #3a3a3a;
-    display: block;
-    width: 140px;
-}
+  .navbar-nav .dropdown-menu {
+    background-color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.55);
+  }
 
-.help_accordion__tab-content li{
-    padding: 0 0 0 0;
-    background-color: #3a3a3a;
-    display: block;
-    height: 45px;
-}
+  .navbar-nav .dropdown-menu li a {
+    color: #ddd;
+    border-bottom: 1px solid #666;
+  }
+
+  .navbar-nav .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    color: #ddd;
+    background-color: #000;
+  }
+
+  /* Hamburger Menu */
+
+  .navbar-toggle {
+    float: left;
+    margin: 8px 15px;
+  }
+
+  .navbar-default .navbar-toggle .icon-bar {
+    background-color: #ddd;
+  }
+
+  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #000;
+  }
+
+  .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    color: #ddd;
+    background-color: #000;
+  }
+
+  .navbar-nav {
+    margin: 0;
+  }
+
+  #navbar {
+    padding: 0;
+    background-color: #333;
+  }
+
+  .navbar-default .navbar-nav > li {
+    text-align: left;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ddd;
+  }
+
+  .navbar-nav .open .dropdown-menu > li > a {
+    padding: 10px 15px 10px 30px;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ddd;
+    background-color: #000;
+  }
+
+
 
 /** main body **/
 
@@ -898,54 +909,39 @@ h1 {
     display: none;
   }
 }
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+
+  /* Header */
+  .header .getty-logo {
+    width:  50px;
+    padding-top: 8px;
+  }
+
+  .header .gri-portal-logo {
+    width: 200px;
+  }
+
+}
 
 
 @media (max-width: 1100px){
 
-  .header .getty-logo{
-    width: 10%;
-    margin-left: auto;
-  }
-
-  .main-nav ul {
-      width: 350px;
-  }
-
-  .adv {
-    width: 63%;
-  }
-
-  .help_accordion__tab-content {
-    background-color: #3a3a3a;
-    width: 140px;
-    margin-left: 220px;
-}
-
-  .help_accordion__tab-content ul{
-    padding: 20px 0 0 20px;
-    background-color: #3a3a3a;
-    display: block;
-    width: 140px;
-  }
-
-  .help_accordion__tab-content li{
-    padding: 0 0 0 0;
-    background-color: #3a3a3a;
-    display: block;
-    height: 45px;
-  }
-
-}
+  
 
 @media (max-width: 900px){
 
-  .header .getty-logo{
-    display: none;
-  }
-
-  .header .gri-portal-logo {
-    margin-top: 5px;
-  }
 
   .search-bar {
     width: 100%;
