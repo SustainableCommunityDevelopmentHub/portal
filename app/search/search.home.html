@@ -13,7 +13,9 @@
         <form ng-submit="newSearch({q: queryTerm})">
         <input ng-model="queryTerm" class="search-input" type="text" autofocus />
 
-        <button ng-click="newSearch({q: queryTerm})" class="btn" type="button" id="go-btn">Search</button>
+        <button ng-click="newSearch({q: queryTerm})" class="btn" type="button" id="go-btn"><p>Search</p>
+          <span class="glyphicon glyphicon-search"></span></button>
+          
         </form>
         </div>
       </div>
@@ -26,7 +28,7 @@
     </div><!-- /row -->
 
     <div class="row row-centered">
-      <div class ="col-xs-12 col-sm-6 col-md-4 col-centered">
+      <div class ="col-xs-12 col-sm-6 col-md-3 col-centered">
         <button ng-click="newSearch({q: ''})" class="btn" id="see-all-btn" type="button">See All Records</button>
       </div>
     </div><!-- /row -->
@@ -38,19 +40,22 @@
       <div class="stats">
         <div class="col-xs-12 col-sm-4">
           <div class="box">
-            <hr class="tlc-hr"><h4>Total Titles</h4>
+            <hr class="tlc-hr">
+            <h4>Total Titles</h4>
             <p>71,199</p>
           </div>
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="box">
-            <hr class="tlc-hr"><h4>Last Updated</h4>
+            <hr class="tlc-hr">
+            <h4>Last Updated</h4>
             <p>April 1, 2015<br>1,243 Records Added</p><a class="tlc-orange" ui-sref="newrecords">See New Records</a>
           </div>
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="box">
-            <hr class="tlc-hr"><h4>Recent Contributors</h4>
+            <hr class="tlc-hr">
+            <h4>Recent Contributors</h4>
             <p>Bibliotheque National de France<br>Online Scholarly Catalogue Initiative
             <br>Getty Publications Virtual Library<br>Smithsonian Libraries</p>
             <a class="tlc-orange" ui-sref="contributors">See All Contributors</a>
