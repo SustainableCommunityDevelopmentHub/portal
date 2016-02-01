@@ -29,7 +29,10 @@ Enter a search for "history" and click the Search button.
    [here](http://railsapps.github.io/xcode-command-line-tools.html)
 
 # (Optional, Recommended for Developers) Install node.js
-2. Install node.js: https://nodejs.org/en/ -- suggested version is v4.x (most recent version 4).
+1. Install node.js: https://nodejs.org/en/ -- suggested version is v4.x (most recent version 4).
+2. Install bower globally: `npm install -g bower`
+3. Install karma globally: `npm install -g karma`
+4. Install grunt globally: `npm install -g grunt`
 
 #Clone this Repo
 In the directory where you want your project to live, enter `git clone <my-repo-clone-url-goes-here>`. The clone URL for this repo can be found near the top of this web-page where it says HTTPS. For developers it is recommended to use SSH and set up your SSH key. If you're not sure what to use, use the HTTPS url.
