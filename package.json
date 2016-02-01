@@ -31,7 +31,6 @@
     "stop-es": "sudo /etc/init.d/elasticsearch stop",
     "restart-es": "sudo /etc/init.d/elasticsearch restart",
     "start": "node server.js",
-    "pretest": "npm install",
     "test": "node node_modules/karma/bin/karma start test/karma.config.js",
     "test-single-run": "node node_modules/karma/bin/karma start test/karma.config.js  --single-run",
     "preupdate-webdriver": "npm install",
