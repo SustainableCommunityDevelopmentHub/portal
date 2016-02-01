@@ -2,7 +2,7 @@
 <div class="item-page">
 <div class="item-details">
 <hr class="sr-top">
-<h3 class="book-detail-title" print-section>{{book._source.title[0].value}}</h3>
+<h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
 <div class="rec-options">
 <a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
 <button print-btn class="vdi">Print</button>
@@ -22,13 +22,13 @@
             </div>
       </div>
    </accordion>
-   <button ng-click="redirect()"class="vdi"> <!--<a ng-href="{{book._source._sourceLink}}" target="_blank" style="text-decoration:none; color:black">View Digital Item</a>-->View Digital Item</button>
+   <button ng-click="redirect()"class="vdi"> <!--<a ng-href="{{book._source._record_link}}" target="_blank" style="text-decoration:none; color:black">View Digital Item</a>-->View Digital Item</button>
 <!--<input type="submit" class="vdi" value="View Digital Item" />-->
 <a class="remove-rec" ui-sref="/">Remove Record</a>
 </div>
 <h4 class="detail-begin">Details</h4>
 <hr class="sr-top">
-<ul print-section class="specs" ng-repeat="(key, field) in book._source">
+<ul print-section class="specs" ng-repeat="(key, field) in book._source.dublin_core">
   <li class="book-field-key"><b>{{key | uppercase}}</b>
     <ul class="specs" ng-repeat="entry in field">
       <li class="book-field-val">{{entry.value}}</li>
