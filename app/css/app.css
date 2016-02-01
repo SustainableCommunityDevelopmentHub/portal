@@ -20,10 +20,8 @@ a:hover {
 
 /* Header */
 
-#container-test {
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+.gri-logo {
+  text-align: center;
 }
 
 .header .getty-logo {
@@ -31,17 +29,20 @@ a:hover {
   padding-top: 3px;
 }
 
-.gri-logo {
-  text-align: center;
-}
 
 .header .gri-portal-logo {
   width: 280px;
 }
 
 
-  /* Main Nav */
+#container-test {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
 
+
+  /* Main Nav */
 
   .navbar-default {
     background-color: #333;
@@ -82,114 +83,107 @@ a:hover {
 
   /* Hamburger Menu */
 
-  .navbar-toggle {
-    float: left;
-    margin: 8px 15px;
-  }
+    .navbar-nav {
+      margin: 0;
+    }
 
-  .navbar-default .navbar-toggle .icon-bar {
-    background-color: #ddd;
-  }
+    #navbar {
+      padding: 0;
+      background-color: #333;
+    }
 
-  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-    background-color: #000;
-  }
+    .navbar-toggle {
+      float: left;
+      margin: 8px 15px;
+    }
 
-  .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-    color: #ddd;
-    background-color: #000;
-  }
+    .navbar-default .navbar-toggle .icon-bar {
+      background-color: #ddd;
+    }
 
-  .navbar-nav {
-    margin: 0;
-  }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+      background-color: #000;
+    }
 
-  #navbar {
-    padding: 0;
-    background-color: #333;
-  }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+      color: #ddd;
+      background-color: #000;
+    }
 
-  .navbar-default .navbar-nav > li {
-    text-align: left;
-  }
+    .navbar-default .navbar-nav > li {
+      text-align: left;
+    }
 
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ddd;
-  }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+      color: #ddd;
+    }
 
-  .navbar-nav .open .dropdown-menu > li > a {
-    padding: 10px 15px 10px 30px;
-  }
+    .navbar-nav .open .dropdown-menu > li > a {
+      padding: 10px 15px 10px 30px;
+    }
 
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ddd;
-    background-color: #000;
-  }
-
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+      color: #ddd;
+      background-color: #000;
+    }
 
 
-/** main body **/
 
-.how-to-search {
-  margin-top: 30px;
-  margin-bottom: 50px;
-  font-size: .9em;
-}
+/* Main body */
 
-.search-button-home {
+.intro-copy {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+  margin: 30px 0 50px;
 }
-
-/*.ng-binding {*/
-  /*width: 300px;*/
-/*}*/
 
 
 .search-bar {
   display: block;
-  width: 65%;
   margin-right: auto;
   margin-left: auto;
 }
 
 
 .search-input {
-  height: 34px;
-  padding-top: 0px;
-  margin-left: auto;
-  margin-right: -8px;
-  width: 85%;
+  height: 40px;
+  padding: 0px 15px;
+  width: 84%;
+  display: inline-block;
+  float: left;
 }
 
 
 #go-btn {
+  height: 40px;
+  margin: auto;
   color: white;
-  background-color: #478ba3;
-  margin-right: auto;
-  border-radius: 0;
-  width: 70px;
+  background-color: #528AA5;
+  width: 15%;
   vertical-align: bottom;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: inline-block;
+  float: right;
+}
+
+#go-btn p {
+  margin: 0;
 }
 
 .adv {
-  width: 57%;
   text-align: right;
-  margin-left: auto;
-  margin-right: auto;
+  margin-right: 18px;
   display: block;
-  color: black;
+  color: #555;
+  text-decoration: underline;
 }
 
 #see-all-btn {
+  width: 100%;
+  height: 50px;
   display: block;
-  margin-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-  width: 30%;
+  margin: 60px 0;
   border: 2px solid black;
   border-radius: 0;: black;
   background-color: white;
@@ -201,6 +195,39 @@ a:hover {
   width: 80%;
   margin-bottom: 50px;
 }
+
+  /* Stat Boxes */
+
+    .stats {
+      text-align: center;
+      display: block;
+    }
+
+    .stats .box {
+      margin-bottom: 30px;
+    }
+
+    .stats .box a {
+      text-decoration: underline;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .tlc-hr {
+      height: 3px;
+      background: orange;
+    }
+
+    .tlc-orange {
+      color: orange;
+      text-decoration: none;
+    }
+
+    .tlc-orange:hover {
+      text-decoration: none;
+    }
+
 
 /** Advanced Search **/
 
@@ -555,20 +582,7 @@ h1 {
   vertical-align: top;
 }
 
-.tlc-hr {
-  height: 3px;
-  background: orange;
-  width: 90%;
-}
 
-.tlc-orange {
-  color: orange;
-  text-decoration: none;
-}
-
-.tlc-orange:hover {
-  text-decoration: none;
-}
 
 /* Footer */
 
@@ -929,21 +943,35 @@ h1 {
     display: none;
   }
 }
-@media (min-width: 768px) {
-    .navbar .navbar-nav {
-        display: inline-block;
-        float: none;
-        vertical-align: top;
-    }
 
-    .navbar .navbar-collapse {
-        text-align: center;
-    }
+
+@media (min-width: 768px) {
+
+  /* Header */
+
+  .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
+
+
+  /* Main Body */
+
+  #go-btn span {
+    display: none;
+  }
+
 }
 
 @media (max-width: 768px) {
 
   /* Header */
+
   .header .getty-logo {
     width:  50px;
     padding-top: 8px;
@@ -951,6 +979,13 @@ h1 {
 
   .header .gri-portal-logo {
     width: 200px;
+  }
+
+
+  /* Main Body */
+
+  #go-btn p {
+    display: none;
   }
 
 }
@@ -973,19 +1008,18 @@ h1 {
 
 @media (max-width: 900px){
 
-
-  .search-bar {
-    width: 100%;
-  }
-
   .search-bar-results {
     width: 100%;
   }
 
-  .adv {
+  /*.search-bar {
+    width: 100%;
+  }*/
+
+  /*.adv {
     text-align:left;
     width: 100%;
-  }
+  }*/
 
   /*.footer ul {
     margin-top: 5px;
