@@ -1,7 +1,9 @@
-describe('true', function(){
-  it('should be true', function(){
-    expect(true).toBeTruthy();
+describe('SearchService Unit Tests', function(){
+  describe('true is true', function(){
+    it('should be true', function(){
+      expect(true).toBeTruthy();
+
+    });
 
   });
-
 });

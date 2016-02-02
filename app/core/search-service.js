@@ -58,7 +58,7 @@
       this.returnedPromise = search(this.opts);
       console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
-    };
+    }
 
     /**
      * Updates opts (changed object properties are overwritten) and executes search.
@@ -114,7 +114,7 @@
       this.results.numTotalHits = results.hits.total;
 
       // set facet options
-      var allAggregations = results.aggregations
+      var allAggregations = results.aggregations;
 
       // convert FACETS obj to array, iterate over it, parse aggregation results...
       // ...and update SearchService.results.facetOptions.
@@ -167,6 +167,7 @@
       if(!opts.page){
         opts.page = 1;
       }
+
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
     }
@@ -217,8 +218,8 @@
 
         return parsedOption;
       });
-    };
+    }
 
 
-  };
+  }
 })();

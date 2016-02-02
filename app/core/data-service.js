@@ -3,7 +3,7 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['esClient', 'FACETS', DataService])
+  .factory('DataService', ['esClient', 'FACETS', DataService]);
 
   /* DataService - get all data through this service */
   function DataService(esClient, FACETS) {
@@ -130,7 +130,7 @@
         termsFilter.terms[key] =  filterValuesArr;
         console.log('Created Term Filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
         return termsFilter;
-      };
+      }
 
       /**
        * Return copy of base ES query object.
@@ -173,9 +173,9 @@
       };
 
       return _.cloneDeep(baseQuery);
-    };
+    }
 
-  };
+  }
 
     /**
      * Get Contributors information
@@ -214,7 +214,7 @@
         {name:'Online Scholarly Catalogue Initiative', num_records: '10'}
       ];
       return contributors;
-    };
-  };
+    }
+  }
 
 })();
