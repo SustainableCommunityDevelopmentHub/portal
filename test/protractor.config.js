@@ -4,12 +4,11 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    'spec.js',
     '**/*spec.js'
   ],
 
   multiCapabilities: [{
-     'browserName': 'chrome'
+    'browserName': 'chrome'
   }, {
     'browserName': 'firefox'
   }],
@@ -20,9 +19,9 @@ exports.config = {
 
   framework: 'jasmine',
 
+
   onPrepare: function() {
     browser.driver.manage().window().maximize();
-    return browser.get('http://local.portal.dev:8000/'); // Added return statement here
   },
 
   jasmineNodeOpts: {
