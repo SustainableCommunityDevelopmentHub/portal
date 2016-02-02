@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'FacetList', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, FacetList, SearchService){
+  function SearchCtrl($scope, $state, SearchService){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -33,7 +33,7 @@
 
           $scope.activeFacets = ss.opts.facets || [];
 
-          //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
+          //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
           //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
 
           // bind search opts to scope

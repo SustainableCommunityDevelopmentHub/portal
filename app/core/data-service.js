@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['esClient', DataService])
+  .factory('DataService', ['esClient', 'FACETS', DataService])
 
   /* DataService - get all data through this service */
-  function DataService(esClient) {
+  function DataService(esClient, FACETS) {
     var service = {
       getContributors: getContributors,
       search: search
@@ -45,30 +45,32 @@
         fullQuery.body.query.filtered.filter = { bool: { must: [] } };
 
         // container for facet categories
+        // TODO: build facetCategories from FACETS, to make app more DRY
+        //var facetCategories = _.clone(FACETS);
         var facetCategories = {
           language: {
             name: 'language',
-            fieldKey: 'language.value',
+            key: '_language',
             options:[]
           },
           subject: {
             name: 'subject',
-            fieldKey: 'subject.value.raw',
+            key: '_subject_facets.raw',
             options:[]
           },
           type: {
             name: 'type',
-            fieldKey: 'type.value.raw',
+            key: '_grp_type.raw',
             options:[]
           },
           creator: {
             name: 'creator',
-            fieldKey: 'creator.value.raw',
+            key: '_creator_facet.raw',
             options:[]
           },
-          grp_contributing_institution: {
-            name: 'grp_contributing_institution',
-            fieldKey: 'grp_contributing_institution.value.raw',
+          grp_contributor: {
+            name: 'grp_contributor',
+            key: '_grp_contributor.raw',
             options:[]
           }
         };
@@ -77,6 +79,12 @@
         opts.facets.forEach(function(facet){
           console.log('...Adding filter on facet: ' + JSON.stringify(facet));
           // TODO: Add validation that facet.name is valid facet category
+
+          // this is here as a hack for when we will use FACETS, which doesn't have options[], to generate facetCategories
+          if(!facetCategories[facet.facet].options){
+            facetCategories[facet.facet].options = [];
+          }
+
           facetCategories[facet.facet].options.push(facet.option);
           console.log('.....facetCategories:' + JSON.stringify(facetCategories));
         });
@@ -88,7 +96,7 @@
         if(facetCategory.options.length){
           fullQuery.body.query.filtered
           .filter.bool.must
-          .push(createFilter(facetCategory.name, facetCategory.fieldKey, facetCategory.options));
+          .push(createFilter(facetCategory.name, facetCategory.key, facetCategory.options));
         }
       });
 
@@ -105,28 +113,23 @@
       ////////////////////////////
 
       /**
-       * Construct ES query for terms filter over nested object.
+       * Construct ES query for ES terms filter.
        * Used to apply specific facet type, with one or more options, to a query.
        * Add to base query to filter on particular facet and facet options
        *
        * @returns {object} elasticsearch query DSL for terms filter
        */
-      function createFilter(field, fieldKey, filterValuesArr){
-        var nestedTermsFilter =
+      function createFilter(field, key, filterValuesArr){
+        // build terms obj and wrapper, to dynamically populate w/a property
+        var termsFilter =
           {
-            nested: {
-              path: field,
-              filter: {
-                terms: {}
-              }
-            }
+              terms: {}
           };
 
-          nestedTermsFilter.nested.filter.terms[fieldKey] =  filterValuesArr;
-
-          console.log('Created Nested Term Filter: ' + JSON.stringify(nestedTermsFilter) + ' on key: ' + fieldKey + ' for vals: ' + JSON.stringify(filterValuesArr));
-
-          return nestedTermsFilter;
+        // set prop on terms obj to represent field name to filter on, set arr of values to filter by.
+        termsFilter.terms[key] =  filterValuesArr;
+        console.log('Created Term Filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
+        return termsFilter;
       };
 
       /**
@@ -151,78 +154,28 @@
             },
             // aggregations to get facet options for our query
             "aggregations": {
-              // creator
               "creator": {
-                "nested": {
-                  "path": "creator"
-                },
-                "aggs": {
-                  "creator": {
-                    "terms": {
-                      "field": "creator.value.raw"
-                    }
-                  }
-                }
+                "terms": { "field": "_creator_facet.raw" }
               },
-              // language
               "language": {
-                "nested": {
-                  "path": "language"
-                },
-                "aggs": {
-                  "language": {
-                    "terms": {
-                      "field": "language.value"
-                    }
-                  }
-                }
+                "terms": { "field": "_language" }
               },
-              // contributing institution
-              "grp_contributing_institution": {
-                "nested": {
-                  "path": "grp_contributing_institution"
-                },
-                "aggs": {
-                  "grp_contributing_institution": {
-                    "terms": {
-                      "field": "grp_contributing_institution.value.raw"
-                    }
-                  }
-                }
+              "grp_contributor": {
+                "terms": { "field": "_grp_contributor.raw" }
               },
-              // subject
               "subject": {
-                "nested": {
-                  "path": "subject"
-                },
-                "aggs": {
-                  "subject": {
-                    "terms": {
-                      "field": "subject.value.raw"
-                    }
-                  }
-                }
+                "terms": { "field": "_subject_facets.raw" }
               },
-              // type
               "type": {
-                "nested": {
-                  "path": "type"
-                },
-                "aggs": {
-                  "type": {
-                    "terms": {
-                      "field": "type.value.raw"
-                    }
-                  }
-                }
+                "terms": { "field": "_grp_type.raw" }
               }
-            }
-          };
-
-          return _.cloneDeep(baseQuery);
+          }
       };
 
+      return _.cloneDeep(baseQuery);
     };
+
+  };
 
     /**
      * Get Contributors information
