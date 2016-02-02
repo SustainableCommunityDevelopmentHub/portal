@@ -5,16 +5,18 @@ exports.config = {
 
   specs: [
     'spec.js',
-    'sort_spec.js'
+    '**/*spec.js'
   ],
 
-  capabilities: {
-    'browserName': 'chrome'
-  },
+  multiCapabilities: [{
+     'browserName': 'chrome'
+  }, {
+    'browserName': 'firefox'
+  }],
 
   chromeOnly: true,
 
-  baseUrl: 'http://localhost:8000/',
+  baseUrl: 'http://local.portal.dev:8000/',
 
   framework: 'jasmine',
 
@@ -24,6 +26,6 @@ exports.config = {
   },
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 45000
   }
 };

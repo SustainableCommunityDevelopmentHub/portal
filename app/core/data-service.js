@@ -56,9 +56,8 @@
           case "title_desc":
             fullQuery.body.sort = {"_title_display.sort": {"order": "desc"}};
             break;
-          
         }
-      console.log('DataService.search.....opts.sort:' + opts.sort);      
+      console.log('DataService.search.....opts.sort:' + opts.sort);
       }
 
       // build filters for faceted search

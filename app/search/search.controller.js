@@ -49,11 +49,9 @@
           } else {
             $scope.sort = "Relevance";
           }
-          
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
-          
 
           if(ss.opts.facets){
             $scope.activeFacets = ss.opts.facets;

@@ -90,7 +90,6 @@
     // TODO? Strip Angular.js $$hashKey prop from facet opts objs?
     function updateOpts(newOpts){
       // search query terms always handled as lowercase
-      console.log("NEW OPTS: " + JSON.stringify(newOpts));
       if(newOpts.q){
         newOpts.q = newOpts.q.toLowerCase();
       }

@@ -63,7 +63,7 @@ describe('Sorting tests', function() {
          var date = book._ingest_date;
          if(date){
            dates.push(date);
-         }  
+         }
        }
        var copiedDates = dates.slice(0);
        expect(dates).toEqual(copiedDates.sort());
