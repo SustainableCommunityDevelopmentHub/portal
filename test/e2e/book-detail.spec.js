@@ -2,15 +2,17 @@
 describe('Book Detail', function() {
 
   
-  var seeAllBtn = element(by.id('see-all-btn'));
-  var firstResult = element.all(by.css('.portal-record-link')).first();
+  var searchBtn = element(by.id('go-btn'));
+  var firstResult = element(by.css('.portal-record-link'));
   var exportBtn = element(by.id('exportBtn'));
   var testData = JSON.stringify(require('./book.json'));
+  var testQuery = 'bpt6k63442281';
     
   
   beforeEach(function() {
     browser.get('');
-    seeAllBtn.click();
+    element(by.model('queryTerm')).sendKeys(testQuery);
+    searchBtn.click();
     browser.wait(function() {
       return firstResult.isPresent();
     }, 1000);
