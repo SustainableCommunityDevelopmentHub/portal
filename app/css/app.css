@@ -888,7 +888,7 @@ h1 {
   margin: 40px 5px 0 10px;
 }
 
-/**Search Help**/
+/* Search Help */
 
 .search-help ul {
   padding-left: 15px;
@@ -910,6 +910,18 @@ h1 {
 .search-help li {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#top-link-block.affix-top {
+    position: absolute; 
+    bottom: -82px; 
+    right: 10px; 
+}
+#top-link-block.affix {
+    position: fixed; 
+    bottom: 18px; 
+    right: 10px; 
+    z-index: 1;
 }
 
 /*FAQs*/
