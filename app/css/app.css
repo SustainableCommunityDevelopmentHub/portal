@@ -894,6 +894,8 @@ h1 {
   margin-bottom: 5px;
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 @media print {
   .header-complete {
     display: none;
@@ -1041,3 +1043,4 @@ h1 {
     margin-right: auto;
   }*/
 }
+
