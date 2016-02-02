@@ -22,10 +22,9 @@ exports.config = {
 
   onPrepare: function() {
     browser.driver.manage().window().maximize();
-    return browser.get('http://local.portal.dev:8000/'); // Added return statement here
   },
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 45000
   }
 };
