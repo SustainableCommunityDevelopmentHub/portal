@@ -25,7 +25,7 @@ module.exports = function(config){
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+    browsers : ['Chrome', 'Firefox', 'Safari'],
 
     plugins : [
             'karma-chrome-launcher',
@@ -34,10 +34,11 @@ module.exports = function(config){
             'karma-safari-launcher'
             ],
 
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
+    reporters: ['progress']
+    //junitReporter : {
+      //outputFile: 'test_out/unit.xml',
+      //suite: 'unit'
+    //}
 
   });
 };
