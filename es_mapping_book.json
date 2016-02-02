@@ -23,7 +23,13 @@
         "type": "date"
       },
       "_title_display": {
-        "type": "string"
+        "type": "string",
+        "fields": {
+          "sort": {
+            "type": "string",
+            "analyzer": "sortable"
+          }
+        }
       },
       "_subject_facets": {
         "type": "string",
@@ -75,34 +81,6 @@
             "properties":{
               "value": {
                 "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "title": {
-        "type": "nested",
-        "properties": {
-          "value": {
-            "type": "string",
-            "fields": {
-              "lower_case_sort": {
-                "type": "string",
-                "analyzer": "sortable"
-             }
-            }
-
-          }
-        }
-      },
-      "grp_ingest_date": {
-        "properties": {
-          "value": {
-            "type": "date",
-            "fields": {
-              "sort": {
-                "type": "date",
-                "index": "not_analyzed"
               }
             }
           }

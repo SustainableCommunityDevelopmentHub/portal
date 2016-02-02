@@ -90,11 +90,11 @@
       </ul>
     </div>
     <div class="dropdown" uib-dropdown>
-      <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by:
+      <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
         <span class="caret"></span></button>
       <ul uib-dropdown-menu role="menu" class="dropdown-menu">
         <li ng-repeat="sortMode in validSortModes">
-          <a ng-click="setSortMode(sortMode.mode)">{{ sortMode.display }}</a></li>
+          <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
       <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>

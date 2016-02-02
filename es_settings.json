@@ -3,11 +3,11 @@
     "analyzer": {
       "sortable": {
             "tokenizer": "keyword",    
-              "filter":  [ "strip_punctuation", "strip_bracket", "asciifolding", "lowercase" ] 
+              "filter":  [ "strip_quotes", "strip_bracket", "asciifolding" ] 
         }
       },
       "filter": {
-        "strip_punctuation": {
+        "strip_quotes": {
         "type": "pattern_replace",
         "pattern": "\"",
         "replacement": ""

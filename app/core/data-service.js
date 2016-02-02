@@ -39,71 +39,26 @@
       }
 
       if(opts.sort){
-        if(opts.sort == "date asc"){
-          fullQuery.body.sort = {
-          "date.value": {
-            "order": "asc",
-            "nested_path": "date",
-            "nested_filter": {
-              "term": {
-                "date.qualifier": "portal_facet"
-              }
-            }
-          }
-          }
+        var sortMode = opts.sort.mode
+        switch(sortMode) {
+          case "date_asc":
+            fullQuery.body.sort = "_date_display";
+            break;
+          case "date_desc":
+            fullQuery.body.sort = { "_date_display": {"order": "desc"}};
+            break;
+          case "date_added":
+            fullQuery.body.sort = {"_ingest_date": {"order": "desc"}};
+            break;
+          case "title_asc":
+            fullQuery.body.sort = "_title_display.sort";
+            break;
+          case "title_desc":
+            fullQuery.body.sort = {"_title_display.sort": {"order": "desc"}};
+            break;
+          
         }
-        if(opts.sort == "date desc"){
-          fullQuery.body.sort = {
-          "date.value": {
-            "order": "desc",
-            "nested_path": "date",
-            "nested_filter": {
-              "term": {
-                "date.qualifier": "portal_facet"
-              }
-            }
-          }
-          }
-        }
-        if(opts.sort == "date added"){
-          fullQuery.body.sort = {
-            "grp_ingest_date.value": {
-              "order": "desc"
-            }
-          }
-        }
-        if(opts.sort == "title az"){
-          fullQuery.body.sort = {
-            "title.value.lower_case_sort": {
-              "order": "asc",
-              "nested_path": "title",
-              "nested_filter": {
-                "not": {
-                "term": {
-                  "title.qualifier": "alternative"
-                }}
-              }
-            }
-          }
-        }
-        if(opts.sort == "title za"){
-          fullQuery.body.sort = {
-            "title.value.lower_case_sort": {
-              "order": "desc",
-              "nested_path": "title",
-              "nested_filter": {
-                "not": {
-                  "term": {
-                    "title.qualifier": "alternative"
-                  }
-                }
-              }
-              
-            }
-          }
-        }
-        console.log('DataService.search.....opts.sort:' + opts.sort);
-        
+      console.log('DataService.search.....opts.sort:' + opts.sort);      
       }
 
       // build filters for faceted search

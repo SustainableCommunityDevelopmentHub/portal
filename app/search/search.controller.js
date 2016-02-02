@@ -44,39 +44,16 @@
             size : parseInt(ss.opts.size),
             from : parseInt(ss.opts.from)
           };
+          if(ss.opts.sort){
+            $scope.sort = ss.opts.sort.display;
+          } else {
+            $scope.sort = "Relevance";
+          }
           
-
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
-
-          $scope.validSortModes = {
-            relevance : {
-              display: "Relevance",
-              mode: "relevance"
-            },
-            dateAdded : {
-              display: "Newly Added First",
-              mode: "date added"
-            },
-            titleAZ : {
-              display: "Title: A-Z",
-              mode: "title az"
-            },
-            titleZA : {
-              display: "Title: Z-A",
-              mode: "title za"
-            },
-            dateAscend : {
-              display: "Date (ascending)",
-              mode: "date asc"
-            },
-            dateDesc : {
-              display: "Date (descending)",
-              mode: "date desc"
-            }
-        };
-          console.log($scope.validSortModes);
+          
 
           if(ss.opts.facets){
             $scope.activeFacets = ss.opts.facets;
@@ -92,6 +69,32 @@
     //Variables
     /////////////////////////////////
     $scope.allPageSizeOptions = [10,25,50,100];
+    $scope.validSortModes = {
+            relevance : {
+              display: "Relevance",
+              mode: "relevance"
+            },
+            dateAdded : {
+              display: "Newly Added First",
+              mode: "date_added"
+            },
+            titleAZ : {
+              display: "Title: A-Z",
+              mode: "title_asc"
+            },
+            titleZA : {
+              display: "Title: Z-A",
+              mode: "title_desc"
+            },
+            dateAscend : {
+              display: "Date (ascending)",
+              mode: "date_asc"
+            },
+            dateDesc : {
+              display: "Date (descending)",
+              mode: "date_desc"
+            }
+        };
 
 
     ///////////////////////////
@@ -153,7 +156,9 @@
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
-        opts.sort = 'relevance';
+        opts.sort = { display: "Relevance",
+                      mode: "relevance"
+                    };
       }
 
       // we want to clear active facets when user queries on new term
@@ -175,8 +180,8 @@
     };
 
     $scope.setSortMode = function(sortMode) {
-      console.log('Changing sort to ' + sortMode);
-      updateSearch({sort: sortMode});
+      console.log('Changing sort to ' + sortMode.display);
+      updateSearch({sort: sortMode, page: 1, from: 0});
       return;
     }
 
