@@ -13,7 +13,13 @@ describe('Book Detail', function() {
     browser.wait(function() {
       return firstResult.isPresent();
     }, 2000);
-    firstResult.click();
+    var bookId;
+    element(by.css('.portal-record-link')).evaluate('book._id').then(function(value) {
+      bookId = value;
+      console.log(bookId);
+      var itemUrl = 'books/' + bookId;
+      browser.get(itemUrl);
+    });
     element.all(by.repeater('(key, field) in book._source.dublin_core')).then(function(posts) {
       console.log(posts);
       expect(posts.length).toEqual(12);
@@ -31,7 +37,13 @@ describe('Book Detail', function() {
     browser.wait(function() {
       return firstResult.isPresent();
     }, 2000);
-    firstResult.click();
+    var bookId;
+    element(by.css('.portal-record-link')).evaluate('book._id').then(function(value) {
+      bookId = value;
+      console.log(bookId);
+      var itemUrl = 'books/' + bookId;
+      browser.get(itemUrl);
+    });
     var exportBtn = element(by.id('exportBtn'));
     exportBtn.click();
     $('.saveJson').click();
