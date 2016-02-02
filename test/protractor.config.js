@@ -4,21 +4,27 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    '*spec.js'
+    '**/*spec.js'
   ],
 
   multiCapabilities: [{
-    'browserName': 'firefox'
-  }, {
     'browserName': 'chrome'
+  }, {
+    'browserName': 'firefox'
   }],
 
+  chromeOnly: true,
 
   baseUrl: 'http://local.portal.dev:8000/',
 
   framework: 'jasmine',
 
+
+  onPrepare: function() {
+    browser.driver.manage().window().maximize();
+  },
+
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 45000
   }
 };
