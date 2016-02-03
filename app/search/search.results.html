@@ -89,13 +89,12 @@
         </li>
       </ul>
     </div>
-    <div class="dropdown">
-      <button class="btn btn-primary search-dropdown dropdown-toggle" type="button">Sort by:
+    <div class="dropdown" uib-dropdown>
+      <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
         <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a ui-sref="#">Type</a></li>
-        <li><a ui-sref="#">Subject</a></li>
-        <li><a ui-sref="#">Creator</a></li>
+      <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+        <li ng-repeat="sortMode in validSortModes">
+          <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
       <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>
