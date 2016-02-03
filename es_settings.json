@@ -1,0 +1,22 @@
+{
+  "analysis": {
+    "analyzer": {
+      "sortable": {
+            "tokenizer": "keyword",
+              "filter":  [ "strip_quotes", "strip_bracket", "asciifolding" ] 
+        }
+    },
+    "filter": {
+      "strip_quotes": {
+        "type": "pattern_replace",
+        "pattern": "\"",
+        "replacement": ""
+      },
+      "strip_bracket": {
+        "type": "pattern_replace",
+        "pattern": "\\[",
+        "replacement": ""
+      }
+    }
+  }
+}
