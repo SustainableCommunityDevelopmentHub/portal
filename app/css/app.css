@@ -926,6 +926,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   margin-bottom: 5px;
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 @media print {
   .header-complete {
     display: none;
@@ -996,6 +998,15 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   #go-btn span {
     display: none;
+  }
+
+  .search-bar {
+    width: 73%;
+  }
+
+  .adv {
+    text-align:left;
+    width: 73%;
   }
 
 }
@@ -1070,3 +1081,4 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     margin-right: auto;
   }*/
 }
+
