@@ -196,10 +196,12 @@
         }
       });
       modalInstance.result.then(function (facetsToApply) {
-        console.log(facetsToApply);
-        for(var i = 0; i < facetsToApply.length; i++){
-          var facet = facetsToApply[i];
-          $scope.updateFacet(facet, facet.active);
+        if(facetsToApply){
+          console.log(facetsToApply);
+          for(var i = 0; i < facetsToApply.length; i++){
+            var facet = facetsToApply[i];
+            $scope.updateFacet(facet, facet.active);
+          }
         }
       });
     };
@@ -218,6 +220,8 @@
     $scope.searchFilters = searchFilters;   
     $scope.apply = apply;
     $scope.checkFacet = checkFacet;
+    $scope.seeAllChecked = seeAllChecked;
+    $scope.close = close;
 
     var activeCategory = category;
     var allFacets = [];
@@ -306,6 +310,21 @@
       return categoryCounts[category];
     }
 
+    function seeAllChecked(){
+      var checkedFilters = [];
+      console.log($scope.currentFacets);
+      for (var i = 0; i < $scope.currentFacets.length; i++){
+        var currentFacet = $scope.currentFacets[i];
+        console.log(currentFacet);
+        if($scope.selectedFacets[currentFacet.option]){
+          console.log("yes");
+          checkedFilters.push(currentFacet);
+        }
+      }
+      $scope.currentFacets = checkedFilters;
+      $scope.categoryFacets = this.currentFacets;
+    }
+
     function apply(){
       var applyFacets = [];
       for(var prop in allFacets){
@@ -321,6 +340,10 @@
       }
       $uibModalInstance.close(applyFacets);
     };
+
+    function close() {
+      $uibModalInstance.close();
+    }
 
     function searchFilters(){   
       var filteredFacets = [];
