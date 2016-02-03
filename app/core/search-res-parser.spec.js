@@ -122,8 +122,6 @@ describe('SearchResParser Unit Tests', function(){
           expect(facetOption.count).toEqual(mockAggArr[index].doc_count);
 
           if(activeFacetsHelperArr.indexOf(facetOption.option) > -1){
-            console.log('Facet option: ' + facetOption.option);
-            console.log('....the OBJECT: ' + JSON.stringify(facetOption));
             expect(facetOption.active).toEqual(true);
           }
           else{
