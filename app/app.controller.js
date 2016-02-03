@@ -213,12 +213,11 @@
     $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
-    
 
     $scope.isActive = isActive;
     $scope.switchFacetCategory = switchFacetCategory;
     $scope.isCategorySelected = isCategorySelected;
-    $scope.searchFilters = searchFilters;   
+    $scope.searchFilters = searchFilters;
     $scope.apply = apply;
     $scope.checkFacet = checkFacet;
     $scope.toggleFilterView = toggleFilterView;
@@ -235,7 +234,6 @@
 
     function initialize(){
       allFacets = facets;
-      
       $scope.facetCategories = [{
         name: 'type',
         display: 'Type'
@@ -261,8 +259,7 @@
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
     };
-    
-    
+
     function setFacetsChecked(){
       for(var prop in allFacets){
         var facetsByProp = allFacets[prop];
@@ -275,7 +272,6 @@
             } else {
               categoryCounts[prop] = 1;
             }
-            
           }
           $scope.selectedFacets[facet.option] = facet.active;
         }
@@ -355,7 +351,7 @@
       $uibModalInstance.close();
     }
 
-    function searchFilters(){   
+    function searchFilters(){
       var filteredFacets = [];
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
