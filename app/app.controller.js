@@ -213,6 +213,7 @@
     $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
+    
 
     $scope.isActive = isActive;
     $scope.switchFacetCategory = switchFacetCategory;
@@ -220,9 +221,12 @@
     $scope.searchFilters = searchFilters;   
     $scope.apply = apply;
     $scope.checkFacet = checkFacet;
-    $scope.seeAllChecked = seeAllChecked;
+    $scope.toggleFilterView = toggleFilterView;
     $scope.close = close;
+    $scope.filterViewText = "See Only Checked Filters";
 
+    var seeOnlyCheckedText = ["See Only Checked Filters", "See All Filters"];
+    var seeOnlyChecked = false;
     var activeCategory = category;
     var allFacets = [];
     var categoryCounts = {};
@@ -283,6 +287,8 @@
       $scope.categoryFacets = this.currentFacets;
       activeCategory = newCategory;
       $scope.text = "";
+      seeOnlyChecked = false;
+      $scope.filterViewText = seeOnlyCheckedText[0];
     };
 
     function isActive(cat){
@@ -310,19 +316,23 @@
       return categoryCounts[category];
     }
 
-    function seeAllChecked(){
-      var checkedFilters = [];
-      console.log($scope.currentFacets);
-      for (var i = 0; i < $scope.currentFacets.length; i++){
-        var currentFacet = $scope.currentFacets[i];
-        console.log(currentFacet);
-        if($scope.selectedFacets[currentFacet.option]){
-          console.log("yes");
-          checkedFilters.push(currentFacet);
+    function toggleFilterView(){
+      seeOnlyChecked = !seeOnlyChecked;
+      if(seeOnlyChecked){
+        $scope.filterViewText = seeOnlyCheckedText[1];
+        var checkedFilters = [];
+        for (var i = 0; i < $scope.currentFacets.length; i++){
+          var currentFacet = $scope.currentFacets[i];
+          if($scope.selectedFacets[currentFacet.option]){
+            checkedFilters.push(currentFacet);
+          }
         }
+        $scope.currentFacets = checkedFilters;
+        //$scope.categoryFacets = this.currentFacets;
+      } else {
+        $scope.filterViewText = seeOnlyCheckedText[0];
+        $scope.currentFacets = allFacets[activeCategory];
       }
-      $scope.currentFacets = checkedFilters;
-      $scope.categoryFacets = this.currentFacets;
     }
 
     function apply(){

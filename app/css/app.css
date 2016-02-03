@@ -613,6 +613,7 @@ a:hover {
   line-height: 24px;
   vertical-align: top;
   position: relative;
+  padding-left: 6px;
 }
 
 .filter-checkboxes label {
