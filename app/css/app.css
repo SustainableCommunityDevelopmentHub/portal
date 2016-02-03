@@ -725,7 +725,10 @@ h1 {
 
 #help h4 {
   line-height: 1.2;
-  margin: 0 0 25px;
+  margin: 0 0 13px;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
 }
 
 #help h5 {
@@ -926,8 +929,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   margin-bottom: 5px;
 }
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
 @media print {
   .header-complete {
     display: none;
@@ -998,15 +999,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   #go-btn span {
     display: none;
-  }
-
-  .search-bar {
-    width: 73%;
-  }
-
-  .adv {
-    text-align:left;
-    width: 73%;
   }
 
 }
@@ -1081,4 +1073,3 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     margin-right: auto;
   }*/
 }
-
