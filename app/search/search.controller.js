@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'FacetList', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, FacetList, SearchService){
+  function SearchCtrl($scope, $state, SearchService){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -33,7 +33,7 @@
 
           $scope.activeFacets = ss.opts.facets || [];
 
-          //console.log('SearchCtrl.......$scope.facets.grp_contributing_institution: ' + JSON.stringify($scope.facets.grp_contributing_institution));
+          //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
           //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
 
           // bind search opts to scope
@@ -44,7 +44,11 @@
             size : parseInt(ss.opts.size),
             from : parseInt(ss.opts.from)
           };
-
+          if(ss.opts.sort){
+            $scope.sort = ss.opts.sort.display;
+          } else {
+            $scope.sort = "Relevance";
+          }
           console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
           console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
           $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
@@ -63,6 +67,32 @@
     //Variables
     /////////////////////////////////
     $scope.allPageSizeOptions = [10,25,50,100];
+    $scope.validSortModes = {
+            relevance : {
+              display: "Relevance",
+              mode: "relevance"
+            },
+            dateAdded : {
+              display: "Newly Added First",
+              mode: "date_added"
+            },
+            titleAZ : {
+              display: "Title: A-Z",
+              mode: "title_asc"
+            },
+            titleZA : {
+              display: "Title: Z-A",
+              mode: "title_desc"
+            },
+            dateAscend : {
+              display: "Date (ascending)",
+              mode: "date_asc"
+            },
+            dateDesc : {
+              display: "Date (descending)",
+              mode: "date_desc"
+            }
+        };
 
 
     ///////////////////////////
@@ -124,6 +154,9 @@
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.page = 1;
         opts.from = 0;
+        opts.sort = { display: "Relevance",
+                      mode: "relevance"
+                    };
       }
 
       // we want to clear active facets when user queries on new term
@@ -143,6 +176,12 @@
       updateSearch({size: newPageSize, page: 1, from: 0});
       return;
     };
+
+    $scope.setSortMode = function(sortMode) {
+      console.log('Changing sort to ' + sortMode.display);
+      updateSearch({sort: sortMode, page: 1, from: 0});
+      return;
+    }
 
     /**
      * trigger search to populate new page and update $scope / state
@@ -166,7 +205,13 @@
       if(active){
         console.log('.....facet has been set');
         facetOption.active = true;
+        console.log($scope.activeFacets);
+        _.remove($scope.activeFacets, function(aFacet){
+          return aFacet.option === facetOption.option;
+        })
         $scope.activeFacets.push(facetOption);
+        
+        
 
         // remove facet option from facets sidebar once selected
         // we are using the $$hashkey id prop which angular adds...

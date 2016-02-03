@@ -13,8 +13,11 @@
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
-        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+          <a ng-click="openFacetModal(facets, 'type')">See All</a>
         </div>
       </div>
     </div>
@@ -25,8 +28,11 @@
         Subject
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('subject')">
-        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'subject')">See All</a>
         </div>
       </div>
     </div>
@@ -37,8 +43,11 @@
         Creator
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('creator')">
-        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'creator')">See All</a>
         </div>
       </div>
     </div>
@@ -49,20 +58,26 @@
         Language
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('language')">
-        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey;"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'language')">See All</a>
         </div>
       </div>
     </div>
     <hr class="left_sidebar_hr">
     <div class="left_sidebar_accordion__tab">
-      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('grp_contributing_institution')">
-        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('grp_contributing_institution'), 'glyphicon-plus': !status.open}"></i>
+      <div class="left_sidebar_accordion__tab-title" ng-click="openTab('grp_contributor')">
+        <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('grp_contributor'), 'glyphicon-plus': !status.open}"></i>
         Contributed by
       </div>
-      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributing_institution')">
-        <div ng-repeat="facet in facets.grp_contributing_institution | filter:{active:false} |  limitTo: 10" class="checkbox">
+      <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributor')">
+        <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'grp_contributor')">See All</a>
         </div>
       </div>
     </div>
@@ -89,16 +104,15 @@
         </li>
       </ul>
     </div>
-    <div class="dropdown">
-      <button class="btn btn-primary search-dropdown dropdown-toggle" type="button">Sort by:
+    <div class="dropdown" uib-dropdown>
+      <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
         <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a ui-sref="#">Type</a></li>
-        <li><a ui-sref="#">Subject</a></li>
-        <li><a ui-sref="#">Creator</a></li>
+      <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+        <li ng-repeat="sortMode in validSortModes">
+          <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>
+      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
         </button>
@@ -114,11 +128,11 @@
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
       <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-      <a ng-href="{{book._sourceLink}}" target="_blank">{{book.title[0].value}}</a><br/>
-      <b>Creator: </b>{{book.creator[0].value}}<br/>
-      <b>Date: </b>{{book.date[0].value}}<br/>
-      <b>Contributor: </b>{{book.contributor[0].value}}<br/>
-      <a ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
+      <a ng-href="{{book._record_link}}" target="_blank">{{book._title_display}}</a><br/>
+      <b>Creator: </b>{{book._creator_display}}<br/>
+      <b>Date: </b>{{book._date_display}}<br/>
+      <b>Contributing Institution: </b>{{book._grp_contributor}}<br/>
+      <a class="portal-record-link" ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
       <hr class="results-list-hr"><br>
     </li>
     </ul>
