@@ -219,16 +219,15 @@
     $scope.apply = apply;
     $scope.checkFacet = checkFacet;
 
-    var activeCategory = "";
+    var activeCategory = category;
     var allFacets = [];
     var categoryCounts = {};
 
     initialize();
 
     function initialize(){
-      console.log($scope.text);
       allFacets = facets;
-      activeCategory = category;
+      
       $scope.facetCategories = [{
         name: 'type',
         display: 'Type'
@@ -246,17 +245,17 @@
         display: 'Language'
       },
       {
-        name: 'grp_contributing_institution',
+        name: 'grp_contributor',
         display: 'Contributors'
       }];
 
       $scope.currentFacets = facets[category];
       $scope.categoryFacets = facets[category];
-      setChecked();
+      setFacetsChecked();
     };
     
     
-    function setChecked(){
+    function setFacetsChecked(){
       for(var prop in allFacets){
         var facetsByProp = allFacets[prop];
         for(var i = 0; i < facetsByProp.length; i++){
@@ -323,10 +322,7 @@
       $uibModalInstance.close(applyFacets);
     };
 
-
-
-    function searchFilters(){
-      
+    function searchFilters(){   
       var filteredFacets = [];
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
@@ -337,7 +333,5 @@
       }
       $scope.currentFacets = filteredFacets;
     };
-    
-
 };
 })();
