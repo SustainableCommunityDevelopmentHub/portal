@@ -13,8 +13,11 @@
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
-        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+          <a ng-click="openFacetModal(facets, 'type')">See All</a>
         </div>
       </div>
     </div>
@@ -25,8 +28,11 @@
         Subject
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('subject')">
-        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'subject')">See All</a>
         </div>
       </div>
     </div>
@@ -37,8 +43,11 @@
         Creator
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('creator')">
-        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'creator')">See All</a>
         </div>
       </div>
     </div>
@@ -49,8 +58,11 @@
         Language
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('language')">
-        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey;"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'language')">See All</a>
         </div>
       </div>
     </div>
@@ -61,8 +73,11 @@
         Contributed by
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributor')">
-        <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} |  limitTo: 10" class="checkbox">
+        <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} |  limitTo: 5" class="checkbox">
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        </div>
+        <div ng-controller="FacetModalCtrl">
+        <a ng-click="openFacetModal(facets, 'grp_contributor')">See All</a>
         </div>
       </div>
     </div>
@@ -97,7 +112,7 @@
           <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} items</span>
+      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
         </button>
