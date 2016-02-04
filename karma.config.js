@@ -19,7 +19,7 @@ module.exports = function(config) {
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/lodash/lodash.js',
       'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-ui-router/angular-ui-router.js',
+      'app/bower_components/angular-ui-router/release/angular-ui-router.js',
       'app/bower_components/elasticsearch/elasticsearch.js',
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-route/angular-route.js',
@@ -43,9 +43,7 @@ module.exports = function(config) {
 
 
     // list of files to exclude
-    exclude: [
-    ],
-
+    exclude: [ ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -83,7 +81,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
