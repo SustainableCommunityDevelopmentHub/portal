@@ -182,7 +182,6 @@
     var contribAggQuery = {
       index: 'portal',
       type: 'book',
-      size: 0,
       body: getContributorsQuery()
     };
 
@@ -197,6 +196,7 @@
             "grp_contributor": {
               "terms": {
                 "field": "_grp_contributor.raw",
+                "size": 1000,
                 "order": { "_count": "desc" }
               }
             }

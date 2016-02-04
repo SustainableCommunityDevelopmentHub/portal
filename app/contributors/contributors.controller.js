@@ -13,7 +13,7 @@
           .then(function(contribResults){
             console.log('ContribCtrl....state change success. DataService.contribResults: ' + JSON.stringify(contribResults));
 
-            $scope.buckets = contribResults.aggregations.grp_contributor.buckets;
+            $scope.institutions = contribResults.aggregations.grp_contributor.buckets;
 
             // for when user clicks on records for a particular institution.
             // changes state to search.results, which will trigger search operation.

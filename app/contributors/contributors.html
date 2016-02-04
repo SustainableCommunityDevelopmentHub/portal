@@ -2,7 +2,7 @@
   <h3>Contributors</h3>
   <hr class="faqs-hr">
   <ul class="contributors">
-    <li dir-paginate="contributor in buckets | itemsPerPage: 10">
+    <li dir-paginate="contributor in institutions | itemsPerPage: 10">
         <div class="contributor-list-item">
           <p class="name-contrib">{{contributor.key}}</p>
           <div class="contrib-vl-center" ng-show="$even"></div>
