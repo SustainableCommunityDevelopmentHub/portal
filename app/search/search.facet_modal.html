@@ -1,8 +1,8 @@
 <div class="modal-header">
   <h4 class="modal-title">Filter Your Results</h4>
-    <div class="close-modal" ng-click="close()">
-       <i class="glyphicon-remove glyphicon"></i>
-     </div>
+  <div class="close-modal" ng-click="close()">
+     <i class="glyphicon-remove glyphicon"></i>
+   </div>
 </div>
 <div class="modal-body">
   <div class="tab-container">
@@ -10,7 +10,6 @@
       <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
         <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
       </li>
-      
     </ul>
     <div class="facet-tab-content">
       <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>
@@ -23,8 +22,6 @@
         </label>
         </li>
       </ul>
-      
-
     </div>
   </div>
 </div>

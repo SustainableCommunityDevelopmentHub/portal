@@ -489,7 +489,7 @@ a:hover {
 .modal-body {
   padding-top: 0;
   padding-left: 0;
-  clear: both;
+
 }
 
 .facet-tabs {
@@ -629,7 +629,7 @@ a:hover {
 
 .modal-title {
   display: inline-block;
-  float: left;
+  
   font-weight: 700;
 }
 
