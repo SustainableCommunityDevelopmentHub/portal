@@ -173,7 +173,6 @@ a:hover {
 
 .adv {
   text-align: right;
-  margin-right: 18px;
   display: block;
   color: #555;
   text-decoration: underline;
@@ -910,7 +909,9 @@ h1 {
 
 /* FAQs */
 
-
+.panel-heading .glyphicon {
+  margin-right: 10px;
+}
 
 
 /**Feedback**/
@@ -1094,14 +1095,6 @@ h1 {
     display: none;
   }
 
-  .search-bar {
-    width: 73%;
-  }
-
-  .adv {
-    text-align:left;
-    width: 73%;
-  }
 
 }
 
