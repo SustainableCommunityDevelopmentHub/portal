@@ -1,43 +1,78 @@
 <div class="getty-portal-app">
-<div class="feedback-container">
-  <h3>Portal Feedback</h3>
-  <hr class="sr-top">
-  <h4>We value your feedback!</h4>
-  <p>Please let us know how we can improve the Portal.</p>
-  <p><i>*Indicates a required field</i></p>
-  <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
-    <form novalidate>
-      <div class="fb-field">
-        <p>* First name:</p>
-        <input type="text" ng-model="user.firstName"><br>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Portal Feedback</h3>
+        <hr class="sr-top">
+          <h4>We value your feedback!</h4>
+          <p>Please let us know how we can improve the Portal.</p>
+          <p><i>*Indicates a required field</i></p>
       </div>
-      <div class="fb-field">
-        <p class="fb-field">* Last name:</p><br>
-        <input type="text" ng-model="user.lastName"><br>
-      </div>
-      <div class="fb-field">
-        <p class="fb-field">* Email:</p><br>
-        <input type="text" ng-model="user.email"><br>
-      </div>
-      <div class="fb-field">
-        <p class="fb-field">* Confirm Email:</p><br>
-        <input type="text" ng-model="user.confirmationEmail"><br>
-      </div>
-      <div class="fb-field">
-        <p class="fb-field">Organization:</p><br>
-        <input type="text" ng-model="user.organizationName"><br>
-      </div>
-      <div ng-controller="FeedbackFieldController" class="fb-field">
-        <p class="fb-field"> I have a:</p><br>
-        <select class="select-field" ng-model="myFeedbackField" ng-options="feedbackField.name for feedbackField in feedbackFields">
-        </select>
-      </div>
-      <div class="user-feedback">
-        <p class="ur-fb">* Feedback:</p><br>
-        <input class="user-feedback" type="text" ng-model="user.feedback">
-      </div>
-       <input type="submit" id="feedback-submit" value="Submit" />
-    </form>
-  </div>
-</div>
+    </div><!-- row -->
+
+    <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
+      <form novalidate>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <p>* First name:</p>
+                <input type="text" ng-model="user.firstName">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <p class="fb-field">* Last name:</p>
+                <input type="text" ng-model="user.lastName">
+              </div>
+            </div>
+          </div><!-- row -->
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <p class="fb-field">* Email:</p>
+                <input type="text" ng-model="user.email">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <p class="fb-field">* Confirm Email:</p>
+                <input type="text" ng-model="user.confirmationEmail">
+              </div>
+            </div>
+          </div><!-- row -->
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <p class="fb-field">Organization:</p>
+                <input type="text" ng-model="user.organizationName">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div ng-controller="FeedbackFieldController" class="fb-field">
+                <p class="fb-field"> I have a:</p>
+                <select class="select-field" ng-model="myFeedbackField" ng-options="feedbackField.name for feedbackField in feedbackFields">
+                </select>
+              </div>
+            </div>
+          </div><!-- row -->
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="user-feedback">
+                <p class="ur-fb">* Feedback:</p><br>
+                <textarea class="user-feedback" type="text" ng-model="user.feedback"></textarea>
+              </div>
+            </div>
+          </div><!-- row -->
+
+          <div class="row">
+            <div class="col-xs-12">
+              <input type="submit" id="feedback-submit" value="Submit">
+            </div>
+          </div><!-- row -->
+
+      </form>
+  </div><!-- /container -->
 </div>
