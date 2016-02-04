@@ -489,6 +489,7 @@ a:hover {
 .modal-body {
   padding-top: 0;
   padding-left: 0;
+  clear: both;
 }
 
 .facet-tabs {
