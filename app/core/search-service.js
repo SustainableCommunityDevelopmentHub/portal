@@ -77,13 +77,6 @@
     };
 
     /**
-     * Executes search on existing opts.
-     * @returns {Promise} - search results
-     */
-    function runSearch(){
-    };
-
-    /**
      * Updates opts.
      * @param {Object} opts - search options
      */
