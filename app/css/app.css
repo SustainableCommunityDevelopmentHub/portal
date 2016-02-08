@@ -722,21 +722,53 @@ ul.specs dt {
   font-weight: bold;
 }
 
-.export_dropdown {
-  width: 150px;
+.view-export-print {
   display: block;
-  background-color: #efefef;
   list-style: none;
-  margin-left: 150px;
-  margin-top: 40px;
-  border: solid 1px gray;
+  width: 450px;
+  height: 40px;
+  float: right;
+  font-size: 0;
 }
 
-.export_dropdown li {
+.view-export-print li  {
+  width: 135px;
   height: 40px;
   padding-top: 10px;
   color: black;
+  display: inline-block;
+  border: 1px gray solid;
+  background-color: #efefef;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
 }
+
+.view-export-print li a {
+  text-decoration: none;
+  color: black;
+}
+
+.view-export-print li a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.export-dropdown {
+  font-size: 0;
+  border: 1px solid gray;
+  min-width: 130px;
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+}
+
+.export-dropdown li {
+  border: none;
+  padding-top: 4px;
+  width: 130px;
+}
+
 h1 {
   border-bottom: 1px solid gray;
 }
