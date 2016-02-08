@@ -44,6 +44,7 @@
     //////////////////////////////////
     //Public Functions
     //////////////////////////////////
+
     /**
      * Executes new search. Overwrites existing opts,except defaults.
      * @param {Object} opts - search options
