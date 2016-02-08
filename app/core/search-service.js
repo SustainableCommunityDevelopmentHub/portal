@@ -13,10 +13,10 @@
    * Handles search variables, overall search state, etc.
    */
   function SearchService(DataService, SearchResParser, _, FACETS){
-
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
+    
     var service = {
       // variables //
       returnedPromise: null,
