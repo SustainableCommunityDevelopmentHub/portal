@@ -489,9 +489,9 @@ a:hover {
 .modal-body {
   padding-top: 0;
   padding-left: 0;
+
 }
-.tab-container {
-}
+
 .facet-tabs {
   float: left;
   width: 140px;
@@ -504,8 +504,6 @@ a:hover {
 .facet-tabs li {
   list-style: none;
   height: 40px;
-  
-  
 }
 
 .facet-tabs li a {
@@ -518,25 +516,14 @@ a:hover {
 
 }
 
-.borderBottom {
-  margin-left: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-#facet-placeholder {
-  border-bottom: 0;
-  height: 80px;
-}
-
-#facet-placeholder:hover {
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  margin-left: 10px;
-}
-
 .facet-tabs li:hover {
   background-color: #eee;
   text-decoration: none;
+}
+
+.borderBottom {
+  margin-left: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .facet-tab-content {
@@ -574,12 +561,14 @@ a:hover {
   padding-left: 22px;
   padding-right: 22px;
   background-color: #fff;
-  
 }
 
 .filters-selected {
   float: left;
   margin: 0 auto;
+  width: 44%;
+  padding-top: 9px;
+  font-weight: 200;
 }
 
 #filter-instructions {
@@ -591,12 +580,13 @@ a:hover {
 .search-filters {
   width: 100%;
   height: 40px;
+  padding-left: 14px;
 }
 
 .search-filters:placeholder-shown {
   font-style: italic;
-  padding-left: 6px;
   font-size: 12px;
+  border: 1px solid #9d9d9d;
 }
 
 .checked-filters {
@@ -604,17 +594,16 @@ a:hover {
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 8px;
-  
   text-decoration: underline;
+}
+
+.checked-filters a {
+  color: black;
 }
 
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
-}
-
-.checked-filters a {
-  color: black;
 }
 
 .filter-checkboxes {
@@ -625,6 +614,7 @@ a:hover {
   line-height: 24px;
   vertical-align: top;
   position: relative;
+  padding-left: 6px;
 }
 
 .filter-checkboxes label {
@@ -637,8 +627,22 @@ a:hover {
   vertical-align: top;
 }
 
-.modal-dialog {
+.modal-title {
+  display: inline-block;
   
+  font-weight: 700;
+}
+
+.modal-header {
+  padding-bottom: 6px;
+}
+
+.close-modal {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+  height: 20px;
+  font-size: 22px;
 }
 
 @media screen and (min-width: 768px){

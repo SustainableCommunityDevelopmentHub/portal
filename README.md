@@ -30,7 +30,12 @@ Enter a search for "history" and click the Search button.
 
 # (Optional, Recommended for Developers) Install node.js
 1. Install node.js: https://nodejs.org/en/ -- suggested version is v4.x (most recent version 4).
-2. Install the following helper node modules globally: [bower](http://bower.io/), [karma](http://karma-runner.github.io/0.13/index.html), [grunt](https://www.npmjs.com/package/grunt]), [npm-check-updates](https://www.npmjs.com/package/npm-check-updates), [dedupe](https://docs.npmjs.com/cli/dedupe), and [jshint](http://jshint.com/install/). `npm install -g bower karma grunt-cli npm-check-updates dedupe jshint`
+2. Install the following helper node modules globally: [bower](http://bower.io/),  [karma-cli](https://www.npmjs.com/package/karma-cli), [grunt](https://www.npmjs.com/package/grunt]), [npm-check-updates](https://www.npmjs.com/package/npm-check-updates), [dedupe](https://docs.npmjs.com/cli/dedupe), and [jshint](http://jshint.com/install/):
+ ````
+npm install -g bower karma-cli grunt-cli npm-check-updates dedupe jshint
+````
+
+**Note:** `karma-cli` should be installed globally but `karma` should only be installed **locally**.
 
 #Clone this Repo
 In the directory where you want your project to live, enter `git clone <my-repo-clone-url-goes-here>`. The clone URL for this repo can be found near the top of this web-page where it says HTTPS. For developers it is recommended to use SSH and set up your SSH key. If you're not sure what to use, use the HTTPS url.
