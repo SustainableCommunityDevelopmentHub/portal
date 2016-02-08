@@ -23,7 +23,13 @@
         "type": "date"
       },
       "_title_display": {
-        "type": "string"
+        "type": "string",
+        "fields": {
+          "sort": {
+            "type": "string",
+            "analyzer": "sortable"
+          }
+        }
       },
       "_subject_facets": {
         "type": "string",

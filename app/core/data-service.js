@@ -38,6 +38,28 @@
         fullQuery.body.query.filtered.query.match_all = {};
       }
 
+      if(opts.sort){
+        var sortMode = opts.sort.mode
+        switch(sortMode) {
+          case "date_asc":
+            fullQuery.body.sort = "_date_display";
+            break;
+          case "date_desc":
+            fullQuery.body.sort = { "_date_display": {"order": "desc"}};
+            break;
+          case "date_added":
+            fullQuery.body.sort = {"_ingest_date": {"order": "desc"}};
+            break;
+          case "title_asc":
+            fullQuery.body.sort = "_title_display.sort";
+            break;
+          case "title_desc":
+            fullQuery.body.sort = {"_title_display.sort": {"order": "desc"}};
+            break;
+        }
+      console.log('DataService.search.....opts.sort:' + opts.sort);
+      }
+
       // build filters for faceted search
       if(opts.facets.length){
         console.log('....Facet filters detected!');
@@ -177,6 +199,7 @@
 
   }
 
+<<<<<<< HEAD
     /**
      * Get Contributors information
      */
@@ -216,5 +239,40 @@
       return contributors;
     }
   }
+=======
+  function getContributors(){
+    // build contributors ES query obj
+    var contribAggQuery = {
+      index: 'portal',
+      type: 'book',
+      body: getContributorsQuery()
+    };
+
+    var contribRes = esClient.search(contribAggQuery);
+    console.log('DataService.getContributors..... executed, promise res: ' + JSON.stringify(contribRes));
+    return contribRes;
+
+    function getContributorsQuery(){
+      var contributorsQuery =
+        {
+          "aggregations": {
+            "grp_contributor": {
+              "terms": {
+                "field": "_grp_contributor.raw",
+                "size": 1000,
+                "order": { "_count": "desc" }
+              }
+            }
+          }
+        };
+      console.log('DataService.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
+      return _.cloneDeep(contributorsQuery);
+    }
+    
+  }
+
+
+}
+>>>>>>> 0988a8dce0d4020ee2bb2cfd92ff30abdddb1ead
 
 })();
