@@ -28,7 +28,7 @@ module.exports = function(config){
       'test/unit/**spec.js'
     ],
 
-    autoWatch : false,
+    autoWatch : true,
 
     singleRun: true,
 

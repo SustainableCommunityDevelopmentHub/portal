@@ -70,7 +70,7 @@
       // allow for no opts to be passed
       opts = opts || {};
       _.merge(this.opts, opts);
-      console.log('SearchService.updateSearch()...........merged opts: ' + JSON.stringify(this.opts));
+      console.log('SearchService.updateSearch()...........merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = search(this.opts);
       console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
@@ -89,7 +89,6 @@
      */
     // TODO? Strip Angular.js $$hashKey prop from facet opts objs?
     function updateOpts(newOpts){
-      console.log("BLLLLEEEEERRRRGGGH: " + newOpts);
       // search query terms always handled as lowercase
       if(newOpts.q){
         newOpts.q = newOpts.q.toLowerCase();
