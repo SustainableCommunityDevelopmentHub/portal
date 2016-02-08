@@ -9,7 +9,7 @@
   function DataService(esClient, FACETS) {
     var service = {
       getContributors: getContributors,
-      search: search,
+      search: search
     };
 
     console.log('Core........Returning DataService factory');
