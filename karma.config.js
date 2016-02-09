@@ -20,14 +20,15 @@ module.exports = function(config) {
 
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-resource/angular-resource.js',
-
-      'app/bower_components/angular-mocks/angular-mocks.js',
-
-      'app/bower_components/elasticsearch/elasticsearch.js',
+      'app/bower_components/elasticsearch/elasticsearch.angular.js',
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angularUtils-pagination/dirPagination.js',
       'app/bower_components/angular-print/angularPrint.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap.js',
+
+      'app/bower_components/angular-mocks/angular-mocks.js',
 
       'app/*.module.js',
       'app/**/*.module.js',
@@ -88,5 +89,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  });
+};
