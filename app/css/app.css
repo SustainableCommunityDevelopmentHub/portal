@@ -488,9 +488,9 @@ a:hover {
 .modal-body {
   padding-top: 0;
   padding-left: 0;
+
 }
-.tab-container {
-}
+
 .facet-tabs {
   float: left;
   width: 140px;
@@ -503,8 +503,6 @@ a:hover {
 .facet-tabs li {
   list-style: none;
   height: 40px;
-  
-  
 }
 
 .facet-tabs li a {
@@ -517,25 +515,14 @@ a:hover {
 
 }
 
-.borderBottom {
-  margin-left: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-#facet-placeholder {
-  border-bottom: 0;
-  height: 80px;
-}
-
-#facet-placeholder:hover {
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  margin-left: 10px;
-}
-
 .facet-tabs li:hover {
   background-color: #eee;
   text-decoration: none;
+}
+
+.borderBottom {
+  margin-left: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .facet-tab-content {
@@ -573,12 +560,14 @@ a:hover {
   padding-left: 22px;
   padding-right: 22px;
   background-color: #fff;
-  
 }
 
 .filters-selected {
   float: left;
   margin: 0 auto;
+  width: 44%;
+  padding-top: 9px;
+  font-weight: 200;
 }
 
 #filter-instructions {
@@ -590,12 +579,13 @@ a:hover {
 .search-filters {
   width: 100%;
   height: 40px;
+  padding-left: 14px;
 }
 
 .search-filters:placeholder-shown {
   font-style: italic;
-  padding-left: 6px;
   font-size: 12px;
+  border: 1px solid #9d9d9d;
 }
 
 .checked-filters {
@@ -603,17 +593,16 @@ a:hover {
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 8px;
-  
   text-decoration: underline;
+}
+
+.checked-filters a {
+  color: black;
 }
 
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
-}
-
-.checked-filters a {
-  color: black;
 }
 
 .filter-checkboxes {
@@ -624,6 +613,7 @@ a:hover {
   line-height: 24px;
   vertical-align: top;
   position: relative;
+  padding-left: 6px;
 }
 
 .filter-checkboxes label {
@@ -636,8 +626,22 @@ a:hover {
   vertical-align: top;
 }
 
-.modal-dialog {
+.modal-title {
+  display: inline-block;
   
+  font-weight: 700;
+}
+
+.modal-header {
+  padding-bottom: 6px;
+}
+
+.close-modal {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+  height: 20px;
+  font-size: 22px;
 }
 
 @media screen and (min-width: 768px){
@@ -883,28 +887,63 @@ h1 {
   margin: 40px 5px 0 10px;
 }
 
-/**Search Help**/
+/* Search Help */
 
-.search-help ul {
-  padding-left: 15px;
+#help h2 {
+  font-size: 24px;
 }
 
-.help-body-heading {
-  padding-top: 15px;
-  padding-bottom: 10px;
+#help h3 {
+  line-height: 1.2;
+  margin: 0 0 25px;
 }
 
-.help-body-subheading {
-  padding-top: 15px;
+#help h4 {
+  line-height: 1.2;
+  margin: 0 0 13px;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
 }
 
-.example {
-  margin-left: 50px;
+#help h5 {
+  font-style: italic;
+  margin: 25px 0 25px 30px;
 }
 
-.search-help li {
-  padding-top: 5px;
+#help p {
+  margin: 0 0 28px;
+  padding: 0;
+}
+
+#help ul {
+  margin-bottom: 25px;
+}
+
+#help li {
   padding-bottom: 5px;
+}
+
+#top-link-block.affix-top {
+    position: absolute; 
+    bottom: -82px; 
+    right: 10px; 
+}
+#top-link-block.affix {
+    position: fixed; 
+    bottom: 18px; 
+    right: 10px; 
+    z-index: 1;
+}
+
+.well {
+  color: #fff;
+  background-color: #528AA5;
+  border: 1px solid #528AA5;
+}
+
+a.well.well-sm:hover, a.well.well-sm:focus {
+  color: #fff;
 }
 
 /* FAQs */
@@ -1021,8 +1060,6 @@ h1 {
   margin-bottom: 5px;
 }
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
 @media print {
   .header-complete {
     display: none;
@@ -1095,7 +1132,10 @@ h1 {
     display: none;
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 015af62da105781167a83b2e5f1fc236fe858adc
 }
 
 @media (max-width: 768px) {
@@ -1116,6 +1156,12 @@ h1 {
 
   #go-btn p {
     display: none;
+  }
+
+
+  /* Search Help */
+  #help h5 {
+    margin: 25px 0 ;
   }
 
 }
@@ -1162,4 +1208,3 @@ h1 {
     margin-right: auto;
   }*/
 }
-

@@ -70,7 +70,7 @@
     <div class="left_sidebar_accordion__tab">
       <div class="left_sidebar_accordion__tab-title" ng-click="openTab('grp_contributor')">
         <i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenTab('grp_contributor'), 'glyphicon-plus': !status.open}"></i>
-        Contributed by
+        Contributing Institution
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributor')">
         <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} |  limitTo: 5" class="checkbox">
