@@ -173,7 +173,6 @@ a:hover {
 
 .adv {
   text-align: right;
-  margin-right: 18px;
   display: block;
   color: #555;
   text-decoration: underline;
@@ -947,89 +946,39 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   color: #fff;
 }
 
-/*FAQs*/
+/* FAQs */
 
-.accordion__container {
-    width: 80%;
-    margin: 30px auto 50px auto;
-}
-.accordion__tab {
-    color: black;
-    margin: -8px 0 -8px 0;
-
+.panel-heading .glyphicon {
+  margin-right: 10px;
 }
 
-.accordion__tab-title {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.accordion__tab-title .glyphicon {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-
-    color: white;
-    background: #909090;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-}
-
-.accordion__tab-content {
-    padding: 20px 20px 20px 30px;
-}
-
-.faqs-heading {
-  font-weight: bold;
-}
-
-.faqs-heading-hr {
-  height: 1px;
-  background-color: #909090;
-}
-
-.faqs-hr {
-  height: 1px;
-  background-color: black;
-}
+<<<<<<< HEAD
+=======
 
 /**Feedback**/
+>>>>>>> develop
 
-.feedback-main-body {
+/* Feedback */
+
+.fb-field {
+  margin-top: 15px;
+}
+
+.fb-field input{
   width: 100%;
 }
 
-.feedback-container {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.fb-field {
-  display: inline-block;
-  width: 49%;
-  margin-top: 10px;
-}
-.fb-field input{
-  width: 90%;
-}
-
 .fb-field select {
-  width: 90%;
+  width: 100%;
 }
+
 .fbfields {
   display: inline-block;
 }
 
-.user-feedback {
-  width: 97%;
+.user-feedback textarea {
   height: 150px;
-  margin-bottom: 80px;
+  width: 100%;
 }
 
 .ur-fb {
@@ -1038,12 +987,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 #feedback-submit {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 30px auto;
   display: block;
   width: 150px;
   height: 40px;
 }
+
 
 /**Item Pages**/
 

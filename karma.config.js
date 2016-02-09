@@ -1,6 +1,4 @@
-// Karma configuration
-// Generated on Mon Feb 01 2016 18:04:28 GMT-0800 (PST)
-
+/* Karma configuration */
 module.exports = function(config) {
   config.set({
 
@@ -20,7 +18,6 @@ module.exports = function(config) {
 
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/elasticsearch/elasticsearch.angular.js',
       'app/bower_components/angular-animate/angular-animate.js',
@@ -72,6 +69,16 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    // if client.captureConsole is true,
+    // console.log statements from app are outputted to terminal
+    client: {
+      captureConsole: false
+    },
+
+    // type(s) of loggers to use. if unset default is {type: 'console'}
+    //loggers: [
+      //{type: 'file', filename: 'logs/mylog.log'}
+    //],
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
