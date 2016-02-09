@@ -17,13 +17,15 @@ module.exports = function(config) {
     files: [
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/lodash/lodash.js',
+
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'app/bower_components/angular-resource/angular-resource.js',
+
+      'app/bower_components/angular-mocks/angular-mocks.js',
+
       'app/bower_components/elasticsearch/elasticsearch.js',
       'app/bower_components/angular-animate/angular-animate.js',
-      'app/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'app/bower_components/angular-resource/angular-resource.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angularUtils-pagination/dirPagination.js',
       'app/bower_components/angular-print/angularPrint.js',
 
@@ -35,7 +37,10 @@ module.exports = function(config) {
       'app/search/*.js',
       'app/core/*.js',
       'app/widgets/*.js',
-      'app/contributors/*.js'
+      'app/contributors/*.js',
+
+      // helpers for jasmine, etc
+      'test/mockData.js'
     ],
 
 
