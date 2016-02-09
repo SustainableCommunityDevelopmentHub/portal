@@ -46,9 +46,11 @@
      * Also add a bool property to allow facet to be activated
      * @param {object} agg Aggregation object in field from ES response obj. Contains aggregation for a facet.
      * @param {string} facetName Facet option name
-     * @param {string} activeFacets Array of all active facets
+     * @param {array} activeFacets Array of objects of all active facets.
+     *                             Each object must have a 'facet' prop (facet name) and an 'option' prop (value)
      */
     function parseAggregationResults(agg, facetName, activeFacets){
+      console.log('....activeFacets:::: ' + activeFacets);
       return agg.buckets.map(function(facetOption){
 
         var parsedOption = {
@@ -60,6 +62,7 @@
 
         // set active facets so available facets sidebar does not show them
         // validate inputs bc w/bad input application breaks, and the facet objs are brittle.
+        // effectively we are requiring a specific object structure for activeFacets objs for facet activation.
         if(activeFacets.length){
           activeFacets.forEach(function(facet){
             if(facet.facet && facet.option && parsedOption.facet && parsedOption.option){
