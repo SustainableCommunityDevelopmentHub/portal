@@ -40,20 +40,21 @@ describe('SearchResParser Unit Tests', function(){
       expect(parsedSearchHits.length).toEqual(mockSearchHits.length);
     });
 
-    it('Book items should be at top level of hits array, not in _source prop', function(){
+    it('Book items should not have a _source prop', function(){
       var hasSourceProp;
-      parsedSearchHits.forEach(function(item){
-        hasSourceProp = item.hasOwnProperty('_source');
+      parsedSearchHits.forEach(function(parsedHit){
+        expect(parsedHit.hasOwnProperty('_source')).toBe(false);
       });
-      expect(hasSourceProp).toBe(false);
     });
 
-    it('Each book item should have an _id property which should be a copy of _source._id from the unparsed book item', function(){
+    it('Each book item when parsed should have the correct always-present props should be on top level. Check value of _id against unparsed val to make sure is same data', function(){
       var idPropsMatch;
       parsedSearchHits.forEach(function(parsedHit, index){
-        idPropsMatch = (parsedHit._id === mockSearchHits[index]._source._id) ? true : false;
+        expect((parsedHit._id === mockSearchHits[index]._source._id)).toBe(true);
+        expect(parsedHit.hasOwnProperty('_ingest_date')).toBe(true);
+        expect(parsedHit.hasOwnProperty('_grp_id')).toBe(true);
+        expect(parsedHit.hasOwnProperty('dublin_core')).toBe(true);
       });
-      expect(idPropsMatch).toBe(true);
     });
   });
 
