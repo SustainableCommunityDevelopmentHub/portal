@@ -196,10 +196,12 @@
         }
       });
       modalInstance.result.then(function (facetsToApply) {
-        console.log(facetsToApply);
-        for(var i = 0; i < facetsToApply.length; i++){
-          var facet = facetsToApply[i];
-          $scope.updateFacet(facet, facet.active);
+        if(facetsToApply){
+          console.log(facetsToApply);
+          for(var i = 0; i < facetsToApply.length; i++){
+            var facet = facetsToApply[i];
+            $scope.updateFacet(facet, facet.active);
+          }
         }
       });
     };
@@ -215,10 +217,15 @@
     $scope.isActive = isActive;
     $scope.switchFacetCategory = switchFacetCategory;
     $scope.isCategorySelected = isCategorySelected;
-    $scope.searchFilters = searchFilters;   
+    $scope.searchFilters = searchFilters;
     $scope.apply = apply;
     $scope.checkFacet = checkFacet;
+    $scope.toggleFilterView = toggleFilterView;
+    $scope.close = close;
+    $scope.filterViewText = "See Only Checked Filters";
 
+    var seeOnlyCheckedText = ["See Only Checked Filters", "See All Filters"];
+    var seeOnlyChecked = false;
     var activeCategory = category;
     var allFacets = [];
     var categoryCounts = {};
@@ -227,7 +234,6 @@
 
     function initialize(){
       allFacets = facets;
-      
       $scope.facetCategories = [{
         name: 'type',
         display: 'Type'
@@ -253,8 +259,7 @@
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
     };
-    
-    
+
     function setFacetsChecked(){
       for(var prop in allFacets){
         var facetsByProp = allFacets[prop];
@@ -267,7 +272,6 @@
             } else {
               categoryCounts[prop] = 1;
             }
-            
           }
           $scope.selectedFacets[facet.option] = facet.active;
         }
@@ -279,6 +283,8 @@
       $scope.categoryFacets = this.currentFacets;
       activeCategory = newCategory;
       $scope.text = "";
+      seeOnlyChecked = false;
+      $scope.filterViewText = seeOnlyCheckedText[0];
     };
 
     function isActive(cat){
@@ -306,6 +312,25 @@
       return categoryCounts[category];
     }
 
+    function toggleFilterView(){
+      seeOnlyChecked = !seeOnlyChecked;
+      if(seeOnlyChecked){
+        $scope.filterViewText = seeOnlyCheckedText[1];
+        var checkedFilters = [];
+        for (var i = 0; i < $scope.currentFacets.length; i++){
+          var currentFacet = $scope.currentFacets[i];
+          if($scope.selectedFacets[currentFacet.option]){
+            checkedFilters.push(currentFacet);
+          }
+        }
+        $scope.currentFacets = checkedFilters;
+        //$scope.categoryFacets = this.currentFacets;
+      } else {
+        $scope.filterViewText = seeOnlyCheckedText[0];
+        $scope.currentFacets = allFacets[activeCategory];
+      }
+    }
+
     function apply(){
       var applyFacets = [];
       for(var prop in allFacets){
@@ -322,7 +347,11 @@
       $uibModalInstance.close(applyFacets);
     };
 
-    function searchFilters(){   
+    function close() {
+      $uibModalInstance.close();
+    }
+
+    function searchFilters(){
       var filteredFacets = [];
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
