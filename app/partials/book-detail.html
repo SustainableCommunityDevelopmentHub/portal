@@ -5,26 +5,21 @@
 <h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
 <div class="rec-options">
 <a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
-<button print-btn class="vdi">Print</button>
-<!-- Simple dropdown -->
-    <accordion>
-    <div class="export_accordion__container" ng-controller="FaqsCtrl">
-      <div class="export_accordion__tab">
-            <div class="export_accordion__tab-title" ng-click="openTab('tab one')"><input class="vdi" id="exportBtn" type="submit" value="Export" /></div>
-                <div class="export_accordion__tab-content" ng-show="isOpenTab('tab one')">
-                	<ul class="export_dropdown">
-                		<li><a ui-sref="app/#">RIS</a></li>
-                		<li><a ui-sref="app/#">DC-XML</a></li>
-                		<li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
-                		<li><a ui-sref="app/#">DC-YML</a></li>
-                 	</ul>
-                </div>
-            </div>
-      </div>
-   </accordion>
-   <button ng-click="redirect()"class="vdi"> <!--<a ng-href="{{book._source._record_link}}" target="_blank" style="text-decoration:none; color:black">View Digital Item</a>-->View Digital Item</button>
-<!--<input type="submit" class="vdi" value="View Digital Item" />-->
 <a class="remove-rec" ui-sref="/">Remove Record</a>
+
+<ul class="view-export-print">
+  <li><a href="home" ng-click="redirect()">View Digital Item</a></li>
+  <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
+    <ul class="dropdown-menu export-dropdown">
+        <li><a href="#">RIS</a></li>
+        <li><a href="#">DC-XML</a></li>
+        <li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
+        <li><a href="#">DC-YML</a></li>
+    </ul>
+  </li>
+  <li><a print-btn>Print</a></li>
+</ul>
 </div>
 <h4 class="detail-begin">Details</h4>
 <hr class="sr-top">
