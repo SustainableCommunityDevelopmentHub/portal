@@ -952,39 +952,33 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   margin-right: 10px;
 }
 
+<<<<<<< HEAD
+=======
 
 /**Feedback**/
+>>>>>>> develop
 
-.feedback-main-body {
+/* Feedback */
+
+.fb-field {
+  margin-top: 15px;
+}
+
+.fb-field input{
   width: 100%;
 }
 
-.feedback-container {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.fb-field {
-  display: inline-block;
-  width: 49%;
-  margin-top: 10px;
-}
-.fb-field input{
-  width: 90%;
-}
-
 .fb-field select {
-  width: 90%;
+  width: 100%;
 }
+
 .fbfields {
   display: inline-block;
 }
 
-.user-feedback {
-  width: 97%;
+.user-feedback textarea {
   height: 150px;
-  margin-bottom: 80px;
+  width: 100%;
 }
 
 .ur-fb {
@@ -993,12 +987,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 #feedback-submit {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 30px auto;
   display: block;
   width: 150px;
   height: 40px;
 }
+
 
 /**Item Pages**/
 
@@ -1132,10 +1126,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     display: none;
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 015af62da105781167a83b2e5f1fc236fe858adc
 }
 
 @media (max-width: 768px) {
