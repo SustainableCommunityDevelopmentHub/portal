@@ -41,14 +41,12 @@ describe('SearchResParser Unit Tests', function(){
     });
 
     it('Book items should not have a _source prop', function(){
-      var hasSourceProp;
       parsedSearchHits.forEach(function(parsedHit){
         expect(parsedHit.hasOwnProperty('_source')).toBe(false);
       });
     });
 
     it('Each book item when parsed should have the correct always-present props should be on top level. Check value of _id against unparsed val to make sure is same data', function(){
-      var idPropsMatch;
       parsedSearchHits.forEach(function(parsedHit, index){
         expect((parsedHit._id === mockSearchHits[index]._source._id)).toBe(true);
         expect(parsedHit.hasOwnProperty('_ingest_date')).toBe(true);
