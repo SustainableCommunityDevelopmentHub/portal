@@ -1,7 +1,7 @@
 module.exports = function(config){
   config.set({
 
-    basePath : '../',
+    basePath : '',
 
     files : [
       'app/bower_components/jquery/dist/jquery.js',
@@ -15,23 +15,26 @@ module.exports = function(config){
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angularUtils-pagination/dirPagination.js',
       'app/bower_components/angular-print/angularPrint.js',
-      'app/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       
       'app/*.module.js',
       'app/**/*.module.js',
-      'app/*.js',
+      'app/app.*.js',
 
-      'app/search/*.js',
+      'app/search/search.facet_modal.html',
+      'app/search/search.home.html',
+      'app/search/search.controller.js',
+      'app/search/search.module.js',
       'app/core/*.js',
       'app/widgets/*.js',
       'app/contributors/*.js',
-      'test/unit/**spec.js'
+      'app/*.unit.spec.js'
     ],
 
     autoWatch : true,
 
     singleRun: true,
-
+    
     frameworks: ['jasmine'],
 
     browsers : ['Chrome'],

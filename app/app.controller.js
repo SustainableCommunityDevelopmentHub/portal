@@ -184,7 +184,7 @@
         animation: true,
         scope: $scope,
         templateUrl: 'search/search.facet_modal.html',
-        controller: FacetModalInstanceCtrl,
+        controller: 'FacetModalInstanceCtrl',
         resolve: {
           facets: function(){
             console.log(facets);
@@ -204,13 +204,16 @@
           }
         }
       });
+      return modalInstance;
     };
 
-  }]);
-  var FacetModalInstanceCtrl = function ($scope, $uibModalInstance, facets, category) {
+
+
+  }])
+  .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets = [];
+    $scope.currentFacets;
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -223,12 +226,14 @@
     $scope.toggleFilterView = toggleFilterView;
     $scope.close = close;
     $scope.filterViewText = "See Only Checked Filters";
+    $scope.initialize = initialize;
 
     var seeOnlyCheckedText = ["See Only Checked Filters", "See All Filters"];
     var seeOnlyChecked = false;
     var activeCategory = category;
-    var allFacets = [];
+    var allFacets = facets;
     var categoryCounts = {};
+    console.log($scope.activeFacets);
 
     initialize();
 
@@ -362,5 +367,5 @@
       }
       $scope.currentFacets = filteredFacets;
     };
-};
+}]);
 })();
