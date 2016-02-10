@@ -109,7 +109,7 @@
         facet.active = false;
       });
       $scope.activeFacets = [];
-    };
+    }
 
     /**
      * reload search result state to trigger search.
@@ -121,7 +121,7 @@
       console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
       console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
       $state.go('searchResults', ss.opts, {reload: true});
-    };
+    }
 
     /////////////////////////////////
     //Functions
@@ -181,7 +181,7 @@
       console.log('Changing sort to ' + sortMode.display);
       updateSearch({sort: sortMode, page: 1, from: 0});
       return;
-    }
+    };
 
     /**
      * trigger search to populate new page and update $scope / state
@@ -208,7 +208,7 @@
         console.log($scope.activeFacets);
         _.remove($scope.activeFacets, function(aFacet){
           return aFacet.option === facetOption.option;
-        })
+        });
         $scope.activeFacets.push(facetOption);
         
         
@@ -238,7 +238,7 @@
       updateSearch({facets: []});
     };
 
-  };
+  }
 
 })();
 

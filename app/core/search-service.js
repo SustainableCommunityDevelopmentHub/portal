@@ -3,7 +3,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', '_', 'FACETS',SearchService]);
+  .factory('SearchService', ['DataService', 'SearchResParser', '_', 'FACETS',SearchService]);
 
   /* SearchService
    *
@@ -12,11 +12,11 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, _, FACETS){
-
+  function SearchService(DataService, SearchResParser, _, FACETS){
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
+    
     var service = {
       // variables //
       returnedPromise: null,
@@ -34,7 +34,6 @@
       // functions //
       newSearch: newSearch,
       updateSearch: updateSearch,
-      runSearch: runSearch,
       updateOpts: updateOpts,
       setResultsData: setResultsData,
       resetOpts: resetOpts
@@ -45,6 +44,7 @@
     //////////////////////////////////
     //Public Functions
     //////////////////////////////////
+
     /**
      * Executes new search. Overwrites existing opts,except defaults.
      * @param {Object} opts - search options
@@ -58,7 +58,7 @@
       this.returnedPromise = search(this.opts);
       console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
-    };
+    }
 
     /**
      * Updates opts (changed object properties are overwritten) and executes search.
@@ -74,13 +74,6 @@
       this.returnedPromise = search(this.opts);
       console.log('SearchService.newSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
-    };
-
-    /**
-     * Executes search on existing opts.
-     * @returns {Promise} - search results
-     */
-    function runSearch(){
     };
 
     /**
@@ -110,11 +103,11 @@
      */
     function setResultsData(results){
       // set hits returned by search
-      this.results.hits = parseResults(results.hits.hits);
+      this.results.hits = SearchResParser.parseResults(results.hits.hits);
       this.results.numTotalHits = results.hits.total;
 
       // set facet options
-      var allAggregations = results.aggregations
+      var allAggregations = results.aggregations;
 
       // convert FACETS obj to array, iterate over it, parse aggregation results...
       // ...and update SearchService.results.facetOptions.
@@ -123,7 +116,7 @@
       var FACETS_ARR = _.values(FACETS);
 
       FACETS_ARR.forEach(function(FACET){
-        _this.results.facetOptions[FACET.name] = parseAggregationResults(results.aggregations[FACET.name], FACET.name, _this.opts.facets);
+        _this.results.facetOptions[FACET.name] = SearchResParser.parseAggregationResults(results.aggregations[FACET.name], FACET.name, _this.opts.facets);
       });
 
       // return parsed data so it can be assigned on scope or elsewhere
@@ -167,58 +160,10 @@
       if(!opts.page){
         opts.page = 1;
       }
+
       console.log('executing search.....opts: ' +JSON.stringify(opts));
       return DataService.search(opts);
     }
 
-    /**
-     * parse search result hits data to simplify object structure
-     * @param {array} hits from ES response obj. contains search results (hits returned)
-     */
-    function parseResults(hits){
-      return hits.map(function(data){
-        var book = data._source;
-        // _id represents ES id. Thus if an 'id' field is ever added it won't get overwritten
-        book._id = data._id;
-        return book;
-      });
-
-    }
-
-    /**
-     * Parse search result aggregation data for a single aggregation
-     * to simplify object struction.
-     * Also add a bool property to allow facet to be activated
-     * @param {object} agg Aggregation object in field from ES response obj. Contains aggregation for a facet.
-     * @param {string} facetName Facet option name
-     * @param {string} activeFacets Array of all active facets
-     */
-    function parseAggregationResults(agg, facetName, activeFacets){
-      return agg.buckets.map(function(facetOption){
-
-        var parsedOption = {
-          facet: facetName,
-          option: facetOption.key,
-          count: facetOption.doc_count,
-          active: false
-        };
-
-        // set active facets so available facets sidebar does not show them
-        // validate inputs bc w/bad input application breaks, and the facet objs are brittle.
-        if(activeFacets.length){
-          activeFacets.forEach(function(facet){
-            if(facet.facet && facet.option && parsedOption.facet && parsedOption.option){
-              if(facet.facet === parsedOption.facet && facet.option === parsedOption.option){
-                parsedOption.active = true;
-              }
-            }
-          });
-        }
-
-        return parsedOption;
-      });
-    };
-
-
-  };
+  }
 })();
