@@ -4,11 +4,11 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    '**/*spec.js'
+    '**/facet-modal.spec.js'
   ],
 
   multiCapabilities: [{
-    'browserName': 'chrome'
+    'browserName': 'chrome',
   }, {
     'browserName': 'firefox'
   }],

@@ -118,7 +118,7 @@ describe("Facet Modal", function(){
       checkboxes.each(function(checkbox){
         checkbox.getText().then(function(text){
           if(text.indexOf(filteredTerm) < 0){
-            containsFilteredTerm = false
+            containsFilteredTerm = false;
           }
         });
       });
