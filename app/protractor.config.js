@@ -4,7 +4,7 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    '**/facet-modal.spec.js'
+    '**/*e2e.spec.js'
   ],
 
   multiCapabilities: [{

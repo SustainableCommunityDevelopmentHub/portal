@@ -173,7 +173,6 @@ a:hover {
 
 .adv {
   text-align: right;
-  margin-right: 18px;
   display: block;
   color: #555;
   text-decoration: underline;
@@ -722,21 +721,54 @@ ul.specs dt {
   font-weight: bold;
 }
 
-.export_dropdown {
-  width: 150px;
+.view-export-print {
+  width: 450px;
+  height: 40px;
+  float: right;
+  font-size: 0;
   display: block;
   background-color: #efefef;
   list-style: none;
-  margin-left: 150px;
-  margin-top: 40px;
-  border: solid 1px gray;
 }
 
-.export_dropdown li {
+.view-export-print li {
+  width: 135px;
   height: 40px;
   padding-top: 10px;
   color: black;
+  display: inline-block;
+  border: 1px gray solid;
+  background-color: #efefef;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
 }
+
+.view-export-print li a {
+  text-decoration: none;
+  color: black;
+}
+
+.view-export-print li a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.export-dropdown {
+  font-size: 0;
+  border: 1px solid gray;
+  min-width: 130px;
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+}
+
+.export-dropdown li {
+  border: none;
+  padding-top: 4px;
+  width: 130px;
+}
+
 h1 {
   border-bottom: 1px solid gray;
 }
@@ -888,113 +920,93 @@ h1 {
   margin: 40px 5px 0 10px;
 }
 
-/**Search Help**/
+/* Search Help */
 
-.search-help ul {
-  padding-left: 15px;
+#help h2 {
+  font-size: 24px;
 }
 
-.help-body-heading {
-  padding-top: 15px;
-  padding-bottom: 10px;
+#help h3 {
+  line-height: 1.2;
+  margin: 0 0 25px;
 }
 
-.help-body-subheading {
-  padding-top: 15px;
+#help h4 {
+  line-height: 1.2;
+  margin: 0 0 13px;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
 }
 
-.example {
-  margin-left: 50px;
+#help h5 {
+  font-style: italic;
+  margin: 25px 0 25px 30px;
 }
 
-.search-help li {
-  padding-top: 5px;
+#help p {
+  margin: 0 0 28px;
+  padding: 0;
+}
+
+#help ul {
+  margin-bottom: 25px;
+}
+
+#help li {
   padding-bottom: 5px;
 }
 
-/*FAQs*/
-
-.accordion__container {
-    width: 80%;
-    margin: 30px auto 50px auto;
+#top-link-block.affix-top {
+    position: absolute; 
+    bottom: -82px; 
+    right: 10px; 
 }
-.accordion__tab {
-    color: black;
-    margin: -8px 0 -8px 0;
-
-}
-
-.accordion__tab-title {
-    cursor: pointer;
-    font-weight: bold;
+#top-link-block.affix {
+    position: fixed; 
+    bottom: 18px; 
+    right: 10px; 
+    z-index: 1;
 }
 
-.accordion__tab-title .glyphicon {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-
-    color: white;
-    background: #909090;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+.well {
+  color: #fff;
+  background-color: #528AA5;
+  border: 1px solid #528AA5;
 }
 
-.accordion__tab-content {
-    padding: 20px 20px 20px 30px;
+a.well.well-sm:hover, a.well.well-sm:focus {
+  color: #fff;
 }
 
-.faqs-heading {
-  font-weight: bold;
+/* FAQs */
+
+.panel-heading .glyphicon {
+  margin-right: 10px;
 }
 
-.faqs-heading-hr {
-  height: 1px;
-  background-color: #909090;
+
+/* Feedback */
+
+.fb-field {
+  margin-top: 15px;
 }
 
-.faqs-hr {
-  height: 1px;
-  background-color: black;
-}
-
-/**Feedback**/
-
-.feedback-main-body {
+.fb-field input{
   width: 100%;
 }
 
-.feedback-container {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.fb-field {
-  display: inline-block;
-  width: 49%;
-  margin-top: 10px;
-}
-.fb-field input{
-  width: 90%;
-}
-
 .fb-field select {
-  width: 90%;
+  width: 100%;
 }
+
 .fbfields {
   display: inline-block;
 }
 
-.user-feedback {
-  width: 97%;
+.user-feedback textarea {
   height: 150px;
-  margin-bottom: 80px;
+  width: 100%;
 }
 
 .ur-fb {
@@ -1003,12 +1015,12 @@ h1 {
 }
 
 #feedback-submit {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 30px auto;
   display: block;
   width: 150px;
   height: 40px;
 }
+
 
 /**Item Pages**/
 
@@ -1069,8 +1081,6 @@ h1 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 @media print {
   .header-complete {
@@ -1144,15 +1154,6 @@ h1 {
     display: none;
   }
 
-  .search-bar {
-    width: 73%;
-  }
-
-  .adv {
-    text-align:left;
-    width: 73%;
-  }
-
 }
 
 @media (max-width: 768px) {
@@ -1173,6 +1174,12 @@ h1 {
 
   #go-btn p {
     display: none;
+  }
+
+
+  /* Search Help */
+  #help h5 {
+    margin: 25px 0 ;
   }
 
 }
@@ -1219,4 +1226,3 @@ h1 {
     margin-right: auto;
   }*/
 }
-
