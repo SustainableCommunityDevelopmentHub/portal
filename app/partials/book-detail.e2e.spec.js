@@ -5,7 +5,7 @@ describe('Book Detail', function() {
   var searchBtn = element(by.id('go-btn'));
   var firstResult = element(by.css('.portal-record-link'));
   var exportBtn = element(by.id('exportBtn'));
-  var testData = JSON.stringify(require('./book.json'));
+  var testData = JSON.stringify(require('../../mocks/book.json'));
   var testQuery = 'bpt6k63442281';
     
   
