@@ -172,7 +172,7 @@
      */
     $scope.setPageSize = function(newPageSize){
       var newPage = Math.floor(ss.opts.from / newPageSize) + 1;
-      if (newPage == 1 && ss.opts.from > 0){
+      if (newPage === 1 && ss.opts.from > 0){
         newPage = 2;
       }
       console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
