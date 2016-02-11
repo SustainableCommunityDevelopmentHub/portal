@@ -4,7 +4,7 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    '**/*e2e.spec.js'
+    'app/**/*e2e.spec.js'
   ],
 
   multiCapabilities: [{
@@ -12,6 +12,8 @@ exports.config = {
   }, {
     'browserName': 'firefox'
   }],
+
+  maxInstances: 1,
 
   chromeOnly: true,
 

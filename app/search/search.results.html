@@ -17,7 +17,7 @@
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
         <div ng-controller="FacetModalCtrl">
-          <a ng-click="openFacetModal(facets, 'type')">See All</a>
+          <a ng-click="openFacetModal(facets, 'type')" id="see-all-type">See All</a>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
           <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
         </div>
         <div ng-controller="FacetModalCtrl">
-        <a ng-click="openFacetModal(facets, 'subject')">See All</a>
+        <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
         </div>
       </div>
     </div>
