@@ -31,8 +31,8 @@
           // do this to separate $stateParam prop names from searchOpts prop names
           var searchOpts = {
             q: $stateParams.q,
-            size: $stateParams.size,
-            from: $stateParams.from
+            size: parseInt($stateParams.size),
+            from: parseInt($stateParams.from)
           };
 
           return SearchService.updateSearch(searchOpts);
