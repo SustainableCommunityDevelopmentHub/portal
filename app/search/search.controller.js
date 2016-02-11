@@ -175,7 +175,7 @@
       if (newPage == 1 && ss.opts.from > 0){
         newPage = 2;
       }
-      console.log('SearchCtrl.....updating page size from: ' + $scope.pagination.size + ' to: ' + newPageSize);
+      console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: newPage});
       return;
@@ -198,7 +198,7 @@
         } else{
           newFrom = ss.opts.size * (newPage - 1);
         }
-        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
+        console.log('SearchCtrl........updating pageNum from: ' + ss.opts.page + ' to: ' + newPage);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom, page: newPage});
       }
