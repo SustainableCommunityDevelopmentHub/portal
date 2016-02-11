@@ -204,7 +204,6 @@
           }
         }
       });
-      return modalInstance;
     };
 
 
@@ -226,14 +225,12 @@
     $scope.toggleFilterView = toggleFilterView;
     $scope.close = close;
     $scope.filterViewText = "See Only Checked Filters";
-    $scope.initialize = initialize;
 
     var seeOnlyCheckedText = ["See Only Checked Filters", "See All Filters"];
     var seeOnlyChecked = false;
     var activeCategory = category;
-    var allFacets = facets;
+    var allFacets = [];
     var categoryCounts = {};
-    console.log($scope.activeFacets);
 
     initialize();
 

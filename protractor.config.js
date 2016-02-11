@@ -8,7 +8,7 @@ exports.config = {
   ],
 
   multiCapabilities: [{
-    'browserName': 'chrome',
+    'browserName': 'chrome'
   }, {
     'browserName': 'firefox'
   }],
