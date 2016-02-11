@@ -13,6 +13,8 @@ exports.config = {
     'browserName': 'firefox'
   }],
 
+  maxInstances: 1,
+
   chromeOnly: true,
 
   baseUrl: 'http://local.portal.dev:8000/',

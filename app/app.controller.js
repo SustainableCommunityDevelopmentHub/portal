@@ -184,7 +184,7 @@
         animation: true,
         scope: $scope,
         templateUrl: 'search/search.facet_modal.html',
-        controller: FacetModalInstanceCtrl,
+        controller: 'FacetModalInstanceCtrl',
         resolve: {
           facets: function(){
             console.log(facets);
@@ -206,11 +206,13 @@
       });
     };
 
-  }]);
-  var FacetModalInstanceCtrl = function ($scope, $uibModalInstance, facets, category) {
+
+
+  }])
+  .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets = [];
+    $scope.currentFacets;
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -362,5 +364,5 @@
       }
       $scope.currentFacets = filteredFacets;
     };
-};
+}]);
 })();
