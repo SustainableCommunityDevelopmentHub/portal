@@ -131,13 +131,25 @@
       $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
     }])
 
-    .controller('FeedbackFormCtrl', function($scope) {
+    .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
       $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
+        $scope.isMatch = function() {
+        if ($scope.user.email == $scope.user.confirmationEmail) {
+          return true;
+        }
+        return false;
+      };
       };
       $scope.reset();
-    })
+      $scope.feedbackErrors =[
+        {msg: 'This field is required.'},
+        {msg: 'Please enter a valid email address.'},
+        {msg: 'Email addresses do not match.'}
+      ];
+      
+    }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {
       $scope.feedbackFields = [
