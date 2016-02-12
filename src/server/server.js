@@ -7,14 +7,18 @@ var express = require('express'),
     path = require('path');
 
 var port = 8000,
-    rootDir = path.join(__dirname, '/app/'),
-    environment = process.env.NODE_ENV;
+    rootDir,
+    environment = process.env.NODE_ENV || 'development';
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+// __dirname is location of file in project, the resolve moves us into portal/src/client
+rootDir = path.resolve(__dirname, '../client');
 
 console.log('Starting node server ...');
 console.log('PORT=' + port);
 console.log('NODE_ENV=' + environment);
+console.log('NODE_PATH=' + rootDir);
 
 var source = '';
 
