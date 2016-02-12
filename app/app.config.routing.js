@@ -29,8 +29,14 @@
           //       May remove later, choosing to keep for now. 12-20-15
 
           // do this to separate $stateParam prop names from searchOpts prop names
+          var queryTerm;
+          if($stateParams.q) {
+            queryTerm = decodeURIComponent($stateParams.q);
+          } else {
+            queryTerm = "";
+          }
           var searchOpts = {
-            q: decodeURIComponent($stateParams.q),
+            q: queryTerm,
             size: $stateParams.size,
             from: $stateParams.from
           };

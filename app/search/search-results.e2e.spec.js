@@ -31,5 +31,11 @@ describe('Search Results', function() {
   
   });
 
-
+  it('should show decoded urls in search bar', function() {
+    var urlQuery = "http://www.getty.edu/";
+    element(by.model('queryTerm')).sendKeys(urlQuery);
+    searchBtn.click();
+    var searchBarText = element(by.css('.search-input')).getAttribute('value');
+    expect(searchBarText).toEqual(urlQuery);
+  });
 });

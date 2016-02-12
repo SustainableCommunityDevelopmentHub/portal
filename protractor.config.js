@@ -13,7 +13,7 @@ exports.config = {
     'browserName': 'firefox'
   }],
 
-  maxInstances: 1,
+  maxSessions: 1,
 
   chromeOnly: true,
 
