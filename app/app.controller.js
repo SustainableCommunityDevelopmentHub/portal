@@ -136,11 +136,11 @@
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
-        if ($scope.user.email == $scope.user.confirmationEmail) {
-          return true;
-        }
-        return false;
-      };
+          if ($scope.user.email === $scope.user.confirmationEmail) {
+            return true;
+          }
+          return false;
+        };
       };
       $scope.reset();
       $scope.feedbackErrors =[

@@ -5,17 +5,14 @@ describe('Feedback', function() {
   var userName = 'Bert';
   var validEmail = 'bert@getty.edu';
   var diffEmail = 'ernie@getty.edu';
-  var errorReq = $('.req').evaluate('feedbackErrors[0].msg');
-  var errorInvalidEmail = $('.invalid-email').evaluate('feedbackErrors[1].msg');
-  var errorMisMatch = $('.mismatch-email').evaluate('feedbackErrors[2].msg');
-  var firstField = element(by.model('user.firstName'));
 
-    
 
   it('should return field required errors on submit', function() {
     browser.get('feedback');
     element(by.model('user.email')).sendKeys('validEmail');
     element(by.model('user.confirmationEmail')).sendKeys('validEmail');
+    element(by.id('feedback-submit')).click();
+    var errorReq = $('.req').evaluate('feedbackErrors[0].msg');
     expect(errorReq).toEqual('This field is required.');
   });
 
@@ -25,7 +22,9 @@ describe('Feedback', function() {
     element(by.model('user.lastName')).sendKeys(userName);
     element(by.model('user.email')).sendKeys(userName);
     element(by.model('user.confirmationEmail')).sendKeys(userName);
-    element(by.model('user.feedback')).sendKeys(userName);
+    element(by.model('user.yourFeedback')).sendKeys(userName);
+    element(by.id('feedback-submit')).click();
+    var errorInvalidEmail = $('.invalid-email').evaluate('feedbackErrors[1].msg');
     expect(errorInvalidEmail).toEqual('Please enter a valid email address.');
   });
 
@@ -35,7 +34,9 @@ describe('Feedback', function() {
     element(by.model('user.lastName')).sendKeys(userName);
     element(by.model('user.email')).sendKeys(validEmail);
     element(by.model('user.confirmationEmail')).sendKeys(diffEmail);
-    element(by.model('user.feedback')).sendKeys(userName);
+    element(by.model('user.yourFeedback')).sendKeys(userName);
+    element(by.id('feedback-submit')).click();
+    var errorMismatch = $('.mismatch-email').evaluate('feedbackErrors[2].msg');
     expect(errorMismatch).toEqual('Email addresses do not match.');
   });
 
@@ -45,10 +46,14 @@ describe('Feedback', function() {
     element(by.model('user.lastName')).sendKeys(userName);
     element(by.model('user.email')).sendKeys(validEmail);
     element(by.model('user.confirmationEmail')).sendKeys(validEmail);
-    element(by.model('user.feedback')).sendKeys(userName);
-    expect(errorReq.isPresent()).toBeFalsy();
-    expect(errorInvalidEmail.isPresent()).toBeFalsy();
-    expect(errorMismatch.isPresent()).toBeFalsy();
+    element(by.model('user.yourFeedback')).sendKeys(userName);
+    element(by.id('feedback-submit')).click();
+    var errorReq = $('.req').evaluate('feedbackErrors[0].msg');
+    var errorInvalidEmail = $('.invalid-email').evaluate('feedbackErrors[1].msg');
+    var errorMismatch = $('.mismatch-email').evaluate('feedbackErrors[2].msg');
+    expect(errorReq.isDisplayed()).toBeFalsy();
+    expect(errorInvalidEmail.isDisplayed()).toBeFalsy();
+    expect(errorMismatch.isDisplayed()).toBeFalsy();
   });
 
   
