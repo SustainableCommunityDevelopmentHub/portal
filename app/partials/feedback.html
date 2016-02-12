@@ -17,14 +17,14 @@
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p>* First name:</p>
-                <input name="firstName" ng-minlength="2" type="text" ng-model="user.firstName" required>
+                <input name="firstName" ng-minlength="1" type="text" ng-model="user.firstName" required>
                 <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.firstName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Last name:</p>
-                <input name="lastName" ng-minlength="2" type="text" ng-model="user.lastName" required>
+                <input name="lastName" ng-minlength="1" type="text" ng-model="user.lastName" required>
                 <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.lastName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
@@ -68,7 +68,7 @@
             <div class="col-xs-12">
               <div class="user-feedback">
                 <p class="ur-fb">* Feedback:</p><br>
-                <textarea name="feedback" ng-minlength="2" class="user-feedback" type="text" ng-model="user.yourFeedback" required></textarea><p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.feedback.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
+                <textarea name="feedback" ng-minlength="1" class="user-feedback" type="text" ng-model="user.yourFeedback" required></textarea><p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.feedback.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
