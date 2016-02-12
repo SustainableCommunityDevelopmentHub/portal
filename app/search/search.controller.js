@@ -238,8 +238,8 @@
           return aFacet.option === facetOption.option;
         });
       }
-
-      updateSearch({facets: $scope.activeFacets});
+      //Setting page num to 1 to reset pagination
+      updateSearch({facets: $scope.activeFacets, page: 1, from: 0});
     };
 
     $scope.clearFacetsAndUpdate = function(){

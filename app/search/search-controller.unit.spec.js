@@ -14,6 +14,7 @@ describe("Search Controller", function(){
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
+    scope.activeFacets = [];
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -98,5 +99,14 @@ describe("Search Controller", function(){
       scope.setPageNum(1);
       expect(searchService.updateOpts).toHaveBeenCalledWith({from: 0, page: 1});
     });
-  });  
+  });
+
+describe("Updating facets", function(){
+  it("should set page number to 1 when adding a facet", function(){
+    var testFacet = {"facet":"type","option":"Text","count":249,"active":true,"$$hashKey":"object:155"};
+    var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+    scope.updateFacet(testFacet, true);
+    expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+  })
+})
 });

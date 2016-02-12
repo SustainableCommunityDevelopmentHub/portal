@@ -199,7 +199,6 @@
         controller: 'FacetModalInstanceCtrl',
         resolve: {
           facets: function(){
-            console.log(facets);
             return facets;
           },
           category: function(){
@@ -209,9 +208,9 @@
       });
       modalInstance.result.then(function (facetsToApply) {
         if(facetsToApply){
-          console.log(facetsToApply);
           for(var i = 0; i < facetsToApply.length; i++){
             var facet = facetsToApply[i];
+            //updateFacet from SearchCtrl. Might have to change if that controller is refactored.
             $scope.updateFacet(facet, facet.active);
           }
         }
