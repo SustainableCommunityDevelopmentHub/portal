@@ -112,7 +112,8 @@
           <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
+      <span class="showing" ng-show="pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
+      <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
         </button>
