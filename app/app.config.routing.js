@@ -37,8 +37,8 @@
           }
           var searchOpts = {
             q: queryTerm,
-            size: $stateParams.size,
-            from: $stateParams.from
+            size: parseInt($stateParams.size),
+            from: parseInt($stateParams.from)
           };
 
           return SearchService.updateSearch(searchOpts);
