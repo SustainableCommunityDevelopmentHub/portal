@@ -1,5 +1,29 @@
 /* app css stylesheet */
 
+/* TABLE OF CONTENTS
+
+  1. Basic
+  2. Header
+  3. Main Nav
+  4. Hamburger Menu
+  5. Main Body
+  6. Stat Boxes
+  7. Advanced Search
+  8. Search Results
+  9. Facet Modal
+  10. Detail View
+  11. Footer
+  12. Contributors
+  13. Search Help
+  14. FAQ
+  15. Feedback
+  16. Item Pages
+  17. Media Queries
+
+*/
+
+/* Basic */
+
 body {
   padding-top: 20px;
 }
@@ -979,7 +1003,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   color: #fff;
 }
 
-/* FAQs */
+/* FAQ */
 
 .panel-heading .glyphicon {
   margin-right: 10px;
@@ -1002,6 +1026,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 .fbfields {
   display: inline-block;
+}
+
+.ff-error-msg {
+  color: red;
+  margin-top: 5px;
 }
 
 .user-feedback textarea {
