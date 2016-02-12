@@ -104,7 +104,7 @@
         </li>
       </ul>
     </div>
-    <div class="dropdown" uib-dropdown>
+    <div class="dropdown results-top" uib-dropdown>
       <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
         <span class="caret"></span></button>
       <ul uib-dropdown-menu role="menu" class="dropdown-menu">
@@ -122,6 +122,9 @@
             <a ng-click="setPageSize(pageSizeOption)">{{pageSizeOption}}</a>
           </li>
         </ul>
+      </div>
+      <div class="results-pagination-top">
+        <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
       </div>
     </div>
 
