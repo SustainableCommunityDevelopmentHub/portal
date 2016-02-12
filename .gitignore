@@ -4,6 +4,7 @@ bower_components/
 
 .DS_Store
 
+tmp/
 logs/*
 .log
 
