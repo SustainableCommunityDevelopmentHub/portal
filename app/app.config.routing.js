@@ -30,7 +30,7 @@
 
           // do this to separate $stateParam prop names from searchOpts prop names
           var searchOpts = {
-            q: $stateParams.q,
+            q: decodeURIComponent($stateParams.q),
             size: $stateParams.size,
             from: $stateParams.from
           };
