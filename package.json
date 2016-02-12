@@ -31,17 +31,14 @@
   "scripts": {
     "delete-all-containers": "docker rm $(docker ps --no-trunc -aq)",
     "preinstall": "npm install -g bower",
-    "init-es": "sudo bash scripts/init-es.sh",
     "start-es": "sudo /etc/init.d/elasticsearch start",
     "stop-es": "sudo /etc/init.d/elasticsearch stop",
     "restart-es": "sudo /etc/init.d/elasticsearch restart",
     "start": "node server.js",
     "test": "node node_modules/karma/bin/karma start karma.config.js",
     "test-single-run": "node node_modules/karma/bin/karma start karma.config.js  --single-run",
-    "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor test/protractor.config.js",
-    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+    "protractor": "protractor test/protractor.config.js"
   }
 }
