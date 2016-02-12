@@ -8,7 +8,10 @@
   function($scope, SearchService, $state, results) {
     //  clear SearchService.opts when state loads
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      SearchService.resetOpts();
+      if(toState.controller === 'HomePageCtrl'){
+        console.log('HomePageCtrl::$scope.$on($stateChangeSuccess -- toState: ' + JSON.stringify(toState));
+        SearchService.resetOpts();
+      }
     });
 
     // for when user inits new search.
@@ -115,20 +118,8 @@
         });
     }])
 
-    .controller('HeaderCtrl', ['$scope', function ($scope) {
-      $scope.header = {name: "header.html", url: "partials/header.html"};
-    }])
-
-    .controller('FooterCtrl', ['$scope', function ($scope) {
-      $scope.footer = {name: "footer.html", url: "partials/footer.html"};
-    }])
-
-    .controller('SearchHelpCtrl', ['$scope', function ($scope) {
-      $scope.searchHelp = {name: "searchhelp.html", url: "partials/searchhelp.html"};
-    }])
-
-    .controller('FeedbackCtrl', ['$scope', function ($scope) {
-      $scope.feedBack = {name: "feedback.html", url: "feedback.html"};
+    .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
+      $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
     }])
 
     .controller('FeedbackFormCtrl', function($scope) {
@@ -148,10 +139,10 @@
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
 
-  .controller('FaqsCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+  .controller('FaqsCtrl', ['$scope', '$rootScope', 'config', function ($scope, $rootScope, config) {
       // sync with the rootScope var so open tabs persist across state changes
       $scope.activeTabs = $rootScope.$activeTabs;
-      $scope.faqs = {name: "faqs.html", url: "faqs.html"};
+      $scope.faqs = {name: "faqs.html", url: config.app.root + "/partials/faqs.html"};
 
       // check if the tab is active
       $scope.isOpenTab = function (tab) {
@@ -178,12 +169,12 @@
         }
       };
     }])
-  .controller('FacetModalCtrl', ['$scope', '$rootScope', '$uibModal', function ($scope, $rootScope, $uibModal){
+  .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
       var modalInstance = $uibModal.open({
         animation: true,
         scope: $scope,
-        templateUrl: 'search/search.facet_modal.html',
+        templateUrl: config.app.root + '/search/search.facet_modal.html',
         controller: 'FacetModalInstanceCtrl',
         resolve: {
           facets: function(){
