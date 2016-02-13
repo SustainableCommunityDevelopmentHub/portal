@@ -122,13 +122,25 @@
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
     }])
 
-    .controller('FeedbackFormCtrl', function($scope) {
+    .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
       $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
+        $scope.isMatch = function() {
+          if ($scope.user.email === $scope.user.confirmationEmail) {
+            return true;
+          }
+          return false;
+        };
       };
       $scope.reset();
-    })
+      $scope.feedbackErrors =[
+        {msg: 'This field is required.'},
+        {msg: 'Please enter a valid email address.'},
+        {msg: 'Email addresses do not match.'}
+      ];
+      
+    }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {
       $scope.feedbackFields = [
@@ -178,7 +190,6 @@
         controller: 'FacetModalInstanceCtrl',
         resolve: {
           facets: function(){
-            console.log(facets);
             return facets;
           },
           category: function(){
@@ -188,9 +199,9 @@
       });
       modalInstance.result.then(function (facetsToApply) {
         if(facetsToApply){
-          console.log(facetsToApply);
           for(var i = 0; i < facetsToApply.length; i++){
             var facet = facetsToApply[i];
+            //updateFacet from SearchCtrl. Might have to change if that controller is refactored.
             $scope.updateFacet(facet, facet.active);
           }
         }

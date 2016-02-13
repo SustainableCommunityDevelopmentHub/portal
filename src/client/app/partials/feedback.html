@@ -1,4 +1,4 @@
-<div class="getty-portal-app">
+<div ng-app="app" class="app">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
@@ -11,18 +11,21 @@
     </div><!-- row -->
 
     <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
-      <form novalidate>
+      <form name="feedbackForm" novalidate ng-submit="feedbackForm.$valid && feedbackForm.submit()">
+        <p class="ff-error-msg" ng-model="feedbackErrors" ng-show="!feedbackForm.$valid && feedbackForm.$submitted">Please correct errors below before submitting.</p>
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p>* First name:</p>
-                <input type="text" ng-model="user.firstName">
+                <input name="firstName" ng-minlength="1" type="text" ng-model="user.firstName" required>
+                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.firstName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Last name:</p>
-                <input type="text" ng-model="user.lastName">
+                <input name="lastName" ng-minlength="1" type="text" ng-model="user.lastName" required>
+                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.lastName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
@@ -31,13 +34,16 @@
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Email:</p>
-                <input type="text" ng-model="user.email">
+                <input name="email" type="email" ng-model="user.email" required>
+                <p class="ff-error-msg invalid-email" ng-model="feedbackErrors" ng-show="!feedbackForm.email.$valid && feedbackForm.$submitted">{{feedbackErrors[1].msg}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Confirm Email:</p>
-                <input type="text" ng-model="user.confirmationEmail">
+                <input name="confirmationEmail" type="email" ng-model="user.confirmationEmail">
+                <p class="ff-error-msg invalid-email" ng-model="feedbackErrors" ng-show="!feedbackForm.confirmationEmail.$valid && feedbackForm.$submitted">{{feedbackErrors[1].msg}}</p>
+                <p class="ff-error-msg mismatch-email" ng-model="feedbackErrors" ng-show="feedbackForm.$submitted && !isMatch()">{{feedbackErrors[2].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
@@ -62,7 +68,7 @@
             <div class="col-xs-12">
               <div class="user-feedback">
                 <p class="ur-fb">* Feedback:</p><br>
-                <textarea class="user-feedback" type="text" ng-model="user.feedback"></textarea>
+                <textarea name="feedback" ng-minlength="1" class="user-feedback" type="text" ng-model="user.yourFeedback" required></textarea><p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.feedback.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
@@ -76,3 +82,4 @@
       </form>
   </div><!-- /container -->
 </div>
+</div ng-app="app" class="app">
