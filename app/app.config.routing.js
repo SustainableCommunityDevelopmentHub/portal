@@ -6,6 +6,7 @@
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
     // redirect to home by default
     $urlRouterProvider.otherwise('/');
+    
 
     // assign states to urls
     $stateProvider
@@ -20,6 +21,7 @@
       url: '/search?q&from&size',
       controller: 'SearchCtrl',
       templateUrl: 'search/search.results.html',
+      reloadOnSearch: false,
       resolve: {
         // run search and load resulting promise into controller prior to state load
         searchResults: function($stateParams, SearchService){
@@ -36,7 +38,7 @@
             queryTerm = "";
           }
           var searchOpts = {
-            q: queryTerm,
+            q: $stateParams.q,
             size: parseInt($stateParams.size),
             from: parseInt($stateParams.from)
           };
