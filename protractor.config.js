@@ -8,18 +8,13 @@ exports.config = {
   ],
 
   multiCapabilities: [
-    {
-    'browserName': 'chrome'
-    }
-    //}, 
-    //{
-    //'browserName': 'firefox'
-    //}
+    {'browserName': 'chrome'},
+    {'browserName': 'firefox'}
   ],
 
   maxInstances: 1,
 
-  chromeOnly: true,
+  //chromeOnly: true,
 
   baseUrl: 'http://local.portal.dev:8000/',
 
