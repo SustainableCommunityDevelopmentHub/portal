@@ -4,18 +4,17 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    'app/**/*e2e.spec.js'
+    'src/client/app/**/*e2e.spec.js'
   ],
 
-  multiCapabilities: [{
-    'browserName': 'chrome'
-  }, {
-    'browserName': 'firefox'
-  }],
+  multiCapabilities: [
+    {'browserName': 'chrome'},
+    {'browserName': 'firefox'}
+  ],
 
   maxSessions: 1,
 
-  chromeOnly: true,
+  //chromeOnly: true,
 
   baseUrl: 'http://local.portal.dev:8000/',
 
