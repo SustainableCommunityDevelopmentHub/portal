@@ -3,7 +3,7 @@
 
   angular
   .module('app')
-  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', function($stateProvider, $urlRouterProvider, $locationProvider, config){
     // redirect to home by default
     $urlRouterProvider.otherwise('/');
 
@@ -12,23 +12,23 @@
     // abstract state used to load other search states
     .state('home', {
       url: '/',
-      templateUrl: 'search/search.home.html',
+      templateUrl: config.app.root + '/search/search.home.html',
       controller: 'HomePageCtrl'
     })
 
     .state('searchResults', {
       url: '/search?q&from&size',
       controller: 'SearchCtrl',
-      templateUrl: 'search/search.results.html',
+      templateUrl: config.app.root + '/search/search.results.html',
       resolve: {
         // run search and load resulting promise into controller prior to state load
         searchResults: function($stateParams, SearchService){
           console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
 
-          // NOTE: SearchService.opts should always have current opts prior to this step, making below redundant.
-          //       May remove later, choosing to keep for now. 12-20-15
-
-          // do this to separate $stateParam prop names from searchOpts prop names
+          // NOTE: We must pull search opts from stateParams to handle case
+          //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10 
+          //       into address bar. In this case, SearchService has no opts
+          //       and stateParams will grab opts vals from the URL.
           var searchOpts = {
             q: $stateParams.q,
             size: parseInt($stateParams.size),
@@ -42,19 +42,19 @@
 
     .state('books', {
       url: '/books/:bookID',
-      templateUrl: 'partials/book-detail.html',
+      templateUrl: config.app.root + '/partials/book-detail.html',
       controller: 'BookDetailCtrl'
     })
 
     .state('advanced', {
       url: '/advanced',
-      templateUrl: 'partials/advanced.html',
+      templateUrl: config.app.root + '/partials/advanced.html',
       controller: 'AdvancedCtrl'
     })
 
     .state('contributors', {
       url: '/contributors',
-      templateUrl: 'contributors/contributors.html',
+      templateUrl: config.app.root + '/contributors/contributors.html',
       controller: 'ContributorsCtrl',
       resolve: {
 
@@ -68,19 +68,19 @@
 
     .state('feedback', {
       url: '/feedback',
-      templateUrl: 'partials/feedback.html',
+      templateUrl: config.app.root + '/partials/feedback.html',
       controller: 'FeedbackFormCtrl'
     })
 
     .state('help', {
       url: '/help',
-      templateUrl: 'partials/help.html',
+      templateUrl: config.app.root + '/partials/help.html',
       controller: 'SearchHelpCtrl'
     })
 
     .state('faq', {
       url: '/faq',
-      templateUrl: 'partials/faqs.html',
+      templateUrl: config.app.root + '/partials/faqs.html',
       controller: 'FaqsCtrl'
     });
 

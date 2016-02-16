@@ -7,6 +7,9 @@
           host: 'local.portal.dev',
           port: '9200',
           apiVersion: '2.0'
+        },
+        app: {
+          root: 'app'
         }
     })
     .constant('FACETS', {

@@ -5,12 +5,13 @@
   .module('app.contributors')
   .controller('ContributorsCtrl', ['$scope', '$state', 'DataService', 'SearchService', ContributorsCtrl]);
 
-    function ContributorsCtrl($scope, $state, DataService, SearchService) {
+  function ContributorsCtrl($scope, $state, DataService, SearchService) {
 
-      $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+      if(toState.controller === 'ContributorsCtrl'){
         DataService.getContributors()
           .then(function(contribResults){
+
             console.log('ContribCtrl....state change success. DataService.contribResults: ' + JSON.stringify(contribResults));
 
             $scope.institutions = contribResults.aggregations.grp_contributor.buckets;
@@ -23,10 +24,13 @@
               // convention is to always pass SearchService.opts
               SearchService.updateOpts(opts);
               console.log('~~~contribSearch! opts: ' + JSON.stringify(opts));
+
               $state.go('searchResults', SearchService.opts);
-    };
+            };
 
           });
-      });
-    }
+      }
+    });
+
+  }
 })();

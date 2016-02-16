@@ -12,29 +12,29 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/bower_components/jquery/dist/jquery.js',
-      'app/bower_components/lodash/lodash.js',
+      'src/client/bower_components/jquery/dist/jquery.js',
+      'src/client/bower_components/lodash/lodash.js',
 
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'app/bower_components/angular-resource/angular-resource.js',
-      'app/bower_components/elasticsearch/elasticsearch.angular.js',
-      'app/bower_components/angular-animate/angular-animate.js',
-      'app/bower_components/angularUtils-pagination/dirPagination.js',
-      'app/bower_components/angular-print/angularPrint.js',
-      'app/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'src/client/bower_components/angular/angular.js',
+      'src/client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'src/client/bower_components/angular-resource/angular-resource.js',
+      'src/client/bower_components/elasticsearch/elasticsearch.angular.js',
+      'src/client/bower_components/angular-animate/angular-animate.js',
+      'src/client/bower_components/angularUtils-pagination/dirPagination.js',
+      'src/client/bower_components/angular-print/angularPrint.js',
+      'src/client/bower_components/angular-bootstrap/ui-bootstrap.js',
 
-      'app/bower_components/angular-mocks/angular-mocks.js',
+      'src/client/bower_components/angular-mocks/angular-mocks.js',
 
-      'app/*.module.js',
-      'app/**/*.module.js',
-      'app/*.js',
+      'src/client/app/*.module.js',
+      'src/client/app/**/*.module.js',
+      'src/client/app/*.js',
       // once we create a 'src' dir to hold this, can simplify below to...
       //..'app/src/*.js' -- currently we must avoid loading certain bower_component .js files
-      'app/search/*.js',
-      'app/core/*.js',
-      'app/widgets/*.js',
-      'app/contributors/*.js',
+      'src/client/app/search/*.js',
+      'src/client/app/core/*.js',
+      'src/client/app/widgets/*.js',
+      'src/client/app/contributors/*.js',
 
       // helpers for jasmine, etc
       'test/mockData.js'
@@ -42,7 +42,7 @@ module.exports = function(config) {
 
 
     // list of files to exclude
-    exclude: ['app/**/*.e2e.spec.js'],
+    exclude: ['src/client/app/**/*.e2e.spec.js'],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
