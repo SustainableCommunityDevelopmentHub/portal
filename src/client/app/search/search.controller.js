@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService){
+  function SearchCtrl($scope, $state, SearchService, SORT_MODES){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -15,17 +15,16 @@
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       if(toState.controller === 'SearchCtrl'){
         ss.returnedPromise
-          .then(function(results){
-            console.log('SearchCtrl....state change success. SearchService.opts: ' + JSON.stringify(ss.opts));
-            //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(results, null, 2));
+          .then(function(response){
+            console.log('SearchCtrl -- $stateChangeSuccess. SearchService.opts: ' + JSON.stringify(ss.opts));
+            //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(response, null, 2));
 
             /////////////////////////////////////////////////////////
             // once search result promise is resolved,
             // update SearchService and scope
             /////////////////////////////////////////////////////////
 
-            // set search result data. must do here b/c of promise
-            var searchResults = ss.setResultsData(results);
+            var searchResults = ss.setResultsData(response);
             $scope.hits = searchResults.hits;
             $scope.numTotalHits = searchResults.numTotalHits;
             $scope.facets = searchResults.facets;
@@ -49,8 +48,8 @@
               $scope.sort = "Relevance";
             }
 
-            console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
-            console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
+            console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
+            console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
             $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
 
             if(ss.opts.facets){
@@ -68,32 +67,7 @@
     //Variables
     /////////////////////////////////
     $scope.allPageSizeOptions = [10,25,50,100];
-    $scope.validSortModes = {
-      relevance : {
-        display: "Relevance",
-        mode: "relevance"
-      },
-      dateAdded : {
-        display: "Newly Added First",
-        mode: "date_added"
-      },
-      titleAZ : {
-        display: "Title: A-Z",
-        mode: "title_asc"
-      },
-      titleZA : {
-        display: "Title: Z-A",
-        mode: "title_desc"
-      },
-      dateAscend : {
-        display: "Date (ascending)",
-        mode: "date_asc"
-      },
-      dateDesc : {
-        display: "Date (descending)",
-        mode: "date_desc"
-      }
-    };
+    $scope.validSortModes = SORT_MODES;
 
 
     ///////////////////////////
@@ -119,8 +93,8 @@
     function updateSearch(opts) {
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
-      console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
-      console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
+      console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
+      console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
       $state.go('searchResults', ss.opts, {reload: true});
     }
 
@@ -251,4 +225,3 @@
   }
 
 })();
-
