@@ -31,5 +31,10 @@ describe('Search Results', function() {
   
   });
 
+  it('should display pagination at top of page', function () {
+    searchBtn.click();
+    var paginationBarTop = $('.results-pagination-top');
+    expect(paginationBarTop.isDisplayed()).toBeTruthy();
+  });
 
 });
