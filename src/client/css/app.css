@@ -346,6 +346,14 @@ a:hover {
   margin-bottom: 50px;
 }
 
+.results-top {
+  width: 100%;
+}
+
+.pagination {
+  margin: 0;
+}
+
 .results-pagination {
   font-size: .8em;
   display: block;
@@ -353,6 +361,13 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.results-pagination-top {
+  font-size: .8em;
+  display: inline-block;
+  float: right;
+  margin-top: 10px;
 }
 
 .left-sidebar {
