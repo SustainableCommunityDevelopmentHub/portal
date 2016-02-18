@@ -1,0 +1,35 @@
+<div class="getty-portal-app">
+<div class="item-page">
+<div class="item-details">
+<hr class="sr-top">
+<h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
+<div class="rec-options">
+<a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
+<a class="remove-rec" ui-sref="/">Remove Record</a>
+
+<ul class="view-export-print">
+  <li><a href="home" ng-click="redirect()">View Digital Item</a></li>
+  <li class="dropdown">
+  <a href="#" id="exportBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
+    <ul class="dropdown-menu export-dropdown">
+        <li><a href="#">RIS</a></li>
+        <li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
+    </ul>
+  </li>
+  <li><a print-btn>Print</a></li>
+</ul>
+</div>
+<h4 class="detail-begin">Details</h4>
+<hr class="sr-top">
+<ul print-section class="specs" ng-repeat="(key, field) in book._source.dublin_core">
+  <li class="book-field-key"><b>{{key | uppercase}}</b>
+    <ul class="specs" ng-repeat="entry in field">
+      <li class="book-field-val">{{entry.value}}</li>
+    </ul>
+  </li>
+</ul>
+<h5>Question about this record?</h5>
+<input type="submit" id="emailGRI" value="Email the GRI" />
+</div>
+</div>
+<div ng-app="app" class="app">
