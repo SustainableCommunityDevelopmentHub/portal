@@ -67,11 +67,23 @@
         console.log('esQueryBuilder.buildSortQuery.....opts.sort:' + opts.sort);
       }
 
+      /**
+       * If there are filters from advanced search in opts, create filter objects.
+       * Then add them to the query object
+       */
+      if (opts.filters) {
+        var filterQuery = [];
+        opts.filters.forEach(function(filter){
+          var query = {match_phrase: {}};
+          query.match_phrase[filter.key] = filter.term;
+          filterQuery.push(query);
+        });
+        fullQuery.body.query.filtered.filter.bool.filter = filterQuery;
+      };
+      
       // build filters for faceted search
       if(opts.facets.length){
         console.log('....Facet filters detected!');
-        // build structure to place multiple nested filters in
-        fullQuery.body.query.filtered.filter = { bool: { must: [] } };
 
         // container for facet categories
         // Normally we would refactor this to use FACETS. But all this logic will be moved server-side..
@@ -102,7 +114,6 @@
             options:[]
           }
         };
-
         // collect facets by category
         opts.facets.forEach(function(facet){
           console.log('...Adding filter on facet: ' + JSON.stringify(facet));
@@ -174,6 +185,12 @@
           "query": {
             "filtered": {
               "query": {
+              },
+              "filter": {
+                "bool": {
+                  "must": [],
+                  "filter": []
+                }
               }
             }
           },
@@ -247,8 +264,6 @@
             sortQuery = {"_title_display.sort": {"order": "desc"}};
             break;
         }
-
-      console.log(sortQuery);
       return sortQuery;
     }
 

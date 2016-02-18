@@ -48,8 +48,8 @@
 
     .state('advanced', {
       url: '/advanced',
-      templateUrl: config.app.root + '/partials/advanced.html',
-      controller: 'AdvancedCtrl'
+      templateUrl: config.app.root + '/advanced_search/advanced-search.html',
+      controller: 'AdvancedSearchCtrl'
     })
 
     .state('contributors', {
