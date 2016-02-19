@@ -27,8 +27,8 @@ describe('Book Detail', function() {
   it('should return an item page', function() {
     element.all(by.repeater('(key, field) in book._source.dublin_core')).then(function(posts) {
       expect(posts.length).toEqual(12);
-      var titleElement = posts[11].$('.book-field-val');
-      var dateElement = posts[3].$('.book-field-val');
+      var titleElement = posts[3].$('.book-field-val');
+      var dateElement = posts[5].$('.book-field-val');
       expect(titleElement.getText()).toEqual('La Chronique des arts et de la curiosité : supplément à la Gazette des beaux-arts');
       expect(dateElement.getText()).toEqual('1896-11-21');
     });
