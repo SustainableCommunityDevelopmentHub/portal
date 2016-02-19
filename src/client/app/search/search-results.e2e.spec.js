@@ -26,7 +26,7 @@ describe('Search Results', function() {
     var numAllResults;
     $('.showing').evaluate('numTotalHits').then(function(value) {
       numAllResults = value;
-      expect(numAllResults).toEqual(446);
+      expect(numAllResults).toEqual(452);
     });
   
   });
