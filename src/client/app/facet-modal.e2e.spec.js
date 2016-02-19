@@ -3,7 +3,6 @@ describe("Facet Modal", function(){
   var testQuery = "painting";
 
   beforeEach(function() {
-    console.log("FACET MODAL TESTS");
     browser.get('');
     element(by.model('queryTerm')).sendKeys(testQuery);
     searchBtn.click();
