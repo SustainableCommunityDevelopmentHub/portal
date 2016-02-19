@@ -5,8 +5,7 @@
   .module('app')
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', function($stateProvider, $urlRouterProvider, $locationProvider, config){
     // redirect to home by default
-    $urlRouterProvider.otherwise('/');
-    
+    $urlRouterProvider.otherwise('/');    
 
     // assign states to urls
     $stateProvider
@@ -20,7 +19,6 @@
     .state('searchResults', {
       url: '/search?q&from&size',
       controller: 'SearchCtrl',
-
       templateUrl: config.app.root + '/search/search.results.html',
       resolve: {
         // run search and load resulting promise into controller prior to state load
