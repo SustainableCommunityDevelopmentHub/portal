@@ -71,11 +71,11 @@
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
-      if (opts.filters) {
+      if (opts.advancedFields) {
         var filterQuery = [];
-        opts.filters.forEach(function(filter){
+        opts.advancedFields.forEach(function(item){
           var query = {match_phrase: {}};
-          query.match_phrase[filter.key] = filter.term;
+          query.match_phrase[item.field.searchKey] = item.term;
           filterQuery.push(query);
         });
         fullQuery.body.query.filtered.filter.bool.filter = filterQuery;

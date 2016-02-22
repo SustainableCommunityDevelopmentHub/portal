@@ -30,6 +30,7 @@
             $scope.numTotalHits = searchResults.numTotalHits;
             $scope.facets = searchResults.facets;
             $scope.activeFacets = ss.opts.facets || [];
+            $scope.advancedFields = ss.opts.advancedFields || [];
 
             //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
             //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
@@ -242,6 +243,17 @@
       //Setting page num to 1 to reset pagination
       updateSearch({facets: $scope.activeFacets, page: 1, from: 0});
     };
+
+    /**
+     * Removes field from search filters and reruns search.
+     * For fields from Advanced Search only.
+     * @param field {object} field to remove
+     */
+    $scope.clearAdvancedField = function(field) {
+      var index = $scope.advancedFields.indexOf(field);
+      $scope.advancedFields.splice(index, 1);
+      updateSearch({advancedFields: $scope.advancedFields, page: 1, from: 0});
+    }
 
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();

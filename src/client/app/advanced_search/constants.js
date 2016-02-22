@@ -23,6 +23,10 @@
         display: 'Subject',
         searchKey: '_subject_facets'
       },
+      title: {
+        display: 'Title',
+        searchKey: '_title_display'
+      },
       type: {
         display: 'Type',
         searchKey: '_grp_type.advanced'

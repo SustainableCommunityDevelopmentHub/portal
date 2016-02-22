@@ -102,6 +102,9 @@
         <li ng-repeat="activeFacet in activeFacets">
           <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  {{activeFacet.option}}</a>
         </li>
+        <li ng-repeat="advancedField in advancedFields">
+          <a ng-click="clearAdvancedField(advancedField)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span> {{ advancedField.term }} (Keyword: {{ advancedField.field.display }}) </a>
+        </li>
       </ul>
     </div>
     <div class="dropdown results-top" uib-dropdown>

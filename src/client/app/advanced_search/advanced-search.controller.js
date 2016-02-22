@@ -25,6 +25,7 @@
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
+          ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.type
         ];
     })
@@ -61,17 +62,17 @@
     function search() {
       var opts = {
         q: "",
-        filters: []
+        advancedFields: []
       };
       $scope.filters.forEach(function(filter){
         if(filter.text && filter.field !== initialField){
-          var f = {key: filter.field.searchKey, term: filter.text};
-          opts.filters.push(f);
+          var f = {field: filter.field, term: filter.text};
+          opts.advancedFields.push(f);
         };
       });
       opts.q = $scope.queryTerm;
-      searchService.updateSearch(opts);
-      $state.go('searchResults', searchService.opts, {reload: true});
+      searchService.updateOpts(opts);
+      $state.go('searchResults', searchService.opts);
     };
   };
 })();
