@@ -26,9 +26,17 @@ describe('Search Results', function() {
     var numAllResults;
     $('.showing').evaluate('numTotalHits').then(function(value) {
       numAllResults = value;
-      expect(numAllResults).toEqual(446);
+      expect(numAllResults).toEqual(452);
     });
   
+  });
+
+  it('should show decoded urls in search bar', function() {
+    var urlQuery = "http://www.getty.edu/research/";
+    element(by.model('queryTerm')).sendKeys(urlQuery);
+    searchBtn.click();
+    var searchBarText = element(by.css('.search-input')).getAttribute('value');
+    expect(searchBarText).toEqual(urlQuery);
   });
 
   it('should display pagination at top of page', function () {
