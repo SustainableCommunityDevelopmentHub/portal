@@ -73,7 +73,6 @@
       console.log('SearchService.updateSearch()...........merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = search(this.opts);
       console.log('SearchService.updateSearch() returnedPromise: ' + JSON.stringify(this.returnedPromise));
-      
       return this.returnedPromise;
     };
 
