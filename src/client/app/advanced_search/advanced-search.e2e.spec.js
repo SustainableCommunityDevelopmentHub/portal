@@ -29,9 +29,6 @@ describe("Advanced Search", function(){
     element.all(by.css('.sf-input')).get(1).sendKeys("1907");
     element(by.buttonText('Search')).click();
 
-    var searchBtn = element(by.buttonText('Search'));
-    
-
     $('.book-listing').evaluate('hits').then(function(hits) {
       var resultsMatch = true;
       hits.forEach(function(hit){
@@ -63,5 +60,21 @@ describe("Advanced Search", function(){
     });
 
   });
+
+  it("should display clearable facet chips for advanced fields on search results page", function(){
+    element(by.model('queryTerm')).sendKeys(testQuery);
+    element.all(by.css('.filter-dropdown')).get(0).click();
+    element(by.linkText('Contributed by')).click();
+    element.all(by.css('.sf-input')).get(0).sendKeys("Getty");
+    element(by.buttonText('Search')).click();
+
+    var getty = element(by.css(".facet ul li a"));
+    expect(getty).toBeDefined();
+    getty.click();
+
+    $('.showing').evaluate('numTotalHits').then(function(value) {
+      expect(value).toEqual(309);
+    });
+  })
 
 });

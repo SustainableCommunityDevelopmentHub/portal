@@ -27,10 +27,11 @@ describe("Advanced Search", function(){
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
+          ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.type
         ];
     scope.filters = [{field: {}, text: "", lastFilter: ""}];
-    spyOn(searchService, 'updateSearch');
+    spyOn(searchService, 'updateOpts');
   }));
 
   it("should add a new filter object when you call addFilter()", function(){
@@ -55,9 +56,9 @@ describe("Advanced Search", function(){
     scope.search();
     var opts = {
       q: "",
-      filters: []
+      advancedFields: []
     };
-    expect(searchService.updateSearch).toHaveBeenCalledWith(opts);
+    expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
   });
 
   it("should add query term to search options", function(){
@@ -66,9 +67,9 @@ describe("Advanced Search", function(){
     scope.search();
     var opts = {
       q: scope.queryTerm,
-      filters: []
+      advancedFields: []
     };
-    expect(searchService.updateSearch).toHaveBeenCalledWith(opts);
+    expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
   });
 
   it("should add filters to search options", function(){
@@ -79,8 +80,8 @@ describe("Advanced Search", function(){
     scope.search();
     var opts = {
       q: scope.queryTerm,
-      filters: [{key: filter.field.searchKey, term: filter.text}]
+      advancedFields: [{field: filter.field, term: filter.text}]
     };
-    expect(searchService.updateSearch).toHaveBeenCalledWith(opts);
+    expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
   })
 });
