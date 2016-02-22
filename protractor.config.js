@@ -4,7 +4,8 @@ exports.config = {
   rootElement: '.app',
 
   specs: [
-    'src/client/app/**/*e2e.spec.js'
+    'src/client/app/**/*e2e.spec.js',
+    'src/client/app/*e2e.spec.js'
   ],
 
   multiCapabilities: [
