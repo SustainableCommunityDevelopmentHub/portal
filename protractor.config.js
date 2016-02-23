@@ -7,9 +7,13 @@ exports.config = {
     'src/client/app/**/*e2e.spec.js'
   ],
 
+  exclude: [
+    'src/client/app/partials/book-detail.e2e.spec.js'
+  ],
+
   multiCapabilities: [
-    {'browserName': 'chrome'},
-    {'browserName': 'firefox'}
+    {'browserName': 'chrome'}
+    //{'browserName': 'firefox'}
   ],
 
   maxInstances: 1,
@@ -26,6 +30,9 @@ exports.config = {
   },
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 45000
+    defaultTimeoutInterval: 45000,
+    showColors: true,
+    isVerbose: true,
+    realTimeFailure: true
   }
 };

@@ -9,7 +9,7 @@ describe("Search Controller", function(){
     module('app');
     module('app.search');
   });
-  
+
   beforeEach(inject(function($rootScope, $controller, _$state_, SearchService){
     $state = _$state_;
     scope = $rootScope.$new();
@@ -32,7 +32,7 @@ describe("Search Controller", function(){
         size: 25,
         from: 0
       };
-      
+
       scope.setPageSize(50);
       expect(searchService.updateOpts).toHaveBeenCalledWith({size: 50, page: 1});
     });
@@ -61,7 +61,7 @@ describe("Search Controller", function(){
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
       searchService.opts = {
-        page: 2, 
+        page: 2,
         size: 25,
         from: 10
       };
@@ -71,7 +71,7 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going to next page", function(){
       searchService.opts = {
-        page: 2, 
+        page: 2,
         size: 50,
         from: 50
       };
@@ -81,7 +81,7 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going back a page", function(){
       searchService.opts = {
-        page: 3, 
+        page: 3,
         size: 50,
         from: 100
       };
@@ -89,10 +89,10 @@ describe("Search Controller", function(){
       expect(searchService.updateOpts).toHaveBeenCalledWith({from: 50, page: 2});
 
     });
-    
+
     it("should set opts correctly when going to first page", function(){
       searchService.opts = {
-        page: 4, 
+        page: 4,
         size: 25,
         from: 75
       };
@@ -101,12 +101,31 @@ describe("Search Controller", function(){
     });
   });
 
-describe("Updating facets", function(){
-  it("should set page number to 1 when adding a facet", function(){
-    var testFacet = {"facet":"type","option":"Text","count":249,"active":true,"$$hashKey":"object:155"};
-    var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
-    scope.updateFacet(testFacet, true);
-    expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-  })
-})
+  describe("Updating facets", function(){
+    it("should set opts correctly when adding a facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+    });
+
+    it("should set page number to 1 when adding a facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      scope.updateFacet(testFacet, true);
+      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+    });
+
+    it("should set opts correctly when adding a second facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var secondFacet = {"facet":"type","option":"Image","count":249,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      scope.updateFacet(secondFacet, true);
+      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+    });
+
+  });
 });
