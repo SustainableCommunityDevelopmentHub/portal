@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, searchService, controller;
+  var scope, searchService, controller, ADVANCED_SEARCH;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,11 +10,12 @@ describe("Search Controller", function(){
     module('app.search');
   });
   
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, SearchService){
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
     scope.activeFacets = [];
+    ADVANCED_SEARCH = _ADVANCED_SEARCH_;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -101,12 +102,20 @@ describe("Search Controller", function(){
     });
   });
 
-describe("Updating facets", function(){
-  it("should set page number to 1 when adding a facet", function(){
-    var testFacet = {"facet":"type","option":"Text","count":249,"active":true,"$$hashKey":"object:155"};
-    var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
-    scope.updateFacet(testFacet, true);
-    expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-  })
-})
+  describe("Updating facets", function(){
+    it("should set page number to 1 when adding a facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,"$$hashKey":"object:155"};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      scope.updateFacet(testFacet, true);
+      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+    });
+
+    it("should clear advanced field facets correctly", function(){
+      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
+      scope.advancedFields = [gettyField, dateField];
+      scope.clearAdvancedField(gettyField);
+      expect(scope.advancedFields).toEqual([dateField]);
+    })
+  });
 });
