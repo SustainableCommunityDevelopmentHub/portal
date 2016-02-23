@@ -133,7 +133,7 @@ describe("Sorting tests", function() {
     it("builds correct elasticsearch query for publication date ascending", function() {
       opts.sort = scope.validSortModes.dateAscend;
       var dateAscQuery = baseESQuery;
-      dateAscQuery.body.sort = "_date_display";
+      dateAscQuery.body.sort = "_date_facet";
 
       data.search(opts);
       expect(es.search).toHaveBeenCalledWith(dateAscQuery);
@@ -142,7 +142,7 @@ describe("Sorting tests", function() {
     it("builds correct elasticsearch query for publication date descending", function(){
       opts.sort = scope.validSortModes.dateDesc;
       var dateDescQuery = baseESQuery;
-      dateDescQuery.body.sort = { "_date_display": {"order": "desc"}};
+      dateDescQuery.body.sort = { "_date_facet": {"order": "desc"}};
 
       data.search(opts);
       expect(es.search).toHaveBeenCalledWith(dateDescQuery)
