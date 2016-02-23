@@ -45,4 +45,32 @@ describe('Search Results', function() {
     expect(paginationBarTop.isDisplayed()).toBeTruthy();
   });
 
+  it('should display active facets in sidebar', function(){
+    element(by.model('queryTerm')).sendKeys(testQuery);
+    searchBtn.click();
+    element.all(by.css(".left_sidebar_accordion__tab")).get(1).click();
+    element(by.id("Catalogs-sidebar")).click();
+    var clickedFacet = element(by.id("Catalogs-sidebar"));
+    expect(clickedFacet).toBeDefined();
+    expect(clickedFacet.getAttribute("value")).toEqual("on");
+  });
+
+  it('should clear facets when you uncheck them in sidebar', function(){
+    element(by.model('queryTerm')).sendKeys(testQuery);
+    searchBtn.click();
+    var numResults;
+    $('.showing').evaluate('numTotalHits').then(function(value) {
+      numResults = value;
+    });
+    element.all(by.css(".left_sidebar_accordion__tab")).get(1).click();
+    element(by.id("Catalogs-sidebar")).click();
+    $('.showing').evaluate('numTotalHits').then(function(value) {
+      expect(value).toBeLessThan(numResults);
+    });
+
+    element(by.id("Catalogs-sidebar")).click();
+    $('.showing').evaluate('numTotalHits').then(function(value) {
+      expect(value).toBe(numResults);
+    });
+  });
 });

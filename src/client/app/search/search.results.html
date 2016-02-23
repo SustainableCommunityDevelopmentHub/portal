@@ -14,13 +14,13 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
         <div ng-repeat="facet in facets.type | filter:{active:true}" >
-          <input type="checkbox" id="{{ facet.option }}" class="facet-checkboxes" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" >
-          <input class="facet-checboxes" type="checkbox" id="{{ facet.option }}" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-controller="FacetModalCtrl">
@@ -36,13 +36,13 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('subject')">
         <div ng-repeat="facet in facets.subject | filter:{active:true}" >
-          <input type="checkbox" id="{{ facet.option }}" class="facet-checkboxes" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
-          <input class="facet-checboxes" type="checkbox" id="{{ facet.option }}" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-controller="FacetModalCtrl">
@@ -58,13 +58,13 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('creator')">
         <div ng-repeat="facet in facets.creator | filter:{active:true}" >
-          <input type="checkbox" id="{{ facet.option }}" class="facet-checkboxes" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
-          <input class="facet-checboxes" type="checkbox" id="{{ facet.option }}" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-controller="FacetModalCtrl">
@@ -80,13 +80,13 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('language')">
         <div ng-repeat="facet in facets.language | filter:{active:true}" >
-          <input type="checkbox" id="{{ facet.option }}" class="facet-checkboxes" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
-          <input class="facet-checboxes" type="checkbox" id="{{ facet.option }}" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-controller="FacetModalCtrl">
@@ -102,13 +102,13 @@
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributor')">
         <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
-          <input type="checkbox" id="{{ facet.option }}" class="facet-checkboxes" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
-          <input class="facet-checboxes" type="checkbox" id="{{ facet.option }}" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-          <label for="{{ facet.option }}" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
           </label>
         </div>
         <div ng-controller="FacetModalCtrl">
