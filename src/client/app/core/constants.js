@@ -66,12 +66,18 @@
         dateAscend : {
           display: "Date (ascending)",
           mode: "date_asc",
-          sortQuery: "_date_display"
+          sortQuery: "_date_facet"
         },
         dateDesc : {
           display: "Date (descending)",
           mode: "date_desc",
-          sortQuery: { "_date_display": {"order": "desc"}}
+          sortQuery: { "_date_facet": {"order": "desc"}}
         }
+    })
+    .constant('DEFAULTS', {
+      search: {
+        size: 25,
+        from: 0
+      }
     });
 })();

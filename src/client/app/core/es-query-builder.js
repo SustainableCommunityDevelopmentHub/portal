@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('esQueryBuilder', [esQueryBuilder]);
+  .factory('esQueryBuilder', ['DEFAULTS', esQueryBuilder]);
 
   /* Functions to build various ES Queries */
-  function esQueryBuilder() {
+  function esQueryBuilder(DEFAULTS) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -43,6 +43,10 @@
      * @param {object} opts Search opts - see SearchService for object definition
      */
     function buildSearchQuery(opts){
+      // set defaults
+      opts.size = opts.size || DEFAULTS.search.size;
+      opts.from = opts.from || DEFAULTS.search.from;
+
       var fullQuery = {
         index: 'portal',
         type: 'book',
@@ -71,8 +75,22 @@
         console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
       }
 
+      /**
+       * If there are filters from advanced search in opts, create filter objects.
+       * Then add them to the query object
+       */
+      if (opts.advancedFields) {
+        var filterQuery = [];
+        opts.advancedFields.forEach(function(item){
+          var query = {match_phrase: {}};
+          query.match_phrase[item.field.searchKey] = item.term;
+          filterQuery.push(query);
+        });
+        fullQuery.body.query.filtered.filter.bool.filter = filterQuery;
+      }
+
       // build filters for search query.
-      if(opts.facets.length){
+      if(opts.facets && opts.facets.length){
         fullQuery.body.query.filtered.filter = { bool: { must: [] } };
 
         // container for facet categories
@@ -130,15 +148,11 @@
           facetCategoriesArr.forEach(function(otherFacetCategory){
             console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
             if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.options.length){
-              console.log('IN IF - fullQuery : ' +JSON.stringify(fullQuery));
-              console.log('IN IF - aggFilter : ' +JSON.stringify(aggFilter));
               // ES throws err if aggFilter.bool.must[] is empty
               if(!aggFilter.bool || !aggFilter.bool.must){
-                console.log('INNER IF - fullquery: ');
                 aggFilter.bool = { must: [] };
               }
 
-              console.log('ABOUT TO SINGELTERMS()');
               var singleTermFilters =
                 createSingleTermFilters(otherFacetCategory.key, otherFacetCategory.options);
 
@@ -215,8 +229,6 @@
      * @return {array} array of objects. each obj is elasticsearch query DSL object for a term filter
      */
     function createSingleTermFilters(key, filterVals){
-      console.log('!!!!!!!!!!!!key: ' + key + ' filterVals: ' + filterVals);
-      console.log('!!!!!!!!!!!!filterVals is array: ' + (filterVals instanceof Array));
       //var parsedFilterVals;
       //filterVals.forEach(function(val){
         //var filterObj = { term: {} };
@@ -224,10 +236,8 @@
 
       //})
       var filterObjsArr = filterVals.map(function(fVal){
-        console.log('!!!!!!!!!!!!!fVal: ' + fVal);
         var filterObj = { term: {} };
         filterObj.term[key] = fVal;
-        console.log('!!!!!!!!!!!!!createSingleTermFilters return obj: ' + JSON.stringify(filterObj));
         return filterObj;
       });
 
@@ -253,6 +263,12 @@
           "query": {
             "filtered": {
               "query": {
+              },
+              "filter": {
+                "bool": {
+                  "must": [],
+                  "filter": []
+                }
               }
             }
           },

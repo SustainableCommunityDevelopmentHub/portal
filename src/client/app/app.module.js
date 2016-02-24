@@ -1,5 +1,5 @@
 /* App Module */
-(function() {
+(function() { 
   'use strict';
 
   angular.module('app', [
@@ -9,6 +9,7 @@
     'app.widgets',
     'angularUtils.directives.dirPagination',
     'app.search',
+    'app.advanced-search',
     'app.controller',
     'app.contributors',
     'AngularPrint'

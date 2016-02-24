@@ -29,6 +29,7 @@
             $scope.numTotalHits = searchResults.numTotalHits;
             $scope.facets = searchResults.facets;
             $scope.activeFacets = ss.opts.facets || [];
+            $scope.advancedFields = ss.opts.advancedFields || [];
 
             //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
             //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
