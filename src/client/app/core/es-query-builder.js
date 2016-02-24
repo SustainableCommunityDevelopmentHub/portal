@@ -67,6 +67,15 @@
         console.log('esQueryBuilder.buildSortQuery.....opts.sort:' + opts.sort);
       }
 
+      if(opts.date){
+        var dateRange = buildRangeQuery(opts.date.gte, opts.date.lte);
+        if(dateRange) {
+          fullQuery.body.query.filtered
+          .filter.bool.must
+          .push(dateRange);
+        }
+      }
+
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
@@ -237,6 +246,19 @@
         termsFilter.terms[key] =  filterValuesArr;
         console.log('Created Term Filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
         return termsFilter;
+    }
+
+    function buildRangeQuery(fromDate, toDate) {
+      var dateRangeFilter = 
+      {
+        "range" : {
+          "_date_facet" : {
+            "gte" : fromDate,
+            "lte" : toDate
+          }
+        }
+      }
+      return dateRangeFilter;
     }
 
     /**
