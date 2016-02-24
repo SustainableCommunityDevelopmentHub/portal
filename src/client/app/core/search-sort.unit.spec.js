@@ -8,7 +8,55 @@ describe("Sorting tests", function() {
       opts,
       queryBuilder;
 
-  var baseESQuery = {"index":"portal","type":"book","size":25,"from":'0',"body":{"query":{"filtered":{"query":{"match_all":{}}}},"aggregations":{"creator":{"filter":{},"aggs":{"creator":{"terms":{"field":"_creator_facet.raw", "size":1000}}}},"language":{"filter":{},"aggs":{"language":{"terms":{"field":"_language", "size":1000}}}},"grp_contributor":{"filter":{},"aggs":{"grp_contributor":{"terms":{"field":"_grp_contributor.raw", "size":1000}}}},"subject":{"filter":{},"aggs":{"subject":{"terms":{"field":"_subject_facets.raw", "size":1000}}}},"type":{"filter":{},"aggs":{"type":{"terms":{"field":"_grp_type.raw", "size": 1000}}}}}}};
+  var baseESQuery = {
+    "index":"portal",
+    "type":"book",
+    "size":25,
+    "from":"0",
+    "body":{
+      "query":{
+        "filtered":{
+          "query":{
+            "match_all":{}
+          },
+          "filter": {
+            "bool": {
+              "must": [],
+              "filter": []
+            }
+          }
+        }
+      },
+      "aggregations":{
+        "creator":{
+            "terms":{
+              "field":"_creator_facet.raw"
+            }
+          },
+          "language":{
+            "terms":{
+              "field":"_language"
+            }
+          },
+          "grp_contributor":{
+            "terms":{
+              "field":"_grp_contributor.raw"
+            }
+          },
+          "subject":{
+            "terms":{
+              "field":"_subject_facets.raw"
+            }
+          },
+          "type":{
+            "terms":{
+              "field":"_grp_type.raw"
+            }
+          }
+        }
+      }
+    
+  };
 
   beforeEach(function(){
     module('ui.router');
@@ -104,7 +152,7 @@ describe("Sorting tests", function() {
     it("builds correct elasticsearch query for publication date descending", function(){
       opts.sort = scope.validSortModes.dateDesc;
       var dateDescQuery = baseESQuery;
-      dateDescQuery.body.sort = sortModes.dateDesc.sortQuery;
+      dateDescQuery.body.sort = { "_date_facet": {"order": "desc"}};
 
       data.search(opts);
       expect(queryBuilder.transformToMultiSearchQuery).toHaveBeenCalledWith(dateDescQuery);

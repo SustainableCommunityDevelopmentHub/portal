@@ -335,10 +335,10 @@
       var sortQuery;
       switch(sortMode) {
           case "date_asc":
-            sortQuery = "_date_display";
+            sortQuery = "_date_facet";
             break;
           case "date_desc":
-            sortQuery = { "_date_display": {"order": "desc"}};
+            sortQuery = { "_date_facet": {"order": "desc"}};
             break;
           case "date_added":
             sortQuery = {"_ingest_date": {"order": "desc"}};

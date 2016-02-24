@@ -24,7 +24,7 @@ describe('Sorting tests', function() {
        var dates = [];
        for(var i = 0; i < hits.length; i++){
          var book = hits[i];
-         var date = book._date_display;
+         var date = book._date_facet;
          if(date){
            dates.push(date);
          }
@@ -42,7 +42,7 @@ describe('Sorting tests', function() {
        var dates = [];
        for(var i = 0; i < hits.length; i++){
          var book = hits[i];
-         var date = book._date_display;
+         var date = book._date_facet;
          if(date){
            dates.push(date);
          }
