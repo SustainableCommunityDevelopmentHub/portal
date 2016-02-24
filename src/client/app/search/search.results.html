@@ -83,9 +83,9 @@
     </div>
     <hr class="left_sidebar_hr">
     <h5>Date range</h5>
-    <div class="date-range"><p>From:</p><input type="date"></div>
-      <div class="date-range"><p>To:</p><input type="date">
-        <button ng-click="search()" class="btn" type="button" id="go-btn-results">></button>
+    <div class="date-range"><p>From:</p><input ng-model="fromDate" maxlength="4" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div>
+      <div class="date-range"><p>To:</p><input ng-model="toDate" maxlength="4" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+        <button ng-click="setDateRange(fromDate, toDate)" class="btn" type="button" id="go-btn-results">></button>
       </div>
   </div>
 
