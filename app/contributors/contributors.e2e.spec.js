@@ -21,7 +21,7 @@ describe('Contributors Page', function() {
 			var contribName = contributors[0].$('.name-contrib');
 			var contribNum = contributors[3].$('.num-contrib');
 			expect(contribName.getText()).toEqual('Gallica - Bibliothèque nationale de France');
-			expect(contribNum.getText()).toEqual('83 Records');
+			expect(contribNum.getText()).toEqual('84 Records');
 		});
 	});
 
@@ -35,7 +35,7 @@ describe('Contributors Page', function() {
 			var numContribResults;
 			$('.showing').evaluate('numTotalHits').then(function(value) {
 				numContribResults = value;
-				expect(numContribResults).toEqual(43);
+				expect(numContribResults).toEqual(44);
 			});
 			element.all(by.repeater('activeFacet in activeFacets')).then(function(chips) {
 				expect(chips.length).toEqual(1);
