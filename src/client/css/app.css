@@ -583,6 +583,20 @@ a:hover {
   padding-right: 10px;
 }
 
+.facet-labels {
+  color: #337ab7;
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 4px;
+  overflow: auto;
+  display: inline;
+  line-height: 22px;
+}
+
+.facet-labels:hover {
+  text-decoration: underline;
+}
+
 /** Facet Modal **/
 
 

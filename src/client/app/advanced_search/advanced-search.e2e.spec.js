@@ -52,7 +52,7 @@ describe("Advanced Search", function(){
 
     var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(1);
     tab.click();
-    var facet = element(by.linkText("Art (35)"));
+    var facet = element(by.id("Art-sidebar"));
     facet.click();
 
     $('.showing').evaluate('numTotalHits').then(function(value) {

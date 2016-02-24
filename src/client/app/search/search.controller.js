@@ -245,6 +245,15 @@
     };
 
     /**
+     * Toggles facet.active status by calling updateFacet
+     * @param facet {object} Facet option object
+     */
+
+    $scope.toggleFacet = function(facet){
+      $scope.updateFacet(facet, !facet.active);
+    };
+
+    /**
      * Removes field from search filters and reruns search.
      * For fields from Advanced Search only.
      * @param field {object} field to remove

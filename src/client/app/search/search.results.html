@@ -13,8 +13,15 @@
         Type
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('type')">
-        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" class="checkbox">
-          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        <div ng-repeat="facet in facets.type | filter:{active:true}" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
+        </div>
+        <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
         </div>
         <div ng-controller="FacetModalCtrl">
           <a ng-click="openFacetModal(facets, 'type')" id="see-all-type">See All</a>
@@ -28,8 +35,15 @@
         Subject
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('subject')">
-        <div ng-repeat="facet in facets.subject | filter:{active:false} |  limitTo: 5" class="checkbox">
-          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        <div ng-repeat="facet in facets.subject | filter:{active:true}" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
+        </div>
+        <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
         </div>
         <div ng-controller="FacetModalCtrl">
         <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
@@ -43,8 +57,15 @@
         Creator
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('creator')">
-        <div ng-repeat="facet in facets.creator | filter:{active:false} |  limitTo: 5" class="checkbox">
-          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        <div ng-repeat="facet in facets.creator | filter:{active:true}" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
+        </div>
+        <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
         </div>
         <div ng-controller="FacetModalCtrl">
         <a ng-click="openFacetModal(facets, 'creator')">See All</a>
@@ -58,8 +79,15 @@
         Language
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('language')">
-        <div ng-repeat="facet in facets.language | filter:{active:false} |  limitTo: 5" class="checkbox">
-          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey;"></span>  {{facet.option}} ({{facet.count}})</a>
+        <div ng-repeat="facet in facets.language | filter:{active:true}" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
+        </div>
+        <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
         </div>
         <div ng-controller="FacetModalCtrl">
         <a ng-click="openFacetModal(facets, 'language')">See All</a>
@@ -73,8 +101,15 @@
         Contributing Institution
       </div>
       <div class="left_sidebar_accordion__tab-content" ng-show="isOpenTab('grp_contributor')">
-        <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} |  limitTo: 5" class="checkbox">
-          <a ng-click="updateFacet(facet, true)"><span class="glyphicon glyphicon-unchecked" style="color:grey"></span>  {{facet.option}} ({{facet.count}})</a>
+        <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
+        </div>
+        <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
+          <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+          <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+          </label>
         </div>
         <div ng-controller="FacetModalCtrl">
         <a ng-click="openFacetModal(facets, 'grp_contributor')">See All</a>
