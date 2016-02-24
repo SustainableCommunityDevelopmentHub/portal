@@ -73,10 +73,5 @@
           mode: "date_desc",
           sortQuery: { "_date_display": {"order": "desc"}}
         }
-    })
-    .constant('QUERY', {
-      agg: {
-        size: 1000
-      }
     });
 })();

@@ -217,6 +217,25 @@
       updateSearch({facets: $scope.activeFacets, page: 1, from: 0});
     };
 
+    $scope.toggleFacet = function(facet){
+      if (facet.active) {
+        $scope.updateFacet(facet, false);
+      } else {
+        $scope.updateFacet(facet, true);
+      }
+    };
+
+    /**
+     * Removes field from search filters and reruns search.
+     * For fields from Advanced Search only.
+     * @param field {object} field to remove
+     */
+    $scope.clearAdvancedField = function(field) {
+      var index = $scope.advancedFields.indexOf(field);
+      $scope.advancedFields.splice(index, 1);
+      updateSearch({advancedFields: $scope.advancedFields, page: 1, from: 0});
+    };
+
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
       updateSearch({facets: []});

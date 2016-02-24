@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('esQueryBuilder', ['QUERY', esQueryBuilder]);
+  .factory('esQueryBuilder', [esQueryBuilder]);
 
   /* Functions to build various ES Queries */
-  function esQueryBuilder(QUERY) {
+  function esQueryBuilder() {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -244,6 +244,9 @@
      * default query term is empty string.
      */
     function getBaseQuery(){
+      // see ES documentation on 'nested' data type (related to mapping) and 'nested' terms aggregation,
+      // and 'multi-fields' for more information on how the aggregations work.
+      // be sure to read documentation for correct version as there were significant changes from v1.x to v2.x
       var baseQuery =
         {
           // fulltext query across all fields - the "search term"

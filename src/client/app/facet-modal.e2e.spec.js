@@ -12,8 +12,6 @@ describe("Facet Modal", function(){
     var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(1);
     tab.click();
     var facet = element(by.linkText("Exhibitions (4)"));
-    var facetText = facet.getText();
-    facetText = "Exhibitions";
     facet.click();
 
     element(by.id("see-all-subject")).click();
@@ -22,16 +20,12 @@ describe("Facet Modal", function(){
     expect(modalFacet.getAttribute("value")).toEqual("on");
   });
 
+
   describe("tests launching modal from 'Type' category", function(){
     beforeEach(function(){
       var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(0);
       tab.click();
       element(by.id("see-all-type")).click();
-    });
-
-    it("should open the facet modal window when you click 'See All'", function(){
-      var modal = element(by.css(".modal-body"));
-      expect(modal.isDisplayed()).toBe(true);
     });
 
     it("should apply checked filters when you click 'Apply'", function(){

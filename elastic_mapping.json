@@ -7,7 +7,12 @@
       },
       "_language": {
         "type": "string",
-        "index": "not_analyzed"
+        "index": "not_analyzed",
+        "fields": {
+          "advanced": {
+            "type": "string"
+          }
+        }
       },
       "_grp_type": {
         "type": "string",
@@ -16,6 +21,9 @@
           "raw": {
             "type": "string",
             "index": "not_analyzed"
+          },
+          "advanced" :{
+            "type": "string"
           }
         }
       },

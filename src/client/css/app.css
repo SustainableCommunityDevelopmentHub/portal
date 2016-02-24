@@ -281,7 +281,7 @@ a:hover {
 .sf-input {
   height: 34px;
   margin-left: 5px;
-  width: 510px;
+  width: 470px;
 }
 
 .add-field-glyph {
@@ -295,6 +295,68 @@ a:hover {
 .adv-search-btn {
   margin-top: 200px;
   float: right;
+}
+
+.filter-input {
+  max-width: 600px;
+  margin-right: 0;
+}
+
+.filter-item input {
+  display: inline-block;
+}
+
+#filter-menu {
+  width: 120px;
+  margin-top: -12px;
+  font-size: 12px;
+  min-width: 120px;
+  border-radius: 0;
+  padding: 0;
+}
+
+#filter-menu > li > a {
+  padding: 7px 20px;
+  border-bottom: 1px solid #ddd
+
+}
+
+.filter-dropdown {
+  color: black;
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 0;
+  font-size: .8em;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 120px;
+  text-align: left;
+  white-space: normal;
+}
+
+.dropdown-text {
+  display: inline-block;
+}
+
+.dropdown-icon {
+  float: right;
+  display: inline-block;
+}
+
+.plus-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.search-btn {
+  border: 2px solid black;
+  border-radius: 2px;
+  padding: 10px 40px;
+  background-color: #fff;
+  float: right;
+  font-size: 12px;
 }
 
 
@@ -520,6 +582,29 @@ a:hover {
   list-style: none;
   padding-right: 10px;
 }
+
+.facet-checkboxes {
+  float: left;
+  margin-right: 10px;
+  float: left;
+
+}
+
+.facet-labels {
+  color: #337ab7;
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 4px;
+  overflow: auto;
+  display: inline;
+  line-height: 22px;
+
+}
+
+.facet-labels:hover {
+  text-decoration: underline;
+}
+
 
 /** Facet Modal **/
 
