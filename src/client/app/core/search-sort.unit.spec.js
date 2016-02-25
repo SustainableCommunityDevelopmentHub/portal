@@ -9,56 +9,6 @@ describe("Sorting tests", function() {
       queryBuilder,
       baseESQuery;
 
-  //var baseESQuery = {
-    //"index":"portal",
-    //"type":"book",
-    //"size":25,
-    //"from":"0",
-    //"body":{
-      //"query":{
-        //"filtered":{
-          //"query":{
-            //"match_all":{}
-          //},
-          //"filter": {
-            //"bool": {
-              //"must": [],
-              //"filter": []
-            //}
-          //}
-        //}
-      //},
-      //"aggregations":{
-        //"creator":{
-            //"terms":{
-              //"field":"_creator_facet.raw"
-            //}
-          //},
-          //"language":{
-            //"terms":{
-              //"field":"_language"
-            //}
-          //},
-          //"grp_contributor":{
-            //"terms":{
-              //"field":"_grp_contributor.raw"
-            //}
-          //},
-          //"subject":{
-            //"terms":{
-              //"field":"_subject_facets.raw"
-            //}
-          //},
-          //"type":{
-            //"terms":{
-              //"field":"_grp_type.raw"
-            //}
-          //}
-        //}
-      //}
-
-  //};
-
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
