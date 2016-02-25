@@ -34,16 +34,12 @@ describe('Contributors page tests', function() {
 
 	}));
 
-	it('exists', function() {
-		expect(controller).toBeDefined();
-	});
-
 	it('builds correct elasticsearch query for contributors', function(){
   	spyOn(esqb, 'buildContributorsQuery');
     dataService.getContributors();
     expect(esqb.buildContributorsQuery).toHaveBeenCalled();
     
-  });
+  	});
 
 	describe('Tests for building individual contributor queries', function() {
 
@@ -63,40 +59,6 @@ describe('Contributors page tests', function() {
 	    expect(searchService.updateOpts).toHaveBeenCalledWith({facets: [{facet: 'grp_contributor', option: 'Gallica - Bibliothèque nationale de France'}]});
 	  });
 
-	  /*it("adds sort object to SearchService's options", function(){
-	    scope.setSortMode(scope.validSortModes.titleAZ);
-	    expect(searchService.opts.sort).toBeDefined();
-	    expect(searchService.opts.sort).toEqual(scope.validSortModes.titleAZ);
-	  });*/
 	});
-
-
-	/*it("should call Search Service's update opts when calling contribSearch", function(){
-		scope.$broadcast('stateChangeSuccess');
-    	spyOn(searchService, 'updateOpts');
-    	scope.contribSearch(scope.institutions[0]);
-    	expect(searchService.updateOpts).toHaveBeenCalled();
-  	});*/
-
-	/*it('should define institutions', function() {
-		scope.$broadcast('$stateChangeSuccess');
-		var result;
-		dataService.getContributors().then(function(contribResults) {
-			result = contribResults;
-		});
-		//var institutions = scope.institutions;
-		//expect(institutions).toEqual(result.aggregations.grp_contributor.buckets);
-		expect(result).toBeDefined();
-	});*/
-	/*it("should call Data Service's get contributors upon state change", function(){
-		scope.$broadcast('$stateChangeSuccess');
-		//scope.$apply();
-		spyOn(dataService, 'getContributors');
-		expect(dataService.getContributors).toHaveBeenCalled();
-	});*/
-
-
-
-  
 
 });
