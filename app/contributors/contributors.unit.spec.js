@@ -1,4 +1,4 @@
-describe('ContributorsCtrl', function() {
+describe('Contributors page tests', function() {
 
 	var scope, controller, $state, searchService, dataService, es, esqb, mockInstitutions;
 
@@ -45,18 +45,22 @@ describe('ContributorsCtrl', function() {
     
   });
 
-	describe('Test for building individual contributor queries', function() {
+	describe('Tests for building individual contributor queries', function() {
 
 		beforeEach(function(){
 			mockInstitutions = contribResponse.aggregations.grp_contributor.buckets;
-			//scope.$broadcast('$stateChangeSuccess');
 		});
 
-		it("should call Search Service's update opts when calling contribSearch", function(){
+		it("should call Search Service's reset opts when calling contribSearch", function(){
+			spyOn(searchService, 'resetOpts');
+			scope.contribSearch({facets: [{facet: 'grp_contributor', option: mockInstitutions[0].key}]});
+			expect(searchService.resetOpts).toHaveBeenCalled();
+		})
 
+		it("should call Search Service's update opts when calling contribSearch", function(){
 		  spyOn(searchService, 'updateOpts');
 	    scope.contribSearch({facets: [{facet: 'grp_contributor', option: mockInstitutions[0].key}]});
-	    expect(searchService.updateOpts).toHaveBeenCalled();
+	    expect(searchService.updateOpts).toHaveBeenCalledWith({facets: [{facet: 'grp_contributor', option: 'Gallica - Bibliothèque nationale de France'}]});
 	  });
 
 	  /*it("adds sort object to SearchService's options", function(){
