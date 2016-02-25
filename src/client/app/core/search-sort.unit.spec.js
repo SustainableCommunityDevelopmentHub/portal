@@ -52,7 +52,7 @@ describe("Sorting tests", function() {
 
   describe("Tests for building elasticsearch sort queries", function(){
     beforeEach(function(){
-      opts = {"facets":[],"page":1,"from":'0', size: 25};
+      opts = {"facets":[]}; 
       spyOn(queryBuilder, 'transformToMultiSearchQuery');
 
     });

@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, searchService, controller, ADVANCED_SEARCH;
+  var scope, SearchService, controller, ADVANCED_SEARCH;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,122 +10,153 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, SearchService){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_){
     $state = _$state_;
     scope = $rootScope.$new();
-    searchService = SearchService;
+    SearchService = _SearchService_;
     scope.activeFacets = [];
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService
+        'SearchService': SearchService
      });
 
-    spyOn(searchService, 'updateOpts');
+    spyOn(SearchService, 'updateOpts');
   }));
 
   describe("Changing page size", function(){
     it("should call updateSearch with correct page size and page number", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 1,
         size: 25,
         from: 0
       };
 
       scope.setPageSize(50);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({size: 50, page: 1});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({size: 50, page: 1});
     });
 
     it("should set page size and pageNum correctly based on size and from options", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 3,
         size: 25,
         from: 50
       };
       scope.setPageSize(10);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({size: 10, page: 6});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({size: 10, page: 6});
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 3,
         size: 10,
         from: 30
       };
       scope.setPageSize(50);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({size: 50, page: 2});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({size: 50, page: 2});
     });
   });
 
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 2,
         size: 25,
         from: 10
       };
       scope.setPageNum(1);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({from: 0, page: 1});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 0, page: 1});
     });
 
     it("should set opts correctly when going to next page", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 2,
         size: 50,
         from: 50
       };
       scope.setPageNum(3);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({from: 100, page: 3});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 100, page: 3});
     });
 
     it("should set opts correctly when going back a page", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 3,
         size: 50,
         from: 100
       };
       scope.setPageNum(2);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({from: 50, page: 2});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 50, page: 2});
 
     });
 
     it("should set opts correctly when going to first page", function(){
-      searchService.opts = {
+      SearchService.opts = {
         page: 4,
         size: 25,
         from: 75
       };
       scope.setPageNum(1);
-      expect(searchService.updateOpts).toHaveBeenCalledWith({from: 0, page: 1});
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 0, page: 1});
     });
   });
 
-  describe("Updating facets", function(){
-    it("should set opts correctly when adding a facet", function(){
+  describe("Facet selection", function(){
+    it("should set opts and scope vars correctly when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
-      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
     });
 
-    it("should set page number to 1 when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
-      scope.updateFacet(testFacet, true);
-      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-    });
-
-    it("should set opts correctly when adding a second facet", function(){
+    it("should set page number to 1 in SearchService when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
-      var secondFacet = {"facet":"type","option":"Image","count":249,"active":true,};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      expect(SearchService.opts.page).toEqual(1);
+    });
+
+    it("should set opts and scope vars correctly when adding second facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
       scope.updateFacet(secondFacet, true);
-      expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(2);
+      expect(scope.activeFacets[1]).toEqual(secondFacet);
+    });
+
+    it("should update opts and scope correctly when deactivating a particular facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      scope.updateFacet(secondFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(2);
+      expect(scope.activeFacets[1]).toEqual(secondFacet);
+      // testing deactivation, and that correct facet deactivated
+      scope.updateFacet(testFacet, false);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(secondFacet);
     });
 
     it("should clear advanced field facets correctly", function(){
