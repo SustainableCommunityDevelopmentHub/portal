@@ -91,8 +91,6 @@
 
       // build filters for search query.
       if(opts.facets && opts.facets.length){
-        fullQuery.body.query.filtered.filter = { bool: { must: [] } };
-
         // container for facet categories
         // Normally we would refactor this to use FACETS. But all this logic will be moved server-side..
         var facetCategories = {
@@ -367,7 +365,6 @@
             break;
         }
 
-      console.log(sortQuery);
       return sortQuery;
     }
 
