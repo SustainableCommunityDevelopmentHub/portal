@@ -11,7 +11,7 @@ describe("Facet Modal", function(){
   it("should open modal window with previously checked facets checked", function(){
     var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(1);
     tab.click();
-    var facet = element(by.linkText("Exhibitions (4)"));
+    var facet = element(by.id("Exhibitions-sidebar"));
     facet.click();
 
     element(by.id("see-all-subject")).click();
