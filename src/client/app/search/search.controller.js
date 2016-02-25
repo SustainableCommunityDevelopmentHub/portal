@@ -3,9 +3,63 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'FACETS', 'SearchService', SearchCtrl])
+  .directive('adjustSize', function(){
+    return function(scope, elem, attr){
 
-  function SearchCtrl($scope, $state, SearchService){
+      elem.bind("keyup", function(){
+        console.log("DIRECTIVE");
+        var width = elem.val().length;
+        var currentWidth = 0;
+        if (width > 3){
+          var newWidth = 100 + (width * 5);
+          elem.css('width', newWidth + 'px');
+        }
+      });
+    };
+  })
+  .directive('autoHeight', function(){
+    return function(scope, elem, attr){
+      $(document).on("click", function(e){
+        console.log("something changed!");
+        var length = 0;
+        var children = $('.facet-chip-list').children();
+        console.log("CHILDREN");
+        console.log(children);
+        for (var i = 0; i < children.length; i++) {
+          var child = children[i];
+          console.log(child);
+          //length += child.outerWidth(true);
+          //length += 6;
+          length += 100;
+        }
+        var multiplier = (length / 400) + 1;
+        var newHeight = 40 * multiplier;
+        console.log(newHeight);
+        elem.css("height", newHeight + "px");
+      })
+    }
+  })
+  .directive('focusInput', function(){
+    return function(scope, elem, attr){
+      $(document).on("click", function(e) {
+        if (!$(e.target).hasClass("facet-search")) {
+          if(elem.hasClass('input-div-focus')){
+            console.log(e.target);
+            elem.removeClass('input-div-focus');
+          }
+          
+        }
+      });
+      elem.bind("click", function(){
+        var input = elem[0].querySelector('#facet-chip-input');
+        input.focus();
+        elem.addClass('input-div-focus');
+      })
+    }
+  });
+
+  function SearchCtrl($scope, $state, FACETS, SearchService){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -37,12 +91,15 @@
 
             // bind search opts to scope
             $scope.queryTerm = ss.opts.q;
+            $scope.newQueryTerm = "";
             $scope.pagination = {
               // must parseInt so is treated as int in code
               page : parseInt(ss.opts.page),
               size : parseInt(ss.opts.size),
               from : parseInt(ss.opts.from)
             };
+
+            $scope.categories = FACETS;
 
             if(ss.opts.sort){
               $scope.sort = ss.opts.sort.display;
@@ -147,6 +204,10 @@
      * init search on new query term
      */
     $scope.newQuerySearch = function(query){
+      if ($scope.queryTerm) {
+        query = $scope.queryTerm + " " + query;
+      }
+
       console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
         q: query
@@ -162,9 +223,10 @@
       }
 
       // we want to clear active facets when user queries on new term
-      clearActiveFacets();
-      opts.facets = [];
-
+      //clearActiveFacets();
+      //opts.facets = [];
+      $scope.queryTerm = query;
+      $scope.newQueryTerm = "";
       updateSearch(opts);
     };
 
@@ -259,6 +321,12 @@
       clearActiveFacets();
       updateSearch({facets: []});
     };
+
+    $scope.clearQueryTerm = function() {
+      $scope.queryTerm = "";
+      updateSearch({q:"", page: 1, from: 0});
+    }
+
 
   }
 

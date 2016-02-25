@@ -583,6 +583,63 @@ a:hover {
   padding-right: 10px;
 }
 
+.facet-chip-search-bar {
+  min-height: 40px;
+  padding: 0px 15px;
+  width: 84%;
+  display: inline-block;
+  float: left;
+  border: 1px solid rgb(200, 200, 200);
+  overflow: hidden;
+  cursor: text;
+}
+
+.facet-chip-list {
+  padding-left: 0;
+  height: 100%;
+  margin: 4px 2px 2px 2px;
+}
+
+.facet-chip-list li {
+  display: inline-block;
+  list-style: none;
+  height: 90%;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#facet-chip-input {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  border: none;
+}
+
+#facet-chip-input:focus {
+  border:none;
+  outline: none;
+}
+
+.input-div-focus {
+  outline-color: #4D90FE;
+  outline-style: auto;
+  border:none;
+  box-shadow: 0px 0px 8px  #4D90FE;
+
+}
+
+.facet-chip {
+  background-color: #337ab7;
+  padding: 4px 8px 4px 8px;
+  border-radius: 2px;
+  margin-top: 2px;
+
+}
+
+.facet-chip a {
+  color: white;
+}
+
 /** Facet Modal **/
 
 
