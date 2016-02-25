@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, searchService, controller;
+  var scope, searchService, controller, ADVANCED_SEARCH;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,11 +10,12 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, SearchService){
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
     scope.activeFacets = [];
+    ADVANCED_SEARCH = _ADVANCED_SEARCH_;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -111,7 +112,7 @@ describe("Search Controller", function(){
     });
 
     it("should set page number to 1 when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
       scope.updateFacet(testFacet, true);
       expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -127,5 +128,31 @@ describe("Search Controller", function(){
       expect(searchService.updateOpts).toHaveBeenCalledWith(facetOpts);
     });
 
+    it("should clear advanced field facets correctly", function(){
+      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
+      scope.advancedFields = [gettyField, dateField];
+      scope.clearAdvancedField(gettyField);
+      expect(scope.advancedFields).toEqual([dateField]);
+    });
+
+    it("should toggle between active and non-active facets correctly", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":false};
+      var index = scope.activeFacets.indexOf(testFacet);
+      // testFacet.active is false, so it should not be in scope.activeFacets
+      expect(index).toBe(-1);
+
+      // toggle facet to turn it on
+      scope.toggleFacet(testFacet);
+      expect(testFacet.active).toBe(true);
+      index = scope.activeFacets.indexOf(testFacet);
+      expect(index).toBeGreaterThan(-1);
+
+      // toggle facet again to turn it off
+      scope.toggleFacet(testFacet);
+      expect(testFacet.active).toBe(false);
+      index = scope.activeFacets.indexOf(testFacet);
+      expect(index).toBe(-1);
+    });
   });
 });

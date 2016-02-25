@@ -218,12 +218,13 @@
       updateSearch({facets: $scope.activeFacets, page: 1, from: 0});
     };
 
+    /**
+     * Toggles facet.active status by calling updateFacet
+     * @param facet {object} Facet option object
+     */
+
     $scope.toggleFacet = function(facet){
-      if (facet.active) {
-        $scope.updateFacet(facet, false);
-      } else {
-        $scope.updateFacet(facet, true);
-      }
+      $scope.updateFacet(facet, !facet.active);
     };
 
     /**
