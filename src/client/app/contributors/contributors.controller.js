@@ -28,7 +28,6 @@
 
       // convention is to always pass SearchService.opts
       SearchService.updateOpts(opts);
-      console.log('~~~contribSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', SearchService.opts);
     };
 
