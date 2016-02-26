@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS){
+  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS, FACETS){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -255,6 +255,6 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
-    }
+    };
   }
 })();
