@@ -30,6 +30,8 @@
             $scope.facets = searchResults.facets;
             $scope.activeFacets = ss.opts.facets || [];
             $scope.advancedFields = ss.opts.advancedFields || [];
+            $scope.fromDate;
+            $scope.toDate;
 
             //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
             //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
@@ -166,6 +168,12 @@
     $scope.setSortMode = function(sortMode) {
       console.log('Changing sort to ' + sortMode.display);
       updateSearch({sort: sortMode, page: 1, from: 0});
+      return;
+    };
+
+     $scope.setDateRange = function(fromDate, toDate) {
+      console.log("fromDate: " + fromDate + ", toDate: " + toDate);
+      updateSearch({date: {"gte": fromDate, "lte": toDate}});
       return;
     };
 
