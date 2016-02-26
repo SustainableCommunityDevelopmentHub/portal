@@ -38,7 +38,7 @@ describe('Book Detail', function() {
     exportBtn.click();
     $('.saveJson').click();
     var fileContents = $('.saveJson').evaluate('fileContents');
-    expect(testData).toEqual(fileContents);
+    expect(fileContents).toEqual(testData);
   });
 
   
