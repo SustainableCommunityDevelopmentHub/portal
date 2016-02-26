@@ -107,7 +107,7 @@ describe("Facet Modal", function(){
       var filteredTerm = "paint";
       searchBox.sendKeys(filteredTerm);
 
-      var checkboxes = element.all(by.css(".filter-checkboxes label"));
+      checkboxes = element.all(by.css(".filter-checkboxes label"));
       var containsFilteredTerm = true;
       checkboxes.each(function(checkbox){
         checkbox.getText().then(function(text){
@@ -127,7 +127,7 @@ describe("Facet Modal", function(){
       var closeButton = element(by.css(".close-modal"));
       closeButton.click();
 
-      var facets = element.all(by.css(".facet ul li"))
+      var facets = element.all(by.css(".facet ul li"));
       expect(facets.count()).toBe(0);
     });
   });

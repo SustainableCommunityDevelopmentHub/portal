@@ -47,6 +47,42 @@
           display: 'Contributed By',
           options:[]
         }
-   
+    })
+    .constant('SORT_MODES', {
+        relevance : {
+          display: "Relevance",
+          mode: "relevance"
+        },
+        dateAdded : {
+          display: "Newly Added First",
+          mode: "date_added",
+          sortQuery: {"_ingest_date": {"order": "desc"}}
+        },
+        titleAZ : {
+          display: "Title: A-Z",
+          mode: "title_asc",
+          sortQuery: "_title_display.sort"
+        },
+        titleZA : {
+          display: "Title: Z-A",
+          mode: "title_desc",
+          sortQuery: {"_title_display.sort": {"order": "desc"}}
+        },
+        dateAscend : {
+          display: "Date (ascending)",
+          mode: "date_asc",
+          sortQuery: "_date_facet"
+        },
+        dateDesc : {
+          display: "Date (descending)",
+          mode: "date_desc",
+          sortQuery: { "_date_facet": {"order": "desc"}}
+        }
+    })
+    .constant('DEFAULTS', {
+      search: {
+        size: 25,
+        from: 0
+      }
     });
 })();

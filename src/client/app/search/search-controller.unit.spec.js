@@ -9,7 +9,7 @@ describe("Search Controller", function(){
     module('app');
     module('app.search');
   });
-  
+
   beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_){
     $state = _$state_;
     scope = $rootScope.$new();
@@ -31,7 +31,7 @@ describe("Search Controller", function(){
         size: 25,
         from: 0
       };
-      
+
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
     });
@@ -67,6 +67,7 @@ describe("Search Controller", function(){
         from: 10
       };
       scope.setPageNum(1);
+
       expect(SearchService.opts.from).toEqual(0);
       expect(SearchService.opts.page).toEqual(1);
     });
@@ -92,10 +93,10 @@ describe("Search Controller", function(){
       expect(SearchService.opts.from).toEqual(50);
       expect(SearchService.opts.page).toEqual(2);
     });
-    
+
     it("should set opts correctly when going to first page", function(){
       SearchService.opts = {
-        page: 4, 
+        page: 4,
         size: 25,
         from: 75
       };
@@ -105,13 +106,65 @@ describe("Search Controller", function(){
     });
   });
 
-  describe("Updating facets", function(){
-    it("should set page number to 1 when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
+  describe("Facet selection", function(){
+    beforeEach(function(){
+      spyOn(SearchService, 'updateOpts');
+    });
+
+    it("should set opts and scope vars correctly when adding a facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
       scope.updateFacet(testFacet, true);
-      expect(SearchService.opts.facets).toEqual(facetOpts.facets);
-      expect(scope.activeFacets).toContain(testFacet);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+    });
+
+    it("should set page number to 1 in SearchService when adding a facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      expect(SearchService.opts.page).toEqual(1);
+    });
+
+    it("should set opts and scope vars correctly when adding second facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      scope.updateFacet(secondFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(2);
+      expect(scope.activeFacets[1]).toEqual(secondFacet);
+    });
+
+    it("should update opts and scope correctly when deactivating a particular facet", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      scope.updateFacet(secondFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(2);
+      expect(scope.activeFacets[1]).toEqual(secondFacet);
+      // testing deactivation, and that correct facet deactivated
+      scope.updateFacet(testFacet, false);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+      expect(scope.activeFacets.length).toBe(1);
+      expect(scope.activeFacets[0]).toEqual(secondFacet);
     });
 
     it("should clear advanced field facets correctly", function(){
