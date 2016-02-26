@@ -33,12 +33,15 @@
 
             // bind search opts to scope
             $scope.queryTerm = ss.opts.q;
+            $scope.newQueryTerm = "";
             $scope.pagination = {
               // must parseInt so is treated as int in code
               page : parseInt(ss.opts.page),
               size : parseInt(ss.opts.size),
               from : parseInt(ss.opts.from)
             };
+
+            $scope.categories = FACETS;
 
             if(ss.opts.sort){
               $scope.sort = ss.opts.sort.display;
@@ -118,8 +121,14 @@
 
     /**
      * init search on new query term
+     * Adding new query term to previous query term
      */
     $scope.newQuerySearch = function(query){
+      if ($scope.queryTerm) {
+        query = $scope.queryTerm + " " + query;
+      }
+      $scope.queryTerm = query;
+
       console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
         q: query
@@ -134,6 +143,7 @@
         };
       }
 
+      $scope.newQueryTerm = "";
       updateSearch(opts);
     };
 
@@ -236,14 +246,15 @@
     // clear all, not just facets. TODO: Change name when will not cause conflicts
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
-      // handle sort separately, as currently choosing not to pass default setting
-      if(ss.opts.sort){
-
-      }
-
       updateSearch(_.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]}));
     };
 
+    /**
+     * Removes query term, then runs search on empty query term string
+     */
+    $scope.clearQueryTerm = function() {
+      $scope.queryTerm = "";
+      updateSearch({q:"", page: 1, from: 0});
+    }
   }
-
 })();

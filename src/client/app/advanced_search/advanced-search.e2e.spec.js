@@ -10,8 +10,8 @@ describe("Advanced Search", function(){
   it("should search by keywords", function(){
     element(by.model('queryTerm')).sendKeys(testQuery);
     element.all(by.css('.search-btn')).get(0).click();
-    var searchBar = element(by.model('queryTerm'));
-    expect(searchBar.getAttribute('value')).toEqual(testQuery);
+    var searchBar = element.all(by.css('.facet-chip a')).get(0);
+    expect(searchBar.getText()).toEqual(testQuery + " (Keyword)");
     $('.showing').evaluate('numTotalHits').then(function(value) {
       expect(value).toBeGreaterThan(0);
     });
@@ -68,7 +68,7 @@ describe("Advanced Search", function(){
     element.all(by.css('.sf-input')).get(0).sendKeys("Getty");
     element(by.buttonText('Search')).click();
 
-    var getty = element(by.css(".facet ul li a"));
+    var getty = element.all(by.repeater('advancedField in advancedFields')).get(0);
     expect(getty).toBeDefined();
     getty.click();
 
