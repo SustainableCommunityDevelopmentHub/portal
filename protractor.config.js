@@ -28,6 +28,9 @@ exports.config = {
   },
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 45000
+    defaultTimeoutInterval: 45000,
+    showColors: true,
+    isVerbose: true,
+    realTimeFailure: true
   }
 };
