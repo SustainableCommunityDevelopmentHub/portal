@@ -35,8 +35,8 @@ describe('Search Results', function() {
     var urlQuery = "http://www.getty.edu/research/";
     element(by.model('queryTerm')).sendKeys(urlQuery);
     searchBtn.click();
-    var searchBarText = element(by.css('.search-input')).getAttribute('value');
-    expect(searchBarText).toEqual(urlQuery);
+    var searchBarText = element.all(by.css('.facet-chip a')).get(0).getText();
+    expect(searchBarText).toEqual(urlQuery + " (Keyword)");
   });
 
   it('should display pagination at top of page', function () {

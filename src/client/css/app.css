@@ -622,11 +622,10 @@ a:hover {
 }
 
 .input-div-focus {
-  outline-color: #4D90FE;
+  outline-color: #5EA1FF;
   outline-style: auto;
   border:none;
-  box-shadow: 0px 0px 8px  #4D90FE;
-
+  box-shadow: 0px 0px 8px  #5EA1FF;;
 }
 
 .facet-chip {
@@ -777,6 +776,8 @@ a:hover {
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
+  height: 200px;
+  overflow-y: auto;
 }
 
 .filter-checkboxes {

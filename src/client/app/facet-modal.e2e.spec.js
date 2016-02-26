@@ -36,8 +36,8 @@ describe("Facet Modal", function(){
       label.click();
 
       element(by.css(".apply-btn")).click();
-      var facet = $(".facet ul li");
-      expect(facet.getText()).toEqual("Text");
+      var facet = element.all(by.repeater('activeFacet in activeFacets')).get(0);
+      expect(facet.getText()).toEqual("Text (Type)");
     });
 
     it("should change the active category when you click on a different category tab", function(){
