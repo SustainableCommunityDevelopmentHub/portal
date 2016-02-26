@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH;
+  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,12 +10,16 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _DEFAULTS_, _SORT_MODES_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
     scope.activeFacets = [];
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
+    DEFAULTS = _DEFAULTS_;
+    SORT_MODES = _SORT_MODES_;
+
+    defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -62,7 +66,7 @@ describe("Search Controller", function(){
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
       SearchService.opts = {
-        page: 2, 
+        page: 2,
         size: 25,
         from: 10
       };
@@ -74,7 +78,7 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going to next page", function(){
       SearchService.opts = {
-        page: 2, 
+        page: 2,
         size: 50,
         from: 50
       };
@@ -85,7 +89,7 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going back a page", function(){
       SearchService.opts = {
-        page: 3, 
+        page: 3,
         size: 50,
         from: 100
       };
@@ -216,4 +220,59 @@ describe("Search Controller", function(){
       expect(SearchService.opts.q).toEqual("");
     });
   });
+
+  describe("Clear All functionality", function(){
+    beforeEach(function(){
+      spyOn(SearchService, 'updateOpts');
+    });
+    it("should clear applied facets", function(){
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+
+      scope.clearFacetsAndUpdate();
+      expect(scope.activeFacets).toEqual([]);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
+      expect(SearchService.opts.facets).toEqual([]);
+    });
+    it("should clear all advanced search fields", function(){
+      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      scope.advancedFields = [gettyField];
+
+      scope.clearFacetsAndUpdate();
+      expect(scope.advancedFields).toEqual([]);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
+      expect(SearchService.opts.advancedFields).toBeFalsy();
+    });
+    it("should reset page, size, and from settings ", function(){
+      SearchService.opts = {
+        page: 1,
+        size: 25,
+        from: 0
+      };
+      scope.setPageSize(10);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith({size: 10, page: 1});
+
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
+      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+
+      scope.updateFacet(testFacet, true);
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
+
+      scope.clearFacetsAndUpdate();
+      // default size is 25
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
+    });
+    it("should clear query term", function(){
+      var queryObj = {q: 'painting'};
+      scope.newQuerySearch(queryObj.q);
+      var optionsObj = _.merge(defaultSearchObj, queryObj);
+      delete optionsObj.size;
+      delete optionsObj.facets;
+      delete optionsObj.advancedFields;
+      expect(SearchService.updateOpts).toHaveBeenCalledWith(_.merge(defaultSearchObj, queryObj));
+    });
+  });
+
 });

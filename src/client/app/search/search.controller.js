@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'FACETS', 'SORT_MODES', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, FACETS, SORT_MODES){
+  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS, FACETS){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -31,9 +31,6 @@
             $scope.activeFacets = ss.opts.facets || [];
             $scope.advancedFields = ss.opts.advancedFields || [];
 
-            //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
-            //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
-
             // bind search opts to scope
             $scope.queryTerm = ss.opts.q;
             $scope.newQueryTerm = "";
@@ -52,6 +49,7 @@
               $scope.sort = "Relevance";
             }
 
+            console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
             console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
             console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
             $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
@@ -87,7 +85,8 @@
       $scope.activeFacets.forEach(function(facet){
         facet.active = false;
       });
-      $scope.activeFacets = [];
+      $scope.activeFacets = DEFAULTS.searchOpts.facets;
+      $scope.advancedFields = DEFAULTS.searchOpts.advancedFields;
     }
 
     /**
@@ -137,8 +136,8 @@
 
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.page = 1;
-        opts.from = 0;
+        opts.page = DEFAULTS.searchOpts.page;
+        opts.from = DEFAULTS.searchOpts.from;
         opts.sort = { display: "Relevance",
           mode: "relevance"
         };
@@ -220,8 +219,8 @@
           return aFacet.option === facetOption.option;
         });
       }
-      //Setting page num to 1 to reset pagination
-      updateSearch({facets: $scope.activeFacets, page: 1, from: 0});
+      //reset pagination when applying facet
+      updateSearch({facets: $scope.activeFacets, page: DEFAULTS.searchOpts.page, from: DEFAULTS.searchOpts.from});
     };
 
     /**
@@ -244,17 +243,18 @@
       updateSearch({advancedFields: $scope.advancedFields, page: 1, from: 0});
     };
 
+    // clear all, not just facets. TODO: Change name when will not cause conflicts
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
-      updateSearch({facets: []});
+      updateSearch(_.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]}));
     };
 
-    /** 
+    /**
      * Removes query term, then runs search on empty query term string
      */
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
-    }
+    };
   }
 })();

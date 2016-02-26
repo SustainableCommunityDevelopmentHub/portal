@@ -44,8 +44,8 @@
      */
     function buildSearchQuery(opts){
       // set defaults
-      opts.size = opts.size || DEFAULTS.search.size;
-      opts.from = opts.from || DEFAULTS.search.from;
+      opts.size = opts.size || DEFAULTS.searchOpts.size;
+      opts.from = opts.from || DEFAULTS.searchOpts.from;
 
       var fullQuery = {
         index: 'portal',
