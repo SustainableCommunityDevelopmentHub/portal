@@ -433,9 +433,6 @@ button#toggle-sort-btn {
   width: 100%;
 }*/
 
-.pagination {
-  margin: 0;
-}
 
 .results-pagination {
   font-size: 12px;
@@ -446,14 +443,59 @@ button#toggle-sort-btn {
   text-align: center;
 }
 
+  /* Left Sidebar */
 
+  /*.left-sidebar {
+    width: 20%;
+    float: left;
+    margin-right: 20px;
+    display: inline;
+  }*/
 
-/*.left-sidebar {
-  width: 20%;
-  float: left;
-  margin-right: 20px;
-  display: inline;
-}*/
+  .left_sidebar_accordion__container {
+    float:left;
+    width: 100%;
+  }
+
+  .left_sidebar_accordion__tab {
+    color: black;
+    margin: -8px 0 -8px 0;
+
+  }
+
+  .left_sidebar_accordion__tab-title {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .left_sidebar_accordion__tab-title .glyphicon {
+    padding: 3px 3px 3px 3px;
+    margin-right: 10px;
+
+    color: white;
+    background: #909090;
+
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+  }
+
+  .left_sidebar_accordion__tab-content {
+    padding: 20px 20px 20px 30px;
+  }
+
+  .left_sidebar_hr {
+    background-color: black;
+    height: 1px;
+  }
+
+  .date-range {
+    margin-bottom: 15px;
+  }
 
 .book-images {
   background-color: white;
@@ -493,46 +535,6 @@ button#toggle-sort-btn {
   height: 115px;
   margin-bottom: 40px;
   color: black;
-}
-
-.left_sidebar_accordion__container {
-    float:left;
-}
-
-.left_sidebar_accordion__tab {
-    color: black;
-    margin: -8px 0 -8px 0;
-
-}
-
-.left_sidebar_accordion__tab-title {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.left_sidebar_accordion__tab-title .glyphicon {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-
-    color: white;
-    background: #909090;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-}
-
-.left_sidebar_accordion__tab-content {
-    padding: 20px 20px 20px 30px;
-}
-
-.left_sidebar_hr {
-  background-color: black;
-  height: 1px;
 }
 
 .title {
@@ -605,7 +607,6 @@ button#toggle-sort-btn {
 }
 
 /** Facet Modal **/
-
 
 .modal-body {
   padding-top: 0;
@@ -764,6 +765,10 @@ button#toggle-sort-btn {
   cursor: pointer;
   height: 20px;
   font-size: 22px;
+}
+
+.pagination {
+  margin: 0;
 }
 
 @media screen and (min-width: 768px){
@@ -1331,6 +1336,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   .search-bar-results .search-input {
     width: 89%;
   }
+
+
  
 
 /* footer */
