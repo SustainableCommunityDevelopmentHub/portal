@@ -24,6 +24,7 @@ exports.config = {
 
   onPrepare: function() {
     browser.driver.manage().window().maximize();
+    require('protractor-uisref-locator')(protractor);
   },
 
   jasmineNodeOpts: {
