@@ -81,7 +81,8 @@
         from: 0,
         page: 1,
         facets: [],
-        advancedFields: []
+        advancedFields: [],
+        sort: 'relevance'
       }
     });
 })();
