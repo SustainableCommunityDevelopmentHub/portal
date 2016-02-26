@@ -256,8 +256,5 @@
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
     }
-
-
   }
-
 })();

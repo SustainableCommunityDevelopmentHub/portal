@@ -10,7 +10,6 @@ describe("Advanced Search", function(){
   it("should search by keywords", function(){
     element(by.model('queryTerm')).sendKeys(testQuery);
     element.all(by.css('.search-btn')).get(0).click();
-    //var searchBar = element(by.model('queryTerm'));
     var searchBar = element.all(by.css('.facet-chip a')).get(0);
     expect(searchBar.getText()).toEqual(testQuery + " (Keyword)");
     $('.showing').evaluate('numTotalHits').then(function(value) {
