@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'FACETS', 'SORT_MODES', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SORT_MODES){
+  function SearchCtrl($scope, $state, SearchService, FACETS, SORT_MODES){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -36,12 +36,15 @@
 
             // bind search opts to scope
             $scope.queryTerm = ss.opts.q;
+            $scope.newQueryTerm = "";
             $scope.pagination = {
               // must parseInt so is treated as int in code
               page : parseInt(ss.opts.page),
               size : parseInt(ss.opts.size),
               from : parseInt(ss.opts.from)
             };
+
+            $scope.categories = FACETS;
 
             if(ss.opts.sort){
               $scope.sort = ss.opts.sort.display;
@@ -119,8 +122,14 @@
 
     /**
      * init search on new query term
+     * Adding new query term to previous query term
      */
     $scope.newQuerySearch = function(query){
+      if ($scope.queryTerm) {
+        query = $scope.queryTerm + " " + query;
+      }
+      $scope.queryTerm = query;
+
       console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
         q: query
@@ -135,10 +144,7 @@
         };
       }
 
-      // we want to clear active facets when user queries on new term
-      clearActiveFacets();
-      opts.facets = [];
-
+      $scope.newQueryTerm = "";
       updateSearch(opts);
     };
 
@@ -243,6 +249,12 @@
       updateSearch({facets: []});
     };
 
+    /** 
+     * Removes query term, then runs search on empty query term string
+     */
+    $scope.clearQueryTerm = function() {
+      $scope.queryTerm = "";
+      updateSearch({q:"", page: 1, from: 0});
+    }
   }
-
 })();
