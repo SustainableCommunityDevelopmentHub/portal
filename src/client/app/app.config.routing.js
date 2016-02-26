@@ -5,7 +5,7 @@
   .module('app')
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', function($stateProvider, $urlRouterProvider, $locationProvider, config){
     // redirect to home by default
-    $urlRouterProvider.otherwise('/');    
+    $urlRouterProvider.otherwise('/');
 
     // assign states to urls
     $stateProvider
@@ -24,8 +24,9 @@
         // run search and load resulting promise into controller prior to state load
         searchResults: function($stateParams, SearchService){
           console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
+
           // NOTE: We must pull search opts from stateParams to handle case
-          //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10 
+          //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10
           //       into address bar. In this case, SearchService has no opts
           //       and stateParams will grab opts vals from the URL.
           var searchOpts = {

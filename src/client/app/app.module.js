@@ -1,5 +1,5 @@
 /* App Module */
-(function() {
+(function() { 
   'use strict';
 
   angular.module('app', [
