@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService){
+  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -15,17 +15,16 @@
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       if(toState.controller === 'SearchCtrl'){
         ss.returnedPromise
-          .then(function(results){
-            console.log('SearchCtrl....state change success. SearchService.opts: ' + JSON.stringify(ss.opts));
-            //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(results, null, 2));
+          .then(function(response){
+            console.log('SearchCtrl -- $stateChangeSuccess. SearchService.opts: ' + JSON.stringify(ss.opts));
+            //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(response, null, 2));
 
             /////////////////////////////////////////////////////////
             // once search result promise is resolved,
             // update SearchService and scope
             /////////////////////////////////////////////////////////
 
-            // set search result data. must do here b/c of promise
-            var searchResults = ss.setResultsData(results);
+            var searchResults = ss.setResultsData(response);
             $scope.hits = searchResults.hits;
             $scope.numTotalHits = searchResults.numTotalHits;
             $scope.facets = searchResults.facets;
@@ -50,8 +49,8 @@
               $scope.sort = "Relevance";
             }
 
-            console.log('.....$scope.pagination: ' + JSON.stringify($scope.pagination));
-            console.log('.....$scope.numTotalHits: ' + $scope.numTotalHits);
+            console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
+            console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
             $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
 
             if(ss.opts.facets){
@@ -69,32 +68,7 @@
     //Variables
     /////////////////////////////////
     $scope.allPageSizeOptions = [10,25,50,100];
-    $scope.validSortModes = {
-      relevance : {
-        display: "Relevance",
-        mode: "relevance"
-      },
-      dateAdded : {
-        display: "Newly Added First",
-        mode: "date_added"
-      },
-      titleAZ : {
-        display: "Title: A-Z",
-        mode: "title_asc"
-      },
-      titleZA : {
-        display: "Title: Z-A",
-        mode: "title_desc"
-      },
-      dateAscend : {
-        display: "Date (ascending)",
-        mode: "date_asc"
-      },
-      dateDesc : {
-        display: "Date (descending)",
-        mode: "date_desc"
-      }
-    };
+    $scope.validSortModes = SORT_MODES;
 
 
     ///////////////////////////
@@ -110,8 +84,8 @@
       $scope.activeFacets.forEach(function(facet){
         facet.active = false;
       });
-      $scope.activeFacets = [];
-      $scope.advancedFields = [];
+      $scope.activeFacets = DEFAULTS.searchOpts.facets;
+      $scope.advancedFields = DEFAULTS.searchOpts.advancedFields;
     }
 
     /**
@@ -121,8 +95,8 @@
     function updateSearch(opts) {
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
-      console.log('SearchCtrl....updateSearch() - add\'l opts: ' + JSON.stringify(opts));
-      console.log('search.controller.updateSearch........merged SearchService.opts: ' + JSON.stringify(ss.opts));
+      console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
+      console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
       $state.go('searchResults', ss.opts, {reload: true});
     }
 
@@ -268,10 +242,16 @@
     // clear all, not just facets. TODO: Change name when will not cause conflicts
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
-      updateSearch({facets: [], advancedFields: [], page:1, from: 0});
+      updateSearch(DEFAULTS.searchOpts);
+      //updateSearch({q: DEFAULTS.searchOpts.q,
+        //page: DEFAULTS.searchOpts.page,
+        //from: DEFAULTS.searchOpts.from,
+        //size: DEFAULTS.searchOpts.size,
+        //facets: DEFAULTS.searchOpts.facets,
+        //advancedFields: DEFAULTS.searchOpts.advancedFields
+      //});
     };
 
   }
 
 })();
-
