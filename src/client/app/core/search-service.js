@@ -88,9 +88,12 @@
       }
       _.merge(this.opts, newOpts);
 
-      // hack to handle correctly deleting all facets
+      // hack to handle correctly deleting all facets and advanced fields
       if(newOpts.facets && !newOpts.facets.length){
         this.opts.facets = [];
+      }
+      if(newOpts.advancedFields && !newOpts.advancedFields.length){
+        this.opts.advancedFields = [];
       }
     }
 

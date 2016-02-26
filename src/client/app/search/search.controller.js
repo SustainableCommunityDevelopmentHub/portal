@@ -111,6 +111,7 @@
         facet.active = false;
       });
       $scope.activeFacets = [];
+      $scope.advancedFields = [];
     }
 
     /**
@@ -262,11 +263,12 @@
       var index = $scope.advancedFields.indexOf(field);
       $scope.advancedFields.splice(index, 1);
       updateSearch({advancedFields: $scope.advancedFields, page: 1, from: 0});
-    }
+    };
 
+    // clear all, not just facets. TODO: Change name when will not cause conflicts
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
-      updateSearch({facets: []});
+      updateSearch({facets: [], advancedFields: [], page:1, from: 0});
     };
 
   }
