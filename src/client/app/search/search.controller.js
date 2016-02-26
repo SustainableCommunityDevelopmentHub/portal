@@ -3,61 +3,7 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'FACETS', 'SearchService', SearchCtrl])
-  .directive('adjustSize', function(){
-    return function(scope, elem, attr){
-
-      elem.bind("keyup", function(){
-        console.log("DIRECTIVE");
-        var width = elem.val().length;
-        var currentWidth = 0;
-        if (width > 3){
-          var newWidth = 100 + (width * 5);
-          elem.css('width', newWidth + 'px');
-        }
-      });
-    };
-  })
-  .directive('autoHeight', function(){
-    return function(scope, elem, attr){
-      $(document).on("click", function(e){
-        console.log("something changed!");
-        var length = 0;
-        var children = $('.facet-chip-list').children();
-        console.log("CHILDREN");
-        console.log(children);
-        for (var i = 0; i < children.length; i++) {
-          var child = children[i];
-          console.log(child);
-          //length += child.outerWidth(true);
-          //length += 6;
-          length += 100;
-        }
-        var multiplier = (length / 400) + 1;
-        var newHeight = 40 * multiplier;
-        console.log(newHeight);
-        elem.css("height", newHeight + "px");
-      })
-    }
-  })
-  .directive('focusInput', function(){
-    return function(scope, elem, attr){
-      $(document).on("click", function(e) {
-        if (!$(e.target).hasClass("facet-search")) {
-          if(elem.hasClass('input-div-focus')){
-            console.log(e.target);
-            elem.removeClass('input-div-focus');
-          }
-          
-        }
-      });
-      elem.bind("click", function(){
-        var input = elem[0].querySelector('#facet-chip-input');
-        input.focus();
-        elem.addClass('input-div-focus');
-      })
-    }
-  });
+  .controller('SearchCtrl', ['$scope', '$state', 'FACETS', 'SearchService', SearchCtrl]);
 
   function SearchCtrl($scope, $state, FACETS, SearchService){
     /////////////////////////////////
@@ -202,11 +148,13 @@
 
     /**
      * init search on new query term
+     * Adding new query term to previous query term
      */
     $scope.newQuerySearch = function(query){
       if ($scope.queryTerm) {
         query = $scope.queryTerm + " " + query;
       }
+      $scope.queryTerm = query;
 
       console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
@@ -222,10 +170,6 @@
         };
       }
 
-      // we want to clear active facets when user queries on new term
-      //clearActiveFacets();
-      //opts.facets = [];
-      $scope.queryTerm = query;
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
@@ -331,6 +275,9 @@
       updateSearch({facets: []});
     };
 
+    /** 
+     * Removes query term, then runs search on empty query term string
+     */
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});

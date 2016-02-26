@@ -137,4 +137,26 @@ describe("Search Controller", function(){
       expect(index).toBe(-1);
     });
   });
+
+  describe("Search Queries", function() {
+    beforeEach(function(){
+      //initializing vars to mimic a search
+      scope.queryTerm = "art";
+      SearhService.opts.q = scope.queryTerm;
+    });
+    
+    it("should add new query term to previous query terms", function(){
+      //adding new search term
+      scope.newSearchQuery("painting");
+      var newQuery = "art painting";
+      expect(scope.queryTerm).toEqual(newQuery);
+      expect(SearhService.opts.q).toEqual(newQuery);
+    });
+
+    it("should clear query terms correctly", function(){
+      scope.clearQueryTerm();
+      expect(queryTerm).toEqual("");
+      expect(SearhService.opts.q).toEqual("");
+    })
+  })
 });
