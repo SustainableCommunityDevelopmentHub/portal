@@ -24,13 +24,13 @@ describe('Book Detail', function() {
     });
   });
 
-  it('should return an item page', function() {
-    element.all(by.repeater('(key, field) in book._source.dublin_core')).then(function(posts) {
-      expect(posts.length).toEqual(12);
-      var titleElement = posts[3].$('.book-field-val');
-      var dateElement = posts[5].$('.book-field-val');
-      expect(titleElement.getText()).toEqual('La Chronique des arts et de la curiosité : supplément à la Gazette des beaux-arts');
-      expect(dateElement.getText()).toEqual('1896-11-21');
+  it('should return an item page with 2 entries in Type field', function() {
+    element.all(by.repeater('entry in book._source.dublin_core.type')).then(function(types) {
+      expect(types.length).toEqual(2);
+      var typeElement1 = types[0].$('.book-field-val');
+      var typeElement2 = types[1].$('.book-field-val');
+      expect(typeElement1.getText()).toEqual('Text');
+      expect(typeElement2.getText()).toEqual('printed serial');
     });
   });
 
@@ -38,7 +38,7 @@ describe('Book Detail', function() {
     exportBtn.click();
     $('.saveJson').click();
     var fileContents = $('.saveJson').evaluate('fileContents');
-    expect(testData).toEqual(fileContents);
+    expect(fileContents).toEqual(testData);
   });
 
   
