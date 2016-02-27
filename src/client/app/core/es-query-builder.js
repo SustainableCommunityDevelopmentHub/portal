@@ -12,12 +12,21 @@
     /////////////////////////////////
 
     var service = {
+      globalDateFilter : {},
+      globalAdvancedFilters: [],
       buildSearchQuery: buildSearchQuery,
       transformToMultiSearchQuery: transformToMultiSearchQuery,
       buildContributorsQuery: buildContributorsQuery
     };
 
     return service;
+
+    //////////////////////////////////
+    //Variables
+    //////////////////////////////////
+
+    //var globalDateFilter = {};
+    //var globalAdvancedFilters = [];
 
     //////////////////////////////////
     //Public Functions
@@ -34,6 +43,8 @@
         body: ''
       };
 
+      var _this = this;
+
       contribAggQuery.body = getContributorsQuery();
       return contribAggQuery;
     }
@@ -44,8 +55,8 @@
      */
     function buildSearchQuery(opts){
       // set defaults
-      opts.size = opts.size || DEFAULTS.search.size;
-      opts.from = opts.from || DEFAULTS.search.from;
+      opts.size = opts.size || DEFAULTS.searchOpts.size;
+      opts.from = opts.from || DEFAULTS.searchOpts.from;
 
       var fullQuery = {
         index: 'portal',
@@ -74,13 +85,14 @@
 
         console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
       }
-
+      
       if(opts.date){
         var dateRange = buildRangeQuery(opts.date.gte, opts.date.lte);
         if(dateRange) {
           fullQuery.body.query.filtered
-          .filter.bool.must
+          .filter.bool.filter
           .push(dateRange);
+          this.globalDateFilter = dateRange;
         }
       }
 
@@ -89,13 +101,15 @@
        * Then add them to the query object
        */
       if (opts.advancedFields) {
-        var filterQuery = [];
+        var myFilters = [];
         opts.advancedFields.forEach(function(item){
+          
           var query = {match_phrase: {}};
           query.match_phrase[item.field.searchKey] = item.term;
-          filterQuery.push(query);
+          fullQuery.body.query.filtered.filter.bool.filter.push(query);
+          myFilters.push(query);
         });
-        fullQuery.body.query.filtered.filter.bool.filter = filterQuery;
+        this.globalAdvancedFilters = myFilters;
       }
 
       // build filters for search query.
@@ -399,6 +413,8 @@
      * @return {object} multi search query ready to be passed to esClient
      */
     function transformToMultiSearchQuery(fullQuery){
+      var globalFilter = this.globalAdvancedFilters.slice(0);
+      globalFilter.push(this.globalDateFilter);
       return {
               body: [
                 // search terms query
@@ -413,7 +429,16 @@
                 { _index: 'portal', _type: 'book'},
                 {
                   size: 0,
-                  query: fullQuery.body.query.filtered.query,
+                  query: {
+                    filtered: {
+                      query: fullQuery.body.query.filtered.query,
+                      filter: {
+                        bool: {
+                          must: globalFilter
+                        }
+                      }
+                    }
+                  },
                   aggregations: fullQuery.body.aggregations
                 }
               ]
