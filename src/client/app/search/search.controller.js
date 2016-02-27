@@ -30,9 +30,15 @@
             $scope.facets = searchResults.facets;
             $scope.activeFacets = ss.opts.facets || [];
             $scope.advancedFields = ss.opts.advancedFields || [];
+
             $scope.fromDate;
             $scope.toDate;
-
+            if (ss.opts.date) {
+              $scope.dateRange = ss.opts.date;
+              $scope.fromDate = ss.opts.date.gte;
+              $scope.toDate = ss.opts.date.lte;
+            } 
+            
             //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
             //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
 
@@ -263,6 +269,12 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
+    }
+
+    $scope.clearDateRange = function() {
+      $scope.fromDate = "";
+      $scope.toDate = "";
+      updateSearch({});
     }
   }
 })();

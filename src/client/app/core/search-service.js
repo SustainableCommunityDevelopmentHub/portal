@@ -92,6 +92,10 @@
       if(newOpts.facets && !newOpts.facets.length){
         this.opts.facets = [];
       }
+
+      if(!newOpts.date) {
+        this.opts.date = {};
+      }
     }
 
     /**
