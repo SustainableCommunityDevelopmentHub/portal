@@ -21,11 +21,6 @@
     return service;
 
     //////////////////////////////////
-    //Variables
-    //////////////////////////////////
-
-
-    //////////////////////////////////
     //Public Functions
     //////////////////////////////////
 
@@ -93,7 +88,7 @@
           this.globalFilters.push(dateRange);
         }
       }
-      
+
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
