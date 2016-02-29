@@ -11,6 +11,11 @@
       if(toState.controller === 'HomePageCtrl'){
         console.log('HomePageCtrl::$scope.$on($stateChangeSuccess -- toState: ' + JSON.stringify(toState));
         SearchService.resetOpts();
+        SearchService.newSearch(SearchService.opts)
+          .then(function(results){
+            var allResults = SearchService.setResultsData(results);
+            $scope.numTotalHits = allResults.numTotalHits;
+          });
       }
     });
 
