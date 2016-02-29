@@ -14,7 +14,7 @@ describe('Sorting tests', function() {
   it('Should have 6 sorting options in dropdown list', function() {
     numSortOptions = element.all(by.repeater('sortMode in validSortModes')).count();
     expect(numSortOptions).toEqual(6);
-  })
+  });
 
   it('Should sort by publication date', function() {
     element(by.id('toggle-sort-btn')).click();
@@ -32,7 +32,7 @@ describe('Sorting tests', function() {
        var copiedDates = dates.slice(0);
        expect(dates).toEqual(copiedDates.sort());
      });
-  })
+  });
 
   it('Should sort by publication date descending', function() {
     element(by.id('toggle-sort-btn')).click();
@@ -50,7 +50,7 @@ describe('Sorting tests', function() {
        var copiedDates = dates.slice(0);
        expect(dates).toEqual(copiedDates.sort().reverse());
      });
-  })
+  });
 
   it('Should sort by newly added first', function() {
     element(by.id('toggle-sort-btn')).click();
@@ -68,7 +68,7 @@ describe('Sorting tests', function() {
        var copiedDates = dates.slice(0);
        expect(dates).toEqual(copiedDates.sort());
      });
-  })
+  });
 
   it('Should sort by title', function() {
     element(by.id('toggle-sort-btn')).click();
@@ -84,7 +84,7 @@ describe('Sorting tests', function() {
        var copiedTitles = titles.slice(0);
        expect(titles).toEqual(copiedTitles.sort());
      });
-  })
+  });
 
   it('Should sort by title Z-A', function() {
     element(by.id('toggle-sort-btn')).click();
@@ -100,6 +100,6 @@ describe('Sorting tests', function() {
        var copiedTitles = titles.slice(0);
        expect(titles).toEqual(copiedTitles.sort().reverse());
      });
-  })
+  });
 
-})
+});

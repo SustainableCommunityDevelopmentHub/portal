@@ -24,9 +24,13 @@ exports.config = {
 
   onPrepare: function() {
     browser.driver.manage().window().maximize();
+    require('protractor-uisref-locator')(protractor);
   },
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 45000
+    defaultTimeoutInterval: 45000,
+    showColors: true,
+    isVerbose: true,
+    realTimeFailure: true
   }
 };

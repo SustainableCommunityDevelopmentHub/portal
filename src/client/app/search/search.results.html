@@ -127,30 +127,45 @@
   <!--Search Box & Options-->
   <div class="results-list">
     <div class="search-bar-results">
-      <form ng-submit="newQuerySearch(queryTerm)"><input ng-model="queryTerm" class="search-input" type="text">
-        <button ng-click="newQuerySearch(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+      <form ng-submit="newQuerySearch(newQueryTerm)">
+        <div class="facet-chip-search-bar facet-search" focus-input >
+          <ul class="facet-chip-list facet-search">
+            <li class="facet-search" ng-if="queryTerm">
+              <div class="facet-chip">
+                <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+              </div>
+            </li>
+            <li class="facet-search" ng-repeat="activeFacet in activeFacets">
+              <div class="facet-chip">
+                <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.option}} <i>({{categories[activeFacet.facet].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+              </div>
+            </li>
+            <li class="facet-search" ng-repeat="advancedField in advancedFields">
+              <div class="facet-chip">
+                <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+              </div>
+            </li>
+            <li>
+              <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>
+            </li>
+          </ul>
+        </div>
+        <button  class="btn" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span>
+        </button>
       </form>
     </div>
-    <!--View active facets-->
-    <div class="facet">
-      <ul>
-        <li ng-repeat="activeFacet in activeFacets">
-          <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  {{activeFacet.option}}</a>
-        </li>
-        <li ng-repeat="advancedField in advancedFields">
-          <a ng-click="clearAdvancedField(advancedField)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span> {{ advancedField.term }} (Keyword: {{ advancedField.field.display }}) </a>
-        </li>
-      </ul>
-    </div>
+
     <div class="dropdown results-top" uib-dropdown>
       <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
-        <span class="caret"></span></button>
+        <span class="caret"></span>
+      </button>
       <ul uib-dropdown-menu role="menu" class="dropdown-menu">
         <li ng-repeat="sortMode in validSortModes">
           <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
       </ul>
       <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-      <span class="showing" ng-show="pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
+      <span class="showing" ng-show="numTotalHits === 0">No results found</span>
+      <span class="showing" ng-show="numTotalHits > 0 && pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
       <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
       <div class="btn-group" uib-dropdown>
         <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
@@ -175,7 +190,7 @@
       <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
       <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
       <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
-      <a class="portal-record-link" ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
+      <a class="portal-record-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
       <hr class="results-list-hr"><br>
     </li>
     </ul>

@@ -583,6 +583,62 @@ a:hover {
   padding-right: 10px;
 }
 
+.facet-chip-search-bar {
+  min-height: 40px;
+  padding: 0px 2px;
+  width: 84%;
+  display: inline-block;
+  float: left;
+  border: 1px solid rgb(200, 200, 200);
+  overflow: hidden;
+  cursor: text;
+}
+
+.facet-chip-list {
+  padding-left: 0;
+  height: 100%;
+  margin: 4px 0px 2px 0px;
+}
+
+.facet-chip-list li {
+  display: inline-block;
+  list-style: none;
+  height: 90%;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+#facet-chip-input {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  border: none;
+}
+
+#facet-chip-input:focus {
+  border:none;
+  outline: none;
+}
+
+.input-div-focus {
+  outline-color: #5EA1FF;
+  outline-style: auto;
+  border:none;
+  box-shadow: 0px 0px 8px  #5EA1FF;;
+}
+
+.facet-chip {
+  background-color: #337ab7;
+  padding: 4px 8px 4px 8px;
+  border-radius: 2px;
+  margin: 1px;
+
+}
+
+.facet-chip a {
+  color: white;
+}
+
 .facet-labels {
   color: #337ab7;
   font-weight: normal;
@@ -718,6 +774,8 @@ a:hover {
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
+  height: 200px;
+  overflow-y: auto;
 }
 
 .filter-checkboxes {

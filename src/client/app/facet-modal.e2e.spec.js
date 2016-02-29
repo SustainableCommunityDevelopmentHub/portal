@@ -36,8 +36,8 @@ describe("Facet Modal", function(){
       label.click();
 
       element(by.css(".apply-btn")).click();
-      var facet = $(".facet ul li");
-      expect(facet.getText()).toEqual("Text");
+      var facet = element.all(by.repeater('activeFacet in activeFacets')).get(0);
+      expect(facet.getText()).toEqual("Text (Type)");
     });
 
     it("should change the active category when you click on a different category tab", function(){
@@ -107,7 +107,7 @@ describe("Facet Modal", function(){
       var filteredTerm = "paint";
       searchBox.sendKeys(filteredTerm);
 
-      var checkboxes = element.all(by.css(".filter-checkboxes label"));
+      checkboxes = element.all(by.css(".filter-checkboxes label"));
       var containsFilteredTerm = true;
       checkboxes.each(function(checkbox){
         checkbox.getText().then(function(text){
@@ -127,7 +127,7 @@ describe("Facet Modal", function(){
       var closeButton = element(by.css(".close-modal"));
       closeButton.click();
 
-      var facets = element.all(by.css(".facet ul li"))
+      var facets = element.all(by.css(".facet ul li"));
       expect(facets.count()).toBe(0);
     });
   });
