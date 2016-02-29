@@ -31,6 +31,17 @@
             $scope.activeFacets = ss.opts.facets || [];
             $scope.advancedFields = ss.opts.advancedFields || [];
 
+            $scope.fromDate;
+            $scope.toDate;
+            if (ss.opts.date) {
+              $scope.dateRange = ss.opts.date;
+              $scope.fromDate = ss.opts.date.gte;
+              $scope.toDate = ss.opts.date.lte;
+            } 
+            
+            //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
+            //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
+
             // bind search opts to scope
             $scope.queryTerm = ss.opts.q;
             $scope.newQueryTerm = "";
@@ -168,6 +179,12 @@
       return;
     };
 
+     $scope.setDateRange = function(fromDate, toDate) {
+      console.log("fromDate: " + fromDate + ", toDate: " + toDate);
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, page: 1, from: 0});
+      return;
+    };
+
     /**
      * trigger search to populate new page and update $scope / state
      */
@@ -255,6 +272,14 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
+    }
+    /**
+     * Removes date range filter, then runs search again
+     */
+    $scope.clearDateRange = function() {
+      $scope.fromDate = "";
+      $scope.toDate = "";
+      updateSearch({date: {}, page: 1, from: 0});
     };
   }
 })();

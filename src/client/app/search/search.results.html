@@ -118,10 +118,18 @@
     </div>
     <hr class="left_sidebar_hr">
     <h5>Date range</h5>
-    <div class="date-range"><p>From:</p><input type="date"></div>
-      <div class="date-range"><p>To:</p><input type="date">
-        <button ng-click="search()" class="btn" type="button" id="go-btn-results">></button>
+    <form ng-submit="setDateRange(fromDate, toDate)">
+      <div>
+        <div class="date-range">
+          <p>From:</p>
+          <input ng-model="fromDate" maxlength="4" type="number"></div>
+        <div class="date-range">
+          <p>To:</p>
+          <input ng-model="toDate" maxlength="4" type="number">
+          <button class="btn" type="submit" id="go-btn-results">></button>
+        </div>
       </div>
+    </form>
   </div>
 
   <!--Search Box & Options-->
@@ -144,6 +152,11 @@
               <div class="facet-chip">
                 <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
               </div>
+            </li>
+            <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
+              <div class="facet-chip">
+                <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i> <span class="glyphicon glyphicon-remove-circle" style="color: white"></span>
+                </a>
             </li>
             <li>
               <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>

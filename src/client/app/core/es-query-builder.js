@@ -12,6 +12,7 @@
     /////////////////////////////////
 
     var service = {
+      globalFilters: [],
       buildSearchQuery: buildSearchQuery,
       transformToMultiSearchQuery: transformToMultiSearchQuery,
       buildContributorsQuery: buildContributorsQuery
@@ -34,6 +35,8 @@
         body: ''
       };
 
+      var _this = this;
+
       contribAggQuery.body = getContributorsQuery();
       return contribAggQuery;
     }
@@ -54,6 +57,7 @@
         from: opts.from,
         body: ''
       };
+      this.globalFilters = [];
 
       fullQuery.body = getBaseQuery();
 
@@ -74,19 +78,33 @@
 
         console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
       }
+      
+      if(opts.date){
+        var dateRange = buildDateRangeQuery(opts.date.gte, opts.date.lte);
+        if(dateRange) {
+          fullQuery.body.query.filtered
+          .filter.bool.filter
+          .push(dateRange);
+          this.globalFilters.push(dateRange);
+        }
+      }
 
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
       if (opts.advancedFields) {
-        var filterQuery = [];
+        var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
+          
           var query = {match_phrase: {}};
           query.match_phrase[item.field.searchKey] = item.term;
-          filterQuery.push(query);
+          fullQuery.body.query.filtered.filter.bool.filter.push(query);
+          allAdvancedFilters.push(query);
         });
-        fullQuery.body.query.filtered.filter.bool.filter = filterQuery;
+        if(allAdvancedFilters.length > 0){
+          this.globalFilters.push(allAdvancedFilters);
+        }
       }
 
       // build filters for search query.
@@ -339,6 +357,21 @@
         return termsFilter;
     }
 
+    function buildDateRangeQuery(fromDate, toDate) {
+      if (fromDate || toDate) {
+        var dateRangeFilter = 
+        {
+          "range" : {
+            "_date_facet" : {
+              "gte" : fromDate,
+              "lte" : toDate
+            }
+          }
+        }
+        return dateRangeFilter;
+      }
+    }
+
     /**
      * build sort portion of query
      * @param {string} sortMode string identifying the selected sort mode
@@ -391,7 +424,16 @@
                 { _index: 'portal', _type: 'book'},
                 {
                   size: 0,
-                  query: fullQuery.body.query.filtered.query,
+                  query: {
+                    filtered: {
+                      query: fullQuery.body.query.filtered.query,
+                      filter: {
+                        bool: {
+                          must: this.globalFilters
+                        }
+                      }
+                    }
+                  },
                   aggregations: fullQuery.body.aggregations
                 }
               ]

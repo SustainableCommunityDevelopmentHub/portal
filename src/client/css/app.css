@@ -551,17 +551,19 @@ a:hover {
 .date-range {
   display: inline-block;
   margin-right: 4px;
+  margin-top: 5px;
 }
 
 .date-range input {
   width: 105px;
   height: 30px;
-  font-size: 10px;
+  font-size: 12px;
+  margin-right: 10px;
 }
 
 .date-range button {
-  margin-left: 4px;
   padding-top: 3px;
+  margin-top: 3px;
 }
 
 .facet {

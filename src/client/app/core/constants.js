@@ -87,7 +87,8 @@
         page: 1,
         facets: [],
         advancedFields: [],
-        sort: 'relevance'
+        sort: 'relevance',
+        date: {}
       }
     });
 })();
