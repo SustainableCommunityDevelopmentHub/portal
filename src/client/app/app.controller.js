@@ -29,7 +29,6 @@
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
       $state.go('searchResults', SearchService.opts);
     };
-
   }])
 
 
