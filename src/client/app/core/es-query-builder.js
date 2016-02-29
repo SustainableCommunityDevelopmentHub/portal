@@ -12,8 +12,7 @@
     /////////////////////////////////
 
     var service = {
-      globalDateFilter : {},
-      globalAdvancedFilters: [],
+      globalFilters: [],
       buildSearchQuery: buildSearchQuery,
       transformToMultiSearchQuery: transformToMultiSearchQuery,
       buildContributorsQuery: buildContributorsQuery
@@ -25,8 +24,6 @@
     //Variables
     //////////////////////////////////
 
-    //var globalDateFilter = {};
-    //var globalAdvancedFilters = [];
 
     //////////////////////////////////
     //Public Functions
@@ -65,6 +62,7 @@
         from: opts.from,
         body: ''
       };
+      this.globalFilters = [];
 
       fullQuery.body = getBaseQuery();
 
@@ -87,29 +85,31 @@
       }
       
       if(opts.date){
-        var dateRange = buildRangeQuery(opts.date.gte, opts.date.lte);
+        var dateRange = buildDateRangeQuery(opts.date.gte, opts.date.lte);
         if(dateRange) {
           fullQuery.body.query.filtered
           .filter.bool.filter
           .push(dateRange);
-          this.globalDateFilter = dateRange;
+          this.globalFilters.push(dateRange);
         }
       }
-
+      
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
       if (opts.advancedFields) {
-        var myFilters = [];
+        var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
           
           var query = {match_phrase: {}};
           query.match_phrase[item.field.searchKey] = item.term;
           fullQuery.body.query.filtered.filter.bool.filter.push(query);
-          myFilters.push(query);
+          allAdvancedFilters.push(query);
         });
-        this.globalAdvancedFilters = myFilters;
+        if(allAdvancedFilters.length > 0){
+          this.globalFilters.push(allAdvancedFilters);
+        }
       }
 
       // build filters for search query.
@@ -362,17 +362,19 @@
         return termsFilter;
     }
 
-    function buildRangeQuery(fromDate, toDate) {
-      var dateRangeFilter = 
-      {
-        "range" : {
-          "_date_facet" : {
-            "gte" : fromDate,
-            "lte" : toDate
+    function buildDateRangeQuery(fromDate, toDate) {
+      if (fromDate || toDate) {
+        var dateRangeFilter = 
+        {
+          "range" : {
+            "_date_facet" : {
+              "gte" : fromDate,
+              "lte" : toDate
+            }
           }
         }
+        return dateRangeFilter;
       }
-      return dateRangeFilter;
     }
 
     /**
@@ -413,8 +415,6 @@
      * @return {object} multi search query ready to be passed to esClient
      */
     function transformToMultiSearchQuery(fullQuery){
-      var globalFilter = this.globalAdvancedFilters.slice(0);
-      globalFilter.push(this.globalDateFilter);
       return {
               body: [
                 // search terms query
@@ -434,7 +434,7 @@
                       query: fullQuery.body.query.filtered.query,
                       filter: {
                         bool: {
-                          must: globalFilter
+                          must: this.globalFilters
                         }
                       }
                     }

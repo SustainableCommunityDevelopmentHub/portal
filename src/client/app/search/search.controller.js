@@ -181,7 +181,7 @@
 
      $scope.setDateRange = function(fromDate, toDate) {
       console.log("fromDate: " + fromDate + ", toDate: " + toDate);
-      updateSearch({date: {"gte": fromDate, "lte": toDate}});
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, page: 1, from: 0});
       return;
     };
 
@@ -273,11 +273,13 @@
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
     }
-
+    /**
+     * Removes date range filter, then runs search again
+     */
     $scope.clearDateRange = function() {
       $scope.fromDate = "";
       $scope.toDate = "";
-      updateSearch({date: {}});
+      updateSearch({date: {}, page: 1, from: 0});
     };
   }
 })();

@@ -113,6 +113,8 @@
 
       //console.log('SearchService:setResultsData......results: ' + JSON.stringify(results));
 
+
+
       this.results.hits = SearchResParser.parseResults(results.hits.hits);
       this.results.numTotalHits = results.hits.total;
 
