@@ -35,6 +35,7 @@ module.exports = function(config) {
       'src/client/app/core/*.js',
       'src/client/app/widgets/*.js',
       'src/client/app/contributors/*.js',
+      'src/client/app/advanced_search/*.js',
 
       // helpers for jasmine, etc
       'test/mockData.js'

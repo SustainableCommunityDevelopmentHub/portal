@@ -281,7 +281,7 @@ a:hover {
 .sf-input {
   height: 34px;
   margin-left: 5px;
-  width: 510px;
+  width: 470px;
 }
 
 .add-field-glyph {
@@ -295,6 +295,68 @@ a:hover {
 .adv-search-btn {
   margin-top: 200px;
   float: right;
+}
+
+.filter-input {
+  max-width: 600px;
+  margin-right: 0;
+}
+
+.filter-item input {
+  display: inline-block;
+}
+
+#filter-menu {
+  width: 120px;
+  margin-top: -12px;
+  font-size: 12px;
+  min-width: 120px;
+  border-radius: 0;
+  padding: 0;
+}
+
+#filter-menu > li > a {
+  padding: 7px 20px;
+  border-bottom: 1px solid #ddd
+
+}
+
+.filter-dropdown {
+  color: black;
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 0;
+  font-size: .8em;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 120px;
+  text-align: left;
+  white-space: normal;
+}
+
+.dropdown-text {
+  display: inline-block;
+}
+
+.dropdown-icon {
+  float: right;
+  display: inline-block;
+}
+
+.plus-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.search-btn {
+  border: 2px solid black;
+  border-radius: 2px;
+  padding: 10px 40px;
+  background-color: #fff;
+  float: right;
+  font-size: 12px;
 }
 
 
@@ -489,17 +551,19 @@ a:hover {
 .date-range {
   display: inline-block;
   margin-right: 4px;
+  margin-top: 5px;
 }
 
 .date-range input {
   width: 105px;
   height: 30px;
-  font-size: 10px;
+  font-size: 12px;
+  margin-right: 10px;
 }
 
 .date-range button {
-  margin-left: 4px;
   padding-top: 3px;
+  margin-top: 3px;
 }
 
 .facet {
@@ -519,6 +583,76 @@ a:hover {
 .facet li {
   list-style: none;
   padding-right: 10px;
+}
+
+.facet-chip-search-bar {
+  min-height: 40px;
+  padding: 0px 2px;
+  width: 84%;
+  display: inline-block;
+  float: left;
+  border: 1px solid rgb(200, 200, 200);
+  overflow: hidden;
+  cursor: text;
+}
+
+.facet-chip-list {
+  padding-left: 0;
+  height: 100%;
+  margin: 4px 0px 2px 0px;
+}
+
+.facet-chip-list li {
+  display: inline-block;
+  list-style: none;
+  height: 90%;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+#facet-chip-input {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  border: none;
+}
+
+#facet-chip-input:focus {
+  border:none;
+  outline: none;
+}
+
+.input-div-focus {
+  outline-color: #5EA1FF;
+  outline-style: auto;
+  border:none;
+  box-shadow: 0px 0px 8px  #5EA1FF;;
+}
+
+.facet-chip {
+  background-color: #337ab7;
+  padding: 4px 8px 4px 8px;
+  border-radius: 2px;
+  margin: 1px;
+
+}
+
+.facet-chip a {
+  color: white;
+}
+
+.facet-labels {
+  color: #337ab7;
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 4px;
+  overflow: auto;
+  display: inline;
+  line-height: 22px;
+}
+
+.facet-labels:hover {
+  text-decoration: underline;
 }
 
 /** Facet Modal **/
@@ -642,6 +776,8 @@ a:hover {
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
+  height: 200px;
+  overflow-y: auto;
 }
 
 .filter-checkboxes {
@@ -766,7 +902,6 @@ ul.specs dt {
   float: right;
   font-size: 0;
   display: block;
-  background-color: #efefef;
   list-style: none;
 }
 
@@ -777,7 +912,6 @@ ul.specs dt {
   color: black;
   display: inline-block;
   border: 1px gray solid;
-  background-color: #efefef;
   text-align: center;
   font-size: 14px;
   text-decoration: none;

@@ -11,6 +11,11 @@
       if(toState.controller === 'HomePageCtrl'){
         console.log('HomePageCtrl::$scope.$on($stateChangeSuccess -- toState: ' + JSON.stringify(toState));
         SearchService.resetOpts();
+        SearchService.newSearch(SearchService.opts)
+          .then(function(results){
+            var allResults = SearchService.setResultsData(results);
+            $scope.numTotalHits = allResults.numTotalHits;
+          });
       }
     });
 
@@ -26,49 +31,6 @@
     };
   }])
 
-  .controller('AdvancedCtrl', ['$scope', 'esClient',
-    function($scope, esClient) {
-      $scope.search = function() {
-        // build term list excluding empty fields
-        var terms = [];
-        Object.keys($scope.query.terms).forEach(function(key) {
-          var value = $scope.query.terms[key];
-          if(value != '') {
-            var hash = {};
-            hash[key + '.value'] = value;
-            terms.push({'term': hash});
-          }
-        });
-
-        esClient.search({
-          index: 'portal',
-          'body': {
-            'query': {
-              'filtered': {
-                'filter': {
-                  'bool': {
-                    'must': terms
-                  }
-                }
-              }
-            }
-          }
-        }).then(function(response){
-          $scope.results = response;
-        }, function(error) {
-          console.trace(error.message);
-        });
-      };
-    }])
-
-  .controller('AdvFieldController', ['$scope', function($scope) {
-      $scope.fields = [
-        {name:'Title'},
-        {name:'Date'},
-        {name:'Subject'}
-      ];
-      $scope.myField = $scope.fields[0];
-    }])
 
   .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'esClient', 'SearchService',
     function($scope, $stateParams, $window, esClient, SearchService) {

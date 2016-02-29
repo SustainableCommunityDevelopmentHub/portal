@@ -11,9 +11,7 @@ describe("Facet Modal", function(){
   it("should open modal window with previously checked facets checked", function(){
     var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(1);
     tab.click();
-    var facet = element(by.linkText("Exhibitions (4)"));
-    var facetText = facet.getText();
-    facetText = "Exhibitions";
+    var facet = element(by.id("Exhibitions-sidebar"));
     facet.click();
 
     element(by.id("see-all-subject")).click();
@@ -22,16 +20,12 @@ describe("Facet Modal", function(){
     expect(modalFacet.getAttribute("value")).toEqual("on");
   });
 
+
   describe("tests launching modal from 'Type' category", function(){
     beforeEach(function(){
       var tab = element.all(by.css(".left_sidebar_accordion__tab")).get(0);
       tab.click();
       element(by.id("see-all-type")).click();
-    });
-
-    it("should open the facet modal window when you click 'See All'", function(){
-      var modal = element(by.css(".modal-body"));
-      expect(modal.isDisplayed()).toBe(true);
     });
 
     it("should apply checked filters when you click 'Apply'", function(){
@@ -42,8 +36,8 @@ describe("Facet Modal", function(){
       label.click();
 
       element(by.css(".apply-btn")).click();
-      var facet = $(".facet ul li");
-      expect(facet.getText()).toEqual("Text");
+      var facet = element.all(by.repeater('activeFacet in activeFacets')).get(0);
+      expect(facet.getText()).toEqual("Text (Type)");
     });
 
     it("should change the active category when you click on a different category tab", function(){
@@ -113,7 +107,7 @@ describe("Facet Modal", function(){
       var filteredTerm = "paint";
       searchBox.sendKeys(filteredTerm);
 
-      var checkboxes = element.all(by.css(".filter-checkboxes label"));
+      checkboxes = element.all(by.css(".filter-checkboxes label"));
       var containsFilteredTerm = true;
       checkboxes.each(function(checkbox){
         checkbox.getText().then(function(text){
@@ -133,7 +127,7 @@ describe("Facet Modal", function(){
       var closeButton = element(by.css(".close-modal"));
       closeButton.click();
 
-      var facets = element.all(by.css(".facet ul li"))
+      var facets = element.all(by.css(".facet ul li"));
       expect(facets.count()).toBe(0);
     });
   });
