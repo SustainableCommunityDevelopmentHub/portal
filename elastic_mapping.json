@@ -81,6 +81,14 @@
         "type": "string",
         "index": "not_analyzed"
       },
+      "_edition": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "_series": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
       "dublin_core":{
         "type": "object",
         "properties": {

@@ -198,11 +198,12 @@
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
       <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-      <a ng-href="{{book._record_link}}" target="_blank">{{book._title_display}}</a><br/>
-      <b>Creator: </b>{{book._creator_display}}<br/>
-      <b>Date: </b>{{book._date_display}}<br/>
-      <b>Contributing Institution: </b>{{book._grp_contributor}}<br/>
-      <a class="portal-record-link" ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
+      <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
+      <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
+      <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
+      <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
+      <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
+      <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
       <hr class="results-list-hr"><br>
     </li>
     </ul>
