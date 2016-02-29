@@ -73,4 +73,22 @@ describe('Search Results', function() {
       expect(value).toBe(numResults);
     });
   });
+
+  it('should filter results by date when you use date range filter', function(){
+    element(by.model('queryTerm')).sendKeys(testQuery);
+    searchBtn.click();
+    element(by.model('fromDate')).sendKeys('1905');
+    element(by.model('toDate')).sendKeys('1910');
+    element.all(by.css(".date-range button")).get(0).click();
+
+    $('.book-listing').evaluate('hits').then(function(hits) {
+       var dates = [];
+       for(var i = 0; i < hits.length; i++){
+         var book = hits[i];
+         var date = book._date_facet;
+         expect(parseInt(date)).toBeGreaterThan(1904);
+         expect(parseInt(date)).toBeLessThan(1911);
+       }
+     });
+  });
 });

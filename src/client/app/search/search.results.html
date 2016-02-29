@@ -119,14 +119,17 @@
     <hr class="left_sidebar_hr">
     <h5>Date range</h5>
     <form ng-submit="setDateRange(fromDate, toDate)">
+      <div>
       <div class="date-range">
         <p>From:</p>
         <input ng-model="fromDate" maxlength="4" type="number"></div>
       <div class="date-range">
         <p>To:</p>
         <input ng-model="toDate" maxlength="4" type="number">
+        <button class="btn" type="submit" id="go-btn-results">></button>
       </div>
-      <button class="btn" type="submit" id="go-btn-results">></button>
+      
+    </div>
     </form>
   </div>
 

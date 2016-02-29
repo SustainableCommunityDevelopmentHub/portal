@@ -264,15 +264,6 @@ describe("Search Controller", function(){
       // default size is 25
       expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
     });
-    it("should clear query term", function(){
-      var queryObj = {q: 'painting'};
-      scope.newQuerySearch(queryObj.q);
-      var optionsObj = _.merge(defaultSearchObj, queryObj);
-      delete optionsObj.size;
-      delete optionsObj.facets;
-      delete optionsObj.advancedFields;
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(_.merge(defaultSearchObj, queryObj));
-    });
   });
 
 });

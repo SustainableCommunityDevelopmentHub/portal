@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, MySearchService, data, es, opts;
+  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder;
 
   var baseESQuery = {
     "index":"portal",
@@ -60,12 +60,13 @@ describe("Date Range Filter", function() {
     module('app.search');
   });
   
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient){
+  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
     data = DataService;
     es = esClient;
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
+    queryBuilder = esQueryBuilder;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -104,13 +105,11 @@ describe("Date Range Filter", function() {
 
     it("builds correct elasticsearch query for date range", function(){
       opts.date = {"gte": scope.fromDate,"lte": scope.toDate};
-      var dateRangeQuery = baseESQuery;
-      dateRangeQuery.body.query.filtered.filter.bool.must = [{"range":{"_date_facet":{"gte": scope.fromDate,"lte": scope.toDate}}}];
-      data.search(opts);
-      expect(es.search).toHaveBeenCalledWith(dateRangeQuery);    
+      var dateRange = {"range":{"_date_facet":{"gte": scope.fromDate,"lte": scope.toDate}}};
+      var newQuery = queryBuilder.buildSearchQuery(opts);
+
+      var filter = newQuery.body.query.filtered.filter.bool.filter;
+      expect(filter).toContain(dateRange);    
     });
-
-
   });
-
 });
