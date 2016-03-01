@@ -64,10 +64,10 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
-        fullQuery.body.query.filtered.query.match = { _all: opts.q };
+        fullQuery.body.query.bool.must.match = { _all: opts.q };
       }
       else{
-        fullQuery.body.query.filtered.query.match_all = {};
+        fullQuery.body.query.bool.must.match_all = {};
       }
 
       if(opts.sort){
@@ -82,7 +82,7 @@
       if(opts.date){
         var dateRange = buildDateRangeQuery(opts.date.gte, opts.date.lte);
         if(dateRange) {
-          fullQuery.body.query.filtered
+          fullQuery.body.query.bool
           .filter.bool.filter
           .push(dateRange);
           this.globalFilters.push(dateRange);
@@ -99,7 +99,7 @@
           
           var query = {match_phrase: {}};
           query.match_phrase[item.field.searchKey] = item.term;
-          fullQuery.body.query.filtered.filter.bool.filter.push(query);
+          fullQuery.body.query.bool.filter.bool.filter.push(query);
           allAdvancedFilters.push(query);
         });
         if(allAdvancedFilters.length > 0){
@@ -151,7 +151,7 @@
         // add filters to main search query
         facetCategoriesArr.forEach(function(facetCategory){
           if(facetCategory.options.length){
-            fullQuery.body.query.filtered
+            fullQuery.body.query.bool
             .filter.bool.must
             .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.options)));
 
@@ -277,8 +277,8 @@
         {
           // fulltext query across all fields - the "search term"
           "query": {
-            "filtered": {
-              "query": {
+            "bool": {
+              "must": {
               },
               "filter": {
                 "bool": {
@@ -425,8 +425,8 @@
                 {
                   size: 0,
                   query: {
-                    filtered: {
-                      query: fullQuery.body.query.filtered.query,
+                    bool: {
+                      must: fullQuery.body.query.bool.must,
                       filter: {
                         bool: {
                           must: this.globalFilters
