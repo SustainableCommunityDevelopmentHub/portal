@@ -452,10 +452,15 @@ button#toggle-sort-btn {
     display: inline;
   }*/
 
-  .left_sidebar_accordion__container {
+  #left_sidebar_accordion__container {
     float:left;
     width: 100%;
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+
   }
+
 
   .left_sidebar_accordion__tab {
     color: black;
@@ -605,6 +610,21 @@ button#toggle-sort-btn {
 .facet-labels:hover {
   text-decoration: underline;
 }
+
+  /* Facet Dropdown Mobile */
+
+  #facets-mobile {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+
+  #facets-mobile h4 {
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+  }
 
 /** Facet Modal **/
 
@@ -1289,6 +1309,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     display: none;
   }
 
+  /* Search Results */
+  #facets-mobile {
+    display: none;
+  }
+  
+
 }
 
 @media (max-width: 768px) {
@@ -1316,6 +1342,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   .search-bar-results .search-input {
     width: 100%;
+  }
+
+  .facet-header-desktop {
+    display: none;
   }
 
 

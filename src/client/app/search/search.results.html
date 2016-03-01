@@ -10,19 +10,25 @@
 <div class="container"> <!--Faceted Search sidebar-->
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <div class="left_sidebar_accordion__container" ng-controller="FaqsCtrl">
+      <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container"> 
+              <a href="#"><h4>Filter Your Results</h4><span></span></a><a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>Clear all</a>
+          </div>
+
+      <div id="left_sidebar_accordion__container" class="navbar-collapse collapse" ng-controller="FaqsCtrl">
+        <div class="facet-header-desktop">
         <h4>Filter Your Results</h4>
         <a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  Clear all </a>
+      </div>
         <hr class="left_sidebar_hr">
 
-            <uib-accordion close-others="false">
-              <uib-accordion-group ng-init="isopen = true" is-open="isopen">
-                <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen, 'glyphicon-plus': !isopen}"></i>Type
-                </uib-accordion-heading>
-                <div ng-repeat="facet in facets.type | filter:{active:true}" >
-                  <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-                  <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-                  </label>
+        <uib-accordion close-others="false">
+          <uib-accordion-group ng-init="isopen = true" is-open="isopen">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen, 'glyphicon-plus': !isopen}"></i>Type
+            </uib-accordion-heading>
+            <div ng-repeat="facet in facets.type | filter:{active:true}" >
+              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              </label>
             </div>
             <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
@@ -115,7 +121,7 @@
               </div>
         </div>
       </div>
-    </div>
+  </div>
 
   
   <!--Search Box & Options-->
