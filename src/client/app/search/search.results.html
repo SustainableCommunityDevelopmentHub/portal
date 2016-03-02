@@ -94,8 +94,8 @@
             </div>
           </uib-accordion-group><!-- accordion-group -->
 
-          <uib-accordion-group ng-init="isopen4 = true" is-open="isopen4">
-            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen4, 'glyphicon-plus': !isopen4}"></i>Contributing Institution
+          <uib-accordion-group ng-init="isopen5 = true" is-open="isopen5">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen5, 'glyphicon-plus': !isopen5}"></i>Contributing Institution
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
