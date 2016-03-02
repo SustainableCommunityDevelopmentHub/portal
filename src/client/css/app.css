@@ -451,6 +451,15 @@ a:hover {
   background-color: #528AA5;
 }
 
+.sorting {
+  display: inline-block;
+}
+
+.sorting .btn-group {
+  margin-right: 10px;
+}
+
+
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active:focus {
   background-color: #528AA5;
   border: 1px solid #528AA5;
@@ -465,11 +474,6 @@ a:hover {
   margin-top: 10px;
 }
 
-button#toggle-sort-btn {
-  float: left;
-  margin: 10px 10px 10px 0;
-}
-
 .dropdown-menu > li > a {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd
@@ -477,9 +481,9 @@ button#toggle-sort-btn {
 
 .results-pagination-top {
   font-size: 12px;
-  display: inline-block;
+  display: inline-flex;
   float: right;
-  margin: 10px 0 10px 10px;
+  margin: 10px 0;
 }
 
 .showing {
@@ -487,17 +491,6 @@ button#toggle-sort-btn {
   margin:10px;
   font-size: 12px;
 }
-
-/*.results-list {
-  display: inline-block;
-  border-left: solid black 1px;
-  padding-left: 30px;
-  margin-bottom: 50px;
-}*/
-
-/*.results-top {
-  width: 100%;
-}*/
 
 
 .results-pagination {
@@ -511,12 +504,6 @@ button#toggle-sort-btn {
 
   /* Left Sidebar */
 
-  /*.left-sidebar {
-    width: 20%;
-    float: left;
-    margin-right: 20px;
-    display: inline;
-  }*/
 
   #left_sidebar_accordion__container {
     float:left;
@@ -673,13 +660,16 @@ button#toggle-sort-btn {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    border-bottom: 1px solid;
   }
 
 
   #facets-mobile h4 {
-    padding: 0;
+    padding: 0 0 20px 0;
     margin: 0;
     text-decoration: underline;
+    margin-right: 10px;
+    display: inline-block;
   }
 
 /** Facet Modal **/
@@ -1440,6 +1430,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     display: none;
   }
 
+  .left_sidebar_hr {
+    display: none;
+  }
+
 
   /* Search Help */
 
@@ -1452,6 +1446,25 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 
 @media (max-width: 992px) {
+
+/* Search Results */
+
+.sorting {
+  display: block;
+}
+
+.sorting .btn-group {
+  width: 49%;
+  margin-right: 0;
+}
+
+.sorting .btn {
+  width: 100%;
+}
+
+.results-pagination-top {
+  float: left;
+}
 
 
 /* footer */
