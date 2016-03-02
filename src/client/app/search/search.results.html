@@ -113,13 +113,21 @@
           </uib-accordion-group><!-- accordion-group -->
 
         </uib-accordion>
+   <div class="date-range">
+    <h5>Date range</h5>
+    <form ng-submit="setDateRange(fromDate, toDate)">
+      <div>
         <div class="date-range">
-          <h5>Date range</h5>
-            <div class="date-range"><p>From:</p><input type="date"></div>
-              <div class="date-range"><p>To:</p><input type="date">
-                <button ng-click="search()" class="btn" type="button" id="go-btn-results">></button>
-              </div>
+          <p>From:</p>
+          <input ng-model="fromDate" maxlength="4" type="number"></div>
+        <div class="date-range">
+          <p>To:</p>
+          <input ng-model="toDate" maxlength="4" type="number">
+          <button class="btn" type="submit" id="go-btn-results">></button>
         </div>
+      </div>
+    </form>
+  </div>
       </div>
   </div>
 
@@ -127,34 +135,51 @@
   <!--Search Box & Options-->
     <div class="col-xs-12 col-sm-8">
       <div class="results-list">
-        <div class="search-bar-results">
-          <form ng-submit="newQuerySearch(queryTerm)"><input ng-model="queryTerm" class="search-input" type="text">
-            <button ng-click="newQuerySearch(queryTerm)" class="btn" type="button" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
-           </form>
-        </div>
-
-        <!--View active facets-->
-        <div class="facet">
-          <ul>
-            <li ng-repeat="activeFacet in activeFacets">
-              <a ng-click="updateFacet(activeFacet, false)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  {{activeFacet.option}}</a>
+    <div class="search-bar-results">
+      <form ng-submit="newQuerySearch(newQueryTerm)">
+        <div class="facet-chip-search-bar facet-search" focus-input >
+          <ul class="facet-chip-list facet-search">
+            <li class="facet-search" ng-if="queryTerm">
+              <div class="facet-chip">
+                <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+              </div>
             </li>
-            <li ng-repeat="advancedField in advancedFields">
-              <a ng-click="clearAdvancedField(advancedField)"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span> {{ advancedField.term }} (Keyword: {{ advancedField.field.display }}) </a>
+            <li class="facet-search" ng-repeat="activeFacet in activeFacets">
+              <div class="facet-chip">
+                <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.option}} <i>({{categories[activeFacet.facet].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+              </div>
+            </li>
+            <li class="facet-search" ng-repeat="advancedField in advancedFields">
+              <div class="facet-chip">
+                <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+              </div>
+            </li>
+            <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
+              <div class="facet-chip">
+                <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i> <span class="glyphicon glyphicon-remove-circle" style="color: white"></span>
+                </a>
+            </li>
+            <li>
+              <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>
             </li>
           </ul>
         </div>
-      </div>
+        <button  class="btn" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span>
+        </button>
+      </form>
     </div>
 
-    <div class="col-xs-12 col-sm-8">
+
       <div class="dropdown results-top" uib-dropdown>
         <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}
-        <span class="caret"></span></button>
+          <span class="caret"></span>
+        </button>
           <ul uib-dropdown-menu role="menu" class="dropdown-menu">
             <li ng-repeat="sortMode in validSortModes">
               <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
           </ul>
+        </div>
+
 
           <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
           <div class="btn-group" uib-dropdown>
@@ -165,39 +190,43 @@
                 <a ng-click="setPageSize(pageSizeOption)">{{pageSizeOption}}</a>
               </li>
             </ul>
-          </div>
-          <div class="results-pagination-top">
+         </div>
+                 <div class="results-pagination-top">
             <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
           </div>
         </div>
       </div>
 
-      <div class="col-xs-12 col-sm-8">
+
+<div class="col-xs-12 col-sm-8">
         <span class="showing" ng-show="numTotalHits === 0">No results found</span>
         <span class="showing" ng-show="numTotalHits > 0 && pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
         <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
       </div>
 
-      <div class="col-xs-12 col-sm-8">
-        <hr class="results-list-hr">
 
-        <!--Search Results Data-->
-        <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-          <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
-          <a ng-href="{{book._record_link}}" target="_blank">{{book._title_display}}</a><br/>
-          <b>Creator: </b>{{book._creator_display}}<br/>
-          <b>Date: </b>{{book._date_display}}<br/>
-      <b>Contributing Institution: </b>{{book._grp_contributor}}<br/>
-      <a class="portal-record-link" ui-sref="books({bookID: book._id})" target="_blank">See Full Record</a><br/>
+      <div class="col-xs-12 col-sm-8">
+ <hr class="results-list-hr">
+    <!--Search Results Data-->
+    <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
+      <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
+      <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
+      <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
+      <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
+      <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
+      <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
+      <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
       <hr class="results-list-hr"><br>
     </li>
     </ul>
-  </div>
-
-    <!--Pagination-->
+    
+        <!--Pagination-->
     <div class="results-pagination">
       <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
     </div>
+  </div>
+
+
 
 </div><!-- /row -->
 </div><!-- /container -->

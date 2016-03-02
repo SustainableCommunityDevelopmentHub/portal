@@ -88,9 +88,17 @@
       }
       _.merge(this.opts, newOpts);
 
-      // hack to handle correctly deleting all facets
+      // hack to handle correctly deleting all facets and advanced fields
       if(newOpts.facets && !newOpts.facets.length){
         this.opts.facets = [];
+      }
+
+      if(newOpts.date && !(newOpts.date.gte || newOpts.date.lte)){
+        this.opts.date = {};
+      }
+      
+      if(newOpts.advancedFields && !newOpts.advancedFields.length){
+        this.opts.advancedFields = [];
       }
     }
 
@@ -104,6 +112,8 @@
     function setResultsData(results){
 
       //console.log('SearchService:setResultsData......results: ' + JSON.stringify(results));
+
+
 
       this.results.hits = SearchResParser.parseResults(results.hits.hits);
       this.results.numTotalHits = results.hits.total;

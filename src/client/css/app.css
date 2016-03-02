@@ -367,8 +367,74 @@ a:hover {
   display: inline-block;
 }
 
-.search-bar-results .search-input {
+.facet-chip-search-bar {
+  min-height: 40px;
+  padding: 0px 2px;
   width: 93%;
+  display: inline-block;
+  float: left;
+  border: 1px solid rgb(200, 200, 200);
+  overflow: hidden;
+  cursor: text;
+}
+
+.facet-chip-list {
+  padding-left: 0;
+  height: 100%;
+  margin: 4px 0px 2px 0px;
+}
+
+.facet-chip-list li {
+  display: inline-block;
+  list-style: none;
+  height: 90%;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+#facet-chip-input {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  border: none;
+}
+
+#facet-chip-input:focus {
+  border:none;
+  outline: none;
+}
+
+.input-div-focus {
+  outline-color: #5EA1FF;
+  outline-style: auto;
+  border:none;
+  box-shadow: 0px 0px 8px  #5EA1FF;;
+}
+
+.facet-chip {
+  background-color: #337ab7;
+  padding: 4px 8px 4px 8px;
+  border-radius: 2px;
+  margin: 1px;
+
+}
+
+.facet-chip a {
+  color: white;
+}
+
+.facet-labels {
+  color: #337ab7;
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 4px;
+  overflow: auto;
+  display: inline;
+  line-height: 22px;
+}
+
+.facet-labels:hover {
+  text-decoration: underline;
 }
 
 .sr-top {
@@ -565,17 +631,19 @@ button#toggle-sort-btn {
 .date-range {
   display: inline-block;
   margin-right: 4px;
+  margin-top: 5px;
 }
 
 .date-range input {
   width: 105px;
   height: 30px;
-  font-size: 10px;
+  font-size: 12px;
+  margin-right: 10px;
 }
 
 .date-range button {
-  margin-left: 4px;
   padding-top: 3px;
+  margin-top: 3px;
 }
 
 .facet {
@@ -597,19 +665,7 @@ button#toggle-sort-btn {
   padding-right: 10px;
 }
 
-.facet-labels {
-  color: #337ab7;
-  font-weight: normal;
-  cursor: pointer;
-  padding-left: 4px;
-  overflow: auto;
-  display: inline;
-  line-height: 22px;
-}
 
-.facet-labels:hover {
-  text-decoration: underline;
-}
 
   /* Facet Dropdown Mobile */
 
@@ -746,6 +802,8 @@ button#toggle-sort-btn {
 .checkbox-list {
   margin-top: 20px;
   padding-left: 2px;
+  height: 200px;
+  overflow-y: auto;
 }
 
 .filter-checkboxes {
@@ -875,7 +933,6 @@ ul.specs dt {
   float: right;
   font-size: 0;
   display: block;
-  background-color: #efefef;
   list-style: none;
 }
 
@@ -886,7 +943,6 @@ ul.specs dt {
   color: black;
   display: inline-block;
   border: 1px gray solid;
-  background-color: #efefef;
   text-align: center;
   font-size: 14px;
   text-decoration: none;
@@ -1288,6 +1344,39 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 /** RESPONSIVE **/
 
+@media (min-width: 300px) and (max-width: 544px) {
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 80%;
+
+  }
+}
+
+@media (min-width: 545px) and (max-width: 669px) {
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 90%;
+
+  }
+}
+
+
+@media (min-width: 670px) and (max-width: 777px) {
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 92%;
+  }
+
+}
+
+
+
 @media (min-width: 768px) {
 
   /* Header */
@@ -1310,6 +1399,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   }
 
   /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 89%;
+
+}
+
   #facets-mobile {
     display: none;
   }
@@ -1340,9 +1435,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /*   Search Results */
 
-  .search-bar-results .search-input {
-    width: 100%;
-  }
 
   .facet-header-desktop {
     display: none;
@@ -1361,14 +1453,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 @media (max-width: 992px) {
 
-   /*   Search Results */
-
-  .search-bar-results .search-input {
-    width: 89%;
-  }
-
-
- 
 
 /* footer */
 
@@ -1380,21 +1464,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 
+
 @media (min-width: 993px) {
 
    /*   Search Results */
 
-  .search-bar-results .search-input {
+  .facet-chip-search-bar {
     width: 91%;
   }
 }
+
 
 
 @media (min-width: 1200px) {
 
    /*   Search Results */
 
-  .search-bar-results .search-input {
+  .facet-chip-search-bar  {
     width: 93%;
   }
 }
