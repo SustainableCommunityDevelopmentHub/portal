@@ -150,6 +150,20 @@
               }
             }
           },
+          "creator": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
           "date": {
             "type": "nested",
             "properties": {
@@ -164,7 +178,217 @@
               }
             }
           },
+          "publisher": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "format": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "type": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "description": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "provenance": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "language": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "subject": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "coverage": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "title": {
+            "type": "nested",
+            "properties":{
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
           "contributor": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "relation": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "source": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "rights": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "accrualMethod": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "accrualPeriodicity": {
+            "type": "nested",
+            "properties": {
+              "value": {
+                "type": "string",
+                "fields": {
+                  "folded": {
+                    "type": "string",
+                    "analyzer": "folding"
+                  }
+                }
+              }
+            }
+          },
+          "audience": {
             "type": "nested",
             "properties": {
               "value": {
