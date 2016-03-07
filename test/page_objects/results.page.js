@@ -34,9 +34,16 @@ ResultsPage.prototype = Object.create({}, {
     this.openFacetTab(facet);
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
   }},
+  getFacetOptionByLabel: { value: function(facet, label) {
+    this.openFacetTab(facet);
+    return element(by.id(label+"-sidebar"));
+  }},
   addFacetOption: { value: function(facet, label) {
     this.openFacetTab(facet);
     $("[id='" + label + "-sidebar']").click();
+  }},
+  toggleFacetOption: { value: function(facet, label) {
+    this.getFacetOptionByLabel(facet, label).click();
   }},
   openFacetModal: { value: function(facet) {
     this.openFacetTab(facet);
@@ -98,6 +105,16 @@ ResultsPage.prototype = Object.create({}, {
   }},
   sortOptions: { get: function() {
     return element.all(by.repeater('sortMode in validSortModes'));
+  }},
+  paginationBar: { get: function() {
+    return $('.results-pagination-top');
+  }},
+  submitDateRange: { value: function(from, to) {
+    var from = typeof from !== 'undefined' ? from : '';
+    var to = typeof to !== 'undefined' ? to : '';
+    element(by.model('fromDate')).sendKeys(from);
+    element(by.model('toDate')).sendKeys(to);
+    element.all(by.css(".date-range button")).get(0).click();
   }}
 });
 

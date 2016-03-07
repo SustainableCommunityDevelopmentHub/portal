@@ -10,6 +10,9 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     submitHomePageQuery: { value: function(query) {
         element(by.model('queryTerm')).sendKeys(query);
         element(by.id('go-btn')).click();
+    }},
+    seeAll: { value: function() {
+        element(by.id('see-all-btn')).click();
     }}
 });
 
