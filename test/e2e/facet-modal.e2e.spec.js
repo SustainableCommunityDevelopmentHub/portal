@@ -74,7 +74,6 @@ describe("Facet Modal", function(){
 
       resultsPage.toggleModalSeeOnly();
       expect(resultsPage.modalOptions.count()).toEqual(initialCount);
-      */
     });
 
     it("should filter checkboxes after typing in search text box", function(){

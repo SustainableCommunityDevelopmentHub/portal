@@ -1,30 +1,35 @@
 'use strict';
 
-function getFacetSideBarTab(position){
-  return element.all(by.css(".left_sidebar_accordion__tab")).get(position);
-}
 
 var ResultsPage = function() {
   browser.get('/search');
 };
 
+
 ResultsPage.prototype = Object.create({}, {
-  searchButton: { get: function() { return element(by.id('go-btn-results')); }},
+  tabPositions: { get: function() {
+    return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
+  }},
+  searchButton: { get: function() { 
+    return element(by.id('go-btn-results')); 
+  }},
   numTotalHits: { get: function() { 
     return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
   }},
-  typeFacetTab: { get: function() { return getFacetSideBarTab(0); }},
-  subjectFacetTab: { get: function() { return getFacetSideBarTab(1); }},
-  creatorFacetTab: { get: function() { return getFacetSideBarTab(2); }},
-  languageFacetTab: { get: function() { return getFacetSideBarTab(3); }},
-  grp_contributorFacetTab: { get: function() { return getFacetSideBarTab(4); }},
+  getHits: { value: function() {
+    return $('.book-listing').evaluate('hits');
+  }},
+  getSidebarTab: { value: function(position) {
+    return element.all(by.css(".left_sidebar_accordion__tab")).get(position);
+  }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
-  openFacetTab: { value: function(facet) { 
-    var tab = this.__lookupGetter__(facet+"FacetTab")();
-    return tab.click(); }},
+  openFacetTab: { value: function(facet) {
+    var position = this.tabPositions[facet];
+    return this.getSidebarTab(position).click();
+  }},
   getFacetOption: { value: function(facet, position) {
     this.openFacetTab(facet);
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
@@ -50,8 +55,8 @@ ResultsPage.prototype = Object.create({}, {
   activeFacets: { get: function() {
     return element.all(by.repeater('activeFacet in activeFacets'));
   }},
-  getActiveFacet: { get: function(position) {
-    return this.getActiveFacets().get(position);
+  getActiveFacet: { value: function(position) {
+    return this.activeFacets.get(position);
   }},
   getActiveFacetText: { value: function(position) {
     return this.activeFacets.get(position).getText();
@@ -84,6 +89,15 @@ ResultsPage.prototype = Object.create({}, {
   }},
   closeModal: { value: function() {
     element(by.css(".close-modal")).click();
+  }},
+  facetChips: { get: function() {
+    return element.all(by.css(".facet-chip a"));
+  }},
+  getAdvancedFacetChipText: { value: function(position) {
+    return element.all(by.repeater("advancedField in advancedFields")).get(position).getText();
+  }},
+  removeAdvancedFacetChip: { value: function(position) {
+    element.all(by.repeater("advancedField in advancedFields")).get(position).click();
   }}
 });
 
