@@ -53,11 +53,12 @@ describe("Advanced Search", function(){
     advancedPage.addKeywordTerm('art');
     advancedPage.addFilterSearches([['Contributed by', 'Getty']]);
     advancedPage.submitAdvancedSearch();
-
     expect(advancedPage.facetChips.count()).toEqual(2);
-    expect(advancedPage.getAdvancedFacetChipText(0)).toEqual('Getty (Keyword: Contributed by)');
+    
+    var chip = advancedPage.advancedFacetChips.get(0)
+    expect(chip.getText()).toEqual('Getty (Keyword: Contributed by)');
 
-    advancedPage.removeAdvancedFacetChip(0);
+    chip.click();
     expect(advancedPage.numTotalHits).toEqual(309);
   })
 

@@ -93,11 +93,8 @@ ResultsPage.prototype = Object.create({}, {
   facetChips: { get: function() {
     return element.all(by.css(".facet-chip a"));
   }},
-  getAdvancedFacetChipText: { value: function(position) {
-    return element.all(by.repeater("advancedField in advancedFields")).get(position).getText();
-  }},
-  removeAdvancedFacetChip: { value: function(position) {
-    element.all(by.repeater("advancedField in advancedFields")).get(position).click();
+  advancedFacetChips: { get: function() {
+    return element.all(by.repeater("advancedField in advancedFields"));
   }}
 });
 
