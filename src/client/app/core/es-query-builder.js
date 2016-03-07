@@ -64,7 +64,112 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
-        fullQuery.body.query.bool.must.match = { _all: opts.q };
+        var shouldQuery = fullQuery.body.query.bool.must;
+        shouldQuery.bool = { should: [] };
+        shouldQuery.bool.should = [
+          {
+            multi_match: {
+              type: 'most_fields',
+              query: opts.q,
+              fields: [
+                '_grp_contributor',
+                '_grp_contributor.folded',
+                '_title_display',
+                '_title_display.folded'
+              ]
+            }
+          },
+          {
+            nested: {
+              path: 'dublin_core.contributor',
+              query: {
+                multi_match: {
+                  type: 'most_fields',
+                  query: opts.q,
+                  fields: [
+                    'dublin_core.contributor.value',
+                    'dublin_core.contributor.value.folded'
+                  ]
+                }
+              }
+            }
+          },
+          {
+            nested: {
+              path: 'dublin_core.contributor',
+              query: {
+                multi_match: {
+                  type: 'most_fields',
+                  query: opts.q,
+                  fields: [
+                    'dublin_core.contributor.value',
+                    'dublin_core.contributor.value.folded'
+                  ]
+                }
+              }
+            }
+          }
+          
+        ];
+            /*type: 'most_fields',
+            query: opts.q,
+            fields: [ 
+              '_record_link',
+              '_language',
+              //'_language.folded',
+              '_grp_type',
+              //'_ingest_date',
+              '_title_display', 
+              //'_title_display.folded',
+              '_subject_facets',
+              //'_subject_facets.folded',
+              '_creator_display',
+              //'_creator_display.folded',
+              '_creator_facet',
+              //'_creator_facet.folded',
+              //'_date_facet',
+              '_date_display',
+              //'_date_display.folded',
+              '_grp_contributor',
+              //'_grp_contributor.folded',
+              '_grp_id',
+              '_edition',
+              //'_edition.folded',
+              '_series',
+              //'_series.folded',
+              '*.folded',
+              'dublin_core',
+              'dublin_core.folded'
+              //'dublin_core.*',
+              //'*.value.folded'
+              //'dublin_core.*.value.folded'
+            ]*/
+          /*{
+            nested: {
+              path: 'dublin_core',
+              query: {
+                nested: {
+                  path: 'dublin_core.contributor',
+                  query: {
+                    multi_match: {
+                      type: 'most_fields',
+                      query: opts.q,
+                      fields: ['dublin_core.contributor.value', 'dublin_core.contributor.value.folded']
+                    }
+                  }
+                }*/
+              /*bool: {
+                must: {
+                  multi_match: {
+                    type: 'most_fields',
+                    query: opts.q,
+                    fields: ['dublin_core.contributor.value', 'dublin_core.contributor.value.folded']
+                  }
+                }*/
+              //}
+            //}
+          //}
+        //};
       }
       else{
         fullQuery.body.query.bool.must.match_all = {};
@@ -279,6 +384,10 @@
           "query": {
             "bool": {
               "must": {
+                /*"bool": {
+                  "should": [
+                  ]
+                }*/
               },
               "filter": {
                 "bool": {

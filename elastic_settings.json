@@ -2,9 +2,13 @@
   "analysis": {
     "analyzer": {
       "sortable": {
-            "tokenizer": "keyword",
-              "filter":  [ "strip_quotes", "strip_bracket", "asciifolding" ] 
-        }
+        "tokenizer": "keyword",
+        "filter": [ "strip_quotes", "strip_bracket", "asciifolding" ] 
+      },
+      "folding": {
+        "tokenizer": "standard",
+        "filter": [ "lowercase", "asciifolding" ]
+      }
     },
     "filter": {
       "strip_quotes": {
