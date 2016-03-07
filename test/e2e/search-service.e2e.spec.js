@@ -1,7 +1,7 @@
 //search-service.e2e.spec.js
 'use strict';
 
-var ResultsPage = require('../../../../test/page_objects/results.page.js');
+var ResultsPage = require('../page_objects/results.page.js');
 
 
 describe('Facet Sidebar Functionality', function() {
