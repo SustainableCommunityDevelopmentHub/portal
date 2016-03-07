@@ -95,6 +95,9 @@ ResultsPage.prototype = Object.create({}, {
   }},
   advancedFacetChips: { get: function() {
     return element.all(by.repeater("advancedField in advancedFields"));
+  }},
+  sortOptions: { get: function() {
+    return element.all(by.repeater('sortMode in validSortModes'));
   }}
 });
 
