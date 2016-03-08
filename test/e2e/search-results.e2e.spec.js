@@ -15,16 +15,10 @@ describe('Search Results', function() {
     expect(resultsPage.numTotalHits).toEqual(6);
   });
 
-  /*
-   * I cannot get this test to pass anymore.
-   * For some reason I cannot determine the search is not executed.
-   *
   it('should show decoded urls in search bar', function() {
     resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
-    browser.pause();
-    expect(resultsPage.facetsChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
+    expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
   });
-  */
 
   it('should display pagination at top of page', function () {
     expect(resultsPage.paginationBar.isDisplayed()).toBeTruthy();
