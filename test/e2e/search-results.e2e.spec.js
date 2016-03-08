@@ -5,13 +5,7 @@ var ResultsPage = require('../page_objects/results.page.js');
 
 describe('Search Results', function() {
   var resultsPage;
-  
-  
-  var searchBtn = element(by.id('go-btn'));
-  var seeAllBtn = element(by.id('see-all-btn'));
-  var testQuery = 'paintings';
-  
-  
+
   beforeEach(function() {
     resultsPage = new ResultsPage();
   });
@@ -22,11 +16,12 @@ describe('Search Results', function() {
   });
 
   /*
-   * I cannot get this test to pass anymore...
+   * I cannot get this test to pass anymore.
+   * For some reason I cannot determine the search is not executed.
    *
   it('should show decoded urls in search bar', function() {
-    var url = "http://www.getty.edu/research/";
-    resultsPage.submitNewSearchTerm(url);
+    resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
+    browser.pause();
     expect(resultsPage.facetsChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
   });
   */

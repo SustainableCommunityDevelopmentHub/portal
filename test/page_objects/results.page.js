@@ -19,6 +19,33 @@ ResultsPage.prototype = Object.create({}, {
   getHits: { value: function() {
     return $('.book-listing').evaluate('hits');
   }},
+  getHitsDates: { value: function() {
+    var dates = [];
+    this.getHits().then(function(hits) {
+      for(var i = 0; i < hits.length; i++){
+        dates.push(hits[i]._date_facet);
+      }      
+    });
+    return dates;
+  }},
+  getHitsIngestDates: { value: function() {
+    var dates = [];
+    this.getHits().then(function(hits) {
+      for(var i = 0; i < hits.length; i++){
+        dates.push(hits[i]._ingest_date);
+      }      
+    });
+    return dates;
+  }},
+  getHitsTitles: { value: function() {
+    var titles = [];
+    this.getHits().then(function(hits) {
+      for(var i = 0; i < hits.length; i++){
+        titles.push(hits[i]._title_display);
+      }      
+    });
+    return titles;
+  }},
   getSidebarTab: { value: function(position) {
     return element.all(by.css(".left_sidebar_accordion__tab")).get(position);
   }},
@@ -105,6 +132,10 @@ ResultsPage.prototype = Object.create({}, {
   }},
   sortOptions: { get: function() {
     return element.all(by.repeater('sortMode in validSortModes'));
+  }},
+  selectSortOption: { value: function(label) {
+    element(by.id('toggle-sort-btn')).click();
+    element(by.linkText(label)).click();
   }},
   paginationBar: { get: function() {
     return $('.results-pagination-top');
