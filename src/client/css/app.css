@@ -374,7 +374,7 @@ a:hover {
   margin-left: 1px;
 }
 
-#go-btn-results {
+#go-btn-results, #date-btn-results {
   margin-left: 10px;
   border-radius: 0;
   color: white;
