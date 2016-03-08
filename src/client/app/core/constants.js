@@ -79,6 +79,11 @@
           sortQuery: { "_date_facet": {"order": "desc"}}
         }
     })
+    .constant('SAVED_ITEMS', {
+      recordKey: "getty_portal_records",
+      searchKey: "getty_portal_searches",
+      gettyID: "getty_portal"
+    })
     .constant('DEFAULTS', {
       searchOpts: {
         q: '',

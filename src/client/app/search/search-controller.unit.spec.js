@@ -266,4 +266,75 @@ describe("Search Controller", function(){
     });
   });
 
+  describe('Saving Records', function() {
+
+    it('should save book record correctly', function() {
+      var book = {
+        _date_display: "1896-05-16",
+        _date_facet: "1896",
+        _grp_contributor: "Gallica - Bibliothèque nationale de France",
+        _grp_id: "bnf_bpt6k63442125",
+        _grp_type: "Text",
+        _id: "bnf_bpt6k63442125",
+        _ingest_date: "2016-02-16"
+      };
+
+      scope.saveRecord(book);
+      expect(scope.savedRecords).toContain(book);
+      var records = JSON.parse(localStorage.getItem("saved_records"))['saved_records'];
+      expect(records).toContain(book);
+      localStorage.removeItem("saved_records");
+    });
+
+    it('should save search correctly', function() {
+      var opts = {q: "art", page: 2, from: 25, facets: scope.activeFacets};
+      SearchService.opts = opts;
+      scope.saveSearch();
+      expect(scope.savedSearches).toContain(opts);
+      var searches = JSON.parse(localStorage.getItem("saved_searches"))['saved_searches'];
+      expect(searches).toContain(opts);
+      localStorage.removeItem("saved_searches");
+
+    });
+
+    it('should remove book record correctly', function() {
+      var book = {
+        _date_display: "1896-05-16",
+        _date_facet: "1896",
+        _grp_contributor: "Gallica - Bibliothèque nationale de France",
+        _grp_id: "bnf_bpt6k63442125",
+        _grp_type: "Text",
+        _id: "bnf_bpt6k63442125",
+        _ingest_date: "2016-02-16"
+      };
+
+      var item = {'saved_records': [book]};
+      localStorage.setItem('saved_records', JSON.stringify(item));
+      scope.savedRecords = [book];
+
+      scope.removeRecord(book);
+
+      var returnedItem = JSON.parse(localStorage.getItem('saved_records'));
+      var books = returnedItem['saved_records'];
+      expect(books.length).toBe(0);
+      expect(scope.savedRecords.length).toBe(0);
+
+    });
+
+    it('should remove search record correctly', function() {
+      var opts = {q: "art", page: 2, from: 25, facets: scope.activeFacets};
+      var item = {'saved_searches': [opts]};
+      localStorage.setItem('saved_searches', JSON.stringify(item));
+      scope.savedSearches = [opts];
+
+      scope.removeSearch(opts);
+
+      var returnedItem = JSON.parse(localStorage.getItem('saved_searches'));
+      var searches = returnedItem['saved_searches'];
+      expect(searches.length).toBe(0);
+      expect(scope.savedSearches.length).toBe(0);
+
+    });
+  })
+
 });

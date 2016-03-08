@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS, FACETS){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, SORT_MODES, DEFAULTS, FACETS){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -13,10 +13,13 @@
 
     // initialize search results, etc, when state loads
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
       if(toState.controller === 'SearchCtrl'){
+        console.log("outside promise");
         ss.returnedPromise
           .then(function(response){
             console.log('SearchCtrl -- $stateChangeSuccess. SearchService.opts: ' + JSON.stringify(ss.opts));
+            console.log("begin");
             //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(response, null, 2));
 
             /////////////////////////////////////////////////////////
@@ -25,6 +28,11 @@
             /////////////////////////////////////////////////////////
 
             var searchResults = ss.setResultsData(response);
+           // var searchResults = {
+            //  hits: ss.results.hits,
+            //  numTotalHits: ss.results.numTotalHits,
+            //  facets: ss.results.facetOptions
+          //  };
             $scope.hits = searchResults.hits;
             $scope.numTotalHits = searchResults.numTotalHits;
             $scope.facets = searchResults.facets;
@@ -68,6 +76,14 @@
             if(ss.opts.facets){
               $scope.activeFacets = ss.opts.facets;
             }
+            $scope.savedRecords = SavedRecordsService.getRecords();
+            console.log($scope.hits[0]);
+
+            $scope.bookMarkText = "";
+            SavedRecordsService.saveSearch(ss.opts, $scope.numTotalHits);
+
+            console.log("JENNY: search history");
+            console.log(SavedRecordsService.getSearches());
 
           })
           .catch(function(err){
@@ -281,5 +297,83 @@
       $scope.toDate = "";
       updateSearch({date: {}, page: 1, from: 0});
     };
+
+    $scope.saveRecord = function(book) {
+      SavedRecordsService.saveRecord(book);
+      var records = SavedRecordsService.getRecords();
+      if (records) {
+        $scope.savedRecords = records;
+      } else {
+        $scope.savedRecords = [];
+      }
+    }
+
+    $scope.saveSearch = function() {
+      SavedRecordsService.saveSearch(SearchService.opts);
+      var searches = SavedRecordsService.getSearches();
+      if (searches) {
+        $scope.savedSearches = searches;
+      } else {
+        $scope.savedSearches = [];
+      }
+    }
+
+    $scope.removeRecord = function(book) {
+      SavedRecordsService.removeRecord(book);
+      $scope.savedRecords  = SavedRecordsService.getRecords();
+
+    }
+
+    $scope.removeSearch = function(search) {
+      SavedRecordsService.removeSearch(search);
+      $scope.savedSearches = SavedRecordsService.getSearches();
+    }
+
+    $scope.toggleSavingBook = function(book) {
+      if ($scope.isSaved(book)) {
+        $scope.removeRecord(book);
+        $scope.bookMarkText = "Save Record";
+      } else {
+        $scope.saveRecord(book);
+        $scope.bookMarkText = "Remove Record";
+      }
+    }
+
+    $scope.isSaved = function(book) {
+      for(var i = 0; i < $scope.savedRecords.length; i++) {
+        var current = $scope.savedRecords[i];
+        if (current._id == book._id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    $scope.hoverIn = function(book){
+      this.showBookmarkText = true;
+      if ($scope.isSaved(book)) {
+        $scope.bookMarkText = "Remove Record";
+      } else {
+        $scope.bookMarkText = "Save Record";
+      }
+    }
+
+    $scope.hoverOut = function() {
+      this.showBookmarkText = false;
+    }
+
+    $scope.setBookMarkText = function(book, mouseHover) {
+      if (mouseHover) {
+        console.log("changing text");
+        if ($scope.isSaved(book)) {
+          $scope.bookMarkText = "Remove Record";
+        } else {
+          $scope.bookMarkText = "Save Record"
+        }
+      } else {
+        $scope.bookMarkText = "";
+      }
+    }
+
   }
 })();

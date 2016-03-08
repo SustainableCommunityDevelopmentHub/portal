@@ -29,6 +29,7 @@
       opts: {
         facets: []
       },
+      resultsData: {},
 
 
       // functions //
