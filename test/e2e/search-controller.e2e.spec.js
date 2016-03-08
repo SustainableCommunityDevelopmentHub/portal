@@ -19,5 +19,10 @@ describe('Search Controller', function() {
     homePage.seeAll();
     expect(homePage.numTotalHits).toEqual(452);
   });
-  
+
+  it('should show decoded urls in search bar', function() {
+    homePage.submitHomePageQuery("http://www.getty.edu/research/");
+    expect(homePage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
+  });
+
 });
