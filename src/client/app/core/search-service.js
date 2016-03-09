@@ -56,7 +56,6 @@
       console.log('SearchService.newSearch() -- opts: ' + JSON.stringify(opts));
       this.opts = opts;
       this.returnedPromise = search(this.opts);
-      console.log('SearchService.newSearch() -- returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
     }
 
@@ -72,7 +71,6 @@
       _.merge(this.opts, opts);
       console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = search(this.opts);
-      console.log('SearchService.updateSearch() -- returnedPromise: ' + JSON.stringify(this.returnedPromise));
       return this.returnedPromise;
     };
 
@@ -110,10 +108,6 @@
      * @return {Object} object with a property for each search result type we're interested in.
      */
     function setResultsData(results){
-
-      //console.log('SearchService:setResultsData......results: ' + JSON.stringify(results));
-
-
 
       this.results.hits = SearchResParser.parseResults(results.hits.hits);
       this.results.numTotalHits = results.hits.total;

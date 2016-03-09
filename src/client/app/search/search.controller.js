@@ -3,84 +3,76 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SORT_MODES, DEFAULTS, FACETS){
+  function SearchCtrl($scope, $state, SearchService, searchResults, SORT_MODES, DEFAULTS, FACETS){
     /////////////////////////////////
     //Init
     /////////////////////////////////
     var ss = SearchService;
 
     // initialize search results, etc, when state loads
-    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-      if(toState.controller === 'SearchCtrl'){
-        ss.returnedPromise
-          .then(function(response){
-            console.log('SearchCtrl -- $stateChangeSuccess. SearchService.opts: ' + JSON.stringify(ss.opts));
-            //console.log('SearchCtrl.... ES query results: ' + JSON.stringify(response, null, 2));
 
-            /////////////////////////////////////////////////////////
-            // once search result promise is resolved,
-            // update SearchService and scope
-            /////////////////////////////////////////////////////////
-
-            var searchResults = ss.setResultsData(response);
-            $scope.hits = searchResults.hits;
-            $scope.numTotalHits = searchResults.numTotalHits;
-            $scope.facets = searchResults.facets;
-            $scope.activeFacets = ss.opts.facets || [];
-            $scope.advancedFields = ss.opts.advancedFields || [];
-
-            $scope.fromDate;
-            $scope.toDate;
-            if (ss.opts.date) {
-              $scope.dateRange = ss.opts.date;
-              $scope.fromDate = ss.opts.date.gte;
-              $scope.toDate = ss.opts.date.lte;
-            } 
-            
-            //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
-            //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
-
-            // bind search opts to scope
-            $scope.queryTerm = ss.opts.q;
-            $scope.newQueryTerm = "";
-            $scope.pagination = {
-              // must parseInt so is treated as int in code
-              page : parseInt(ss.opts.page),
-              size : parseInt(ss.opts.size),
-              from : parseInt(ss.opts.from)
-            };
-
-            $scope.categories = FACETS;
-
-            if(ss.opts.sort){
-              $scope.sort = ss.opts.sort.display;
-            } else {
-              $scope.sort = "Relevance";
-            }
-
-            console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
-            console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
-            console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
-            $scope.validPageSizeOptions = $scope.getValidPageSizeOptions($scope.numTotalHits);
-
-            if(ss.opts.facets){
-              $scope.activeFacets = ss.opts.facets;
-            }
-
-          })
-          .catch(function(err){
-            console.log('Err - search.controller.js - SearchCtrl - on $stateChangeSuccess: ' + err);
-          });
-      }
-    });
-
+    $scope.getValidPageSizeOptions = getValidPageSizeOptions;
     /////////////////////////////////
     //Variables
     /////////////////////////////////
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
+
+    initialize();
+
+    function initialize() {
+      console.log("hello");
+      $scope.hits = searchResults.hits;
+      $scope.numTotalHits = searchResults.numTotalHits;
+      $scope.facets = searchResults.facets;
+      $scope.activeFacets = ss.opts.facets || [];
+      $scope.advancedFields = ss.opts.advancedFields || [];
+
+      $scope.fromDate = "";
+      $scope.toDate = "";
+      if (ss.opts.date) {
+        $scope.dateRange = ss.opts.date;
+        $scope.fromDate = ss.opts.date.gte;
+        $scope.toDate = ss.opts.date.lte;
+      }
+
+      //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
+      //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
+
+      // bind search opts to scope
+      $scope.queryTerm = ss.opts.q;
+      $scope.newQueryTerm = "";
+      $scope.pagination = {
+        // must parseInt so is treated as int in code
+        page : parseInt(ss.opts.page),
+        size : parseInt(ss.opts.size),
+        from : parseInt(ss.opts.from)
+      };
+
+      $scope.categories = FACETS;
+
+      if(ss.opts.sort){
+        $scope.sort = ss.opts.sort.display;
+      } else {
+        $scope.sort = "Relevance";
+      }
+
+      console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
+      console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
+      console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
+      $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
+
+      if(ss.opts.facets) {
+        $scope.activeFacets = ss.opts.facets;
+      }
+    }
+
+
+
+
+
 
 
     ///////////////////////////
@@ -116,7 +108,7 @@
     //Functions
     /////////////////////////////////
 
-    $scope.getValidPageSizeOptions = function (numTotalHits){
+    function getValidPageSizeOptions(numTotalHits){
       var passedThreshold = false;
       return $scope.allPageSizeOptions
       .filter(function(pageSize){
@@ -170,19 +162,16 @@
       console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: newPage});
-      return;
     };
 
     $scope.setSortMode = function(sortMode) {
       console.log('Changing sort to ' + sortMode.display);
       updateSearch({sort: sortMode, page: 1, from: 0});
-      return;
     };
 
      $scope.setDateRange = function(fromDate, toDate) {
       console.log("fromDate: " + fromDate + ", toDate: " + toDate);
       updateSearch({date: {"gte": fromDate, "lte": toDate}, page: 1, from: 0});
-      return;
     };
 
     /**

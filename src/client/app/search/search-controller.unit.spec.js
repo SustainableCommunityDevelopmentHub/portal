@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj;
+  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj, searchResults;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,7 +10,15 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _DEFAULTS_, _SORT_MODES_){
+  beforeEach(function() {
+    module('app.search', function($provide) {
+      $provide.service('searchResults', function() {
+        return 'results';
+      });
+    });
+  });
+
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _searchResults_, _DEFAULTS_, _SORT_MODES_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
@@ -18,13 +26,16 @@ describe("Search Controller", function(){
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
     DEFAULTS = _DEFAULTS_;
     SORT_MODES = _SORT_MODES_;
+    searchResults = _searchResults_;
 
     defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
+        'searchResults': searchResults,
         'SearchService': SearchService
+
      });
   }));
 

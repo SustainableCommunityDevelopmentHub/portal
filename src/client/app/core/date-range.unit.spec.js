@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder;
+  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder, searchResults;
 
   var baseESQuery = {
     "index":"portal",
@@ -59,18 +59,28 @@ describe("Date Range Filter", function() {
     module('app');
     module('app.search');
   });
+
+  beforeEach(function() {
+    module('app.search', function($provide) {
+      $provide.service('searchResults', function() {
+        return 'results';
+      });
+    });
+  });
   
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _searchResults_, SearchService, DataService, esClient, esQueryBuilder){
     data = DataService;
     es = esClient;
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
     queryBuilder = esQueryBuilder;
+    searchResults = _searchResults_;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
+        'searchResults': searchResults,
         'SearchService': searchService
       });
     }));
