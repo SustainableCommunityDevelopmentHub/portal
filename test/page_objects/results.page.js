@@ -14,7 +14,7 @@ ResultsPage.prototype = Object.create({}, {
     return element(by.id('go-btn-results')); 
   }},
   numTotalHits: { get: function() { 
-    return $('.showing').evaluate('numTotalHits');
+    return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
   getHits: { value: function() {
     return $('.book-listing').evaluate('hits');
