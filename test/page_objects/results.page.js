@@ -14,7 +14,7 @@ ResultsPage.prototype = Object.create({}, {
     return element(by.id('go-btn-results')); 
   }},
   numTotalHits: { get: function() { 
-    return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
+    return $('.showing').evaluate('numTotalHits');
   }},
   getHits: { value: function() {
     return $('.book-listing').evaluate('hits');
@@ -47,18 +47,18 @@ ResultsPage.prototype = Object.create({}, {
     return titles;
   }},
   getSidebarTab: { value: function(position) {
-    return element.all(by.css(".left_sidebar_accordion__tab")).get(position);
+    return element.all(by.css(".panel-heading")).get(position);
   }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
-  openFacetTab: { value: function(facet) {
+  toggleFacetTab: { value: function(facet) {
     var position = this.tabPositions[facet];
     return this.getSidebarTab(position).click();
   }},
   getFacetOption: { value: function(facet, position) {
-    this.openFacetTab(facet);
+    //this.openFacetTab(facet);
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
   }},
   getFacetOptionByLabel: { value: function(facet, label) {
@@ -66,8 +66,9 @@ ResultsPage.prototype = Object.create({}, {
     return element(by.id(label+"-sidebar"));
   }},
   addFacetOption: { value: function(facet, label) {
-    this.openFacetTab(facet);
-    $("[id='" + label + "-sidebar']").click();
+    label = label.replace(/ /g, '');
+    element(by.id(label+"-sidebar")).click();
+    //$('#'+label+'-sidebar').click();
   }},
   toggleFacetOption: { value: function(facet, label) {
     this.getFacetOptionByLabel(facet, label).click();

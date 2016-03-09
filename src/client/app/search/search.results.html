@@ -26,13 +26,13 @@
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen, 'glyphicon-plus': !isopen}"></i>Type
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.type | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-controller="FacetModalCtrl">
@@ -44,13 +44,13 @@
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen2, 'glyphicon-plus': !isopen2}"></i>Subject
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.subject | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-controller="FacetModalCtrl">
@@ -62,13 +62,13 @@
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen3, 'glyphicon-plus': !isopen3}"></i>Creator
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.creator | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-controller="FacetModalCtrl">
@@ -80,13 +80,13 @@
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen4, 'glyphicon-plus': !isopen4}"></i>Language
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.language | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-controller="FacetModalCtrl">
@@ -98,13 +98,13 @@
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen5, 'glyphicon-plus': !isopen5}"></i>Contributing Institution
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
-              <input type="checkbox" id="{{ facet.option }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
+              <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
               </label>
             </div>
             <div ng-controller="FacetModalCtrl">
