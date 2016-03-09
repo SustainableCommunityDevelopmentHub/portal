@@ -14,10 +14,10 @@ ResultsPage.prototype = Object.create({}, {
     return element(by.id('go-btn-results')); 
   }},
   numTotalHits: { get: function() { 
-    return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
+    return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
   getHits: { value: function() {
-    return $('.book-listing').evaluate('hits');
+    return element.all(by.css('.book-listing')).get(0).evaluate('hits');
   }},
   getHitsDates: { value: function() {
     var dates = [];
@@ -47,33 +47,32 @@ ResultsPage.prototype = Object.create({}, {
     return titles;
   }},
   getSidebarTab: { value: function(position) {
-    return element.all(by.css(".left_sidebar_accordion__tab")).get(position);
+    return element.all(by.css(".panel-heading")).get(position);
   }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
-  openFacetTab: { value: function(facet) {
+  /*
+  toggleFacetTab: { value: function(facet) {
     var position = this.tabPositions[facet];
     return this.getSidebarTab(position).click();
   }},
+  */
   getFacetOption: { value: function(facet, position) {
-    this.openFacetTab(facet);
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
   }},
   getFacetOptionByLabel: { value: function(facet, label) {
-    this.openFacetTab(facet);
     return element(by.id(label+"-sidebar"));
   }},
   addFacetOption: { value: function(facet, label) {
-    this.openFacetTab(facet);
-    $("[id='" + label + "-sidebar']").click();
+    label = label.replace(/ /g, '');
+    element(by.id(label+"-sidebar")).click();
   }},
   toggleFacetOption: { value: function(facet, label) {
     this.getFacetOptionByLabel(facet, label).click();
   }},
   openFacetModal: { value: function(facet) {
-    this.openFacetTab(facet);
     element(by.id("see-all-"+facet)).click();
   }},
   getModalFacetOption: { value: function(facetOption) {
@@ -83,7 +82,7 @@ ResultsPage.prototype = Object.create({}, {
     return this.getModalFacetOption(facetOption).getAttribute('value');
   }},
   applyModalFacetOption: { value: function(facetOption) {
-    this.getModalFacetOption(facetOption).click();
+    element(by.id(facetOption)).click();
     return element(by.css(".apply-btn")).click();
   }},
   activeFacets: { get: function() {

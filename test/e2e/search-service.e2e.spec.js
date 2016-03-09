@@ -12,13 +12,14 @@ describe('Facet Sidebar Functionality', function() {
     resultsPage.submitNewSearchTerm('Art');
     expect(resultsPage.numTotalHits).toEqual(309);
   });
-
+  
   describe('Facets should behave correctly', function(){
+    
     describe('At least 1 facet option should exist for each category', function(){
       it('type', function(){
         expect(resultsPage.getFacetOption('type', 0).getText()).toBeTruthy();
       });
-
+      
       it('subject', function(){
         expect(resultsPage.getFacetOption('subject', 0).getText()).toBeTruthy();
       });
@@ -34,9 +35,9 @@ describe('Facet Sidebar Functionality', function() {
       it('contributing institution', function(){
         expect(resultsPage.getFacetOption('grp_contributor', 0).getText()).toBeTruthy();
       });
-
+      
     });
-
+    
     describe('Should be able to apply a facet to filter results for each category', function(){
       it('type', function(){
         resultsPage.addFacetOption('type', 'Text');
@@ -125,9 +126,7 @@ describe('Facet Sidebar Functionality', function() {
           expect(numTotalHits).toBe(testVals.creatorFacet.altNumRecords + testVals.alternateCreatorFacet.numRecords);
         });
       });
-       *
-       *
-       */
+      */
 
     });
   });
