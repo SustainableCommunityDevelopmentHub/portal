@@ -32,11 +32,15 @@ describe("Advanced Search", function(){
     $('.book-listing').evaluate('hits').then(function(hits) {
       var resultsMatch = true;
       hits.forEach(function(hit){
-        var date = hit._date_display;
-        if (date !== "1907"){
-          resultsMatch = false;
-          
-        }
+        var facet_date = hit._date_facet.folded;
+        var dates = hit.dublin_core.date;
+        dates.forEach(function(date){
+          var dc_date = date.value;
+          if (facet_date !== "1907" && dc_date !== "1907"){
+            resultsMatch = false;
+          }
+        })
+        
         var contributor = hit._grp_contributor;
         if (contributor.indexOf("Getty") < 0){
           resultsMatch = false;   

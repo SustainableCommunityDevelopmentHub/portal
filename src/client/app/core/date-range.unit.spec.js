@@ -8,8 +8,8 @@ describe("Date Range Filter", function() {
     "from":"0",
     "body":{
       "query":{
-        "filtered":{
-          "query":{
+        "bool": {
+          "must": {
             "match_all":{}
           },
           "filter": {
@@ -20,35 +20,49 @@ describe("Date Range Filter", function() {
           }
         }
       },
-      "aggregations":{
-        "creator":{
-            "terms":{
-              "field":"_creator_facet.raw"
+      "aggregations": {
+        "creator": {
+          "filter": { },
+          "aggs": {
+            "creator": {
+              "terms": { "field": "_creator_facet.raw", "size": 1000 }
             }
-          },
-          "language":{
-            "terms":{
-              "field":"_language"
+          }
+        },
+        "language": {
+          "filter": { },
+          "aggs": {
+            "language": {
+              "terms": { "field": "_language", "size": 1000 }
             }
-          },
-          "grp_contributor":{
-            "terms":{
-              "field":"_grp_contributor.raw"
+          }
+        },
+        "grp_contributor": {
+          "filter": { },
+          "aggs": {
+            "grp_contributor": {
+              "terms": { "field": "_grp_contributor.raw", "size": 1000 }
             }
-          },
-          "subject":{
-            "terms":{
-              "field":"_subject_facets.raw"
+          }
+        },
+        "subject": {
+          "filter": { },
+          "aggs": {
+            "subject": {
+              "terms": { "field": "_subject_facets.raw", "size": 1000 }
             }
-          },
-          "type":{
-            "terms":{
-              "field":"_grp_type.raw"
+          }
+        },
+        "type": {
+          "filter": { },
+          "aggs": {
+            "type": {
+              "terms": { "field": "_grp_type.raw", "size": 1000 }
             }
           }
         }
       }
-    
+    }
   };
 
   beforeEach(function(){
@@ -110,7 +124,7 @@ describe("Date Range Filter", function() {
       var dateRange = {"range":{"_date_facet":{"gte": scope.fromDate,"lte": scope.toDate}}};
       var newQuery = queryBuilder.buildSearchQuery(opts);
 
-      var filter = newQuery.body.query.filtered.filter.bool.filter;
+      var filter = newQuery.body.query.bool.filter.bool.filter;
       expect(filter).toContain(dateRange);    
     });
   });

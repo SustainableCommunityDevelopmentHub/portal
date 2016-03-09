@@ -407,21 +407,6 @@
         }
       }
 
-
-      /*if (opts.advancedFields) {
-        var allAdvancedFilters = [];
-        opts.advancedFields.forEach(function(item){
-          
-          var query = {match_phrase: {}};
-          query.match_phrase[item.field.searchKey] = item.term;
-          fullQuery.body.query.filtered.filter.bool.filter.push(query);
-          allAdvancedFilters.push(query);
-        });
-        if(allAdvancedFilters.length > 0){
-          this.globalFilters.push(allAdvancedFilters);
-        }
-      }*/
-
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
@@ -660,10 +645,6 @@
           "query": {
             "bool": {
               "must": {
-                /*"bool": {
-                  "should": [
-                  ]
-                }*/
               },
               "filter": {
                 "bool": {
