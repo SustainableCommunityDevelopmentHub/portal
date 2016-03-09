@@ -84,6 +84,7 @@
                 '_creator_display.folded',
                 '_creator_facet',
                 '_creator_facet.folded',
+                '_date_facet.folded',
                 '_date_display',
                 '_date_display.folded',
                 '_grp_contributor',
@@ -406,6 +407,21 @@
         }
       }
 
+
+      /*if (opts.advancedFields) {
+        var allAdvancedFilters = [];
+        opts.advancedFields.forEach(function(item){
+          
+          var query = {match_phrase: {}};
+          query.match_phrase[item.field.searchKey] = item.term;
+          fullQuery.body.query.filtered.filter.bool.filter.push(query);
+          allAdvancedFilters.push(query);
+        });
+        if(allAdvancedFilters.length > 0){
+          this.globalFilters.push(allAdvancedFilters);
+        }
+      }*/
+
       /**
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
@@ -414,10 +430,58 @@
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
           
-          var query = {match_phrase: {}};
-          query.match_phrase[item.field.searchKey] = item.term;
-          fullQuery.body.query.bool.filter.bool.filter.push(query);
-          allAdvancedFilters.push(query);
+          if (item.field.searchKey.startsWith('dublin_core') && item.field.searchKey !== 'dublin_core.date') {
+            var query = {
+              nested: {
+                path: item.field.searchKey,
+                query: {
+                  multi_match: {
+                    type: 'most_fields',
+                    query: item.term,
+                    fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+                  }
+                }
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
+          else if (item.field.searchKey === 'dublin_core.date') {
+            var query = {
+              bool: {
+                should: [
+                  {
+                    term: {'_date_facet.folded': item.term}
+                  },
+                  {
+                    nested: {
+                      path: item.field.searchKey,
+                      query: {
+                        multi_match: {
+                          type: 'most_fields',
+                          query: item.term,
+                          fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+                        }
+                      }
+                    }
+                  }  
+                ]
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
+          else {
+            var query = {
+              multi_match: {
+                type: 'most_fields',
+                query: item.term,
+                fields: [item.field.searchKey, item.field.searchKey + '.folded']
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
         });
         if(allAdvancedFilters.length > 0){
           this.globalFilters.push(allAdvancedFilters);
