@@ -10,7 +10,7 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _DEFAULTS_, _SORT_MODES_){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_,  _DEFAULTS_, _SORT_MODES_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
@@ -24,7 +24,9 @@ describe("Search Controller", function(){
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': SearchService
+        'SearchService': SearchService,
+        'searchResults': {}
+
      });
   }));
 
@@ -222,18 +224,12 @@ describe("Search Controller", function(){
   });
 
   describe("Clear All functionality", function(){
-    beforeEach(function(){
-      spyOn(SearchService, 'updateOpts');
-    });
     it("should clear applied facets", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
       scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
 
       scope.clearFacetsAndUpdate();
       expect(scope.activeFacets).toEqual([]);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
       expect(SearchService.opts.facets).toEqual([]);
     });
     it("should clear all advanced search fields", function(){
@@ -242,27 +238,7 @@ describe("Search Controller", function(){
 
       scope.clearFacetsAndUpdate();
       expect(scope.advancedFields).toEqual([]);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
-      expect(SearchService.opts.advancedFields).toBeFalsy();
-    });
-    it("should reset page, size, and from settings ", function(){
-      SearchService.opts = {
-        page: 1,
-        size: 25,
-        from: 0
-      };
-      scope.setPageSize(10);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith({size: 10, page: 1});
-
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
-
-      scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-
-      scope.clearFacetsAndUpdate();
-      // default size is 25
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(defaultSearchObj);
+      expect(SearchService.opts.advancedFields).toEqual([]);
     });
   });
 

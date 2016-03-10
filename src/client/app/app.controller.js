@@ -4,20 +4,10 @@
 
   angular.module('app.controller', ['ui.bootstrap'])
 
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
-  function($scope, SearchService, $state, results) {
-    //  clear SearchService.opts when state loads
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      if(toState.controller === 'HomePageCtrl'){
-        console.log('HomePageCtrl::$scope.$on($stateChangeSuccess -- toState: ' + JSON.stringify(toState));
-        SearchService.resetOpts();
-        SearchService.newSearch(SearchService.opts)
-          .then(function(results){
-            var allResults = SearchService.setResultsData(results);
-            $scope.numTotalHits = allResults.numTotalHits;
-          });
-      }
-    });
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
+  function($scope, SearchService, $state, searchResults) {
+
+    $scope.numTotalHits = searchResults.numTotalHits;
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.
