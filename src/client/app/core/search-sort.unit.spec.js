@@ -2,12 +2,12 @@ describe("Sorting tests", function() {
   var scope,
       controller,
       $state,
-      MySearchService,
       data,
       es,
       opts,
+      searchService,
       queryBuilder,
-      searchResults,
+      sortModes,
       baseESQuery;
 
   beforeEach(function(){
@@ -19,23 +19,14 @@ describe("Sorting tests", function() {
     module('app.search');
   });
 
-  beforeEach(function() {
-    module('app.search', function($provide) {
-      $provide.service('searchResults', function() {
-        return 'results';
-      });
-    });
-  });
-
-  beforeEach(inject(function($rootScope, $controller, _$state_, _searchResults_, SearchService, DataService, esClient, esQueryBuilder, SORT_MODES, ___){
+  beforeEach(inject(function($rootScope, $controller, _$state_,  SearchService, DataService, esClient, esQueryBuilder, SORT_MODES, ___){
     data = DataService;
     es = esClient;
     queryBuilder = esQueryBuilder;
     $state = _$state_;
     scope = $rootScope.$new();
     searchService = SearchService;
-    sortModes = SORT_MODES,
-      searchREsults = _searchResults_;
+    sortModes = SORT_MODES;
     _ = ___;
 
     // reset baseESQuery
@@ -45,7 +36,7 @@ describe("Sorting tests", function() {
         '$scope': scope,
         '$state': $state,
         'SearchService': searchService,
-        'searchResults': searchResults
+        'searchResults': {}
       });
     }));
 

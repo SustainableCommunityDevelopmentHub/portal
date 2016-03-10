@@ -7,23 +7,6 @@
     // redirect to home by default
     $urlRouterProvider.otherwise('/');
 
-    var getResults = function(SearchService) {
-      var opts = {
-        q: '',
-        size: 25,
-        from: 0,
-        page: 1,
-        facets: [],
-        advancedFields: [],
-        sort: 'relevance',
-        date: {}
-      };
-
-      return SearchService.newSearch(opts).then(function(data) {
-        return SearchService.setResultsData(data);
-      })
-    };
-
     // assign states to urls
     $stateProvider
     // abstract state used to load other search states
@@ -32,7 +15,11 @@
       templateUrl: config.app.root + '/search/search.home.html',
       controller: 'HomePageCtrl',
       resolve: {
-        searchResults: getResults
+        searchResults: function(SearchService, DEFAULTS) {
+          return SearchService.newSearch(DEFAULTS.searchOpts).then(function(data) {
+            return SearchService.setResultsData(data);
+          });
+        }
       }
     })
 

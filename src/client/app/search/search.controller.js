@@ -11,69 +11,50 @@
     /////////////////////////////////
     var ss = SearchService;
 
-    // initialize search results, etc, when state loads
+    $scope.hits = searchResults.hits;
+    $scope.numTotalHits = searchResults.numTotalHits;
+    $scope.facets = searchResults.facets;
 
-    $scope.getValidPageSizeOptions = getValidPageSizeOptions;
-    /////////////////////////////////
-    //Variables
-    /////////////////////////////////
-    $scope.allPageSizeOptions = [10,25,50,100];
-    $scope.validSortModes = SORT_MODES;
+    // bind search opts to scope
+    $scope.activeFacets = ss.opts.facets || [];
+    $scope.advancedFields = ss.opts.advancedFields || [];
 
-    initialize();
-
-    function initialize() {
-      console.log("hello");
-      $scope.hits = searchResults.hits;
-      $scope.numTotalHits = searchResults.numTotalHits;
-      $scope.facets = searchResults.facets;
-      $scope.activeFacets = ss.opts.facets || [];
-      $scope.advancedFields = ss.opts.advancedFields || [];
-
-      $scope.fromDate = "";
-      $scope.toDate = "";
-      if (ss.opts.date) {
-        $scope.dateRange = ss.opts.date;
-        $scope.fromDate = ss.opts.date.gte;
-        $scope.toDate = ss.opts.date.lte;
-      }
-
-      //console.log('SearchCtrl.......$scope.facets.grp_contributor: ' + JSON.stringify($scope.facets.grp_contributor));
-      //console.log('SearchCtrl.....ss.setResultsData returned: ' + JSON.stringify(searchResults));
-
-      // bind search opts to scope
-      $scope.queryTerm = ss.opts.q;
-      $scope.newQueryTerm = "";
-      $scope.pagination = {
-        // must parseInt so is treated as int in code
-        page : parseInt(ss.opts.page),
-        size : parseInt(ss.opts.size),
-        from : parseInt(ss.opts.from)
-      };
-
-      $scope.categories = FACETS;
-
-      if(ss.opts.sort){
-        $scope.sort = ss.opts.sort.display;
-      } else {
-        $scope.sort = "Relevance";
-      }
-
-      console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
-      console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
-      console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
-      $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
-
-      if(ss.opts.facets) {
-        $scope.activeFacets = ss.opts.facets;
-      }
+    $scope.fromDate = "";
+    $scope.toDate = "";
+    if (ss.opts.date) {
+      $scope.dateRange = ss.opts.date;
+      $scope.fromDate = ss.opts.date.gte;
+      $scope.toDate = ss.opts.date.lte;
     }
 
+    $scope.queryTerm = ss.opts.q;
+    $scope.newQueryTerm = "";
+    $scope.pagination = {
+      // must parseInt so is treated as int in code
+      page : parseInt(ss.opts.page),
+      size : parseInt(ss.opts.size),
+      from : parseInt(ss.opts.from)
+    };
 
+    $scope.categories = FACETS;
 
+    if(ss.opts.sort){
+      $scope.sort = ss.opts.sort.display;
+    } else {
+      $scope.sort = "Relevance";
+    }
 
+    console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
+    console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
+    console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
 
+    $scope.allPageSizeOptions = [10,25,50,100];
+    $scope.validSortModes = SORT_MODES;
+    $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
 
+    if(ss.opts.facets) {
+      $scope.activeFacets = ss.opts.facets;
+    }
 
     ///////////////////////////
     //Private/Helper Functions
@@ -104,23 +85,24 @@
       $state.go('searchResults', ss.opts, {reload: true});
     }
 
-    /////////////////////////////////
-    //Functions
-    /////////////////////////////////
-
     function getValidPageSizeOptions(numTotalHits){
       var passedThreshold = false;
       return $scope.allPageSizeOptions
-      .filter(function(pageSize){
-        // return pageSizeOption 1 greater than numTotalHits,
-        // so all hits can be viewed on 1 page.
-        if(!passedThreshold && (pageSize >= numTotalHits)){
-          passedThreshold = true;
-          return pageSize;
-        }
-        return pageSize <= numTotalHits;
-      });
+        .filter(function(pageSize){
+          // return pageSizeOption 1 greater than numTotalHits,
+          // so all hits can be viewed on 1 page.
+          if(!passedThreshold && (pageSize >= numTotalHits)){
+            passedThreshold = true;
+            return pageSize;
+          }
+          return pageSize <= numTotalHits;
+        });
     };
+
+
+    /////////////////////////////////
+    //Functions
+    /////////////////////////////////
 
     /**
      * init search on new query term
