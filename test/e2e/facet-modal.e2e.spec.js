@@ -11,14 +11,13 @@ describe("Facet Modal", function(){
     resultsPage.submitNewSearchTerm('painting');
     expect(resultsPage.numTotalHits).toEqual(24);
   });
-
+  
   it("should open modal window with previously checked facets checked", function(){
     resultsPage.addFacetOption('subject', 'Exhibitions');
     resultsPage.openFacetModal('subject');
     expect(resultsPage.getModalFacetOptionValue('Exhibitions')).toEqual('on');
   });
-
-
+  
   describe("tests launching modal from 'Type' category", function(){
     beforeEach(function(){
       resultsPage.openFacetModal('type');

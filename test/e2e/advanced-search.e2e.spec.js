@@ -31,10 +31,17 @@ describe("Advanced Search", function(){
     var resultsMatch = true;
     advancedPage.getHits().then(function(hits) {
       hits.forEach(function(hit){
-        var date = hit._date_display;
+        var facet_date = hit._date_facet.folded;
+        var dates = hit.dublin_core.date;
+        dates.forEach(function(date){
+          if (facet_date !== "1907" && date.value !== "1907"){
+            resultsMatch = false;
+          }
+        })
+        
         var contributor = hit._grp_contributor;
-        if (date !== "1907" || contributor.indexOf("Getty") < 0) {
-          resultsMatch = false;          
+        if (contributor.indexOf("Getty") < 0){
+          resultsMatch = false;   
         }
       });
     });
