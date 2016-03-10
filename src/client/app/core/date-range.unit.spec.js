@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder;
+  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder, searchService, searchResults;
 
   var baseESQuery = {
     "index":"portal",
@@ -71,7 +71,8 @@ describe("Date Range Filter", function() {
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService
+        'SearchService': searchService,
+        'searchResults': {}
       });
     }));
 
@@ -81,20 +82,11 @@ describe("Date Range Filter", function() {
     expect(searchService.updateOpts).toHaveBeenCalled();
   });
 
-  it("adds date range object to SearchService's options", function(){
-    scope.setDateRange(scope.fromDate, scope.toDate);
-    expect(searchService.opts.date).toBeDefined();
-    expect(searchService.opts.date.gte).toEqual(scope.fromDate);
-    expect(searchService.opts.date.lte).toEqual(scope.toDate);
-  });
-
   describe("Tests for building elasticsearch date range query", function(){
     beforeEach(function(){
       opts = {"facets":[],"page":1,"from":'0', size: 25};
       scope.fromDate = "1900";
       scope.toDate = "1905";
-      spyOn(es, 'search');
-
     });
 
     afterEach(function(){
@@ -112,6 +104,13 @@ describe("Date Range Filter", function() {
 
       var filter = newQuery.body.query.filtered.filter.bool.filter;
       expect(filter).toContain(dateRange);    
+    });
+
+    it("adds date range object to SearchService's options", function(){
+      scope.setDateRange(scope.fromDate, scope.toDate);
+      expect(searchService.opts.date).toBeDefined();
+      expect(searchService.opts.date.gte).toEqual(scope.fromDate);
+      expect(searchService.opts.date.lte).toEqual(scope.toDate);
     });
   });
 });

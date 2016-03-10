@@ -13,7 +13,14 @@
     .state('home', {
       url: '/',
       templateUrl: config.app.root + '/search/search.home.html',
-      controller: 'HomePageCtrl'
+      controller: 'HomePageCtrl',
+      resolve: {
+        searchResults: function(SearchService, DEFAULTS) {
+          return SearchService.newSearch(DEFAULTS.searchOpts).then(function(data) {
+            return SearchService.setResultsData(data);
+          });
+        }
+      }
     })
 
     .state('searchResults', {
@@ -34,8 +41,9 @@
             size: parseInt($stateParams.size),
             from: parseInt($stateParams.from)
           };
-
-          return SearchService.updateSearch(searchOpts);
+          return SearchService.updateSearch(searchOpts).then(function(data) {
+            return SearchService.setResultsData(data);
+          });
         }
       }
     })
