@@ -59,14 +59,6 @@ describe("Date Range Filter", function() {
     module('app');
     module('app.search');
   });
-
-  beforeEach(function() {
-    module('app.search', function($provide) {
-      $provide.service('searchResults', function() {
-        return 'results';
-      });
-    });
-  });
   
   beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
     data = DataService;

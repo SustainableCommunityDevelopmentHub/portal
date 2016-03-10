@@ -29,7 +29,7 @@
       templateUrl: config.app.root + '/search/search.results.html',
       resolve: {
         // run search and load resulting promise into controller prior to state load
-        searchResults: function($q, $stateParams, SearchService){
+        searchResults: function($stateParams, SearchService){
           console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
 
           // NOTE: We must pull search opts from stateParams to handle case

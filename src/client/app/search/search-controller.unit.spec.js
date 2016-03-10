@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj, searchResults;
+  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj;
 
   beforeEach(function(){
     module('ui.router');
@@ -9,9 +9,6 @@ describe("Search Controller", function(){
     module('app');
     module('app.search');
   });
-
-
-
 
   beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_,  _DEFAULTS_, _SORT_MODES_){
     $state = _$state_;
@@ -27,7 +24,6 @@ describe("Search Controller", function(){
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-
         'SearchService': SearchService,
         'searchResults': {}
 
