@@ -1,5 +1,5 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, defaultSearchObj;
+  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, SAVED_ITEMS, defaultSearchObj;
 
   beforeEach(function(){
     module('ui.router');
@@ -10,7 +10,7 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _DEFAULTS_, _SORT_MODES_){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _DEFAULTS_, _SORT_MODES_, _SAVED_ITEMS_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
@@ -18,6 +18,7 @@ describe("Search Controller", function(){
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
     DEFAULTS = _DEFAULTS_;
     SORT_MODES = _SORT_MODES_;
+    SAVED_ITEMS = _SAVED_ITEMS_;
 
     defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
@@ -116,7 +117,7 @@ describe("Search Controller", function(){
     });
 
     it("should set opts and scope vars correctly when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -126,7 +127,7 @@ describe("Search Controller", function(){
     });
 
     it("should set page number to 1 in SearchService when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -137,8 +138,8 @@ describe("Search Controller", function(){
     });
 
     it("should set opts and scope vars correctly when adding second facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
-      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -152,8 +153,8 @@ describe("Search Controller", function(){
     });
 
     it("should update opts and scope correctly when deactivating a particular facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true,};
-      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true,};
+      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
+      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -268,8 +269,10 @@ describe("Search Controller", function(){
 
   describe('Saving Records', function() {
 
-    it('should save book record correctly', function() {
-      var book = {
+    var book;
+
+    beforeEach(function() {
+      book = {
         _date_display: "1896-05-16",
         _date_facet: "1896",
         _grp_contributor: "Gallica - Bibliothèque nationale de France",
@@ -278,63 +281,52 @@ describe("Search Controller", function(){
         _id: "bnf_bpt6k63442125",
         _ingest_date: "2016-02-16"
       };
+    });
 
-      scope.saveRecord(book);
+    afterEach(function(){
+      localStorage.removeItem(SAVED_ITEMS.recordKey);
+      localStorage.removeItem(SAVED_ITEMS.searchKey);
+    });
+
+    it('should save book record correctly', function() {
+      scope.toggleSavingBook(book);
       expect(scope.savedRecords).toContain(book);
-      var records = JSON.parse(localStorage.getItem("saved_records"))['saved_records'];
+      var records = JSON.parse(localStorage.getItem(SAVED_ITEMS.recordKey))[SAVED_ITEMS.recordKey];
       expect(records).toContain(book);
       localStorage.removeItem("saved_records");
     });
 
-    it('should save search correctly', function() {
-      var opts = {q: "art", page: 2, from: 25, facets: scope.activeFacets};
-      SearchService.opts = opts;
-      scope.saveSearch();
-      expect(scope.savedSearches).toContain(opts);
-      var searches = JSON.parse(localStorage.getItem("saved_searches"))['saved_searches'];
-      expect(searches).toContain(opts);
-      localStorage.removeItem("saved_searches");
-
-    });
-
     it('should remove book record correctly', function() {
-      var book = {
-        _date_display: "1896-05-16",
-        _date_facet: "1896",
-        _grp_contributor: "Gallica - Bibliothèque nationale de France",
-        _grp_id: "bnf_bpt6k63442125",
-        _grp_type: "Text",
-        _id: "bnf_bpt6k63442125",
-        _ingest_date: "2016-02-16"
-      };
-
       var item = {'saved_records': [book]};
-      localStorage.setItem('saved_records', JSON.stringify(item));
+      localStorage.setItem(SAVED_ITEMS.recordKey, JSON.stringify(item));
       scope.savedRecords = [book];
+      scope.toggleSavingBook(book);
 
-      scope.removeRecord(book);
-
-      var returnedItem = JSON.parse(localStorage.getItem('saved_records'));
-      var books = returnedItem['saved_records'];
+      var returnedItem = JSON.parse(localStorage.getItem(SAVED_ITEMS.recordKey));
+      var books = returnedItem[SAVED_ITEMS.recordKey];
       expect(books.length).toBe(0);
       expect(scope.savedRecords.length).toBe(0);
 
     });
 
-    it('should remove search record correctly', function() {
-      var opts = {q: "art", page: 2, from: 25, facets: scope.activeFacets};
-      var item = {'saved_searches': [opts]};
-      localStorage.setItem('saved_searches', JSON.stringify(item));
-      scope.savedSearches = [opts];
-
-      scope.removeSearch(opts);
-
-      var returnedItem = JSON.parse(localStorage.getItem('saved_searches'));
-      var searches = returnedItem['saved_searches'];
-      expect(searches.length).toBe(0);
-      expect(scope.savedSearches.length).toBe(0);
-
+    it('should detect if book record is saved', function() {
+      scope.toggleSavingBook(book);
+      expect(scope.isSaved(book)).toBe(true);
     });
-  })
 
+    it('should detect if book record is not saved', function() {
+      //should be false since local storage was cleared before this ran
+      expect(scope.isSaved(book)).toBe(false);
+    });
+
+    it('should set properties correctly when mouse hovers over bookmark', function() {
+      scope.toggleSavingBook(book);
+      scope.saveRecordHover(book);
+      expect(scope.bookMarkText).toEqual("Remove Record");
+
+      scope.toggleSavingBook(book);
+      scope.saveRecordHover(book);
+      expect(scope.bookMarkText).toEqual("Save Record");
+    });
+  });
 });

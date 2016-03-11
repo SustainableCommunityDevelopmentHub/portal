@@ -80,9 +80,7 @@
             console.log($scope.hits[0]);
 
             $scope.bookMarkText = "";
-            SavedRecordsService.saveSearch(ss.opts, $scope.numTotalHits);
-
-            console.log("JENNY: search history");
+            saveSearch(ss.opts, $scope.numTotalHits);
             console.log(SavedRecordsService.getSearches());
 
           })
@@ -128,6 +126,38 @@
       $state.go('searchResults', ss.opts, {reload: true});
     }
 
+    /**
+     * Saves current search options to storage
+     * @param searchOpts {object} options to save
+     * @param results {integer} number of results for search options
+     */
+    function saveSearch (searchOpts, results) {
+      SavedRecordsService.saveSearch(searchOpts, results);
+    };
+
+    /**
+     * Saves book record to storage
+     * @param book {object} record to save
+     */
+    function saveRecord (book) {
+      SavedRecordsService.saveRecord(book);
+      var records = SavedRecordsService.getRecords();
+      if (records) {
+        $scope.savedRecords = records;
+      } else {
+        $scope.savedRecords = [];
+      }
+    };
+
+    /**
+     * Removes book record from storage
+     * @param book {object} record to remove
+     */
+    function removeRecord (book) {
+      SavedRecordsService.removeRecord(book);
+      $scope.savedRecords  = SavedRecordsService.getRecords();
+    };
+
     /////////////////////////////////
     //Functions
     /////////////////////////////////
@@ -151,14 +181,19 @@
      * Adding new query term to previous query term
      */
     $scope.newQuerySearch = function(query){
-      if ($scope.queryTerm) {
-        query = $scope.queryTerm + " " + query;
+      var newQuery;
+      if (query) {
+        newQuery = query.trim();
+        if ($scope.queryTerm) {
+          newQuery = $scope.queryTerm + " " + newQuery;
+        }
+        $scope.queryTerm = newQuery;
+      } else {
+        newQuery = $scope.queryTerm;
       }
-      $scope.queryTerm = query;
-
       console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
-        q: query
+        q: newQuery
       };
 
       // if new query term or empty string query term, need to reset pagination
@@ -298,82 +333,57 @@
       updateSearch({date: {}, page: 1, from: 0});
     };
 
-    $scope.saveRecord = function(book) {
-      SavedRecordsService.saveRecord(book);
-      var records = SavedRecordsService.getRecords();
-      if (records) {
-        $scope.savedRecords = records;
-      } else {
-        $scope.savedRecords = [];
-      }
-    }
-
-    $scope.saveSearch = function() {
-      SavedRecordsService.saveSearch(SearchService.opts);
-      var searches = SavedRecordsService.getSearches();
-      if (searches) {
-        $scope.savedSearches = searches;
-      } else {
-        $scope.savedSearches = [];
-      }
-    }
-
-    $scope.removeRecord = function(book) {
-      SavedRecordsService.removeRecord(book);
-      $scope.savedRecords  = SavedRecordsService.getRecords();
-
-    }
-
-    $scope.removeSearch = function(search) {
-      SavedRecordsService.removeSearch(search);
-      $scope.savedSearches = SavedRecordsService.getSearches();
-    }
-
+    /**
+     * Toggles the saving and removing book record from storage
+     * @param book {object} book record to be saved
+     */
     $scope.toggleSavingBook = function(book) {
       if ($scope.isSaved(book)) {
-        $scope.removeRecord(book);
+        removeRecord(book);
         $scope.bookMarkText = "Save Record";
       } else {
-        $scope.saveRecord(book);
+        saveRecord(book);
         $scope.bookMarkText = "Remove Record";
       }
-    }
+    };
 
+    /**
+     * Checks if book record is saved in storage
+     * @param book {object} book to check
+     * @returns {boolean} whether book is saved
+     */
     $scope.isSaved = function(book) {
-      for(var i = 0; i < $scope.savedRecords.length; i++) {
-        var current = $scope.savedRecords[i];
-        if (current._id == book._id) {
-          return true;
+      if ($scope.savedRecords) {
+        for (var i = 0; i < $scope.savedRecords.length; i++) {
+          var current = $scope.savedRecords[i];
+          if (current._id == book._id) {
+            return true;
+          }
         }
+        return false;
+      } else {
+        return false;
       }
-      return false;
-    }
+    };
 
-    $scope.hoverIn = function(book){
+    /**
+     * Sets appropriate variables when your mouse hovers over bookmark icon
+     * @param book {object} record bookmark is referencing
+     */
+    $scope.saveRecordHover = function(book){
       this.showBookmarkText = true;
       if ($scope.isSaved(book)) {
         $scope.bookMarkText = "Remove Record";
       } else {
         $scope.bookMarkText = "Save Record";
       }
-    }
+    };
 
-    $scope.hoverOut = function() {
+    /**
+     * Sets appropriate variables when your mouse stops hovering over bookmark icon
+     */
+    $scope.saveRecordHoverOut = function() {
       this.showBookmarkText = false;
-    }
-
-    $scope.setBookMarkText = function(book, mouseHover) {
-      if (mouseHover) {
-        console.log("changing text");
-        if ($scope.isSaved(book)) {
-          $scope.bookMarkText = "Remove Record";
-        } else {
-          $scope.bookMarkText = "Save Record"
-        }
-      } else {
-        $scope.bookMarkText = "";
-      }
-    }
-
+    };
   }
 })();

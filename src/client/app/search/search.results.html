@@ -210,7 +210,7 @@
  <hr class="results-list-hr">
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-      <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="hoverIn(book)" ng-mouseleave="hoverOut(book)">
+      <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
         <p>
           <i class="glyphicon-bookmark glyphicon">
             <i ng-class="{'saved': isSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>

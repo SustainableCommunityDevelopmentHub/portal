@@ -1,18 +1,10 @@
-/**
- * Created by jfranco on 3/2/16.
- */
 "use strict"
 
 describe('Storage Service', function(){
   var StorageService, testItem, testKey;
 
   beforeEach(function(){
-    module('ui.router');
-    module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
-    module('app');
-    module('app.search');
   });
 
   beforeEach(inject(function(_StorageService_) {
@@ -26,7 +18,6 @@ describe('Storage Service', function(){
 
   afterEach(function() {
     localStorage.removeItem(testKey);
-
   });
 
   it('should save items to localStorage', function() {
@@ -45,5 +36,5 @@ describe('Storage Service', function(){
     var item = StorageService.getItems(testKey);
     item = JSON.parse(item);
     expect(item).toEqual(testItem);
-  })
-})
+  });
+});
