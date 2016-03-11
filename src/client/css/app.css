@@ -1057,8 +1057,6 @@ h1 {
 }
 
 .contributors li {
-  display: inline-block;
-  width: 50%;
   margin: 10px 0 0 0;
 }
 
