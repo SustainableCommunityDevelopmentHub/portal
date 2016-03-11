@@ -1086,22 +1086,11 @@ h1 {
 }
 
 .contrib-pagination {
-  font-size: .8em;
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 12px;
   text-align: center;
+  margin: 30px 0;
 }
 
-.contrib-pagination p{
-  display: inline;
-  margin-left: 5px;
-}
-
-.contrib-pagination a{
-  margin: 40px 5px 0 10px;
-}
 
 /* Search Help */
 

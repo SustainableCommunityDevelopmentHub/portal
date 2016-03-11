@@ -7,10 +7,9 @@
   </div>
 
   <div class="row">
-  <ul class="contributors">
-    <li dir-paginate="contributor in institutions | itemsPerPage: 10">
+    <ul class="contributors">
+      <li dir-paginate="contributor in institutions | itemsPerPage: 10">
         <div class="contributor-list-item">
-
           <div class="col-xs-12 col-sm-6">
             <p class="name-contrib">{{contributor.key}}</p> 
             <div class="contrib-vl-center" ng-show="$even"></div>
@@ -20,15 +19,18 @@
             <hr>
           </div>
         </div>
-
       </li>
-  </ul>
-</div>
+    </ul>
+  </div>
 
-  <div class="contrib-pagination">
-    <dir-pagination-controls boundary-links="true" max-size="5"></dir-pagination-controls>
-  <!--<a ui-sref="#">First</a><a ui-sref="#">Prev</a>-->
-  <!--<a ui-sref="#">1</a><p>2</p><a ui-sref="#">3 ... 22</a>-->
-  <!--<a ui-sref="#">Next</a><a ui-sref="#">Last</a>-->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="contrib-pagination">
+        <dir-pagination-controls boundary-links="true" max-size="5"></dir-pagination-controls>
+        <!--<a ui-sref="#">First</a><a ui-sref="#">Prev</a>-->
+        <!--<a ui-sref="#">1</a><p>2</p><a ui-sref="#">3 ... 22</a>-->
+        <!--<a ui-sref="#">Next</a><a ui-sref="#">Last</a>-->
+       </div>
+    </div>
   </div>
 </div>
