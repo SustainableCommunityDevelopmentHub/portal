@@ -338,7 +338,7 @@
      * @param book {object} book record to be saved
      */
     $scope.toggleSavingBook = function(book) {
-      if ($scope.isSaved(book)) {
+      if ($scope.isRecordSaved(book)) {
         removeRecord(book);
         $scope.bookMarkText = "Save Record";
       } else {
@@ -352,7 +352,7 @@
      * @param book {object} book to check
      * @returns {boolean} whether book is saved
      */
-    $scope.isSaved = function(book) {
+    $scope.isRecordSaved = function(book) {
       if ($scope.savedRecords) {
         for (var i = 0; i < $scope.savedRecords.length; i++) {
           var current = $scope.savedRecords[i];
@@ -372,7 +372,7 @@
      */
     $scope.saveRecordHover = function(book){
       this.showBookmarkText = true;
-      if ($scope.isSaved(book)) {
+      if ($scope.isRecordSaved(book)) {
         $scope.bookMarkText = "Remove Record";
       } else {
         $scope.bookMarkText = "Save Record";

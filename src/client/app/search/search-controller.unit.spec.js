@@ -311,12 +311,12 @@ describe("Search Controller", function(){
 
     it('should detect if book record is saved', function() {
       scope.toggleSavingBook(book);
-      expect(scope.isSaved(book)).toBe(true);
+      expect(scope.isRecordSaved(book)).toBe(true);
     });
 
     it('should detect if book record is not saved', function() {
       //should be false since local storage was cleared before this ran
-      expect(scope.isSaved(book)).toBe(false);
+      expect(scope.isRecordSaved(book)).toBe(false);
     });
 
     it('should set properties correctly when mouse hovers over bookmark', function() {

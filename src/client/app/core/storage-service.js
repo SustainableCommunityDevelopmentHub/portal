@@ -3,9 +3,9 @@
 
   angular
     .module('app.core')
-    .factory('StorageService', ['$q', 'SAVED_ITEMS', StorageService]);
+    .factory('StorageService', [StorageService]);
 
-  function StorageService(SAVED_ITEMS){
+  function StorageService(){
 
     var service = {
       getItems: getItems,

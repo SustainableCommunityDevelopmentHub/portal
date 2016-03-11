@@ -624,11 +624,11 @@ a:hover {
 
 .glyphicon-bookmark.inside {
   position:absolute;
-  font-size: 43.2px;
+  font-size: 43px;
   color: white;
   color: white;
   left: 1.5px;
-  top: -.1px;
+  top: .1px;
 }
 
 .glyphicon-bookmark.inside.saved {

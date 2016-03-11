@@ -213,7 +213,7 @@
       <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
         <p>
           <i class="glyphicon-bookmark glyphicon">
-            <i ng-class="{'saved': isSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>
+            <i ng-class="{'saved': isRecordSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>
           </i>
         </p>
         <p ng-show="showBookmarkText" class="bookmark-text">{{ bookMarkText }}</p>
