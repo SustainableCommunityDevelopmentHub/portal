@@ -160,6 +160,10 @@ a:hover {
   margin: 30px 0 50px;
 }
 
+.intro-copy a {
+  text-decoration: underline;
+}
+
 
 .search-bar {
   display: block;
