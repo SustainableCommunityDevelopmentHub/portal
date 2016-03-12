@@ -52,11 +52,9 @@
       $scope.activeFacets = ss.opts.facets;
     }
     $scope.savedRecords = SavedRecordsService.getRecords();
-    console.log($scope.hits[0]);
 
     $scope.bookMarkText = "";
     saveSearch(ss.opts, $scope.numTotalHits);
-    console.log(SavedRecordsService.getSearches());
 
     /////////////////////////////////
     //Variables

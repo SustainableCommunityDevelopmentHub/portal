@@ -54,7 +54,6 @@ describe('Search Results', function() {
          expect(parseInt(date)).toBeLessThan(1911);
        }
      });
-
   });
 
   it('should save book records', function () {
