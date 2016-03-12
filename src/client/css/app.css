@@ -552,7 +552,21 @@ a:hover {
   }
 
   .date-range {
-    margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+
+  .date-range input {
+    width: 105px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .date-range button {
+    padding-top: 3px;
+    margin-top: 3px;
   }
 
 .book-images {
@@ -613,24 +627,6 @@ a:hover {
   display: inline;
   font-size: 45px;
   color: #C5C5C5;
-}
-
-.date-range {
-  display: inline-block;
-  margin-right: 4px;
-  margin-top: 5px;
-}
-
-.date-range input {
-  width: 105px;
-  height: 30px;
-  font-size: 12px;
-  margin-right: 10px;
-}
-
-.date-range button {
-  padding-top: 3px;
-  margin-top: 3px;
 }
 
 .facet {
