@@ -62,9 +62,7 @@
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
-
-
-
+    
     ///////////////////////////
     //Private/Helper Functions
     ///////////////////////////

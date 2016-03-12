@@ -29,8 +29,6 @@
       opts: {
         facets: []
       },
-      resultsData: {},
-
 
       // functions //
       newSearch: newSearch,
