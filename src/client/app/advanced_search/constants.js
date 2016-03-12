@@ -9,27 +9,27 @@
       },
       creator: {
         display: 'Creator',
-        searchKey: '_creator_facet'
+        searchKey: 'dublin_core.creator'
       },
       date: {
         display: 'Date',
-        searchKey: '_date_display'
+        searchKey: 'dublin_core.date'
       },
       language: {
         display: 'Language',
-        searchKey: '_language.advanced'
+        searchKey: 'dublin_core.language'
       },
       subject: {
         display: 'Subject',
-        searchKey: '_subject_facets'
+        searchKey: 'dublin_core.subject'
       },
       title: {
         display: 'Title',
-        searchKey: '_title_display'
+        searchKey: 'dublin_core.title'
       },
       type: {
         display: 'Type',
-        searchKey: '_grp_type.advanced'
+        searchKey: 'dublin_core.type'
       }
     });
 })();
