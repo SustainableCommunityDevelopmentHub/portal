@@ -141,7 +141,7 @@
         if (!success && type === SAVED_ITEMS.recordKey) {
           alert("Error: Could not save record to local storage. Please check your browser settings.");
         }
-      } else {
+      } else if (type === SAVED_ITEMS.recordKey) {
         alert("Error: Could not save record to local storage. Please check your browser settings.");
       }
     }
@@ -167,7 +167,7 @@
           items[type] = [];
         }
         var success = StorageService.setItem(type, JSON.stringify(items));
-        if (!success) {
+        if (!success && type === SAVED_ITEMS.recordKey) {
           alert("Error: Could not remove item. Please check your browser settings.");
         }
       } else {

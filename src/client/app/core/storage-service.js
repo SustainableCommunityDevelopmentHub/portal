@@ -28,7 +28,6 @@
       if(item) {
         return item;
       } else {
-        console.log("Creating: " + key);
         var newItem = {};
         var itemAsString = JSON.stringify(newItem);
         try {
