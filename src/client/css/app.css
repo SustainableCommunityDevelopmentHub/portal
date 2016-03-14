@@ -491,9 +491,13 @@ a:hover {
 }
 
 .showing {
-  vertical-align: bottom;
-  margin:10px;
   font-size: 12px;
+}
+
+.adv-drawer {
+  text-align: right;
+  text-decoration: underline;
+  display: block;
 }
 
 
@@ -1369,10 +1373,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Search Results */
 
-  .facet-chip-search-bar {
-    width: 89%;
-
-}
 
   #facets-mobile {
     display: none;
@@ -1380,6 +1380,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   
 
 }
+
 
 @media (max-width: 768px) {
 
@@ -1427,6 +1428,18 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     border-right: none;
 
   }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 89%;
+  }
+
+}
 
 
 
