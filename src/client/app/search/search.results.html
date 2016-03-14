@@ -178,6 +178,7 @@
           </div>
         </div>
 
+
         <div class="results-pagination-top">
           <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
         </div>
@@ -198,7 +199,14 @@
       <hr class="results-list-hr">
       <!--Search Results Data-->
       <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-        <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
+        <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
+          <p>
+            <i class="glyphicon-bookmark glyphicon">
+              <i ng-class="{'saved': isRecordSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>
+            </i>
+          </p>
+          <p ng-show="showBookmarkText" class="bookmark-text">{{ bookMarkText }}</p>
+        </div>
         <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
         <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
         <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}

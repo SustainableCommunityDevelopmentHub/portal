@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder, searchService, searchResults;
+  var scope, controller, $state, SearchService, data, es, opts, queryBuilder, SavedRecordsService;
 
   var baseESQuery = {
     "index":"portal",
@@ -74,26 +74,32 @@ describe("Date Range Filter", function() {
     module('app.search');
   });
   
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _SearchService_, _SavedRecordsService_, DataService, esClient, esQueryBuilder){
     data = DataService;
     es = esClient;
     $state = _$state_;
     scope = $rootScope.$new();
-    searchService = SearchService;
+    SearchService = _SearchService_;
+    SavedRecordsService = _SavedRecordsService_;
     queryBuilder = esQueryBuilder;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService,
-        'searchResults': {}
+        'SearchService': SearchService,
+        'SavedRecordsService': SavedRecordsService,
+        'searchResults': {
+          hits: [],
+          numTotalResults: 0,
+          facets: []
+        }
       });
     }));
 
   it("should call Search Service's update opts when calling setDateRange", function(){
-    spyOn(searchService, 'updateOpts');
+    spyOn(SearchService, 'updateOpts');
     scope.setDateRange(scope.fromDate, scope.toDate);
-    expect(searchService.updateOpts).toHaveBeenCalled();
+    expect(SearchService.updateOpts).toHaveBeenCalled();
   });
 
   describe("Tests for building elasticsearch date range query", function(){
@@ -122,9 +128,9 @@ describe("Date Range Filter", function() {
 
     it("adds date range object to SearchService's options", function(){
       scope.setDateRange(scope.fromDate, scope.toDate);
-      expect(searchService.opts.date).toBeDefined();
-      expect(searchService.opts.date.gte).toEqual(scope.fromDate);
-      expect(searchService.opts.date.lte).toEqual(scope.toDate);
+      expect(SearchService.opts.date).toBeDefined();
+      expect(SearchService.opts.date.gte).toEqual(scope.fromDate);
+      expect(SearchService.opts.date.lte).toEqual(scope.toDate);
     });
   });
 });
