@@ -210,13 +210,23 @@
  <hr class="results-list-hr">
     <!--Search Results Data-->
     <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-      <a ui-sref="#"><i class="glyphicon-bookmark glyphicon"></i></a>
+      <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
+        <p>
+          <i class="glyphicon-bookmark glyphicon">
+            <i ng-class="{'saved': isRecordSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>
+          </i>
+        </p>
+        <p ng-show="showBookmarkText" class="bookmark-text">{{ bookMarkText }}</p>
+      </div>
+      <div class="book-info">
       <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
       <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
       <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
       <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
       <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
       <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
+
+        </div>
       <hr class="results-list-hr"><br>
     </li>
     </ul>

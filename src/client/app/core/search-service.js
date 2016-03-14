@@ -30,7 +30,6 @@
         facets: []
       },
 
-
       // functions //
       newSearch: newSearch,
       updateSearch: updateSearch,
