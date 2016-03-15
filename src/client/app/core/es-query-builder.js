@@ -443,6 +443,7 @@
                   multi_match: {
                     type: 'most_fields',
                     query: item.term,
+                    minimum_should_match: '2<-1 5<75%',
                     fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
                   }
                 }
@@ -456,7 +457,8 @@
               bool: {
                 should: [
                   {
-                    term: {'_date_facet.folded': item.term}
+                    term: {'_date_facet.folded': item.term},
+                    minimum_should_match: '2<-1 5<75%',
                   },
                   {
                     nested: {
@@ -465,6 +467,7 @@
                         multi_match: {
                           type: 'most_fields',
                           query: item.term,
+                          minimum_should_match: '2<-1 5<75%',
                           fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
                         }
                       }
@@ -481,6 +484,7 @@
               multi_match: {
                 type: 'most_fields',
                 query: item.term,
+                minimum_should_match: '2<-1 5<75%',
                 fields: [item.field.searchKey, item.field.searchKey + '.folded']
               }
             };
