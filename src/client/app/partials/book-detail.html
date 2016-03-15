@@ -4,16 +4,7 @@
 <hr class="sr-top">
 <h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
 <div class="rec-options">
-  <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
-    <div>
-      <span class="glyphicon-bookmark glyphicon">
-        <span ng-class="{'saved': isRecordSaved()}" class="glyphicon-bookmark glyphicon inside"></span>
-      </span>
-    </div>
-    <p ng-show="showBookmarkText" class="bookmark-text">{{ bookMarkText }}</p>
-    <p ng-show="!showBookmarkText" class="bookmark-text-placeholder"></p>
-  </div>
-
+  <save-record-button></save-record-button>
 <ul class="view-export-print">
   <li><a href="{{book._source._record_link}}" ng-click="">View Digital Item</a></li>
   <li class="dropdown">
