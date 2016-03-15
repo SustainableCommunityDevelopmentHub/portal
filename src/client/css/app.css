@@ -1299,6 +1299,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   height: 40px;
 }
 
+#emailGRI a {
+  text-decoration: none;
+  color: black;
+}
+
 .specs .ng-scope {
   margin-top: 5px;
   margin-bottom: 5px;
