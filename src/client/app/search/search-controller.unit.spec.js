@@ -1,5 +1,14 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, SAVED_ITEMS, defaultSearchObj, SavedRecordsService;
+  var scope,
+      SearchService,
+      controller,
+      ADVANCED_SEARCH,
+      DEFAULTS,
+      SORT_MODES,
+      SAVED_ITEMS,
+      defaultSearchObj,
+      SavedRecordsService;
+      
 
   beforeEach(function(){
     module('ui.router');
@@ -56,7 +65,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(10);
       expect(SearchService.opts.size).toEqual(10);
-      expect(SearchService.opts.page).toEqual(6);
+      expect(scope.pagination.page).toEqual(6);
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
@@ -67,7 +76,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
-      expect(SearchService.opts.page).toEqual(2);
+      expect(scope.pagination.page).toEqual(2);
     });
   });
 
@@ -81,7 +90,7 @@ describe("Search Controller", function(){
       scope.setPageNum(1);
 
       expect(SearchService.opts.from).toEqual(0);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
 
     it("should set opts correctly when going to next page", function(){
@@ -92,7 +101,7 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(3);
       expect(SearchService.opts.from).toEqual(100);
-      expect(SearchService.opts.page).toEqual(3);
+      expect(scope.pagination.page).toEqual(3);
     });
 
     it("should set opts correctly when going back a page", function(){
@@ -103,7 +112,7 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(2);
       expect(SearchService.opts.from).toEqual(50);
-      expect(SearchService.opts.page).toEqual(2);
+      expect(scope.pagination.page).toEqual(2);
     });
 
     it("should set opts correctly when going to first page", function(){
@@ -114,7 +123,7 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(1);
       expect(SearchService.opts.from).toEqual(0);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
   });
 
@@ -141,7 +150,7 @@ describe("Search Controller", function(){
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
 
     it("should set opts and scope vars correctly when adding second facet", function(){
