@@ -7,12 +7,44 @@ var ResultsPage = function() {
 
 
 ResultsPage.prototype = Object.create({}, {
-  tabPositions: { get: function() {
-    return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
-  }},
+
+  // Search Bar
   searchButton: { get: function() { 
     return element(by.id('go-btn-results')); 
+  }},  
+  submitNewSearchTerm: { value: function(term) {
+    element(by.model('newQueryTerm')).sendKeys(term);
+    this.searchButton.click();
   }},
+  activeFacets: { get: function() {
+    return element.all(by.repeater('activeFacet in activeFacets'));
+  }},
+  getActiveFacet: { value: function(position) {
+    return this.activeFacets.get(position);
+  }},
+  getActiveFacetText: { value: function(position) {
+    return this.activeFacets.get(position).getText();
+  }},
+  facetChips: { get: function() {
+    return element.all(by.css(".facet-chip a"));
+  }},
+  advancedFacetChips: { get: function() {
+    return element.all(by.repeater("advancedField in advancedFields"));
+  }},
+
+  // Sorting & Pagination
+  sortOptions: { get: function() {
+    return element.all(by.repeater('sortMode in validSortModes'));
+  }},
+  selectSortOption: { value: function(label) {
+    element(by.id('toggle-sort-btn')).click();
+    element(by.linkText(label)).click();
+  }},
+  paginationBar: { get: function() {
+    return $('.results-pagination-top');
+  }},
+
+  // Results
   numTotalHits: { get: function() { 
     return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
@@ -46,12 +78,20 @@ ResultsPage.prototype = Object.create({}, {
     });
     return titles;
   }},
+  toggleSavingRecord: { value: function(position) {
+    element.all(by.css('.bookmark')).get(position).click();
+  }},
+  getBookMark: {value: function(position) {
+    return element.all(by.css('.bookmark p i i')).get(position);
+  }},
+
+
+  // Facet Sidebar
+  tabPositions: { get: function() {
+    return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
+  }},  
   getSidebarTab: { value: function(position) {
     return element.all(by.css(".panel-heading")).get(position);
-  }},
-  submitNewSearchTerm: { value: function(term) {
-    element(by.model('newQueryTerm')).sendKeys(term);
-    this.searchButton.click();
   }},
   /*
   toggleFacetTab: { value: function(facet) {
@@ -72,6 +112,15 @@ ResultsPage.prototype = Object.create({}, {
   toggleFacetOption: { value: function(facet, label) {
     this.getFacetOptionByLabel(facet, label).click();
   }},
+  submitDateRange: { value: function(from, to) {
+    var from = typeof from !== 'undefined' ? from : '';
+    var to = typeof to !== 'undefined' ? to : '';
+    element(by.model('fromDate')).sendKeys(from);
+    element(by.model('toDate')).sendKeys(to);
+    element.all(by.css(".date-range button")).get(0).click();
+  }},
+
+  // Facet Modal
   openFacetModal: { value: function(facet) {
     element(by.id("see-all-"+facet)).click();
   }},
@@ -84,16 +133,7 @@ ResultsPage.prototype = Object.create({}, {
   applyModalFacetOption: { value: function(facetOption) {
     element(by.id(facetOption)).click();
     return element(by.css(".apply-btn")).click();
-  }},
-  activeFacets: { get: function() {
-    return element.all(by.repeater('activeFacet in activeFacets'));
-  }},
-  getActiveFacet: { value: function(position) {
-    return this.activeFacets.get(position);
-  }},
-  getActiveFacetText: { value: function(position) {
-    return this.activeFacets.get(position).getText();
-  }},
+  }},  
   getModalFacetTab: { value: function(position) {
     return element.all(by.css(".facet-tabs li")).get(position);
   }},
@@ -122,36 +162,8 @@ ResultsPage.prototype = Object.create({}, {
   }},
   closeModal: { value: function() {
     element(by.css(".close-modal")).click();
-  }},
-  facetChips: { get: function() {
-    return element.all(by.css(".facet-chip a"));
-  }},
-  advancedFacetChips: { get: function() {
-    return element.all(by.repeater("advancedField in advancedFields"));
-  }},
-  sortOptions: { get: function() {
-    return element.all(by.repeater('sortMode in validSortModes'));
-  }},
-  selectSortOption: { value: function(label) {
-    element(by.id('toggle-sort-btn')).click();
-    element(by.linkText(label)).click();
-  }},
-  paginationBar: { get: function() {
-    return $('.results-pagination-top');
-  }},
-  submitDateRange: { value: function(from, to) {
-    var from = typeof from !== 'undefined' ? from : '';
-    var to = typeof to !== 'undefined' ? to : '';
-    element(by.model('fromDate')).sendKeys(from);
-    element(by.model('toDate')).sendKeys(to);
-    element.all(by.css(".date-range button")).get(0).click();
-  }},
-  toggleSavingRecord: { value: function(position) {
-    element.all(by.css('.bookmark')).get(position).click();
-  }},
-  getBookMark: {value: function(position) {
-    return element.all(by.css('.bookmark p i i')).get(position);
   }}
+  
 });
 
 
