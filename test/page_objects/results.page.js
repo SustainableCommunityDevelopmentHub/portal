@@ -1,6 +1,5 @@
 'use strict';
 
-
 var ResultsPage = function() {
   browser.get('/search');
 };
@@ -10,10 +9,10 @@ ResultsPage.prototype = Object.create({}, {
   tabPositions: { get: function() {
     return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
   }},
-  searchButton: { get: function() { 
-    return element(by.id('go-btn-results')); 
+  searchButton: { get: function() {
+    return element(by.id('go-btn-results'));
   }},
-  numTotalHits: { get: function() { 
+  numTotalHits: { get: function() {
     return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
   getHits: { value: function() {
@@ -24,7 +23,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._date_facet);
-      }      
+      }
     });
     return dates;
   }},
@@ -33,7 +32,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._ingest_date);
-      }      
+      }
     });
     return dates;
   }},
@@ -42,7 +41,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         titles.push(hits[i]._title_display);
-      }      
+      }
     });
     return titles;
   }},
@@ -111,7 +110,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
   selectModalOptions: { value: function(positions) {
     for (var position in positions) {
-      this.modalOptions.get(position).click(); 
+      this.modalOptions.get(position).click();
     }
   }},
   toggleModalSeeOnly: { value: function() {
@@ -138,6 +137,27 @@ ResultsPage.prototype = Object.create({}, {
   }},
   paginationBar: { get: function() {
     return $('.results-pagination-top');
+  }},
+  paginationBarBottom: { get: function() {
+    return $('.results-pagination');
+  }},
+  // all pagination selection uses bottom page.
+  allPages: { get: function () {
+    element.all(by.css('.results-pagination-top a'));
+  }},
+  selectFirstPage: { value: function() {
+    element.all(by.css('.results-pagination a')).get(0);
+  }},
+  selectLastPage: { value: function(){
+    var allPages = element.all(by.css('.results-pagination a'));
+    return allPages.get(allPages.length);
+  }},
+  selectNextPage: { value: function(){
+    var allPages = element.all(by.css('.results-pagination a'));
+    allPages.get(allPages.length - 1).click();
+  }},
+  selectPreviousPage: { value: function() {
+    element.all(by.css('.results-pagination a')).get(1);
   }},
   submitDateRange: { value: function(from, to) {
     var from = typeof from !== 'undefined' ? from : '';
