@@ -150,7 +150,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
   selectLastPage: { value: function(){
     var allPages = element.all(by.css('.results-pagination a'));
-    return allPages.get(allPages.length);
+    allPages.get(allPages.length).click();
   }},
   selectNextPage: { value: function(){
     var allPages = element.all(by.css('.results-pagination a'));

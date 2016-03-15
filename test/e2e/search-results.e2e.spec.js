@@ -86,11 +86,17 @@ describe('Search Results', function() {
       expect(resultsPage.paginationBarBottom.isDisplayed()).toBeTruthy();
     });
 
-    it("should be able to navigate to next page by clicking on 'next' button", function(){
-      resultsPage.selectNextPage();
+    it("should be able to navigate to last page by clicking on 'last page' button", function(){
+      resultsPage.selectLastPage();
       browser.pause();
 
     });
+
+    //it("should be able to navigate to next page by clicking on 'next' button", function(){
+      //resultsPage.selectNextPage();
+      //browser.pause();
+
+    //});
 
     it("should be able to navigate to previous page by clicking on 'next' button", function(){
 
