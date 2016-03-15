@@ -491,19 +491,20 @@ a:hover {
 }
 
 .showing {
-  vertical-align: bottom;
-  margin:10px;
   font-size: 12px;
+}
+
+.adv-drawer {
+  display: flex;
+  text-decoration: underline;
+  justify-content: flex-end;
 }
 
 
 .results-pagination {
   font-size: 12px;
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -556,7 +557,21 @@ a:hover {
   }
 
   .date-range {
-    margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+
+  .date-range input {
+    width: 105px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .date-range button {
+    padding-top: 3px;
+    margin-top: 3px;
   }
 
 .book-images {
@@ -658,31 +673,6 @@ a:hover {
   max-width: 436px;
 }
 
-
-.showing {
-  vertical-align: bottom;
-  margin-left: 5%;
-  margin-right: 5%;
-  font-size: .8em;
-}
-
-.date-range {
-  display: inline-block;
-  margin-right: 4px;
-  margin-top: 5px;
-}
-
-.date-range input {
-  width: 105px;
-  height: 30px;
-  font-size: 12px;
-  margin-right: 10px;
-}
-
-.date-range button {
-  padding-top: 3px;
-  margin-top: 3px;
-}
 
 .facet {
   margin-top: 10px;
@@ -1420,10 +1410,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Search Results */
 
-  .facet-chip-search-bar {
-    width: 89%;
-
-}
 
   #facets-mobile {
     display: none;
@@ -1431,6 +1417,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   
 
 }
+
 
 @media (max-width: 768px) {
 
@@ -1478,6 +1465,18 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     border-right: none;
 
   }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 89%;
+  }
+
+}
 
 @media (max-width: 992px) {
 
