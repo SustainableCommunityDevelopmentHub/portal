@@ -495,19 +495,16 @@ a:hover {
 }
 
 .adv-drawer {
-  text-align: right;
+  display: flex;
   text-decoration: underline;
-  display: block;
+  justify-content: flex-end;
 }
 
 
 .results-pagination {
   font-size: 12px;
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -626,16 +623,56 @@ a:hover {
 .results-list-hr {
   background-color: black;
   height:1px;
+  clear: both;
+}
+
+.bookmark {
+  float: left;
+  cursor: pointer;
 }
 
 .glyphicon-bookmark {
   float: left;
   padding: 0 10px 0 0;
-  margin-bottom: 60px;
+
   display: inline;
-  font-size: 45px;
-  color: #C5C5C5;
+  font-size: 46px;
+  color: darkorange;
+  clear:both;
 }
+
+.glyphicon-bookmark.inside {
+  position:absolute;
+  font-size: 43px;
+  color: white;
+  color: white;
+  left: 1.5px;
+  top: .1px;
+}
+
+.glyphicon-bookmark.inside.saved {
+  position:absolute;
+  font-size: 42px;
+  color: darkorange;
+  left: 1.5px;
+  top: -0.5px;
+}
+
+.bookmark-text {
+  float: left;
+  display: block;
+  font-size: 12px;
+  color: darkorange;
+  max-width: 50px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.book-info {
+  margin-left: 56px;
+  max-width: 436px;
+}
+
 
 .facet {
   margin-top: 10px;
@@ -1440,8 +1477,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   }
 
 }
-
-
 
 @media (max-width: 992px) {
 

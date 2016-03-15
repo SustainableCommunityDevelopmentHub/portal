@@ -145,6 +145,12 @@ ResultsPage.prototype = Object.create({}, {
     element(by.model('fromDate')).sendKeys(from);
     element(by.model('toDate')).sendKeys(to);
     element.all(by.css(".date-range button")).get(0).click();
+  }},
+  toggleSavingRecord: { value: function(position) {
+    element.all(by.css('.bookmark')).get(position).click();
+  }},
+  getBookMark: {value: function(position) {
+    return element.all(by.css('.bookmark p i i')).get(position);
   }}
 });
 

@@ -54,7 +54,25 @@ describe('Search Results', function() {
          expect(parseInt(date)).toBeLessThan(1911);
        }
      });
-
   });
 
+  it('should save book records', function () {
+    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.toggleSavingRecord(2);
+    resultsPage.submitNewSearchTerm('');
+    resultsPage.submitNewSearchTerm('paintings');
+    var bookmark = resultsPage.getBookMark(2);
+    expect(bookmark.getAttribute('class')).toMatch('saved');
+  });
+
+  it('should remove book records', function() {
+    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.toggleSavingRecord(2);
+    var bookmark = resultsPage.getBookMark(2);
+    var bookmarkRemoved = bookmark.getAttribute('class').then(function(classes){
+      var classNames = classes.split(' ');
+      return (classNames.indexOf('saved') === -1);
+    });
+    expect(bookmarkRemoved).toBe(true);
+  });
 });

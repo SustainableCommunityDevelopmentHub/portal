@@ -5,7 +5,8 @@ describe("Sorting tests", function() {
       data,
       es,
       opts,
-      searchService,
+      SearchService,
+      SavedRecordsService,
       queryBuilder,
       sortModes,
       baseESQuery;
@@ -19,13 +20,14 @@ describe("Sorting tests", function() {
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_,  SearchService, DataService, esClient, esQueryBuilder, SORT_MODES, ___){
-    data = DataService;
+  beforeEach(inject(function($rootScope, $controller, _$state_,  _SearchService_, _SavedRecordsService_, _DataService_, esClient, esQueryBuilder, SORT_MODES, ___){
+    data = _DataService_;
     es = esClient;
     queryBuilder = esQueryBuilder;
     $state = _$state_;
     scope = $rootScope.$new();
-    searchService = SearchService;
+    SearchService = _SearchService_;
+    SavedRecordsService = _SavedRecordsService_;
     sortModes = SORT_MODES;
     _ = ___;
 
@@ -35,21 +37,22 @@ describe("Sorting tests", function() {
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService,
+        'SearchService': SearchService,
+        'SavedRecordsService': SavedRecordsService,
         'searchResults': {}
       });
     }));
 
   it("should call Search Service's update opts when calling setSortMode", function(){
-    spyOn(searchService, 'updateOpts');
+    spyOn(SearchService, 'updateOpts');
     scope.setSortMode(scope.validSortModes.titleAZ);
-    expect(searchService.updateOpts).toHaveBeenCalled();
+    expect(SearchService.updateOpts).toHaveBeenCalled();
   });
 
   it("adds sort object to SearchService's options", function(){
     scope.setSortMode(scope.validSortModes.titleAZ);
-    expect(searchService.opts.sort).toBeDefined();
-    expect(searchService.opts.sort).toEqual(scope.validSortModes.titleAZ);
+    expect(SearchService.opts.sort).toBeDefined();
+    expect(SearchService.opts.sort).toEqual(scope.validSortModes.titleAZ);
   });
 
   describe("Tests for building elasticsearch sort queries", function(){
