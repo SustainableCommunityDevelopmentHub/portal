@@ -71,6 +71,7 @@
             multi_match: {
               type: 'most_fields',
               query: opts.q,
+              minimum_should_match: '2<-1 5<75%',
               fields: [
                 '_record_link',
                 '_language',
@@ -104,6 +105,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.identifier.value',
                     'dublin_core.identifier.value.folded'
@@ -119,6 +121,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.creator.value',
                     'dublin_core.creator.value.folded'
@@ -134,6 +137,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.date.value',
                     'dublin_core.date.value.folded'
@@ -149,6 +153,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.publisher.value',
                     'dublin_core.publisher.value.folded'
@@ -164,6 +169,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.format.value',
                     'dublin_core.format.value.folded'
@@ -179,6 +185,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.type.value',
                     'dublin_core.type.value.folded'
@@ -194,6 +201,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.description.value',
                     'dublin_core.description.value.folded'
@@ -209,6 +217,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.provenance.value',
                     'dublin_core.provenance.value.folded'
@@ -224,6 +233,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.language.value',
                     'dublin_core.language.value.folded'
@@ -239,6 +249,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.subject.value',
                     'dublin_core.subject.value.folded'
@@ -254,6 +265,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.coverage.value',
                     'dublin_core.coverage.value.folded'
@@ -269,6 +281,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.title.value',
                     'dublin_core.title.value.folded'
@@ -284,6 +297,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.contributor.value',
                     'dublin_core.contributor.value.folded'
@@ -299,6 +313,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.relation.value',
                     'dublin_core.relation.value.folded'
@@ -314,6 +329,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.source.value',
                     'dublin_core.source.value.folded'
@@ -329,6 +345,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.rights.value',
                     'dublin_core.rights.value.folded'
@@ -344,6 +361,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.accrualMethod.value',
                     'dublin_core.accrualMethod.value.folded'
@@ -359,6 +377,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.accrualPeriodicity.value',
                     'dublin_core.accrualPeriodicity.value.folded'
@@ -374,6 +393,7 @@
                 multi_match: {
                   type: 'most_fields',
                   query: opts.q,
+                  minimum_should_match: '2<-1 5<75%',
                   fields: [
                     'dublin_core.audience.value',
                     'dublin_core.audience.value.folded'
