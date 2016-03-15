@@ -1281,13 +1281,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   margin-right: auto;
 }
 
-.item-details .glyphicon-bookmark {
-  float: left;
+.item-details .bookmark {
+  /*float: left;
   padding: 0 10px 0 0;
   font-size: 45px;
   color: #e33e42;
   margin-left: 25px;
-  margin-bottom: 30px;
+  */
+  width: 88px;
+}
+
+.item-details .glyphicon-bookmark {
+  float: left;
+  padding: 0 10px 0 20px;
+
+  display: inline;
+  clear:both;
+
 }
 
 .item-page .ng-binding {
@@ -1326,6 +1336,30 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 .specs .ng-scope {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.item-details .bookmark-text {
+  font-size: 12px;
+  max-width: 100px;
+  float: left;
+  display: block;
+  color: darkorange;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.bookmark-text-placeholder {
+  max-width: 100px;
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  height: 37px;
+  clear:both;
+}
+
+.detail-begin {
+  clear: both;
 }
 
 @media print {

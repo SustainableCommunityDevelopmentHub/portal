@@ -62,7 +62,7 @@
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
-    
+
     ///////////////////////////
     //Private/Helper Functions
     ///////////////////////////
@@ -287,7 +287,7 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
-    }
+    };
     /**
      * Removes date range filter, then runs search again
      */
@@ -320,7 +320,7 @@
       if ($scope.savedRecords) {
         for (var i = 0; i < $scope.savedRecords.length; i++) {
           var current = $scope.savedRecords[i];
-          if (current._id == book._id) {
+          if (current._id === book._id) {
             return true;
           }
         }
@@ -349,5 +349,6 @@
     $scope.saveRecordHoverOut = function() {
       this.showBookmarkText = false;
     };
+
   }
 })();

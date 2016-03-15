@@ -20,54 +20,119 @@
       $state.go('searchResults', SearchService.opts);
     };
   }])
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'esClient', 'SearchService', 'SavedRecordsService',
+    function($scope, $stateParams, $window, bookData, esClient, SearchService, SavedRecordsService) {
+
+      $scope.book = bookData;
+
+      function saveRecord () {
+        SavedRecordsService.saveRecord($scope.book);
+        var records = SavedRecordsService.getRecords();
+        if (records) {
+          $scope.savedRecords = records;
+        } else {
+          $scope.savedRecords = [];
+        }
+      }
+
+      /**
+       * Removes book record from storage
+       * @param book {object} record to remove
+       */
+      function removeRecord (book) {
+        SavedRecordsService.removeRecord(book);
+        $scope.savedRecords  = SavedRecordsService.getRecords();
+      };
+
+      $scope.saveAsJson = function (data, filename) {
+
+        if (!data) {
+          console.error('No data');
+          return;
+        }
+
+        if (!filename) {
+          filename = 'book.json';
+        }
+
+        if (typeof data === 'object') {
+          data = angular.toJson(data, undefined, 2);
+          $scope.fileContents = data;
+        }
+
+        var blob = new Blob([data], {type: 'text/json'}),
+          e = document.createEvent('MouseEvents'),
+          a = document.createElement('a');
+
+        a.download = filename;
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initMouseEvent('click', true, false, window,
+          0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
+      };
+
+      $scope.redirect = function(){
+        $window.location.assign($scope.book._source._record_link);
+        return false;
+      };
 
 
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'esClient', 'SearchService',
-    function($scope, $stateParams, $window, esClient, SearchService) {
-      esClient.get({
-        index: 'portal',
-        type: 'book',
-        id: $stateParams.bookID}, function(error, response) {
-          if(error) {
-            console.log(error);
+
+      /**
+       * Toggles the saving and removing book record from storage
+       * @param book {object} book record to be saved
+       */
+      $scope.toggleSavingBook = function(book) {
+        if ($scope.isRecordSaved(book)) {
+          removeRecord(book);
+          $scope.bookMarkText = "Save Record";
+        } else {
+          saveRecord(book);
+          $scope.bookMarkText = "Remove Record";
+        }
+      };
+
+      /**
+       * Checks if book record is saved in storage
+       * @param book {object} book to check
+       * @returns {boolean} whether book is saved
+       */
+      $scope.isRecordSaved = function() {
+        var savedRecords = SavedRecordsService.getRecords();
+        if (savedRecords) {
+          for (var i = 0; i < savedRecords.length; i++) {
+            var current = savedRecords[i];
+            if (current._id === $scope.book._id) {
+              return true;
+            }
           }
-          else {
-            $scope.book = response;
+          return false;
+        } else {
+          return false;
+        }
+      };
 
-            $scope.saveAsJson = function (data, filename) {
+      /**
+       * Sets appropriate variables when your mouse hovers over bookmark icon
+       * @param book {object} record bookmark is referencing
+       */
+      $scope.saveRecordHover = function(book){
+        this.showBookmarkText = true;
+        if ($scope.isRecordSaved(book)) {
+          $scope.bookMarkText = "Remove Record";
+        } else {
+          $scope.bookMarkText = "Save Record";
+        }
+      };
 
-              if (!data) {
-                console.error('No data');
-                return;
-              }
+      /**
+       * Sets appropriate variables when your mouse stops hovering over bookmark icon
+       */
+      $scope.saveRecordHoverOut = function() {
+        this.showBookmarkText = false;
+      };
 
-              if (!filename) {
-                filename = 'book.json';
-              }
-              
-              if (typeof data === 'object') {
-                data = angular.toJson(data, undefined, 2);
-                $scope.fileContents = data;
-              }
-
-              var blob = new Blob([data], {type: 'text/json'}),
-                e = document.createEvent('MouseEvents'),
-                a = document.createElement('a');
-
-              a.download = filename;
-              a.href = window.URL.createObjectURL(blob);
-              a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-              e.initMouseEvent('click', true, false, window,
-                0, 0, 0, 0, 0, false, false, false, false, 0, null);
-              a.dispatchEvent(e);
-            };
-
-            $scope.redirect = function(){
-              $window.location.assign($scope.book._source._record_link);
-              return false;
-            };
-          }
-        });
     }])
 
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {

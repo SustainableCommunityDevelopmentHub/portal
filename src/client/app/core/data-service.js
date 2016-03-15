@@ -13,6 +13,7 @@
 
     var service = {
       getContributors: getContributors,
+      getBookData: getBookData,
       search: search
     };
 
@@ -52,6 +53,11 @@
       );
 
       console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
+      return response;
+    }
+
+    function getBookData(book){
+      var response = esClient.get(book);
       return response;
     }
 
