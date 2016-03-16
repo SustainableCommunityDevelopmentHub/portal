@@ -11,7 +11,7 @@ ResultsPage.prototype = Object.create({}, {
   // Search Bar
   searchButton: { get: function() { 
     return element(by.id('go-btn-results')); 
-  }},  
+  }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
@@ -45,7 +45,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
 
   // Results
-  numTotalHits: { get: function() { 
+  numTotalHits: { get: function() {
     return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
   getHits: { value: function() {
@@ -82,14 +82,14 @@ ResultsPage.prototype = Object.create({}, {
     element.all(by.css('.bookmark')).get(position).click();
   }},
   getBookMark: {value: function(position) {
-    return element.all(by.css('.bookmark p i i')).get(position);
+    return element.all(by.css('.bookmark .inside')).get(position);
   }},
 
 
   // Facet Sidebar
   tabPositions: { get: function() {
     return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
-  }},  
+  }},
   getSidebarTab: { value: function(position) {
     return element.all(by.css(".panel-heading")).get(position);
   }},
@@ -133,7 +133,7 @@ ResultsPage.prototype = Object.create({}, {
   applyModalFacetOption: { value: function(facetOption) {
     element(by.id(facetOption)).click();
     return element(by.css(".apply-btn")).click();
-  }},  
+  }},
   getModalFacetTab: { value: function(position) {
     return element.all(by.css(".facet-tabs li")).get(position);
   }},
@@ -163,7 +163,6 @@ ResultsPage.prototype = Object.create({}, {
   closeModal: { value: function() {
     element(by.css(".close-modal")).click();
   }}
-  
 });
 
 
