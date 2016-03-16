@@ -89,7 +89,6 @@
         q: '',
         size: 25,
         from: 0,
-        page: 1,
         facets: [],
         advancedFields: [],
         sort: 'relevance',

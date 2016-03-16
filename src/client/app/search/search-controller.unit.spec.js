@@ -8,7 +8,7 @@ describe("Search Controller", function(){
       SAVED_ITEMS,
       defaultSearchObj,
       SavedRecordsService;
-      
+
 
   beforeEach(function(){
     module('ui.router');
@@ -48,7 +48,6 @@ describe("Search Controller", function(){
   describe("Changing page size", function(){
     it("should call updateSearch with correct page size and page number", function(){
       SearchService.opts = {
-        page: 1,
         size: 25,
         from: 0
       };
@@ -59,7 +58,6 @@ describe("Search Controller", function(){
 
     it("should set page size and pageNum correctly based on size and from options", function(){
       SearchService.opts = {
-        page: 3,
         size: 25,
         from: 50
       };
@@ -70,7 +68,6 @@ describe("Search Controller", function(){
 
     it("should set page size and pageNum correctly when an edge case", function(){
       SearchService.opts = {
-        page: 3,
         size: 10,
         from: 30
       };
@@ -78,12 +75,21 @@ describe("Search Controller", function(){
       expect(SearchService.opts.size).toEqual(50);
       expect(scope.pagination.page).toEqual(2);
     });
+
+    it("should set page size and pageNum correctly with a large from value", function(){
+      SearchService.opts = {
+        size: 10,
+        from: 923
+      };
+      scope.setPageSize(25);
+      expect(SearchService.opts.size).toEqual(25);
+      expect(scope.pagination.page).toEqual(37);
+    });
   });
 
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
       SearchService.opts = {
-        page: 2,
         size: 25,
         from: 10
       };
@@ -95,7 +101,6 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going to next page", function(){
       SearchService.opts = {
-        page: 2,
         size: 50,
         from: 50
       };
@@ -106,7 +111,6 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going back a page", function(){
       SearchService.opts = {
-        page: 3,
         size: 50,
         from: 100
       };
@@ -117,7 +121,6 @@ describe("Search Controller", function(){
 
     it("should set opts correctly when going to first page", function(){
       SearchService.opts = {
-        page: 4,
         size: 25,
         from: 75
       };
@@ -134,7 +137,7 @@ describe("Search Controller", function(){
 
     it("should set opts and scope vars correctly when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -144,7 +147,10 @@ describe("Search Controller", function(){
 
     it("should set page number to 1 in SearchService when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
+
+      scope.setPageNum(2);
+      expect(scope.pagination.page).toEqual(2);
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -156,7 +162,7 @@ describe("Search Controller", function(){
     it("should set opts and scope vars correctly when adding second facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -171,7 +177,7 @@ describe("Search Controller", function(){
     it("should update opts and scope correctly when deactivating a particular facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -236,6 +242,19 @@ describe("Search Controller", function(){
       expect(scope.queryTerm).toEqual("");
       expect(SearchService.opts.q).toEqual("");
     });
+
+    it("should reset page to 1 in when changing query string", function(){
+      scope.clearQueryTerm();
+      scope.newQuerySearch("painting");
+      scope.setPageNum(2);
+      expect(scope.queryTerm).toEqual("painting");
+      expect(scope.pagination.page).toEqual(2);
+
+      scope.newQuerySearch("art");
+      expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
+      expect(scope.pagination.page).toEqual(1);
+    });
+
   });
 
   describe("Clear All functionality", function(){

@@ -101,6 +101,7 @@
     function updateSearch(opts) {
       if(opts.page){
         $scope.pagination.page = opts.page;
+        delete opts.page;
       }
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
@@ -182,7 +183,7 @@
 
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.page = DEFAULTS.searchOpts.page;
+        opts.page = 1;
         opts.from = DEFAULTS.searchOpts.from;
         opts.sort = { display: "Relevance",
           mode: "relevance"
@@ -267,7 +268,7 @@
         });
       }
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, page: DEFAULTS.searchOpts.page, from: DEFAULTS.searchOpts.from});
+      updateSearch({facets: $scope.activeFacets, page: 1, from: DEFAULTS.searchOpts.from});
     };
 
     /**
@@ -302,7 +303,7 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
-    }
+    };
     /**
      * Removes date range filter, then runs search again
      */

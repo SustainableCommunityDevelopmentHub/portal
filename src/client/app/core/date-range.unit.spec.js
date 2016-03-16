@@ -73,7 +73,7 @@ describe("Date Range Filter", function() {
     module('app');
     module('app.search');
   });
-  
+
   beforeEach(inject(function($rootScope, $controller, _$state_, _SearchService_, _SavedRecordsService_, DataService, esClient, esQueryBuilder){
     data = DataService;
     es = esClient;
@@ -102,6 +102,17 @@ describe("Date Range Filter", function() {
     expect(SearchService.updateOpts).toHaveBeenCalled();
   });
 
+  it("should reset page to 1 in when date range filter applied", function(){
+    scope.clearQueryTerm();
+    scope.newQuerySearch("painting");
+    scope.setPageNum(2);
+    expect(scope.queryTerm).toEqual("painting");
+    expect(scope.pagination.page).toEqual(2);
+
+    scope.setDateRange(scope.fromDate, scope.toDate);
+    expect(scope.pagination.page).toEqual(1);
+  });
+
   describe("Tests for building elasticsearch date range query", function(){
     beforeEach(function(){
       opts = {"facets":[],"page":1,"from":'0', size: 25};
@@ -113,7 +124,7 @@ describe("Date Range Filter", function() {
       /* Tear down properly so state does not persist between tests */
       delete opts.date;
       if(baseESQuery.body.date){
-        delete baseESQuery.body.date;   
+        delete baseESQuery.body.date;
       }
     });
 
@@ -123,7 +134,7 @@ describe("Date Range Filter", function() {
       var newQuery = queryBuilder.buildSearchQuery(opts);
 
       var filter = newQuery.body.query.bool.filter.bool.filter;
-      expect(filter).toContain(dateRange);    
+      expect(filter).toContain(dateRange);
     });
 
     it("adds date range object to SearchService's options", function(){
