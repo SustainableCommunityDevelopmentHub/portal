@@ -2,6 +2,7 @@
 'use strict';
 
 var ResultsPage = require('../page_objects/results.page.js');
+var BookDetailPage = require('../page_objects/book-detail.page.js');
 
 describe('Search Results', function() {
   var resultsPage;
@@ -74,5 +75,38 @@ describe('Search Results', function() {
       return (classNames.indexOf('saved') === -1);
     });
     expect(bookmarkRemoved).toBe(true);
+  });
+
+  it('should update bookmarks for records saved in other tabs', function() {
+    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.toggleSavingRecord(0);
+    resultsPage.getBookMark(0).getAttribute('class').then(function(classes){
+      var classNames = classes.split(' ');
+      var saved = classNames.indexOf('saved');
+      expect(saved).toBeGreaterThan(-1);
+    });
+    resultsPage.clickBookLink(0);
+
+    browser.getAllWindowHandles().then(function (handles) {
+      var newWindowHandle = handles[1]; // this is your new window
+
+      browser.switchTo().window(newWindowHandle).then(function () {
+        var bookDetailPage = new BookDetailPage();
+        bookDetailPage.clickBookmark(0);
+      });
+    });
+    browser.getAllWindowHandles().then(function(handles) {
+      var newWindowHandle = handles[0];
+
+      browser.switchTo().window(newWindowHandle).then(function () {
+        expect(browser.driver.getCurrentUrl()).toContain("search");
+        var bookmark = resultsPage.getBookMark(0);
+        bookmark.getAttribute('class').then(function(classes){
+          var classNames = classes.split(' ');
+          var bookmarkRemoved = classNames.indexOf('saved') === -1;
+          expect(bookmarkRemoved).toBe(true);
+        });
+      });
+    });
   });
 });
