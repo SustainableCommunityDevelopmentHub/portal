@@ -38,7 +38,7 @@
         return false;
       }
       return true;
-    };
+    }
 
     /**
      * Saves search if it differs from the last saved search
@@ -130,7 +130,7 @@
      * @param item {object} item to save
      */
     function saveItem(type, item) {
-      var savedItems = StorageService.getItems(type)
+      var savedItems = StorageService.getItems(type);
       if (savedItems) {
         savedItems = JSON.parse(savedItems);
         if(!savedItems[type]){

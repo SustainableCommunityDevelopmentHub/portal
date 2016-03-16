@@ -3,14 +3,14 @@
 
   angular
     .module('app.core')
-    .factory('StorageService', [StorageService]);
+    .factory('StorageService', ['DEFAULTS', StorageService]);
 
-  function StorageService(){
+  function StorageService(DEFAULTS){
 
     var service = {
       getItems: getItems,
       setItem: setItem
-    }
+    };
 
     return service;
 
@@ -20,14 +20,15 @@
      * @returns {boolean} item or false if failure
      */
     function getItems(key){
+      var item;
       try {
-        var item = localStorage.getItem(key);
+        item = localStorage.getItem(key);
       } catch(e) {
         return false;
       }
       if(item) {
         return item;
-      } else {
+      } else if(key === DEFAULTS.recordKey){
         var newItem = {};
         var itemAsString = JSON.stringify(newItem);
         try {
