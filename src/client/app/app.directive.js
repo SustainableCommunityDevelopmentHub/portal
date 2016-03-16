@@ -3,7 +3,7 @@
 
   angular
     .module('app')
-    .directive('saveRecordButton', ['SavedRecordsService', 'SAVED_ITEMS', function(SavedRecordsService, SAVED_ITEMS){
+    .directive('saveRecordButton', ['SavedRecordsService', function(SavedRecordsService){
       return {
         restrict: 'AE',
         replace: 'true',
