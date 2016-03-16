@@ -31,7 +31,7 @@
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
-      page : parseInt(ss.opts.page),
+      page : calculatePage(ss.opts.from, ss.opts.size),
       size : parseInt(ss.opts.size),
       from : parseInt(ss.opts.from)
     };
@@ -67,6 +67,20 @@
     //Private/Helper Functions
     ///////////////////////////
 
+    /*
+     * Current page based on elasticsearch 'from' and 'size' params
+     * @param {int} from ES 'from' value
+     * @param {int} size ES 'from' value
+     * @return {int} the current page
+     */
+    function calculatePage(from, size) {
+      var page = Math.floor(from / size) + 1;
+      if (page === 1 && from > 0){
+        page = 2;
+      }
+      return page;
+    }
+
     /**
      * Clear all active facets from controller. Does not update SearchService or retrigger search.
      * Should always run updateSearch() w/new facet opts after executing this function.
@@ -85,6 +99,10 @@
      * if no opts passed uses SearchService.opts.
      */
     function updateSearch(opts) {
+      if(opts.page){
+        $scope.pagination.page = opts.page;
+        delete opts.page;
+      }
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
@@ -143,7 +161,7 @@
 
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.page = DEFAULTS.searchOpts.page;
+        opts.page = 1;
         opts.from = DEFAULTS.searchOpts.from;
         opts.sort = { display: "Relevance",
           mode: "relevance"
@@ -159,10 +177,8 @@
      * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
-      var newPage = Math.floor(ss.opts.from / newPageSize) + 1;
-      if (newPage === 1 && ss.opts.from > 0){
-        newPage = 2;
-      }
+      var newPage = calculatePage(ss.opts.from, newPageSize);
+
       console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: newPage});
@@ -182,14 +198,14 @@
      * trigger search to populate new page and update $scope / state
      */
     $scope.setPageNum = function(newPage){
-      if(ss.opts.page !== newPage){
+      if($scope.pagination.page !== newPage){
         var newFrom;
-        if(newPage > ss.opts.page){
-          newFrom = ss.opts.from + (ss.opts.size * (newPage - ss.opts.page));
+        if(newPage > $scope.pagination.page){
+          newFrom = ss.opts.from + (ss.opts.size * (newPage - $scope.pagination.page));
         } else{
           newFrom = ss.opts.size * (newPage - 1);
         }
-        console.log('SearchCtrl........updating pageNum from: ' + ss.opts.page + ' to: ' + newPage);
+        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom, page: newPage});
       }
@@ -230,7 +246,7 @@
         });
       }
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, page: DEFAULTS.searchOpts.page, from: DEFAULTS.searchOpts.from});
+      updateSearch({facets: $scope.activeFacets, page: 1, from: DEFAULTS.searchOpts.from});
     };
 
     /**
