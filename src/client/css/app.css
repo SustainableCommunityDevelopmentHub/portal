@@ -160,6 +160,10 @@ a:hover {
   margin: 30px 0 50px;
 }
 
+.intro-copy a {
+  text-decoration: underline;
+}
+
 
 .search-bar {
   display: block;
@@ -487,23 +491,24 @@ a:hover {
 }
 
 .showing {
-  vertical-align: bottom;
-  margin:10px;
   font-size: 12px;
+}
+
+.adv-drawer {
+  display: flex;
+  text-decoration: underline;
+  justify-content: flex-end;
 }
 
 
 .results-pagination {
   font-size: 12px;
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-  /* Left Sidebar */
 
+  /* Left Sidebar */
 
   #left_sidebar_accordion__container {
     float:left;
@@ -552,7 +557,21 @@ a:hover {
   }
 
   .date-range {
-    margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+
+  .date-range input {
+    width: 105px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .date-range button {
+    padding-top: 3px;
+    margin-top: 3px;
   }
 
 .book-images {
@@ -654,31 +673,6 @@ a:hover {
   max-width: 436px;
 }
 
-
-.showing {
-  vertical-align: bottom;
-  margin-left: 5%;
-  margin-right: 5%;
-  font-size: .8em;
-}
-
-.date-range {
-  display: inline-block;
-  margin-right: 4px;
-  margin-top: 5px;
-}
-
-.date-range input {
-  width: 105px;
-  height: 30px;
-  font-size: 12px;
-  margin-right: 10px;
-}
-
-.date-range button {
-  padding-top: 3px;
-  margin-top: 3px;
-}
 
 .facet {
   margin-top: 10px;
@@ -1094,37 +1088,27 @@ h1 {
   color: black;
 }
 
-/**Contributors**/
+
+/* Contributors */
 
 .contributors {
   list-style: none;
-  width: 100%;
-  display: block;
   padding-left: 0;
 }
 
 .contributors li {
-  display: inline-block;
-  width: 50%;
   margin: 10px 0 0 0;
-}
-
-.contributors-table {
-  background-color: lightgray;
-  height: 1px;
-  width: 100%;
 }
 
 .name-contrib {
   font-weight: bold;
-  padding-left: 20px;
-  margin-bottom: 0;
+  margin: 0 0 0 15px;
 }
 
-.num-contrib{
+.num-contrib {
   color: #337ab7;
-  padding-left: 20px;
   text-decoration: none;
+  margin-left: 15px;
 }
 
 .contributors a:hover {
@@ -1133,33 +1117,21 @@ h1 {
 
 .contrib-vl-center {
   height: 70px;
-  border-right: 1px solid lightgray;
-  margin: -30px 0 -20px 0;
-  padding: 0 0 0 0;
+  border-right: 1px solid #eee;
+  margin: -30px -15px -30px 0;
 }
 
 .contrib-vl-right{
   height: 70px;
-  margin: -30px 0 -20px 0;
-  padding: 0 0 0 0;
+  margin: -30px 0 -30px 0;
 }
 
 .contrib-pagination {
-  font-size: .8em;
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 12px;
   text-align: center;
+  margin: 30px 0;
 }
 
-.contrib-pagination p{
-  display: inline;
-  margin-left: 5px;
-}
-.contrib-pagination a{
-  margin: 40px 5px 0 10px;
-}
 
 /* Search Help */
 
@@ -1407,6 +1379,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 
+
 /** RESPONSIVE **/
 
 @media (min-width: 300px) and (max-width: 544px) {
@@ -1465,10 +1438,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Search Results */
 
-  .facet-chip-search-bar {
-    width: 89%;
-
-}
 
   #facets-mobile {
     display: none;
@@ -1476,6 +1445,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   
 
 }
+
 
 @media (max-width: 768px) {
 
@@ -1514,6 +1484,24 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   #help h5 {
     margin: 25px 0 ;
+  }
+
+
+  /* Contributors */
+
+  .contrib-vl-center {
+    border-right: none;
+
+  }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+
+  /* Search Results */
+
+  .facet-chip-search-bar {
+    width: 89%;
   }
 
 }
