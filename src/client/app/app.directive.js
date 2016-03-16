@@ -10,14 +10,6 @@
         templateUrl: 'app/partials/save-record-button.html',
         link: function (scope, elem, attrs) {
 
-          /*angular.element(window).on('storage', function(event) {
-            if (event.key === SAVED_ITEMS.recordKey) {
-              console.log("storage event!");
-              scope.$apply();
-            }
-          });*/
-
-
           /**
            * Saves book record using SavedRecordsService and updates savedRecords
            * @param book {object} record to save
