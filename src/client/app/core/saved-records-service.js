@@ -14,7 +14,7 @@
       saveSearch: saveSearch,
       getSearches: getSearches,
       removeSearch: removeSearch
-    }
+    };
     return service;
 
     /**
