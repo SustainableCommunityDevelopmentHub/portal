@@ -56,10 +56,14 @@
       return response;
     }
 
+    /**
+     * Gets data from elasticsearch client for particular book record
+     * @param book {object} record to get
+     * @returns response from elasticsearch
+     */
     function getBookData(book){
       var response = esClient.get(book);
       return response;
     }
-
   }
 })();

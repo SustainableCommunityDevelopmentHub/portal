@@ -20,8 +20,8 @@
       $state.go('searchResults', SearchService.opts);
     };
   }])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'esClient', 'SearchService', 'SavedRecordsService',
-    function($scope, $stateParams, $window, bookData, esClient, SearchService, SavedRecordsService) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 
+    function($scope, $stateParams, $window, bookData) {
 
       $scope.book = bookData;
 
@@ -57,15 +57,6 @@
         $window.location.assign($scope.book._source._record_link);
         return false;
       };
-
-
-
-
-
-
-
-
-
 
     }])
 

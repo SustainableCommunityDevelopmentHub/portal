@@ -150,7 +150,7 @@ ResultsPage.prototype = Object.create({}, {
     element.all(by.css('.bookmark')).get(position).click();
   }},
   getBookMark: {value: function(position) {
-    return element.all(by.css('.bookmark p i i')).get(position);
+    return element.all(by.css('.bookmark .inside')).get(position);
   }}
 });
 

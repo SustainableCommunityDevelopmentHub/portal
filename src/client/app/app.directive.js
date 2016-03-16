@@ -11,6 +11,29 @@
         link: function (scope, elem, attrs) {
 
           /**
+           * Saves book record using SavedRecordsService and updates savedRecords
+           * @param book {object} record to save
+           */
+          function saveRecord (book) {
+            SavedRecordsService.saveRecord(book);
+            var records = SavedRecordsService.getRecords();
+            if (records) {
+              scope.savedRecords = records;
+            } else {
+              scope.savedRecords = [];
+            }
+          }
+
+          /**
+           * Removes book record from storage
+           * @param book {object} record to remove
+           */
+          function removeRecord (book) {
+            SavedRecordsService.removeRecord(book);
+            scope.savedRecords  = SavedRecordsService.getRecords();
+          };
+
+          /**
            * Checks if book record is saved in storage
            * @param book {object} book to check
            * @returns {boolean} whether book is saved
@@ -48,25 +71,6 @@
            */
           scope.saveRecordHoverOut = function() {
             this.showBookmarkText = false;
-          };
-
-          function saveRecord (book) {
-            SavedRecordsService.saveRecord(book);
-            var records = SavedRecordsService.getRecords();
-            if (records) {
-              scope.savedRecords = records;
-            } else {
-              scope.savedRecords = [];
-            }
-          }
-
-          /**
-           * Removes book record from storage
-           * @param book {object} record to remove
-           */
-          function removeRecord (book) {
-            SavedRecordsService.removeRecord(book);
-            scope.savedRecords  = SavedRecordsService.getRecords();
           };
 
           /**
