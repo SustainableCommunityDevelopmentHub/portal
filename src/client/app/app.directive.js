@@ -3,12 +3,20 @@
 
   angular
     .module('app')
-    .directive('saveRecordButton', ['SavedRecordsService', function(SavedRecordsService){
+    .directive('saveRecordButton', ['SavedRecordsService', 'SAVED_ITEMS', function(SavedRecordsService, SAVED_ITEMS){
       return {
         restrict: 'AE',
         replace: 'true',
         templateUrl: 'app/partials/save-record-button.html',
         link: function (scope, elem, attrs) {
+
+          /*angular.element(window).on('storage', function(event) {
+            if (event.key === SAVED_ITEMS.recordKey) {
+              console.log("storage event!");
+              scope.$apply();
+            }
+          });*/
+
 
           /**
            * Saves book record using SavedRecordsService and updates savedRecords

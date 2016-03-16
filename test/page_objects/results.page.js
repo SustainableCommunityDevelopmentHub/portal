@@ -84,7 +84,9 @@ ResultsPage.prototype = Object.create({}, {
   getBookMark: {value: function(position) {
     return element.all(by.css('.bookmark .inside')).get(position);
   }},
-
+  clickBookLink: {value: function(position) {
+    element.all(by.css('.book-info a')).get(position).click();
+  }},
 
   // Facet Sidebar
   tabPositions: { get: function() {

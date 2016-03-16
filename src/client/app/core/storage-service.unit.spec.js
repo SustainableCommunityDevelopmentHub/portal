@@ -1,14 +1,18 @@
-"use strict"
+"use strict";
 
 describe('Storage Service', function(){
-  var StorageService, testItem, testKey;
+  var StorageService, testItem, testKey, scope, SAVED_ITEMS;
 
   beforeEach(function(){
     module('app.core');
   });
 
-  beforeEach(inject(function(_StorageService_) {
+  beforeEach(inject(function($rootScope, _StorageService_, _SAVED_ITEMS_) {
+
     StorageService = _StorageService_;
+    SAVED_ITEMS = _SAVED_ITEMS_;
+    scope = StorageService.scope;
+    //$scope = StorageService.$rootScope;
   }));
 
   beforeEach(function() {
@@ -37,4 +41,5 @@ describe('Storage Service', function(){
     item = JSON.parse(item);
     expect(item).toEqual(testItem);
   });
+
 });
