@@ -11,7 +11,7 @@
     </div><!-- /row -->
 
     <div class="row row-centered">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-centered">
+      <div class="col-xs-12 col-md-10 col-centered">
         <div class="search-bar">
         <form ng-submit="newSearch({q: queryTerm})">
         <input ng-model="queryTerm" class="search-input" type="text" autofocus />
@@ -20,21 +20,13 @@
           <span class="glyphicon glyphicon-search"></span></button>
           
         </form>
-        </div>
-      </div>
-    </div><!-- /row -->
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
         <a ui-sref="advanced" class="adv">Advanced Search</a>
       </div>
     </div><!-- /row -->
-
-    <div class="row row-centered">
-      <div class ="col-xs-12 col-sm-6 col-md-3 col-centered">
-        <button ng-click="newSearch({q: ''})" class="btn-primary" id="see-all-btn" type="button">See All Records</button>
+        </div>
       </div>
-    </div><!-- /row -->
+
+
   </div><!-- /container -->
 
   <!--Stats for: Total Titles, Lastu Updated, Recent Contributors-->
@@ -65,7 +57,7 @@
               <br>Sterling and Francine Clark Institute Library
               <br>Heidelberg University Library
             </p>
-            <a class="tlc-orange" ui-sref="contributors">See All Contributors</a>
+            <a ui-sref="contributors">See All Contributors</a>
           </div>
         </div>
       </div>

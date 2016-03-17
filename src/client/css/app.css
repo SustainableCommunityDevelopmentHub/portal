@@ -78,13 +78,13 @@ a:focus, a:active {
 }
 
 .header .getty-logo {
-  width: 85px;
-  padding-top: 3px;
+  width: 75px;
+  padding-top: 2px;
 }
 
 
 .header .gri-portal-logo {
-  width: 280px;
+  width: 270px;
 }
 
 
@@ -101,7 +101,7 @@ a:focus, a:active {
     background-color: #333;
     border: none;
     border-radius: 0;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
 
@@ -195,14 +195,16 @@ a:focus, a:active {
 
 
 .search-bar {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
+  display: inline-block;
+  width: 100%;
+  background-color: #eee;
+  padding: 30px 30px 25px 30px;
+  margin-bottom: 80px;
 }
 
 
 .search-input {
-  height: 40px;
+  height: 50px;
   padding: 0px 15px;
   width: 84%;
   display: inline-block;
@@ -211,7 +213,7 @@ a:focus, a:active {
 
 
 #go-btn {
-  height: 40px;
+  height: 50px;
   width: 15%;
   text-transform: uppercase;
   font-weight: bold;
@@ -225,10 +227,16 @@ a:focus, a:active {
 }
 
 .adv {
-  text-align: right;
-  display: block;
-  color: #555;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-top: 5px;
+  color: #666;
   text-decoration: underline;
+}
+
+a.adv:hover, a.adv:focus {
+  color: #333;
 }
 
 #see-all-btn {
@@ -265,16 +273,8 @@ a:focus, a:active {
 
     .tlc-hr {
       height: 3px;
-      background: orange;
-    }
-
-    .tlc-orange {
-      color: orange;
-      text-decoration: none;
-    }
-
-    .tlc-orange:hover {
-      text-decoration: none;
+      background: #f68c20;
+      border-top: none;
     }
 
 
@@ -1452,6 +1452,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     display: none;
   }
 
+
   /* Search Results */
 
 
@@ -1479,9 +1480,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Main Body */
 
+  #go-btn {
+    width: 17%;
+  }
+
   #go-btn p {
     display: none;
   }
+
+  .search-input {
+    width: 81%;
+  }
+
+  .search-bar {
+    padding: 15px 15px 10px 15px;
+    margin-bottom: 40px;
+  }
+
 
 
   /*   Search Results */
