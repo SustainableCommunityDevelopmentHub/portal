@@ -34,8 +34,7 @@
 
           // NOTE: We must pull search opts from stateParams to handle case
           //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10
-          //       into address bar. In this case, SearchService has no opts
-          //       and stateParams will grab opts vals from the URL.
+          //       into address bar. 
           var searchOpts = {
             q: $stateParams.q,
             size: parseInt($stateParams.size),

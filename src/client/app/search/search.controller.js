@@ -31,7 +31,7 @@
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
-      page : calculatePage(ss.opts.from, ss.opts.size),
+      page : ss.calculatePage(),
       size : parseInt(ss.opts.size),
       from : parseInt(ss.opts.from)
     };
@@ -67,19 +67,6 @@
     //Private/Helper Functions
     ///////////////////////////
 
-    /*
-     * Current page based on elasticsearch 'from' and 'size' params
-     * @param {int} from ES 'from' value
-     * @param {int} size ES 'from' value
-     * @return {int} the current page
-     */
-    function calculatePage(from, size) {
-      var page = Math.floor(from / size) + 1;
-      if (page === 1 && from > 0){
-        page = 2;
-      }
-      return page;
-    }
 
     /**
      * Clear all active facets from controller. Does not update SearchService or retrigger search.
@@ -99,10 +86,6 @@
      * if no opts passed uses SearchService.opts.
      */
     function updateSearch(opts) {
-      if(opts.page){
-        $scope.pagination.page = opts.page;
-        delete opts.page;
-      }
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
@@ -117,7 +100,7 @@
      */
     function saveSearch (searchOpts, results) {
       SavedRecordsService.saveSearch(searchOpts, results);
-    };
+    }
 
 
     function getValidPageSizeOptions(numTotalHits){
@@ -132,7 +115,7 @@
           }
           return pageSize <= numTotalHits;
         });
-    };
+    }
 
 
     /////////////////////////////////
@@ -161,8 +144,7 @@
 
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.page = 1;
-        opts.from = DEFAULTS.searchOpts.from;
+        opts.from = 0;
         opts.sort = { display: "Relevance",
           mode: "relevance"
         };
@@ -177,37 +159,35 @@
      * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
-      var newPage = calculatePage(ss.opts.from, newPageSize);
-
-      console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
-      console.log('SearchCtrl.setPageSize.....reset to page 1');
-      updateSearch({size: newPageSize, page: newPage});
+      console.log('SearchCtrl::setPageSize - current: ' + ss.opts.size + ' , new: ' + newPageSize);
+      updateSearch({size: newPageSize});
     };
 
     $scope.setSortMode = function(sortMode) {
       console.log('Changing sort to ' + sortMode.display);
-      updateSearch({sort: sortMode, page: 1, from: 0});
+      updateSearch({sort: sortMode, from: 0});
     };
 
      $scope.setDateRange = function(fromDate, toDate) {
       console.log("fromDate: " + fromDate + ", toDate: " + toDate);
-      updateSearch({date: {"gte": fromDate, "lte": toDate}, page: 1, from: 0});
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
     };
 
     /**
      * trigger search to populate new page and update $scope / state
      */
     $scope.setPageNum = function(newPage){
-      if($scope.pagination.page !== newPage){
+      console.log('SearchCtrl::setPageNum -- calculatePage():' + ss.calculatePage() + ' , newPage: ' + newPage);
+      if(ss.calculatePage() !== newPage){
         var newFrom;
-        if(newPage > $scope.pagination.page){
-          newFrom = ss.opts.from + (ss.opts.size * (newPage - $scope.pagination.page));
+        if(newPage > ss.calculatePage()){
+          // this correctly handles edge case where user paginates then increases pageSize
+          newFrom = ss.opts.from + (ss.opts.size * (newPage - ss.calculatePage()));
         } else{
           newFrom = ss.opts.size * (newPage - 1);
         }
-        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
-        updateSearch({from: newFrom, page: newPage});
+        updateSearch({from: newFrom});
       }
     };
 
@@ -246,7 +226,7 @@
         });
       }
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, page: 1, from: DEFAULTS.searchOpts.from});
+      updateSearch({facets: $scope.activeFacets, from: 0});
     };
 
     /**
@@ -266,7 +246,7 @@
     $scope.clearAdvancedField = function(field) {
       var index = $scope.advancedFields.indexOf(field);
       $scope.advancedFields.splice(index, 1);
-      updateSearch({advancedFields: $scope.advancedFields, page: 1, from: 0});
+      updateSearch({advancedFields: $scope.advancedFields, from: 0});
     };
 
     // clear all, not just facets. TODO: Change name when will not cause conflicts
@@ -280,7 +260,7 @@
      */
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
-      updateSearch({q:"", page: 1, from: 0});
+      updateSearch({q:"", from: 0});
     };
     /**
      * Removes date range filter, then runs search again
@@ -288,7 +268,7 @@
     $scope.clearDateRange = function() {
       $scope.fromDate = "";
       $scope.toDate = "";
-      updateSearch({date: {}, page: 1, from: 0});
+      updateSearch({date: {}, from: 0});
     };
   }
 })();

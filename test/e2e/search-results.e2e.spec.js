@@ -21,15 +21,11 @@ describe('Search Results', function() {
     expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
   });
 
-  it('should display pagination at top of page', function () {
-    expect(resultsPage.paginationBar.isDisplayed()).toBeTruthy();
-  });
-
   it('should display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
-    var option = resultsPage.getFacetOptionByLabel('subject', 'Catalogs')
+    var option = resultsPage.getFacetOptionByLabel('subject', 'Catalogs');
     expect(option).toBeDefined();
     expect(option.getAttribute('value')).toEqual('on');
   });
@@ -107,6 +103,88 @@ describe('Search Results', function() {
           expect(bookmarkRemoved).toBe(true);
         });
       });
+    });
+  });
+
+  describe('Pagination', function(){
+    var showingResultsPageOne = 'Showing 1 - 25 of 452 results';
+    var showingResultsPageTwo = 'Showing 26 - 50 of 452 results';
+    var showingResultsPageThree = 'Showing 51 - 75 of 452 results';
+    var showingResultsLastPage = 'Showing 451 - 452 of 452 results';
+
+    beforeEach(function(){
+    resultsPage = new ResultsPage();
+      resultsPage.submitNewSearchTerm('');
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+    });
+
+    // pagination bar 
+    it('should display pagination bar at top of page', function () {
+      expect(resultsPage.pagingTopExists).toBeTruthy();
+    });
+    it('should display pagination bar at bottom of page', function () {
+      expect(resultsPage.pagingBottomExists).toBeTruthy();
+    });
+    // next page button 
+    it("should navigate to next page clicking on 'next' button, \'showing dialogue\' - pagination top", function(){
+      resultsPage.pagingTopNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+    });
+    it("should navigate to next page clicking on 'next' button, \'showing dialogue\' - pagination bottom ", function(){
+      resultsPage.pagingBottomNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+    });
+    // previous page button 
+    it("should navigate to previous page clicking on 'previous' button, \'showing dialogue\' - pagination top", function(){
+      resultsPage.pagingTopNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.pagingTopPreviousPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+    });
+    it("should navigate to previous page clicking on 'previous' button, \'showing dialogue\' - pagination bottom ", function(){
+      resultsPage.pagingBottomNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.pagingBottomPreviousPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+    });
+    // first page button 
+    it("should navigate to first page by clicking on \'first page\' button - pagination top", function(){
+      resultsPage.pagingTopNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+      resultsPage.pagingTopNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.pagingTopFirstPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+    });
+    it("should navigate to first page by clicking on \'first page\' button - pagination bottom", function(){
+      resultsPage.pagingBottomNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+      resultsPage.pagingBottomNextPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.pagingBottomFirstPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+    });
+    // last page button 
+    it("should navigate to last page by clicking on \'last page\' button - pagination top", function(){
+      resultsPage.pagingTopLastPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsLastPage);
+    });
+    it("should navigate to last page by clicking on \'last page\' button - pagination top", function(){
+      resultsPage.pagingBottomLastPage();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsLastPage);
+    });
+    // a particular page button
+    it("should navigate to page by clicking on page number button in pagination bar - pagination top", function(){
+      resultsPage.pagingTopGoToPageThree();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+    });
+    it("should navigate to page by clicking on page number button in pagination bar - pagination bottom", function(){
+      resultsPage.pagingBottomGoToPageThree();
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
     });
   });
 });
