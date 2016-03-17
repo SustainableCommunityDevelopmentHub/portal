@@ -31,7 +31,7 @@
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
-      page : parseInt(ss.opts.page),
+      page : calculatePage(ss.opts.from, ss.opts.size),
       size : parseInt(ss.opts.size),
       from : parseInt(ss.opts.from)
     };
@@ -62,10 +62,24 @@
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
-    
+
     ///////////////////////////
     //Private/Helper Functions
     ///////////////////////////
+
+    /*
+     * Current page based on elasticsearch 'from' and 'size' params
+     * @param {int} from ES 'from' value
+     * @param {int} size ES 'from' value
+     * @return {int} the current page
+     */
+    function calculatePage(from, size) {
+      var page = Math.floor(from / size) + 1;
+      if (page === 1 && from > 0){
+        page = 2;
+      }
+      return page;
+    }
 
     /**
      * Clear all active facets from controller. Does not update SearchService or retrigger search.
@@ -85,6 +99,10 @@
      * if no opts passed uses SearchService.opts.
      */
     function updateSearch(opts) {
+      if(opts.page){
+        $scope.pagination.page = opts.page;
+        delete opts.page;
+      }
       // use SearchService.opts as canonical
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
@@ -101,28 +119,6 @@
       SavedRecordsService.saveSearch(searchOpts, results);
     };
 
-    /**
-     * Saves book record to storage
-     * @param book {object} record to save
-     */
-    function saveRecord (book) {
-      SavedRecordsService.saveRecord(book);
-      var records = SavedRecordsService.getRecords();
-      if (records) {
-        $scope.savedRecords = records;
-      } else {
-        $scope.savedRecords = [];
-      }
-    };
-
-    /**
-     * Removes book record from storage
-     * @param book {object} record to remove
-     */
-    function removeRecord (book) {
-      SavedRecordsService.removeRecord(book);
-      $scope.savedRecords  = SavedRecordsService.getRecords();
-    };
 
     function getValidPageSizeOptions(numTotalHits){
       var passedThreshold = false;
@@ -165,7 +161,7 @@
 
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.page = DEFAULTS.searchOpts.page;
+        opts.page = 1;
         opts.from = DEFAULTS.searchOpts.from;
         opts.sort = { display: "Relevance",
           mode: "relevance"
@@ -181,10 +177,8 @@
      * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
-      var newPage = Math.floor(ss.opts.from / newPageSize) + 1;
-      if (newPage === 1 && ss.opts.from > 0){
-        newPage = 2;
-      }
+      var newPage = calculatePage(ss.opts.from, newPageSize);
+
       console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
       console.log('SearchCtrl.setPageSize.....reset to page 1');
       updateSearch({size: newPageSize, page: newPage});
@@ -204,14 +198,14 @@
      * trigger search to populate new page and update $scope / state
      */
     $scope.setPageNum = function(newPage){
-      if(ss.opts.page !== newPage){
+      if($scope.pagination.page !== newPage){
         var newFrom;
-        if(newPage > ss.opts.page){
-          newFrom = ss.opts.from + (ss.opts.size * (newPage - ss.opts.page));
+        if(newPage > $scope.pagination.page){
+          newFrom = ss.opts.from + (ss.opts.size * (newPage - $scope.pagination.page));
         } else{
           newFrom = ss.opts.size * (newPage - 1);
         }
-        console.log('SearchCtrl........updating pageNum from: ' + ss.opts.page + ' to: ' + newPage);
+        console.log('SearchCtrl........updating pageNum from: ' + $scope.pagination.page + ' to: ' + newPage);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom, page: newPage});
       }
@@ -252,7 +246,7 @@
         });
       }
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, page: DEFAULTS.searchOpts.page, from: DEFAULTS.searchOpts.from});
+      updateSearch({facets: $scope.activeFacets, page: 1, from: DEFAULTS.searchOpts.from});
     };
 
     /**
@@ -287,7 +281,7 @@
     $scope.clearQueryTerm = function() {
       $scope.queryTerm = "";
       updateSearch({q:"", page: 1, from: 0});
-    }
+    };
     /**
      * Removes date range filter, then runs search again
      */
@@ -295,59 +289,6 @@
       $scope.fromDate = "";
       $scope.toDate = "";
       updateSearch({date: {}, page: 1, from: 0});
-    };
-
-    /**
-     * Toggles the saving and removing book record from storage
-     * @param book {object} book record to be saved
-     */
-    $scope.toggleSavingBook = function(book) {
-      if ($scope.isRecordSaved(book)) {
-        removeRecord(book);
-        $scope.bookMarkText = "Save Record";
-      } else {
-        saveRecord(book);
-        $scope.bookMarkText = "Remove Record";
-      }
-    };
-
-    /**
-     * Checks if book record is saved in storage
-     * @param book {object} book to check
-     * @returns {boolean} whether book is saved
-     */
-    $scope.isRecordSaved = function(book) {
-      if ($scope.savedRecords) {
-        for (var i = 0; i < $scope.savedRecords.length; i++) {
-          var current = $scope.savedRecords[i];
-          if (current._id == book._id) {
-            return true;
-          }
-        }
-        return false;
-      } else {
-        return false;
-      }
-    };
-
-    /**
-     * Sets appropriate variables when your mouse hovers over bookmark icon
-     * @param book {object} record bookmark is referencing
-     */
-    $scope.saveRecordHover = function(book){
-      this.showBookmarkText = true;
-      if ($scope.isRecordSaved(book)) {
-        $scope.bookMarkText = "Remove Record";
-      } else {
-        $scope.bookMarkText = "Save Record";
-      }
-    };
-
-    /**
-     * Sets appropriate variables when your mouse stops hovering over bookmark icon
-     */
-    $scope.saveRecordHoverOut = function() {
-      this.showBookmarkText = false;
     };
   }
 })();

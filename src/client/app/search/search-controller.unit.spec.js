@@ -1,5 +1,14 @@
 describe("Search Controller", function(){
-  var scope, SearchService, controller, ADVANCED_SEARCH, DEFAULTS, SORT_MODES, SAVED_ITEMS, defaultSearchObj, SavedRecordsService;
+  var scope,
+      SearchService,
+      controller,
+      ADVANCED_SEARCH,
+      DEFAULTS,
+      SORT_MODES,
+      SAVED_ITEMS,
+      defaultSearchObj,
+      SavedRecordsService;
+
 
   beforeEach(function(){
     module('ui.router');
@@ -39,7 +48,6 @@ describe("Search Controller", function(){
   describe("Changing page size", function(){
     it("should call updateSearch with correct page size and page number", function(){
       SearchService.opts = {
-        page: 1,
         size: 25,
         from: 0
       };
@@ -50,71 +58,75 @@ describe("Search Controller", function(){
 
     it("should set page size and pageNum correctly based on size and from options", function(){
       SearchService.opts = {
-        page: 3,
         size: 25,
         from: 50
       };
       scope.setPageSize(10);
       expect(SearchService.opts.size).toEqual(10);
-      expect(SearchService.opts.page).toEqual(6);
+      expect(scope.pagination.page).toEqual(6);
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
       SearchService.opts = {
-        page: 3,
         size: 10,
         from: 30
       };
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
-      expect(SearchService.opts.page).toEqual(2);
+      expect(scope.pagination.page).toEqual(2);
+    });
+
+    it("should set page size and pageNum correctly with a large from value", function(){
+      SearchService.opts = {
+        size: 10,
+        from: 923
+      };
+      scope.setPageSize(25);
+      expect(SearchService.opts.size).toEqual(25);
+      expect(scope.pagination.page).toEqual(37);
     });
   });
 
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
       SearchService.opts = {
-        page: 2,
         size: 25,
         from: 10
       };
       scope.setPageNum(1);
 
       expect(SearchService.opts.from).toEqual(0);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
 
     it("should set opts correctly when going to next page", function(){
       SearchService.opts = {
-        page: 2,
         size: 50,
         from: 50
       };
       scope.setPageNum(3);
       expect(SearchService.opts.from).toEqual(100);
-      expect(SearchService.opts.page).toEqual(3);
+      expect(scope.pagination.page).toEqual(3);
     });
 
     it("should set opts correctly when going back a page", function(){
       SearchService.opts = {
-        page: 3,
         size: 50,
         from: 100
       };
       scope.setPageNum(2);
       expect(SearchService.opts.from).toEqual(50);
-      expect(SearchService.opts.page).toEqual(2);
+      expect(scope.pagination.page).toEqual(2);
     });
 
     it("should set opts correctly when going to first page", function(){
       SearchService.opts = {
-        page: 4,
         size: 25,
         from: 75
       };
       scope.setPageNum(1);
       expect(SearchService.opts.from).toEqual(0);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
   });
 
@@ -125,7 +137,7 @@ describe("Search Controller", function(){
 
     it("should set opts and scope vars correctly when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -135,19 +147,22 @@ describe("Search Controller", function(){
 
     it("should set page number to 1 in SearchService when adding a facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
+
+      scope.setPageNum(2);
+      expect(scope.pagination.page).toEqual(2);
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
-      expect(SearchService.opts.page).toEqual(1);
+      expect(scope.pagination.page).toEqual(1);
     });
 
     it("should set opts and scope vars correctly when adding second facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -162,7 +177,7 @@ describe("Search Controller", function(){
     it("should update opts and scope correctly when deactivating a particular facet", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
-      var facetOpts = {facets: scope.activeFacets, page: 1, from: 0};
+      var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
@@ -227,6 +242,19 @@ describe("Search Controller", function(){
       expect(scope.queryTerm).toEqual("");
       expect(SearchService.opts.q).toEqual("");
     });
+
+    it("should reset page to 1 in when changing query string", function(){
+      scope.clearQueryTerm();
+      scope.newQuerySearch("painting");
+      scope.setPageNum(2);
+      expect(scope.queryTerm).toEqual("painting");
+      expect(scope.pagination.page).toEqual(2);
+
+      scope.newQuerySearch("art");
+      expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
+      expect(scope.pagination.page).toEqual(1);
+    });
+
   });
 
   describe("Clear All functionality", function(){
@@ -245,69 +273,6 @@ describe("Search Controller", function(){
       scope.clearFacetsAndUpdate();
       expect(scope.advancedFields).toEqual([]);
       expect(SearchService.opts.advancedFields).toEqual([]);
-    });
-  });
-
-  describe('Saving Records', function() {
-
-    var book;
-
-    beforeEach(function() {
-      book = {
-        _date_display: "1896-05-16",
-        _date_facet: "1896",
-        _grp_contributor: "Gallica - Bibliothèque nationale de France",
-        _grp_id: "bnf_bpt6k63442125",
-        _grp_type: "Text",
-        _id: "bnf_bpt6k63442125",
-        _ingest_date: "2016-02-16"
-      };
-    });
-
-    afterEach(function(){
-      localStorage.removeItem(SAVED_ITEMS.recordKey);
-      localStorage.removeItem(SAVED_ITEMS.searchKey);
-    });
-
-    it('should save book record correctly', function() {
-      scope.toggleSavingBook(book);
-      expect(scope.savedRecords).toContain(book);
-      var records = JSON.parse(localStorage.getItem(SAVED_ITEMS.recordKey))[SAVED_ITEMS.recordKey];
-      expect(records).toContain(book);
-      localStorage.removeItem("saved_records");
-    });
-
-    it('should remove book record correctly', function() {
-      var item = {'saved_records': [book]};
-      localStorage.setItem(SAVED_ITEMS.recordKey, JSON.stringify(item));
-      scope.savedRecords = [book];
-      scope.toggleSavingBook(book);
-
-      var returnedItem = JSON.parse(localStorage.getItem(SAVED_ITEMS.recordKey));
-      var books = returnedItem[SAVED_ITEMS.recordKey];
-      expect(books.length).toBe(0);
-      expect(scope.savedRecords.length).toBe(0);
-
-    });
-
-    it('should detect if book record is saved', function() {
-      scope.toggleSavingBook(book);
-      expect(scope.isRecordSaved(book)).toBe(true);
-    });
-
-    it('should detect if book record is not saved', function() {
-      //should be false since local storage was cleared before this ran
-      expect(scope.isRecordSaved(book)).toBe(false);
-    });
-
-    it('should set properties correctly when mouse hovers over bookmark', function() {
-      scope.toggleSavingBook(book);
-      scope.saveRecordHover(book);
-      expect(scope.bookMarkText).toEqual("Remove Record");
-
-      scope.toggleSavingBook(book);
-      scope.saveRecordHover(book);
-      expect(scope.bookMarkText).toEqual("Save Record");
     });
   });
 });

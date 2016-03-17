@@ -3,7 +3,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', 'SearchResParser', '_', 'FACETS',SearchService]);
+  .factory('SearchService', ['DataService', 'SearchResParser', '_', 'FACETS', 'DEFAULTS', SearchService]);
 
   /* SearchService
    *
@@ -12,11 +12,11 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, SearchResParser, _, FACETS){
+  function SearchService(DataService, SearchResParser, _, FACETS, DEFAULTS){
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
-    
+
     var service = {
       // variables //
       returnedPromise: null,
@@ -71,7 +71,7 @@
       console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = search(this.opts);
       return this.returnedPromise;
-    };
+    }
 
     /**
      * Updates opts.
@@ -93,7 +93,7 @@
       if(newOpts.date && !(newOpts.date.gte || newOpts.date.lte)){
         this.opts.date = {};
       }
-      
+
       if(newOpts.advancedFields && !newOpts.advancedFields.length){
         this.opts.advancedFields = [];
       }
@@ -137,11 +137,10 @@
      */
     function resetOpts(){
       this.opts = {
-        q: "",
-        from: 0,
-        size: 25,
-        page: 1,
-        facets: []
+        q: DEFAULTS.searchOpts.q,
+        from: DEFAULTS.searchOpts.from,
+        size: DEFAULTS.searchOpts.size,
+        facets: DEFAULTS.searchOpts.facets
       };
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
@@ -152,14 +151,10 @@
     function search(opts){
       // if no value set default vals
       if(!opts.from){
-        opts.from = 0;
+        opts.from = DEFAULTS.searchOpts.from;
       }
       if(!opts.size){
-        opts.size = 25;
-      }
-      // 'page' just used for UI but we want to track in SearchService
-      if(!opts.page){
-        opts.page = 1;
+        opts.size = DEFAULTS.searchOpts.size;
       }
 
       console.log('SearchService::search() -- executing with opts: ' +JSON.stringify(opts));

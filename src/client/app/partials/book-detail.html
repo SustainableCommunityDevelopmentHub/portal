@@ -4,11 +4,9 @@
 <hr class="sr-top">
 <h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
 <div class="rec-options">
-<a href="#/"><i class="glyphicon-bookmark glyphicon"></i></a>
-<a class="remove-rec" ui-sref="/">Remove Record</a>
-
+  <save-record-button></save-record-button>
 <ul class="view-export-print">
-  <li><a href="home" ng-click="redirect()">View Digital Item</a></li>
+  <li><a href="{{book._source._record_link}}" ng-click="">View Digital Item</a></li>
   <li class="dropdown">
   <a href="#" id="exportBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
     <ul class="dropdown-menu export-dropdown">
@@ -322,7 +320,7 @@
   </li>
 </ul>
 <h5>Question about this record?</h5>
-<input type="submit" id="emailGRI" value="Email the GRI" />
+<button id="emailGRI"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
 </div>
 </div>
 <div ng-app="app" class="app">

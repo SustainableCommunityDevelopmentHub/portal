@@ -51,7 +51,19 @@
     .state('books', {
       url: '/books/:bookID',
       templateUrl: config.app.root + '/partials/book-detail.html',
-      controller: 'BookDetailCtrl'
+      controller: 'BookDetailCtrl',
+      resolve: {
+        bookData: function($stateParams, DataService) {
+          var book = {
+            index: 'portal',
+            type: 'book',
+            id: $stateParams.bookID
+          };
+          return DataService.getBookData(book).then(function(response) {
+            return response;
+          });
+        }
+      }
     })
 
     .state('advanced', {

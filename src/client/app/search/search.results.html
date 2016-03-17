@@ -11,14 +11,14 @@
   <div class="row">
     <div class="col-xs-12 col-sm-4">
       <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container"> 
-              <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a><a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>Clear all</a>
-          </div>
+        <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a><a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>Clear all</a>
+      </div>
 
       <div id="left_sidebar_accordion__container" class="navbar-collapse collapse" ng-controller="FaqsCtrl">
         <div class="facet-header-desktop">
-        <h4>Filter Your Results</h4>
-        <a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  Clear all </a>
-      </div>
+          <h4>Filter Your Results</h4>
+          <a ng-click="clearFacetsAndUpdate()"><span class="glyphicon glyphicon-remove-circle" style="color:red"></span>  Clear all </a>
+        </div>
         <hr class="left_sidebar_hr">
 
         <uib-accordion close-others="false">
@@ -27,146 +27,136 @@
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.type | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-repeat="facet in facets.type | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'type')" id="see-all-type">See All</a>
             </div>
-          </uib-accordion-group><!-- accordion-group -->
+          </uib-accordion-group><!-- /accordion-group -->
 
           <uib-accordion-group ng-init="isopen2 = true" is-open="isopen2">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen2, 'glyphicon-plus': !isopen2}"></i>Subject
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.subject | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
             </div>
-          </uib-accordion-group><!-- accordion-group -->
+          </uib-accordion-group><!-- /accordion-group -->
 
           <uib-accordion-group ng-init="isopen3 = true" is-open="isopen3">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen3, 'glyphicon-plus': !isopen3}"></i>Creator
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.creator | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'creator')">See All</a>
             </div>
-          </uib-accordion-group><!-- accordion-group -->
+          </uib-accordion-group><!-- /accordion-group -->
 
-           <uib-accordion-group ng-init="isopen4 = true" is-open="isopen4">
+          <uib-accordion-group ng-init="isopen4 = true" is-open="isopen4">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen4, 'glyphicon-plus': !isopen4}"></i>Language
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.language | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'language')">See All</a>
             </div>
-          </uib-accordion-group><!-- accordion-group -->
+          </uib-accordion-group><!-- /accordion-group -->
 
           <uib-accordion-group ng-init="isopen5 = true" is-open="isopen5">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen5, 'glyphicon-plus': !isopen5}"></i>Contributing Institution
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})
-              </label>
+              <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'grp_contributor')">See All</a>
             </div>
-          </uib-accordion-group><!-- accordion-group -->
-
+          </uib-accordion-group><!-- /accordion-group -->
         </uib-accordion>
-   <div class="date-range">
-    <h5>Date range</h5>
-    <form ng-submit="setDateRange(fromDate, toDate)">
-      <div>
-        <div class="date-range">
-          <p>From:</p>
-          <input ng-model="fromDate" maxlength="4" type="number"></div>
-        <div class="date-range">
-          <p>To:</p>
-          <input ng-model="toDate" maxlength="4" type="number">
-          <button class="btn btn-primary" type="submit" id="date-btn-results">></button>
+
+        <div class="date-range-container">
+          <h5>Date range</h5>
+          <form ng-submit="setDateRange(fromDate, toDate)">
+            <div class="date-range">
+              <p>From:</p>
+              <input ng-model="fromDate" maxlength="4" type="number">
+            </div>
+            <div class="date-range">
+              <p>To:</p>
+              <input ng-model="toDate" maxlength="4" type="number">
+              <button class="btn btn-primary" type="submit" id="date-btn-results">></button>
+            </div>
+          </form>
+
         </div>
       </div>
-    </form>
-  </div>
-      </div>
-  </div>
+    </div>
 
   
   <!--Search Box & Options-->
     <div class="col-xs-12 col-sm-8">
       <div class="results-list">
-    <div class="search-bar-results">
-      <form ng-submit="newQuerySearch(newQueryTerm)">
-        <div class="facet-chip-search-bar facet-search" focus-input >
-          <ul class="facet-chip-list facet-search">
-            <li class="facet-search" ng-if="queryTerm">
-              <div class="facet-chip">
-                <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
-              </div>
-            </li>
-            <li class="facet-search" ng-repeat="activeFacet in activeFacets">
-              <div class="facet-chip">
-                <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.option}} <i>({{categories[activeFacet.facet].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
-              </div>
-            </li>
-            <li class="facet-search" ng-repeat="advancedField in advancedFields">
-              <div class="facet-chip">
-                <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
-              </div>
-            </li>
-            <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
-              <div class="facet-chip">
-                <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i> <span class="glyphicon glyphicon-remove-circle" style="color: white"></span>
-                </a>
-            </li>
-            <li>
-              <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>
-            </li>
-          </ul>
-        </div>
-        <button  class="btn btn-primary" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span>
-        </button>
-      </form>
+
+        <div class="search-bar-results">
+          <form ng-submit="newQuerySearch(newQueryTerm)">
+            <div class="facet-chip-search-bar facet-search" focus-input >
+              <ul class="facet-chip-list facet-search">
+                <li class="facet-search" ng-if="queryTerm">
+                  <div class="facet-chip">
+                    <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+                  </div>
+                </li>
+                <li class="facet-search" ng-repeat="activeFacet in activeFacets">
+                  <div class="facet-chip">
+                    <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.option}} <i>({{categories[activeFacet.facet].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+                  </div>
+                </li>
+                <li class="facet-search" ng-repeat="advancedField in advancedFields">
+                  <div class="facet-chip">
+                    <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+                  </div>
+                </li>
+                <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
+                  <div class="facet-chip">
+                    <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></a>
+                  </div>
+                </li>
+                <li>
+                  <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>
+                </li>
+              </ul>
+            </div>
+            <button  class="btn btn-primary" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+          </form>
     </div>
 
     <div class="sorting">
@@ -180,64 +170,55 @@
           </ul>
         </div>
 
-
           <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
           <div class="btn-group" uib-dropdown>
-            <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span>
-            </button>
+            <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="caret"></span></button>
             <ul class="uib-dropdown-menu"  role="menu">
               <li ng-repeat="pageSizeOption in validPageSizeOptions">
                 <a ng-click="setPageSize(pageSizeOption)">{{pageSizeOption}}</a>
               </li>
             </ul>
-         </div>
-       </div>
-                 <div class="results-pagination-top">
-            <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
           </div>
         </div>
-      </div>
 
 
-<div class="col-xs-12 col-sm-8">
-        <span class="showing" ng-show="numTotalHits === 0">No results found</span>
-        <span class="showing" ng-show="numTotalHits > 0 && pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
-        <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
-      </div>
-
-
-      <div class="col-xs-12 col-sm-8">
- <hr class="results-list-hr">
-    <!--Search Results Data-->
-    <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-      <div class="bookmark" ng-click="toggleSavingBook(book)" ng-mouseover="saveRecordHover(book)" ng-mouseleave="saveRecordHoverOut(book)">
-        <p>
-          <i class="glyphicon-bookmark glyphicon">
-            <i ng-class="{'saved': isRecordSaved(book)}" class="glyphicon-bookmark glyphicon inside"></i>
-          </i>
-        </p>
-        <p ng-show="showBookmarkText" class="bookmark-text">{{ bookMarkText }}</p>
-      </div>
-      <div class="book-info">
-      <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
-      <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
-      <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
-      <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
-      <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
-      <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
-
+        <div class="results-pagination-top">
+          <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
         </div>
-      <hr class="results-list-hr"><br>
-    </li>
-    </ul>
-
-        <!--Pagination-->
-    <div class="results-pagination">
-      <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
+      </div>
     </div>
-  </div>
 
+    <div class="col-xs-6 col-sm-5">
+      <span class="showing" ng-show="numTotalHits === 0">No results found</span>
+      <span class="showing" ng-show="numTotalHits > 0 && pagination.from <= numTotalHits">Showing {{(pagination.from + 1)}} - {{((pagination.from + pagination.size) < numTotalHits) ? (pagination.from + pagination.size) : numTotalHits}} of {{numTotalHits}} results</span>
+      <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
+    </div>
 
+    <div class="col-xs-6 col-sm-3">
+      <a class= "adv-drawer" href="/advanced">Advanced Search</a>
+    </div>
 
-</div><!-- /row -->
+    <div class="col-xs-12 col-sm-8">
+      <hr class="results-list-hr">
+    <!--Search Results Data-->
+      <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
+        <save-record-button></save-record-button>
+        <div class="book-info">
+          <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
+          <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
+          <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
+          <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
+          <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
+          <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
+        </div>
+        <hr class="results-list-hr"><br>
+      </li>
+
+      <!--Pagination-->
+      <div class="results-pagination">
+        <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
+      </div>
+    </div>
+
+  </div><!-- /row -->
 </div><!-- /container -->

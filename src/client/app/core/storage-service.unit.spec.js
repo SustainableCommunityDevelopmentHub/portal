@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 describe('Storage Service', function(){
   var StorageService, testItem, testKey;
@@ -7,7 +7,7 @@ describe('Storage Service', function(){
     module('app.core');
   });
 
-  beforeEach(inject(function(_StorageService_) {
+  beforeEach(inject(function($rootScope, _StorageService_) {
     StorageService = _StorageService_;
   }));
 

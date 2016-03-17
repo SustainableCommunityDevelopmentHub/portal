@@ -7,7 +7,6 @@
     return function(scope, elem, attr){
       elem.bind("keyup", function(){
         var width = elem.val().length;
-        var currentWidth = 0;
         if (width > 3){
           var newWidth = 100 + (width * 5);
           elem.css('width', newWidth + 'px');
@@ -28,7 +27,7 @@
         var input = elem[0].querySelector('#facet-chip-input');
         input.focus();
         elem.addClass('input-div-focus');
-      })
-    }
+      });
+    };
   });
 })();
