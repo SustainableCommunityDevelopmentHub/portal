@@ -16,7 +16,7 @@
         <form ng-submit="newSearch({q: queryTerm})">
         <input ng-model="queryTerm" class="search-input" type="text" autofocus />
 
-        <button ng-click="newSearch({q: queryTerm})" class="btn" type="button" id="go-btn"><p>Search</p>
+        <button ng-click="newSearch({q: queryTerm})" class="btn-primary" type="button" id="go-btn"><p>Search</p>
           <span class="glyphicon glyphicon-search"></span></button>
           
         </form>
@@ -32,7 +32,7 @@
 
     <div class="row row-centered">
       <div class ="col-xs-12 col-sm-6 col-md-3 col-centered">
-        <button ng-click="newSearch({q: ''})" class="btn" id="see-all-btn" type="button">See All Records</button>
+        <button ng-click="newSearch({q: ''})" class="btn-primary" id="see-all-btn" type="button">See All Records</button>
       </div>
     </div><!-- /row -->
   </div><!-- /container -->

@@ -28,8 +28,37 @@ body {
   padding-top: 20px;
 }
 
+.btn {
+  background: #f68c20;
+  color: #fff;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  background: #e57f25;
+  color: #fff;
+}
+
+.btn-primary {
+  background: #5998c9;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active:focus {
+  background-color: #4789bd;
+  color: #fff;
+  border: none;
+}
+
 a:hover {
   cursor:pointer;
+  text-decoration: underline;
+}
+
+a:focus, a:active {
+  outline: none;
+  text-decoration: none;
 }
 
 .row-centered {
@@ -183,11 +212,7 @@ a:hover {
 
 #go-btn {
   height: 40px;
-  margin: auto;
-  color: white;
-  background-color: #528AA5;
   width: 15%;
-  vertical-align: bottom;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 1px;
@@ -211,9 +236,6 @@ a:hover {
   height: 50px;
   display: block;
   margin: 60px 0;
-  border: 2px solid black;
-  border-radius: 0;: black;
-  background-color: white;
 }
 
 .main-body {
@@ -451,8 +473,6 @@ a:hover {
 #go-btn-results, #date-btn-results {
   margin-left: 10px;
   border-radius: 0;
-  color: white;
-  background-color: #528AA5;
 }
 
 .sorting {
@@ -464,16 +484,7 @@ a:hover {
 }
 
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active:focus {
-  background-color: #528AA5;
-  border: 1px solid #528AA5;
-}
-
 .search-dropdown {
-  color: black;
-  background-color: white;
-  border: solid black 1px;
-  border-radius: 0;
   font-size: 12px;
   margin-top: 10px;
 }
