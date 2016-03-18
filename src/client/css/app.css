@@ -25,7 +25,7 @@
 /* Basic */
 
 body {
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
 .btn {
@@ -68,6 +68,23 @@ a:focus, a:active {
 .col-centered {
   display:inline-block;
   float:none;
+}
+
+
+/* Site Nav */
+
+.site-nav {
+  border-bottom: 2px solid #eee;
+  margin-bottom: 15px;
+}
+
+.site-nav a {
+  color: #333;
+  font-weight: bold;
+}
+
+.site-nav span {
+  margin-left: 5px;
 }
 
 
@@ -165,6 +182,11 @@ a:focus, a:active {
 
     .navbar-default .navbar-nav > li {
       text-align: left;
+      border-right: 1px solid #555;
+    }
+
+    .navbar-default .navbar-nav > li:last-child {
+      border-right: none;
     }
 
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
