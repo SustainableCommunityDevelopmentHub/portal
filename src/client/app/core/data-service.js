@@ -63,6 +63,8 @@
      */
     function getBookData(book){
       var response = esClient.get(book);
+      console.log(response);
+
       return response;
     }
   }

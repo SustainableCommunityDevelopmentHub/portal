@@ -3,12 +3,14 @@
 
   angular
     .module('app')
-    .directive('saveRecordButton', ['SavedRecordsService', function(SavedRecordsService){
+    .directive('saveRecordButton', ['$state', 'SavedRecordsService', 'SAVED_ITEMS', function($state, SavedRecordsService, SAVED_ITEMS){
       return {
         restrict: 'AE',
         replace: 'true',
+        scope: false,
         templateUrl: 'app/partials/save-record-button.html',
         link: function (scope, elem, attrs) {
+
 
           /**
            * Saves book record using SavedRecordsService and updates savedRecords
@@ -30,7 +32,14 @@
            */
           function removeRecord (book) {
             SavedRecordsService.removeRecord(book);
-            scope.savedRecords  = SavedRecordsService.getRecords();
+            scope.savedRecords = SavedRecordsService.getRecords();
+            console.log(scope.savedRecords);
+            console.log($state);
+            if($state.current.controller === 'SavedRecordsCtrl'){
+              console.log("hey!");
+              scope.refresh();
+
+            }
           };
 
           /**
@@ -88,5 +97,22 @@
           };
         }
       };
-    }]);
+    }])
+    .directive('storageEventListener', ['$state', 'SavedRecordsService', 'SAVED_ITEMS', function($state, SavedRecordsService, SAVED_ITEMS) {
+      return {
+        restrict: 'AE',
+        template: '',
+        link: function (scope, elem, attrs) {
+          angular.element(window).on('storage', function(event) {
+            if (event.key === SAVED_ITEMS.recordKey) {
+              scope.refresh();
+              scope.$apply();
+
+
+            }
+          });
+        }
+      };
+    }
+    ]);
 })();

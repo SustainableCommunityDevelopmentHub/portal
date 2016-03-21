@@ -1333,6 +1333,99 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   clear: both;
 }
 
+.num-records {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  float: left;
+  margin-right: 20px;
+}
+
+.records-tabs {
+  padding-left: 0px;
+}
+
+.records-tabs li {
+  list-style: none;
+  display: inline-block;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.records-tabs li:hover {
+
+}
+
+.active-tab {
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.records-items {
+  list-style: none;
+}
+
+.record-info {
+  margin-left: 56px;
+  max-width: 550px;
+}
+
+.saved-records-list {
+  padding-left: 0;
+}
+
+.saved-searches-list {
+  padding-left: 0;
+}
+
+.search-filters-list {
+  padding-left: 0;
+  margin-top:10px;
+}
+
+.search-filters-list li {
+  list-style: none;
+  line-height: 10px;
+}
+
+.search-filters-heading {
+  margin-top: 10px;
+}
+
+.search-info {
+  float: left;
+  border-right: 1px solid darkgray;
+  width: 70%;
+  min-height: 100px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+.right-search-item {
+  display: block;
+  margin-right: 10%;
+  margin-top: 2%;
+  float: right;
+}
+
+.saved-search-title {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.search-list-hr {
+  background-color: lightslategray;
+  clear: both;
+  margin-bottom: 0;
+  height: 2px;
+}
+
+.remove-search-btn {
+  cursor: pointer;
+}
+
+.search-info a {
+  font-size: 16px;
+}
+
 @media print {
   .header-complete {
     display: none;

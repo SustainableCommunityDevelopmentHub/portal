@@ -24,6 +24,9 @@
     function($scope, $stateParams, $window, bookData) {
 
       $scope.book = bookData;
+      $scope.refresh = function() {
+        console.log("refresh!");
+      };
 
       $scope.saveAsJson = function (data, filename) {
 
