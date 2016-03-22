@@ -1400,10 +1400,9 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   padding-right: 10px;
 }
 .right-search-item {
-  display: block;
-  margin-right: 10%;
-  margin-top: 2%;
-  float: right;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: 50px;
 }
 
 .saved-search-title {

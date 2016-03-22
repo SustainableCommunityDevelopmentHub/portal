@@ -9,7 +9,10 @@
     $scope.savedRecords = records;
     $scope.savedSearches = searches;
 
+    $scope.numRecords = $scope.savedRecords.length;
+
     $scope.currentSort = "";
+    $scope.currentPage = 1;
 
     $scope.recordsActive = true;
     $scope.searchesActive = false;
@@ -49,6 +52,7 @@
     $scope.refresh = function() {
       console.log("refresh saved records!");
       $scope.savedRecords = SavedRecordsService.getRecords();
+      $scope.numRecords = $scope.savedRecords.length;
       console.log($scope.savedRecords);
     };
 
@@ -57,35 +61,47 @@
       switch(sortMode.mode) {
         case SORT_MODES.titleAZ.mode:
           sortFunction = function(a, b) {
-            return a._title_display > b._title_display;
+            if(a._title_display < b._title_display) return -1;
+            if(a._title_display > b._title_display) return 1;
+            return 0;
           };
           $scope.currentSort = SORT_MODES.titleAZ.display;
           break;
         case SORT_MODES.titleZA.mode:
           sortFunction = function(a, b) {
-            return a._title_display < b._title_display;
+            if(a._title_display > b._title_display) return -1;
+            if(a._title_display < b._title_display) return 1;
+            return 0;
           };
           $scope.currentSort = SORT_MODES.titleZA.display;
           break;
         case SORT_MODES.dateAdded.mode:
           sortFunction = function(a, b) {
-            return a._ingest_date > b._ingest_date;
+            if(a._ingest_date < b._ingest_date) return -1;
+            if(a._ingest_date > b._ingest_date) return 1;
+            return a._title_display < b._title_display ? -1 : 1;
           };
           $scope.currentSort = SORT_MODES.dateAdded.display;
           break;
         case SORT_MODES.dateAscend.mode:
           sortFunction = function(a, b) {
-            return a._date_facet > b._date_facet;
+            if(a._date_facet < b._date_facet) return -1;
+            if(a._date_facet > b._date_facet) return 1;
+            return 0;
           };
           $scope.currentSort = SORT_MODES.dateAscend.display;
           break;
         case SORT_MODES.dateDesc.mode:
           sortFunction = function(a, b) {
-            return a._date_facet < b._date_facet;
+            if(a._date_facet > b._date_facet) return -1;
+            if(a._date_facet < b._date_facet) return 1;
+            return 0;
           };
           $scope.currentSort = SORT_MODES.dateDesc.display;
       }
+      $scope.currentPage = 1;
       $scope.savedRecords = $scope.savedRecords.sort(sortFunction);
+
       console.log($scope.savedRecords);
     };
 
@@ -106,6 +122,9 @@
       $state.go('searchResults', SearchService.opts);
     };
 
+    $scope.changePage = function(page) {
+      console.log("Changing page to: " + page);
+    };
 
   }
 })();

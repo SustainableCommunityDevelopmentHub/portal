@@ -21,7 +21,7 @@
 <div ng-show="recordsActive" class="container">
     <div class="row">
         <div class="col-xs-12">
-        <div class="num-records"><p >You have <b ng-model="savedRecords">{{ savedRecords.length }}</b> saved records.</p></div>
+        <div class="num-records"><p >You have <b>{{ numRecords }}</b> saved records.</p></div>
         <div class="record-sorting">
             <div class="btn-group" uib-dropdown>
                 <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ currentSort }}<span class="caret"></span></button>
@@ -38,7 +38,7 @@
         <div class="col-xs-12">
             <ul class="saved-records-list">
                 <storage-event-listener></storage-event-listener>
-                <li ng-repeat="book in savedRecords" class="records-items">
+                <li dir-paginate="book in savedRecords | itemsPerPage: 10" class="records-items" current-page="currentPage" pagination-id="records">
                     <save-record-button></save-record-button>
                     <div class="record-info">
                         <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
@@ -52,7 +52,13 @@
                     <hr class="results-list-hr"><br>
                 </li>
             </ul>
+            <div class="results-pagination">
+                <dir-pagination-controls pagination-id="records"></dir-pagination-controls>
+            </div>
         </div>
+    </div>
+    <div class="row">
+
     </div>
 </div>
 
@@ -60,7 +66,7 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="saved-searches-list">
-                <li ng-repeat="search in savedSearches|orderBy: '-time'" class="records-items">
+                <li dir-paginate="search in savedSearches|orderBy: '-time' | itemsPerPage: 10" pagination-id="searches" class="records-items">
                     <div class="search-info">
                         <p class="saved-search-title">Search:</p>
                         <a ng-show="search.opts.q" ng-click="runSearch(search)">{{ search.opts.q }}</a>
@@ -69,7 +75,7 @@
                         <p class="saved-search-title search-filters-heading" ng-show="search.opts.facets.length">Filters:</p>
                         <ul class="search-filters-list">
                             <li ng-repeat="facet in search.opts.facets">
-                                <p>{{ facet.facet | uppercase }}: {{ facet.option }} </p>
+                                <p>{{ facet.facet | capitalize }}: {{ facet.option }} </p>
                             </li>
                         </ul>
                     </div>
@@ -81,6 +87,9 @@
                     <hr class="search-list-hr"><br>
                 </li>
             </ul>
+            <div class="results-pagination">
+                <dir-pagination-controls pagination-id="searches"></dir-pagination-controls>
+            </div>
         </div>
     </div>
 </div>
