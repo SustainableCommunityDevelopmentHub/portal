@@ -18,7 +18,8 @@
   14. FAQ
   15. Feedback
   16. Item Pages
-  17. Media Queries
+  17. Saved Records Page
+  18. Media Queries
 
 */
 
@@ -1333,6 +1334,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   clear: both;
 }
 
+/** Saved Records Page **/
+
 .num-records {
   margin-top: 20px;
   margin-bottom: 30px;
@@ -1349,10 +1352,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   display: inline-block;
   padding-right: 10px;
   cursor: pointer;
-}
-
-.records-tabs li:hover {
-
 }
 
 .active-tab {
@@ -1399,7 +1398,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   margin-bottom: 10px;
   padding-right: 10px;
 }
-.right-search-item {
+
+.additional-search-info {
   display: inline-block;
   margin-top: 25px;
   margin-left: 50px;

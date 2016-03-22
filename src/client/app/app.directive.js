@@ -11,7 +11,6 @@
         templateUrl: 'app/partials/save-record-button.html',
         link: function (scope, elem, attrs) {
 
-
           /**
            * Saves book record using SavedRecordsService and updates savedRecords
            * @param book {object} record to save
@@ -103,12 +102,12 @@
         restrict: 'AE',
         template: '',
         link: function (scope, elem, attrs) {
+
+          //Watch for storage events
           angular.element(window).on('storage', function(event) {
             if (event.key === SAVED_ITEMS.recordKey) {
               scope.refresh();
               scope.$apply();
-
-
             }
           });
         }

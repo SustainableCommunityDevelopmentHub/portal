@@ -39,6 +39,10 @@
         mode: "date_desc"
       }};
 
+    /**
+     * Sets which tab is the 'active' tab
+     * @param tab
+     */
     $scope.setActiveTab = function(tab) {
       if (tab === 'records') {
         $scope.recordsActive = true;
@@ -49,13 +53,18 @@
       }
     };
 
+    /**
+     * Refreshes scope variables
+     */
     $scope.refresh = function() {
-      console.log("refresh saved records!");
       $scope.savedRecords = SavedRecordsService.getRecords();
       $scope.numRecords = $scope.savedRecords.length;
-      console.log($scope.savedRecords);
     };
 
+    /**
+     * Sort records according to sort mode
+     * @param sortMode
+     */
     $scope.sortRecords = function(sortMode) {
       var sortFunction;
       switch(sortMode.mode) {
@@ -105,8 +114,12 @@
       console.log($scope.savedRecords);
     };
 
+
+    /**
+     * Removes search item from search list
+     * @param search
+     */
     $scope.removeSearch = function(search) {
-      console.log(search);
       var removed = {
         opts: search.opts,
         numResults: search.numResults,
@@ -116,14 +129,13 @@
       $scope.savedSearches = SavedRecordsService.getSearches();
     };
 
+    /**
+     * Executes search
+     * @param search {object}
+     */
     $scope.runSearch = function(search) {
       SearchService.updateOpts(search.opts);
-      console.log();
       $state.go('searchResults', SearchService.opts);
-    };
-
-    $scope.changePage = function(page) {
-      console.log("Changing page to: " + page);
     };
 
   }

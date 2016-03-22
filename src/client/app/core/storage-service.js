@@ -7,11 +7,6 @@
 
   function StorageService($rootScope, $controller, SAVED_ITEMS){
 
-    //Watch for changes to local storage
-
-
-
-
     var service = {
       getItems: getItems,
       setItem: setItem

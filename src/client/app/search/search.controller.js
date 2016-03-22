@@ -101,8 +101,6 @@
      * if no opts passed uses SearchService.opts.
      */
     function updateSearch(opts) {
-      console.log("DEFAULTS");
-      console.log(DEFAULTS);
       if(opts.page){
         $scope.pagination.page = opts.page;
         delete opts.page;
@@ -282,12 +280,6 @@
     // clear all, not just facets. TODO: Change name when will not cause conflicts
     $scope.clearFacetsAndUpdate = function(){
       clearActiveFacets();
-      console.log("old defaults");
-      console.log(DEFAULTS.searchOpts);
-      var newOpts = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
-      console.log("new defaults");
-      console.log(DEFAULTS.searchOpts);
-      console.log(newOpts);
       updateSearch(_.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]}));
     };
 

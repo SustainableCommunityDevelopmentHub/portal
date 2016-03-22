@@ -7,8 +7,6 @@
 
   function SavedRecordsService($rootScope, SAVED_ITEMS, DEFAULTS, StorageService){
 
-
-
     var service = {
       getRecords: getRecords,
       saveRecord: saveRecord,
