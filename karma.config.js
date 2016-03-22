@@ -23,6 +23,7 @@ module.exports = function(config) {
       'src/client/bower_components/angularUtils-pagination/dirPagination.js',
       'src/client/bower_components/angular-print/angularPrint.js',
       'src/client/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.js',
 
       'src/client/bower_components/angular-mocks/angular-mocks.js',
 

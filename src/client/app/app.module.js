@@ -12,7 +12,8 @@
     'app.advanced-search',
     'app.controller',
     'app.contributors',
-    'AngularPrint'
+    'AngularPrint',
+    'smoothScroll'
   ])
 
   // make lodash injectable
