@@ -6,9 +6,18 @@ var ResultsPage = function() {
 
 ResultsPage.prototype = Object.create({}, {
 
+  // Load page directly
+  loadPageByURL: { value: function(q, from, size) {
+    browser.get('/search?q=' + q + '&size=' + size + '&from=' + from);
+  }},
+  loadPage: { value: function (page) {
+    //from=0 for page 1, from=25 for page 2, etc
+    this.loadPageByURL('', (page - 1)*25, 25);
+  }},
+
   // Search Bar
-  searchButton: { get: function() { 
-    return element(by.id('go-btn-results')); 
+  searchButton: { get: function() {
+    return element(by.id('go-btn-results'));
   }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
@@ -107,7 +116,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._date_facet);
-      }      
+      }
     });
     return dates;
   }},
@@ -116,7 +125,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._ingest_date);
-      }      
+      }
     });
     return dates;
   }},
@@ -125,7 +134,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         titles.push(hits[i]._title_display);
-      }      
+      }
     });
     return titles;
   }},
@@ -203,7 +212,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
   selectModalOptions: { value: function(positions) {
     for (var position in positions) {
-      this.modalOptions.get(position).click(); 
+      this.modalOptions.get(position).click();
     }
   }},
   toggleModalSeeOnly: { value: function() {

@@ -151,22 +151,8 @@
      * @return {int} the current page
      */
     function calculatePage() {
-      //console.log('SearchService::calculatePage -- from: ' + this.opts.from + ' , size:' + this.opts.size);
-      //console.log('SearchService::calculatePage -- remainder: ' + this.opts.from % this.opts.size);
-
-      var page = 1;
-      if(this.opts.from % this.opts.size){
-        // +1 so the page comes out right for times like from=30, size=25
-        page += Math.floor(this.opts.from / this.opts.size) + 1;
-      }
-      else {
-        page += Math.floor(this.opts.from / this.opts.size);
-      }
-      if (page === 1 && this.opts.from > 0){
-        page = 2;
-      }
-
-      //console.log('SearchService::calculatePage -- page: ' + page);
+      // Math.ceil so the page comes out right for times like from=30, size=25
+      var page = 1 + Math.ceil(this.opts.from / this.opts.size);
       return page;
     }
 

@@ -107,84 +107,217 @@ describe('Search Results', function() {
   });
 
   describe('Pagination', function(){
+    var query = '';
+
     var showingResultsPageOne = 'Showing 1 - 25 of 452 results';
     var showingResultsPageTwo = 'Showing 26 - 50 of 452 results';
     var showingResultsPageThree = 'Showing 51 - 75 of 452 results';
     var showingResultsLastPage = 'Showing 451 - 452 of 452 results';
 
+    // page just navigated to should always be secondPageHits
+    function checkPageDifference(firstPageHits, secondPageHits){
+      for(var i = 0; i < secondPageHits.length; i++){
+        expect(secondPageHits[i]).not.toEqual(firstPageHits[i]);
+      }
+    }
+
     beforeEach(function(){
-    resultsPage = new ResultsPage();
-      resultsPage.submitNewSearchTerm('');
-      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+      resultsPage = new ResultsPage();
     });
 
-    // pagination bar 
+    // pagination bar
     it('should display pagination bar at top of page', function () {
+      resultsPage.loadPage(1);
       expect(resultsPage.pagingTopExists).toBeTruthy();
     });
     it('should display pagination bar at bottom of page', function () {
+      resultsPage.loadPage(1);
       expect(resultsPage.pagingBottomExists).toBeTruthy();
     });
-    // next page button 
+    // next page button
     it("should navigate to next page clicking on 'next' button, \'showing dialogue\' - pagination top", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingTopNextPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.getHits().then(function(pageTwoHits){
+        expect(pageTwoHits.length).toEqual(25);
+        checkPageDifference(pageOneHits, pageTwoHits);
+      });
     });
     it("should navigate to next page clicking on 'next' button, \'showing dialogue\' - pagination bottom ", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingBottomNextPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.getHits().then(function(pageTwoHits){
+        expect(pageTwoHits.length).toEqual(25);
+        checkPageDifference(pageOneHits, pageTwoHits);
+      });
     });
-    // previous page button 
+    // previous page button
     it("should navigate to previous page clicking on 'previous' button, \'showing dialogue\' - pagination top", function(){
-      resultsPage.pagingTopNextPage();
+      var pageTwoHits;
+      resultsPage.loadPage(2);
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.getHits().then(function(hits){
+        pageTwoHits = hits;
+        expect(pageTwoHits.length).toEqual(25);
+      });
 
       resultsPage.pagingTopPreviousPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(pageOneHits){
+        expect(pageOneHits.length).toEqual(25);
+        checkPageDifference(pageTwoHits, pageOneHits);
+      });
     });
     it("should navigate to previous page clicking on 'previous' button, \'showing dialogue\' - pagination bottom ", function(){
-      resultsPage.pagingBottomNextPage();
+      var pageTwoHits;
+      resultsPage.loadPage(2);
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+
+      resultsPage.getHits().then(function(hits){
+        pageTwoHits = hits;
+        expect(pageTwoHits.length).toEqual(25);
+      });
 
       resultsPage.pagingBottomPreviousPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(pageOneHits){
+        expect(pageOneHits.length).toEqual(25);
+        checkPageDifference(pageTwoHits, pageOneHits);
+      });
     });
-    // first page button 
+    // first page button
     it("should navigate to first page by clicking on \'first page\' button - pagination top", function(){
-      resultsPage.pagingTopNextPage();
-      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
-      resultsPage.pagingTopNextPage();
+      var pageThreeHits;
+      resultsPage.loadPage(3);
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.getHits().then(function(hits){
+        pageThreeHits = hits;
+        expect(pageThreeHits.length).toEqual(25);
+      });
 
       resultsPage.pagingTopFirstPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(pageOneHits){
+        expect(pageOneHits.length).toEqual(25);
+        checkPageDifference(pageThreeHits, pageOneHits);
+      });
     });
     it("should navigate to first page by clicking on \'first page\' button - pagination bottom", function(){
-      resultsPage.pagingBottomNextPage();
-      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
-      resultsPage.pagingBottomNextPage();
+      var pageThreeHits;
+      resultsPage.loadPage(3);
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.getHits().then(function(hits){
+        pageThreeHits = hits;
+        expect(pageThreeHits.length).toEqual(25);
+      });
 
       resultsPage.pagingBottomFirstPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(pageOneHits){
+        expect(pageOneHits.length).toEqual(25);
+        checkPageDifference(pageThreeHits, pageOneHits);
+      });
     });
-    // last page button 
+    // last page button
     it("should navigate to last page by clicking on \'last page\' button - pagination top", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingTopLastPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsLastPage);
+
+      resultsPage.getHits().then(function(lastPageHits){
+        expect(lastPageHits.length).toEqual(2);
+        checkPageDifference(pageOneHits, lastPageHits);
+      });
     });
-    it("should navigate to last page by clicking on \'last page\' button - pagination top", function(){
+    it("should navigate to last page by clicking on \'last page\' button - pagination bottom", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingBottomLastPage();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsLastPage);
+
+      resultsPage.getHits().then(function(lastPageHits){
+        expect(lastPageHits.length).toEqual(2);
+        checkPageDifference(pageOneHits, lastPageHits);
+      });
     });
     // a particular page button
     it("should navigate to page by clicking on page number button in pagination bar - pagination top", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingTopGoToPageThree();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.getHits().then(function(pageThreeHits){
+        expect(pageThreeHits.length).toEqual(25);
+        checkPageDifference(pageOneHits, pageThreeHits);
+      });
     });
     it("should navigate to page by clicking on page number button in pagination bar - pagination bottom", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageOne);
+
+      resultsPage.getHits().then(function(hits){
+        pageOneHits = hits;
+        expect(pageOneHits.length).toEqual(25);
+      });
+
       resultsPage.pagingBottomGoToPageThree();
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageThree);
+
+      resultsPage.getHits().then(function(pageThreeHits){
+        expect(pageThreeHits.length).toEqual(25);
+        checkPageDifference(pageOneHits, pageThreeHits);
+      });
     });
   });
 });

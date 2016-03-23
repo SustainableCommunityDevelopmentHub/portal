@@ -15,11 +15,12 @@ describe('SearchService Unit Tests', function(){
   }));
 
   describe('calculatePage()', function(){
-    beforeEach(function(){
+    it('should set page to one after running resetOpts()', function(){
       SearchService.resetOpts();
-    });
-    it('should correctly set page to 1 if from = 0', function(){
       expect(SearchService.calculatePage()).toEqual(1);
+    });
+
+    it('should correctly set page to 1 if from = 0', function(){
       SearchService.opts = {
         from: 0,
         size: 25
@@ -28,7 +29,6 @@ describe('SearchService Unit Tests', function(){
     });
 
     it('should correctly set page when pageSize=10', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 30,
         size: 10
@@ -36,7 +36,6 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.calculatePage()).toEqual(4);
     });
     it('should correctly set page when pageSize=25', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 75,
         size: 25
@@ -44,7 +43,6 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.calculatePage()).toEqual(4);
     });
     it('should correctly set page when pageSize=50', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 150,
         size: 50
@@ -52,7 +50,6 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.calculatePage()).toEqual(4);
     });
     it('should correctly set page when pageSize=100', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 300,
         size: 100
@@ -60,7 +57,6 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.calculatePage()).toEqual(4);
     });
     it('should correctly set page when pageSize > from and does not divide evenly into from', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 20,
         size: 25
@@ -68,7 +64,6 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.calculatePage()).toEqual(2);
     });
     it('should correctly set page when pageSize < from and does not divide evenly into from', function(){
-      expect(SearchService.calculatePage()).toEqual(1);
       SearchService.opts = {
         from: 25,
         size: 10

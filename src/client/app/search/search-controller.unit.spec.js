@@ -154,7 +154,6 @@ describe("Search Controller", function(){
       expect(SearchService.calculatePage()).toEqual(2);
 
       scope.updateFacet(testFacet, true);
-      //expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
       expect(SearchService.opts.from).toEqual(0);
@@ -199,7 +198,6 @@ describe("Search Controller", function(){
     });
 
     it("should clear advanced field facets correctly", function(){
-      spyOn(SearchService, 'updateOpts');
       var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
       var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
       scope.advancedFields = [gettyField, dateField];
@@ -208,7 +206,6 @@ describe("Search Controller", function(){
     });
 
     it("should toggle between active and non-active facets correctly", function(){
-      spyOn(SearchService, 'updateOpts');
       var testFacet = {"facet":"type","option":"Text","count":249,"active":false};
       var index = scope.activeFacets.indexOf(testFacet);
       // testFacet.active is false, so it should not be in scope.activeFacets
