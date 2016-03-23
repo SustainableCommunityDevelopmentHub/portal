@@ -20,6 +20,7 @@
           <button class="btn" type="button" id="clear-all" ng-click="clearFacetsAndUpdate()">Clear all</button>
         </div>
 
+        <div class="search-facet-group">
         <uib-accordion close-others="false">
           <uib-accordion-group ng-init="isopen = true" is-open="isopen">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen, 'glyphicon-plus': !isopen}"></i><h6>Type</h6>
@@ -33,7 +34,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'type')" id="see-all-type">See All</a>
+              <a ng-click="openFacetModal(facets, 'type')" class="see-all-facets" id="see-all-type">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -49,7 +50,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
+              <a ng-click="openFacetModal(facets, 'subject')" class="see-all-facets" id="see-all-subject">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -65,7 +66,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'creator')">See All</a>
+              <a ng-click="openFacetModal(facets, 'creator')"  class="see-all-facets">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -81,7 +82,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'language')">See All</a>
+              <a ng-click="openFacetModal(facets, 'language')" class="see-all-facets" >See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -97,7 +98,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'grp_contributor')">See All</a>
+              <a ng-click="openFacetModal(facets, 'grp_contributor')" class="see-all-facets" >See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
         </uib-accordion>
@@ -117,6 +118,7 @@
           </form>
 
         </div>
+      </div>
       </div>
     </div>
 
