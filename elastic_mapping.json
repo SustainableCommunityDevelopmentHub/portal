@@ -137,7 +137,7 @@
         "type": "object",
         "properties": {
           "identifier": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -151,7 +151,7 @@
             }
           },
           "creator": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -165,7 +165,7 @@
             }
           },
           "date": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -179,7 +179,7 @@
             }
           },
           "publisher": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -193,7 +193,7 @@
             }
           },
           "format": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -207,7 +207,7 @@
             }
           },
           "type": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -221,7 +221,7 @@
             }
           },
           "description": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -235,7 +235,7 @@
             }
           },
           "provenance": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -249,7 +249,7 @@
             }
           },
           "language": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -263,7 +263,7 @@
             }
           },
           "subject": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -277,7 +277,7 @@
             }
           },
           "coverage": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -291,7 +291,7 @@
             }
           },
           "title": {
-            "type": "nested",
+            "type": "object",
             "properties":{
               "value": {
                 "type": "string",
@@ -305,7 +305,7 @@
             }
           },
           "contributor": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -319,7 +319,7 @@
             }
           },
           "relation": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -333,7 +333,7 @@
             }
           },
           "source": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -347,7 +347,7 @@
             }
           },
           "rights": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -361,7 +361,7 @@
             }
           },
           "accrualMethod": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -375,7 +375,7 @@
             }
           },
           "accrualPeriodicity": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
@@ -389,7 +389,7 @@
             }
           },
           "audience": {
-            "type": "nested",
+            "type": "object",
             "properties": {
               "value": {
                 "type": "string",
