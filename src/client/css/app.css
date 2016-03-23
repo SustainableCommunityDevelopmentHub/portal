@@ -44,6 +44,12 @@ h3 {
   letter-spacing: 1px;
 }
 
+h6 {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+}
+
 a:hover {
   cursor:pointer;
   text-decoration: underline;
@@ -66,6 +72,7 @@ hr {
 .btn {
   background: #f68c20;
   color: #fff;
+  border-radius: 2px;
 }
 
 .btn:hover, .btn:focus, .btn:active {
@@ -516,15 +523,6 @@ a.adv:hover, a.adv:focus {
   color: white;
 }
 
-.facet-labels {
-  color: #337ab7;
-  font-weight: normal;
-  cursor: pointer;
-  padding-left: 4px;
-  overflow: auto;
-  display: inline;
-  line-height: 22px;
-}
 
 .facet-labels:hover {
   text-decoration: underline;
@@ -738,51 +736,69 @@ li.book-listing {
 
   /* Left Sidebar */
 
+  .facet-header-desktop {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  #clear-all {
+    font-size: 12px;
+    float: right;
+  }
+
   #left_sidebar_accordion__container {
     float:left;
-    width: 100%;
     position: relative;
-    min-height: 50px;
     margin-bottom: 20px;
-
+    background-color: #eee;
   }
 
-
-  .left_sidebar_accordion__tab {
-    color: black;
-    margin: -8px 0 -8px 0;
-
+  .panel {
+    border-radius: 0;
   }
 
-  .left_sidebar_accordion__tab-title {
-    cursor: pointer;
+  .panel-group .panel {
+    border-radius: 0;
+  }
+
+  .panel-heading {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .panel-default {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #ddd;
+    box-shadow: none;
+  }
+
+  .panel-default > .panel-heading {
+    background-color: #eee;
+  }
+
+  .panel-body {
+    background-color: #eee;
+  }
+
+  .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top: none;
+  }
+
+  .panel-title h6 {
+    font-size: 14px;
     font-weight: bold;
   }
 
-  .left_sidebar_accordion__tab-title .glyphicon {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-
-    color: white;
-    background: #909090;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
-  }
-
-  .left_sidebar_accordion__tab-content {
-    padding: 20px 20px 20px 30px;
-  }
-
-  .left_sidebar_hr {
-    background-color: black;
-    height: 1px;
-  }
+  .facet-labels {
+  font-weight: normal;
+  cursor: pointer;
+  padding-left: 10px;
+  overflow: auto;
+  display: inline;
+  line-height: 22px;
+}
 
   .date-range {
     display: inline-block;
