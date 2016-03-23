@@ -64,26 +64,24 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
-        var shouldQuery = fullQuery.body.query.bool.must;
-        shouldQuery.bool = { should: [] };
-        shouldQuery.bool.should = [
+        fullQuery.body.query.bool.must = 
           {
-            multi_match: {
-              type: 'most_fields',
+            query_string: {
               query: opts.q,
+              minimum_should_match: '2<-1 5<75%',
               fields: [
                 '_record_link',
                 '_language',
                 '_language.folded',
                 '_grp_type',
-                '_title_display',
-                '_title_display.folded',
-                '_subject_facets',
-                '_subject_facets.folded',
+                '_title_display^18',
+                '_title_display.folded^18',
+                '_subject_facets^15',
+                '_subject_facets.folded^15',
                 '_creator_display',
                 '_creator_display.folded',
-                '_creator_facet',
-                '_creator_facet.folded',
+                '_creator_facet^12',
+                '_creator_facet.folded^12',
                 '_date_facet.folded',
                 '_date_display',
                 '_date_display.folded',
@@ -93,296 +91,48 @@
                 '_edition',
                 '_edition.folded',
                 '_series',
-                '_series.folded'
+                '_series.folded',
+                'dublin_core.identifier.value',
+                'dublin_core.identifier.value.folded',
+                'dublin_core.creator.value',
+                'dublin_core.creator.value.folded',
+                'dublin_core.date.value',
+                'dublin_core.date.value.folded',
+                'dublin_core.publisher.value',
+                'dublin_core.publisher.value.folded',
+                'dublin_core.format.value',
+                'dublin_core.format.value.folded',
+                'dublin_core.type.value',
+                'dublin_core.type.value.folded',
+                'dublin_core.description.value',
+                'dublin_core.description.value.folded',
+                'dublin_core.provenance.value',
+                'dublin_core.provenance.value.folded',
+                'dublin_core.language.value',
+                'dublin_core.language.value.folded',
+                'dublin_core.subject.value',
+                'dublin_core.subject.value.folded',
+                'dublin_core.coverage.value',
+                'dublin_core.coverage.value.folded',
+                'dublin_core.title.value',
+                'dublin_core.title.value.folded',
+                'dublin_core.contributor.value',
+                'dublin_core.contributor.value.folded',
+                'dublin_core.relation.value',
+                'dublin_core.relation.value.folded',
+                'dublin_core.source.value',
+                'dublin_core.source.value.folded',
+                'dublin_core.rights.value',
+                'dublin_core.rights.value.folded',
+                'dublin_core.accrualMethod.value',
+                'dublin_core.accrualMethod.value.folded',
+                'dublin_core.accrualPeriodicity.value',
+                'dublin_core.accrualPeriodicity.value.folded',
+                'dublin_core.audience.value',
+                'dublin_core.audience.value.folded'
               ]
             }
-          },
-          {
-            nested: {
-              path: 'dublin_core.identifier',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.identifier.value',
-                    'dublin_core.identifier.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.creator',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.creator.value',
-                    'dublin_core.creator.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.date',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.date.value',
-                    'dublin_core.date.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.publisher',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.publisher.value',
-                    'dublin_core.publisher.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.format',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.format.value',
-                    'dublin_core.format.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.type',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.type.value',
-                    'dublin_core.type.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.description',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.description.value',
-                    'dublin_core.description.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.provenance',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.provenance.value',
-                    'dublin_core.provenance.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.language',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.language.value',
-                    'dublin_core.language.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.subject',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.subject.value',
-                    'dublin_core.subject.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.coverage',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.coverage.value',
-                    'dublin_core.coverage.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.title',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.title.value',
-                    'dublin_core.title.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.contributor',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.contributor.value',
-                    'dublin_core.contributor.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.relation',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.relation.value',
-                    'dublin_core.relation.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.source',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.source.value',
-                    'dublin_core.source.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.rights',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.rights.value',
-                    'dublin_core.rights.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.accrualMethod',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.accrualMethod.value',
-                    'dublin_core.accrualMethod.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.accrualPeriodicity',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.accrualPeriodicity.value',
-                    'dublin_core.accrualPeriodicity.value.folded'
-                  ]
-                }
-              }
-            }
-          },
-          {
-            nested: {
-              path: 'dublin_core.audience',
-              query: {
-                multi_match: {
-                  type: 'most_fields',
-                  query: opts.q,
-                  fields: [
-                    'dublin_core.audience.value',
-                    'dublin_core.audience.value.folded'
-                  ]
-                }
-              }
-            }
-          }
-        ];
+          };
       }
       else{
         fullQuery.body.query.bool.must.match_all = {};
@@ -417,15 +167,10 @@
           
           if (item.field.searchKey.startsWith('dublin_core') && item.field.searchKey !== 'dublin_core.date') {
             var query = {
-              nested: {
-                path: item.field.searchKey,
-                query: {
-                  multi_match: {
-                    type: 'most_fields',
-                    query: item.term,
-                    fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
-                  }
-                }
+              query_string: {
+                query: item.term,
+                minimum_should_match: '2<-1 5<75%',
+                fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
               }
             };
             fullQuery.body.query.bool.filter.bool.filter.push(query);
@@ -433,24 +178,10 @@
           }
           else if (item.field.searchKey === 'dublin_core.date') {
             var query = {
-              bool: {
-                should: [
-                  {
-                    term: {'_date_facet.folded': item.term}
-                  },
-                  {
-                    nested: {
-                      path: item.field.searchKey,
-                      query: {
-                        multi_match: {
-                          type: 'most_fields',
-                          query: item.term,
-                          fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
-                        }
-                      }
-                    }
-                  }  
-                ]
+              query_string: {
+                query: item.term,
+                minimum_should_match: '2<-1 5<75%',
+                fields: ['_date_facet.folded', item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
               }
             };
             fullQuery.body.query.bool.filter.bool.filter.push(query);
@@ -458,9 +189,9 @@
           }
           else {
             var query = {
-              multi_match: {
-                type: 'most_fields',
+              query_string: {
                 query: item.term,
+                minimum_should_match: '2<-1 5<75%',
                 fields: [item.field.searchKey, item.field.searchKey + '.folded']
               }
             };
