@@ -41,8 +41,10 @@ describe('Saved Records Page', function() {
 
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.selectSortMode(1);
-    var titles = savedRecordsPage.getAllTitles();
-    expect(titles).toEqual(titles.sort());
+    savedRecordsPage.getAllTitles().then(function(titles) {
+      var sortedTitles = titles.sort();
+      expect(titles).toEqual(sortedTitles);
+    });
   });
 
   it('should sort records by date ascending', function() {
@@ -52,8 +54,11 @@ describe('Saved Records Page', function() {
 
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.selectSortMode(3);
-    var dates = savedRecordsPage.getAllDates();
-    expect(dates).toEqual(dates.sort());
+    savedRecordsPage.getAllDates().then(function(dates) {
+      console.log(dates);
+      var sortedDates = dates.sort();
+      expect(dates).toEqual(sortedDates);
+    });
   });
 
   it('should sort records by date descending', function() {
@@ -63,8 +68,11 @@ describe('Saved Records Page', function() {
 
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.selectSortMode(4);
-    var dates = savedRecordsPage.getAllDates();
-    expect(dates).toEqual(dates.sort().reverse());
+    savedRecordsPage.getAllDates().then(function(dates) {
+      var sortedDates = dates.sort().reverse();
+      expect(dates).toEqual(sortedDates);
+    });
+
   });
 
   it('should remove records from saved records page', function () {
@@ -127,4 +135,5 @@ describe('Saved Records Page', function() {
       expect(searches.length).toBe(2);
     });
   });
+
 });

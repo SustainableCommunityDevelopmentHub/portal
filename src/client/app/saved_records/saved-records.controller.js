@@ -3,9 +3,9 @@
 
   angular
     .module('app.saved-records')
-    .controller('SavedRecordsCtrl', ['$scope', '$state', 'records', 'searches', 'SavedRecordsService', 'StorageService', 'SearchService', 'DEFAULTS', 'SORT_MODES', '_', SavedRecordsCtrl]);
+    .controller('SavedRecordsCtrl', ['$scope', '$state', 'records', 'searches', 'SavedRecordsService', 'SearchService', 'SAVED_RECORDS_SORT', '_', SavedRecordsCtrl]);
 
-  function SavedRecordsCtrl($scope, $state, records, searches, SavedRecordsService, StorageService, SearchService, DEFAULTS, SORT_MODES, _) {
+  function SavedRecordsCtrl($scope, $state, records, searches, SavedRecordsService, SearchService, SAVED_RECORDS_SORT, _) {
     $scope.savedRecords = records;
     $scope.savedSearches = searches;
 
@@ -17,27 +17,7 @@
     $scope.recordsActive = true;
     $scope.searchesActive = false;
 
-    $scope.validSortModes = {
-      dateAdded : {
-        display: "Newly Added First",
-        mode: "date_added"
-      },
-      titleAZ : {
-        display: "Title: A-Z",
-        mode: "title_asc"
-      },
-      titleZA : {
-        display: "Title: Z-A",
-        mode: "title_desc"
-      },
-      dateAscend : {
-        display: "Date (ascending)",
-        mode: "date_asc"
-      },
-      dateDesc : {
-        display: "Date (descending)",
-        mode: "date_desc"
-      }};
+    $scope.validSortModes = SAVED_RECORDS_SORT;
 
     /**
      * Sets which tab is the 'active' tab
@@ -68,50 +48,49 @@
     $scope.sortRecords = function(sortMode) {
       var sortFunction;
       switch(sortMode.mode) {
-        case SORT_MODES.titleAZ.mode:
+        case SAVED_RECORDS_SORT.titleAZ.mode:
           sortFunction = function(a, b) {
             if(a._title_display < b._title_display) return -1;
             if(a._title_display > b._title_display) return 1;
             return 0;
           };
-          $scope.currentSort = SORT_MODES.titleAZ.display;
+          $scope.currentSort = SAVED_RECORDS_SORT.titleAZ.display;
           break;
-        case SORT_MODES.titleZA.mode:
+        case SAVED_RECORDS_SORT.titleZA.mode:
           sortFunction = function(a, b) {
             if(a._title_display > b._title_display) return -1;
             if(a._title_display < b._title_display) return 1;
             return 0;
           };
-          $scope.currentSort = SORT_MODES.titleZA.display;
+          $scope.currentSort = SAVED_RECORDS_SORT.titleZA.display;
           break;
-        case SORT_MODES.dateAdded.mode:
+        case SAVED_RECORDS_SORT.dateAdded.mode:
           sortFunction = function(a, b) {
             if(a._ingest_date < b._ingest_date) return -1;
             if(a._ingest_date > b._ingest_date) return 1;
             return a._title_display < b._title_display ? -1 : 1;
           };
-          $scope.currentSort = SORT_MODES.dateAdded.display;
+          $scope.currentSort = SAVED_RECORDS_SORT.dateAdded.display;
           break;
-        case SORT_MODES.dateAscend.mode:
+        case SAVED_RECORDS_SORT.dateAscend.mode:
           sortFunction = function(a, b) {
             if(a._date_facet < b._date_facet) return -1;
             if(a._date_facet > b._date_facet) return 1;
             return 0;
           };
-          $scope.currentSort = SORT_MODES.dateAscend.display;
+          $scope.currentSort = SAVED_RECORDS_SORT.dateAscend.display;
           break;
-        case SORT_MODES.dateDesc.mode:
+        case SAVED_RECORDS_SORT.dateDesc.mode:
           sortFunction = function(a, b) {
             if(a._date_facet > b._date_facet) return -1;
             if(a._date_facet < b._date_facet) return 1;
             return 0;
           };
-          $scope.currentSort = SORT_MODES.dateDesc.display;
+          $scope.currentSort = SAVED_RECORDS_SORT.dateDesc.display;
       }
       $scope.currentPage = 1;
       $scope.savedRecords = $scope.savedRecords.sort(sortFunction);
 
-      console.log($scope.savedRecords);
     };
 
 

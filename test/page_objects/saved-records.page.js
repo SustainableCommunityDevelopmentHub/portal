@@ -14,22 +14,26 @@ SavedRecordsPage.prototype = Object.create({}, {
     return element.all(by.css('.saved-records-list')).get(0).evaluate('savedRecords');
   }},
   getAllTitles: {value: function() {
-    var titles = [];
-    this.getAllRecords().then(function(records) {
+    var result = this.getAllRecords().then(function(records) {
+      var titles = [];
       records.forEach(function(record){
+        console.log(record._title_display);
         titles.push(record._title_display);
       });
+      console.log(titles);
+      return titles;
     });
-    return titles;
+    return result;
   }},
   getAllDates: {value: function() {
-    var dates = [];
-    this.getAllRecords().then(function(records) {
+    var result = this.getAllRecords().then(function(records) {
+      var dates = [];
       records.forEach(function(record){
         dates.push(record._date_facet);
       });
+      return dates;
     });
-    return dates;
+    return result;
   }},
   getRecord: {get: function(position) {
     return element.all(by.css('.records-items')).get(position);
