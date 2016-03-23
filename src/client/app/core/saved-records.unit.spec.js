@@ -82,34 +82,38 @@ describe("Saved Records Service", function() {
     });
 
     it('should save searches', function() {
-      SavedRecordsService.saveSearch(opts, numResults);
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
       var searches = JSON.parse(localStorage.getItem(searchKey))[searchKey];
       expect(searches.length).toEqual(1);
       var savedSearch = searches[0];
-      expect(savedSearch.q).toEqual(opts.q);
-      expect(savedSearch.facets).toEqual(opts.facets);
+      expect(savedSearch.opts.q).toEqual(opts.q);
+      expect(savedSearch.opts.facets).toEqual(opts.facets);
     });
 
     it('should not save duplicate searches', function() {
       // Attempt to save the same search object 3 times in a row. There should be only one search object saved.
-      SavedRecordsService.saveSearch(opts, numResults);
-      SavedRecordsService.saveSearch(opts, numResults);
-      SavedRecordsService.saveSearch(opts, numResults);
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
       var searches = JSON.parse(localStorage.getItem(searchKey))[searchKey];
       expect(searches.length).toEqual(1);
     });
 
     it('should return searches', function() {
-      SavedRecordsService.saveSearch(opts, numResults);
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
       var searches = SavedRecordsService.getSearches();
       expect(searches.length).toEqual(1);
       var savedSearch = searches[0];
-      expect(savedSearch.q).toEqual(opts.q);
-      expect(savedSearch.facets).toEqual(opts.facets);
+      expect(savedSearch.opts.q).toEqual(opts.q);
+      expect(savedSearch.opts.facets).toEqual(opts.facets);
     });
 
     it('should remove searches', function() {
-      SavedRecordsService.saveSearch(opts, numResults);
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
       var searches = SavedRecordsService.getSearches();
       SavedRecordsService.removeSearch(searches[0]);
       var remainingSearches = SavedRecordsService.getSearches();

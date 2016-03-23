@@ -113,7 +113,6 @@
         controller: 'SavedRecordsCtrl',
         resolve: {
           records: function($q, SavedRecordsService) {
-            console.log("getting records");
             return $q.when(SavedRecordsService.getRecords()).then(function(records) {
               return records;
             });

@@ -32,10 +32,7 @@
           function removeRecord (book) {
             SavedRecordsService.removeRecord(book);
             scope.savedRecords = SavedRecordsService.getRecords();
-            console.log(scope.savedRecords);
-            console.log($state);
             if($state.current.controller === 'SavedRecordsCtrl'){
-              console.log("hey!");
               scope.refresh();
 
             }

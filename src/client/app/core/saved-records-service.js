@@ -28,14 +28,20 @@
       if (oldSearch.q !== newSearch.q) {
         return false;
       }
-      if (!_.isEqual(oldSearch.facets, newSearch.facets)) {
-        return false;
+      if(newSearch.facets && newSearch.facets.length > 0){
+        if (!_.isEqual(oldSearch.facets, newSearch.facets)) {
+          return false;
+        }
       }
-      if (!_.isEqual(oldSearch.advancedFields, newSearch.advancedFields)){
-        return false;
+      if (newSearch.advancedFields && newSearch.advancedFields.length > 0){
+        if (!_.isEqual(oldSearch.advancedFields, newSearch.advancedFields)){
+          return false;
+        }
       }
-      if(!_.isEqual(oldSearch.date, newSearch.date)) {
-        return false;
+      if (newSearch.date) {
+        if(!_.isEqual(oldSearch.date, newSearch.date)) {
+          return false;
+        }
       }
       return true;
     };
@@ -49,7 +55,7 @@
       var searches = getSearches();
       var lastSearch = DEFAULTS.searchOpts;
       if (searches && searches.length > 0) {
-        lastSearch = searches[searches.length - 1];
+        lastSearch = searches[searches.length - 1].opts;
       }
       if(!searchesMatch(lastSearch, searchOpts)) {
         var newSearch = {
@@ -151,13 +157,10 @@
      * @param item {object} item to save
      */
     function removeItem(type, item) {
-      console.log(item);
       var items = StorageService.getItems(type);
       if (items) {
         items = JSON.parse(items);
         var records = items[type];
-        console.log("searches");
-        console.log(records);
         if (records) {
           var newRecords = records.filter(function (record) {
             if(type === SAVED_ITEMS.recordKey) {
@@ -167,8 +170,6 @@
             }
           });
           items[type] = newRecords;
-          console.log(newRecords);
-
         } else {
           items[type] = [];
         }
