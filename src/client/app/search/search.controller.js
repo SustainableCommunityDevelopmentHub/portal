@@ -142,10 +142,6 @@
     //Functions
     /////////////////////////////////
 
-    $scope.refresh = function() {
-      console.log("search controller refreshed!");
-    };
-
     /**
      * init search on new query term
      * Adding new query term to previous query term
@@ -184,7 +180,6 @@
      * pagination resets if pageSize changes
      */
     $scope.setPageSize = function(newPageSize){
-      console.log($scope.pagination);
       var newPage = calculatePage(ss.opts.from, newPageSize);
 
       console.log('SearchCtrl.....updating page size from: ' + ss.opts.size + ' to: ' + newPageSize);
@@ -298,6 +293,5 @@
       $scope.toDate = "";
       updateSearch({date: {}, page: 1, from: 0});
     };
-
   }
 })();

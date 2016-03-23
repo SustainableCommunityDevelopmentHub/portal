@@ -34,7 +34,6 @@
             scope.savedRecords = SavedRecordsService.getRecords();
             if($state.current.controller === 'SavedRecordsCtrl'){
               scope.refresh();
-
             }
           };
 
@@ -103,7 +102,9 @@
           //Watch for storage events
           angular.element(window).on('storage', function(event) {
             if (event.key === SAVED_ITEMS.recordKey) {
-              scope.refresh();
+              if($state.current.controller === 'SavedRecordsCtrl'){
+                scope.refresh();
+              }
               scope.$apply();
             }
           });

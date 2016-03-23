@@ -60,10 +60,8 @@
               id: $stateParams.bookID
             };
             return DataService.getBookData(book).then(function(response) {
-              console.log(response);
               var bookData = response._source;
               bookData._id = response._id;
-              console.log(bookData);
               return bookData;
             });
           }
