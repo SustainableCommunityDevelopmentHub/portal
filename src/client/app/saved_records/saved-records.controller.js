@@ -34,7 +34,7 @@
     };
 
     /**
-     * Refreshes scope variables
+     * Updates scope variables
      */
     $scope.refresh = function() {
       $scope.savedRecords = SavedRecordsService.getRecords();
@@ -90,7 +90,6 @@
       }
       $scope.currentPage = 1;
       $scope.savedRecords = $scope.savedRecords.sort(sortFunction);
-
     };
 
 
