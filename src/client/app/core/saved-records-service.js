@@ -96,7 +96,6 @@
      * @param record {object} record to save
      */
     function saveRecord(record) {
-      console.log(record);
       saveItem(SAVED_ITEMS.recordKey, record);
     }
 

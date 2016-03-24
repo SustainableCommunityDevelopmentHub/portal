@@ -49,13 +49,6 @@ describe("Saved Records Controller", function(){
   });
 
   it('should remove searches correctly', function() {
-    var opts = {
-        q: "art",
-        facets: [],
-        advancedFields: []
-    };
-    var numResults = 309;
-    var time = 1458758924936;
     var search = {
       opts: {
         q: "art",
@@ -66,7 +59,7 @@ describe("Saved Records Controller", function(){
       time: 1458758924936
     };
 
-    SavedRecordsService.saveSearch(opts, numResults, time);
+    SavedRecordsService.saveSearch(search.opts, search.numResults, search.time);
     scope.savedSearches = SavedRecordsService.getSearches();
     expect(scope.savedSearches.length).toEqual(1);
     scope.removeSearch(search);
