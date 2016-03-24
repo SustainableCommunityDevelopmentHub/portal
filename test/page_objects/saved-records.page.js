@@ -17,10 +17,8 @@ SavedRecordsPage.prototype = Object.create({}, {
     var result = this.getAllRecords().then(function(records) {
       var titles = [];
       records.forEach(function(record){
-        console.log(record._title_display);
         titles.push(record._title_display);
       });
-      console.log(titles);
       return titles;
     });
     return result;
