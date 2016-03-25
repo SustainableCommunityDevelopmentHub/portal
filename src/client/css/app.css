@@ -38,8 +38,8 @@ body {
 }
 
 h3 {
-  line-height: 0;
   margin-top: 10px;
+  margin-bottom: 8ßpx;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -67,6 +67,7 @@ hr {
 .sr-top {
   border-top: 3px solid #eee;
   margin-bottom: 25px;
+  margin-top: 0;
 }
 
 .btn {
@@ -137,7 +138,7 @@ hr {
 
 .header .getty-logo {
   width: 75px;
-  padding-top: 2px;
+  margin-top: 8px;
 }
 
 
@@ -246,6 +247,13 @@ hr {
 
 
 /* Main body */
+
+.main-body {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  margin-bottom: 50px;
+}
 
 .intro-copy {
   display: block;
@@ -454,7 +462,7 @@ a.adv:hover, a.adv:focus {
   min-height: 40px;
   width: 93%;
   margin-bottom: 10px;
-  padding: 0px 2px;
+  padding: 0px 4px;
   float: left;
   overflow: hidden;
   background-color: #fff;
@@ -466,7 +474,7 @@ a.adv:hover, a.adv:focus {
 .facet-chip-list {
   padding-left: 0;
   height: 100%;
-  margin: 4px 0px 2px 0px;
+  margin: 4px 0px;
 }
 
 .facet-chip-list li {
@@ -515,7 +523,7 @@ a.adv:hover, a.adv:focus {
 .results-list {
   display: block;
   background-color: #eee;
-  padding: 20px 10px 50px;
+  padding: 20px 15px 50px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -531,10 +539,6 @@ a.adv:hover, a.adv:focus {
   margin-bottom: 5px;
 }
 
-#sorting {
-  float: right;
-}
-
 .results-pagination-top {
   font-size: 12px;
   display: inline;
@@ -542,8 +546,17 @@ a.adv:hover, a.adv:focus {
   margin: 0;
 }
 
+#sorting {
+  float: right;
+}
+
 #sorting .btn-group {
   margin-left: 5px;
+}
+
+#sorting .btn .glyphicon {
+  margin-left: 5px;
+  top: 2px;
 }
 
 .search-dropdown {
@@ -632,7 +645,7 @@ li.book-listing {
   list-style: none;
   display: flex;
   justify-content: flex-start;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #ddd;
   margin-bottom: 20px;
 }
 
@@ -726,13 +739,17 @@ li.book-listing {
 
   #clear-all {
     font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .5px;
     float: right;
   }
 
   #left_sidebar_accordion__container {
     float:left;
     position: relative;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 15px 20px;
     background-color: #eee;
   }
 
@@ -812,22 +829,39 @@ li.book-listing {
     text-decoration: underline;
   }
 
+  .date-range-container form{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
   .date-range {
     display: inline-block;
-    margin-right: 4px;
-    margin-top: 5px;
+    width: 48%;
+    margin-right: 5px;
+  }
+
+  .date-range p {
+    margin-bottom: 5px;
+    font-size: 12px;
   }
 
   .date-range input {
-    width: 105px;
+    width: 100%;
     height: 30px;
     font-size: 12px;
-    margin-right: 10px;
+    border: 1px solid #ddd;
   }
 
-  .date-range button {
-    padding-top: 3px;
-    margin-top: 3px;
+  #date-btn-results {
+    height: 30px;
+    width: 33px;
+    margin: 0;
+    padding: 0 0 0 3px;
+  }
+
+  #date-btn-results .glyphicon {
+    font-size: 12px;
   }
 
 
@@ -859,7 +893,7 @@ li.book-listing {
   #facets-mobile {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     line-height: 1.5;
     background-color: #eee;
     border-bottom: 2px solid #ddd;
@@ -869,9 +903,14 @@ li.book-listing {
   #facets-mobile h4 {
     padding: 14px 0 10px 10px;
     margin: 0;
+    color: #333;
     text-decoration: underline;
     margin-right: 10px;
     display: inline-block;
+  }
+
+  #facets-mobile .glyphicon {
+    color: #333;
   }
 
   /** Facet Modal **/
@@ -1621,7 +1660,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   .header .getty-logo {
     width:  50px;
-    padding-top: 8px;
   }
 
   .header .gri-portal-logo {
@@ -1667,10 +1705,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   }
 
   #clear-all {
+    height: 30px;
     margin: 10px;
     padding: 0 15px;
     font-size: 14px;
-    height: 30px;
   }
 
   .left_sidebar_hr {
@@ -1678,7 +1716,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   }
 
   #left_sidebar_accordion__container {
-    margin-top: -20px;
+    margin-top: -10px;
   }
 
 
@@ -1704,6 +1742,18 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   .facet-chip-search-bar {
     width: 88%;
+  }
+
+  .facet-header-desktop {
+    margin-bottom: 35px;
+  }
+
+  #clear-all {
+    float: left;
+  }
+
+  .facet-header-desktop h6 {
+    margin-bottom: 10px;
   }
 
 }
