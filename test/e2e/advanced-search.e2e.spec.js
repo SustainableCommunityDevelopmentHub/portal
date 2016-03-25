@@ -62,11 +62,24 @@ describe("Advanced Search", function(){
     advancedPage.submitAdvancedSearch();
     expect(advancedPage.facetChips.count()).toEqual(2);
     
-    var chip = advancedPage.advancedFacetChips.get(0)
+    var chip = advancedPage.advancedFacetChips.get(0);
     expect(chip.getText()).toEqual('Getty (Keyword: Contributed by)');
 
     chip.click();
     expect(advancedPage.numTotalHits).toEqual(309);
-  })
+  });
+
+  it('should clear out previous advanced fields completely', function() {
+    advancedPage.addFilterSearches([['Contributed by', 'Getty']]);
+
+    advancedPage.submitAdvancedSearch();
+
+    var advancedFields = advancedPage.advancedFacetChips;
+    advancedFields.get(0).click();
+
+    advancedPage.submitNewSearchTerm('art');
+    expect(advancedPage.advancedFacetChips.count()).toEqual(0);
+    expect(advancedPage.facetChips.count()).toEqual(1);
+  });
 
 });

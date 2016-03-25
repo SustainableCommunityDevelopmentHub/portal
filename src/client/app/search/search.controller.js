@@ -90,8 +90,8 @@
       $scope.activeFacets.forEach(function(facet){
         facet.active = false;
       });
-      $scope.activeFacets = DEFAULTS.searchOpts.facets;
-      $scope.advancedFields = DEFAULTS.searchOpts.advancedFields;
+      $scope.activeFacets = [];
+      $scope.advancedFields = [];
     }
 
     /**
