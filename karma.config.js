@@ -38,6 +38,7 @@ module.exports = function(config) {
       'src/client/app/contributors/*.js',
       'src/client/app/advanced_search/*.js',
       'src/client/app/partials/save-record-button.html',
+      'src/client/app/saved_records/*.js',
 
       // helpers for jasmine, etc
       'test/mockData.js'

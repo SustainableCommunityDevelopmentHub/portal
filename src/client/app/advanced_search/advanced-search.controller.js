@@ -28,7 +28,7 @@
           ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.type
         ];
-    })
+    });
 
     /**
      * Adds new filter object to the filters array, which angular will use to render out
