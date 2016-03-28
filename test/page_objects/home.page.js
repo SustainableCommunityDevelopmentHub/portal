@@ -12,7 +12,8 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
         element(by.id('go-btn')).click();
     }},
     seeAll: { value: function() {
-        element(by.id('see-all-btn')).click();
+        //element(by.id('see-all-btn')).click();
+        element(by.id('go-btn')).click();
     }}
 });
 

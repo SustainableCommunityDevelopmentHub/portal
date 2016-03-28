@@ -3,16 +3,9 @@
 
   angular
     .module('app.core')
-    .factory('StorageService', ['$rootScope', 'SAVED_ITEMS', StorageService]);
+    .factory('StorageService', [StorageService]);
 
-  function StorageService($rootScope, SAVED_ITEMS){
-
-    //Watch for changes to local storage
-    angular.element(window).on('storage', function(event) {
-      if (event.key === SAVED_ITEMS.recordKey) {
-        $rootScope.$apply();
-      }
-    });
+  function StorageService(){
 
     var service = {
       getItems: getItems,

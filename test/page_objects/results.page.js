@@ -178,7 +178,7 @@ ResultsPage.prototype = Object.create({}, {
     var to = typeof to !== 'undefined' ? to : '';
     element(by.model('fromDate')).sendKeys(from);
     element(by.model('toDate')).sendKeys(to);
-    element.all(by.css(".date-range button")).get(0).click();
+    element.all(by.id("date-btn-results")).get(0).click();
   }},
 
   // Facet Modal

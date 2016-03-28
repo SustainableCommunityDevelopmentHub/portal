@@ -3,9 +3,9 @@
 
   angular
     .module('app.core')
-    .factory('SavedRecordsService', ['SAVED_ITEMS', 'DEFAULTS', 'StorageService', SavedRecordsService]);
+    .factory('SavedRecordsService', ['$rootScope', 'SAVED_ITEMS', 'DEFAULTS', 'StorageService', SavedRecordsService]);
 
-  function SavedRecordsService(SAVED_ITEMS, DEFAULTS, StorageService){
+  function SavedRecordsService($rootScope, SAVED_ITEMS, DEFAULTS, StorageService){
 
     var service = {
       getRecords: getRecords,
@@ -28,14 +28,20 @@
       if (oldSearch.q !== newSearch.q) {
         return false;
       }
-      if (!_.isEqual(oldSearch.facets, newSearch.facets)) {
-        return false;
+      if(newSearch.facets && newSearch.facets.length > 0){
+        if (!_.isEqual(oldSearch.facets, newSearch.facets)) {
+          return false;
+        }
       }
-      if (!_.isEqual(oldSearch.advancedFields, newSearch.advancedFields)){
-        return false;
+      if (newSearch.advancedFields && newSearch.advancedFields.length > 0){
+        if (!_.isEqual(oldSearch.advancedFields, newSearch.advancedFields)){
+          return false;
+        }
       }
-      if(!_.isEqual(oldSearch.date, newSearch.date)) {
-        return false;
+      if (newSearch.date) {
+        if(!_.isEqual(oldSearch.date, newSearch.date)) {
+          return false;
+        }
       }
       return true;
     };
@@ -45,19 +51,17 @@
      * @param searchOpts {object} current search options
      * @param results {number} number of results for given search options
      */
-    function saveSearch(searchOpts, results) {
+    function saveSearch(searchOpts, results, timestamp) {
       var searches = getSearches();
       var lastSearch = DEFAULTS.searchOpts;
       if (searches && searches.length > 0) {
-        lastSearch = searches[searches.length - 1];
+        lastSearch = searches[searches.length - 1].opts;
       }
       if(!searchesMatch(lastSearch, searchOpts)) {
         var newSearch = {
-          q: searchOpts.q,
-          facets: searchOpts.facets,
-          advancedFields: searchOpts.advancedFields,
-          date: searchOpts.date,
-          numResults: results
+          opts: searchOpts,
+          numResults: results,
+          time: timestamp
         };
         saveItem(SAVED_ITEMS.searchKey, newSearch);
       }
@@ -159,10 +163,13 @@
         var records = items[type];
         if (records) {
           var newRecords = records.filter(function (record) {
-            return record._id != item._id;
+            if(type === SAVED_ITEMS.recordKey) {
+              return record._id !== item._id;
+            } else {
+              return !_.isEqual(item, record);
+            }
           });
           items[type] = newRecords;
-
         } else {
           items[type] = [];
         }

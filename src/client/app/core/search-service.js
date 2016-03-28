@@ -141,7 +141,7 @@
         q: DEFAULTS.searchOpts.q,
         from: DEFAULTS.searchOpts.from,
         size: DEFAULTS.searchOpts.size,
-        facets: DEFAULTS.searchOpts.facets
+        facets: []
       };
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }

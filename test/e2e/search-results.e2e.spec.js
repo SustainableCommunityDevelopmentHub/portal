@@ -3,6 +3,7 @@
 
 var ResultsPage = require('../page_objects/results.page.js');
 var BookDetailPage = require('../page_objects/book-detail.page.js');
+var HomePage = require('../page_objects/home.page.js');
 
 describe('Search Results', function() {
   var resultsPage;
@@ -33,6 +34,9 @@ describe('Search Results', function() {
   it('should clear facets when you uncheck them in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(6);
+    browser.wait(function () {
+      return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
+    }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
@@ -105,6 +109,7 @@ describe('Search Results', function() {
       });
     });
   });
+
 
   describe('Pagination', function(){
     var query = '';
@@ -320,4 +325,19 @@ describe('Search Results', function() {
       });
     });
   });
+
+  it('should clear out all facets completely', function() {
+    resultsPage.submitNewSearchTerm('paintings');
+    browser.wait(function () {
+      return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
+    }, 3000);
+    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    var home = new HomePage();
+    home.submitHomePageQuery('paintings');
+    var activeFacets = resultsPage.activeFacets;
+    expect(activeFacets.count()).toBe(0);
+    var activeAdvancedFields = resultsPage.advancedFacetChips;
+    expect(activeAdvancedFields.count()).toBe(0);
+  });
+
 });
