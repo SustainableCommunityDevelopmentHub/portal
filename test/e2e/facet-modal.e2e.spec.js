@@ -24,8 +24,14 @@ describe("Facet Modal", function(){
     });
 
     it("should apply checked filters when you click 'Apply'", function(){
+      var EC = protractor.ExpectedConditions;
+
       expect(resultsPage.getModalFacetOption('Text')).toBeDefined();
       resultsPage.applyModalFacetOption('Text');
+
+      // chrome can run too fast so we must wait
+      browser.wait(EC.visibilityOf(resultsPage.getActiveFacetText(0)), 5000);
+
       expect(resultsPage.getActiveFacetText(0)).toEqual("Text (Type)");
     });
 

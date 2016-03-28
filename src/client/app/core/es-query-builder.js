@@ -63,7 +63,7 @@
 
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
-        console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
+        //console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
         fullQuery.body.query.bool.must = 
           {
             query_string: {
@@ -144,7 +144,7 @@
           fullQuery.body.sort = sortQuery;
         }
 
-        console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
+        //console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
       }
       
       if(opts.date){
@@ -238,7 +238,7 @@
 
         // add new facets by category
         opts.facets.forEach(function(facet){
-          console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
+          //console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
 
           facetCategories[facet.facet].options.push(facet.option);
         });
@@ -253,13 +253,13 @@
             .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.options)));
 
           }
-          console.log('esQueryBuilder::buildSearchQuery -- exited facetCategoriesArr.forEach');
+          //console.log('esQueryBuilder::buildSearchQuery -- exited facetCategoriesArr.forEach');
 
           var aggFilter = fullQuery.body.aggregations[facetCategory.name].filter;
 
           // apply filters from each other facet opt to our aggregation
           facetCategoriesArr.forEach(function(otherFacetCategory){
-            console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
+            //console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
             if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.options.length){
               // ES throws err if aggFilter.bool.must[] is empty
               if(!aggFilter.bool || !aggFilter.bool.must){
@@ -278,7 +278,7 @@
 
       } // close if(facets.length)
 
-      console.log('esQueryBuilder.buildSearchQuery() -- returning fullQuery:' + JSON.stringify(fullQuery));
+      //console.log('esQueryBuilder.buildSearchQuery() -- returning fullQuery:' + JSON.stringify(fullQuery));
       return fullQuery;
     }
 
@@ -299,7 +299,7 @@
             }
           }
         };
-        console.log('esQueryBuilder.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
+        //console.log('esQueryBuilder.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
         return _.cloneDeep(contributorsQuery);
     }
 
@@ -314,8 +314,8 @@
      *
      */
     function createBoolShouldFilter(arrFilters){
-      console.log('esQueryBuilder::createBoolShouldFilter - arg: ' + JSON.stringify(arrFilters));
-      console.log('esQueryBuilder::createBoolShouldFilter - returning filter: ' + JSON.stringify(arrFilters));
+      //console.log('esQueryBuilder::createBoolShouldFilter - arg: ' + JSON.stringify(arrFilters));
+      //console.log('esQueryBuilder::createBoolShouldFilter - returning filter: ' + JSON.stringify(arrFilters));
       return { bool: { should: arrFilters } };
     }
 
@@ -354,7 +354,7 @@
         return filterObj;
       });
 
-      console.log('esQueryBuilder::createSingleTermFilters -- made: ' + JSON.stringify(filterObjsArr) + ' on key: ' + key);
+      //console.log('esQueryBuilder::createSingleTermFilters -- made: ' + JSON.stringify(filterObjsArr) + ' on key: ' + key);
 
       return filterObjsArr;
     }
@@ -450,7 +450,7 @@
 
         // set prop on terms obj to represent field name to filter on, set arr of values to filter by.
         termsFilter.terms[key] = filterValuesArr;
-        console.log('esQueryBuilder::createFilter -- made term filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
+        //console.log('esQueryBuilder::createFilter -- made term filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
         return termsFilter;
     }
 
@@ -464,7 +464,7 @@
               "lte" : toDate
             }
           }
-        }
+        };
         return dateRangeFilter;
       }
     }
@@ -475,7 +475,7 @@
      * @return {object} sortQuery sort portion of elasticsearch query
      */
     function buildSortQuery(sortMode){
-      console.log(sortMode);
+      //console.log(sortMode);
       var sortQuery;
       switch(sortMode) {
           case "date_asc":
