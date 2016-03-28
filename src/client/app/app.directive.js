@@ -3,10 +3,11 @@
 
   angular
     .module('app')
-    .directive('saveRecordButton', ['SavedRecordsService', function(SavedRecordsService){
+    .directive('saveRecordButton', ['$state', 'SavedRecordsService', 'SAVED_ITEMS', function($state, SavedRecordsService, SAVED_ITEMS){
       return {
         restrict: 'AE',
         replace: 'true',
+        scope: false,
         templateUrl: 'app/partials/save-record-button.html',
         link: function (scope, elem, attrs) {
 
@@ -30,7 +31,10 @@
            */
           function removeRecord (book) {
             SavedRecordsService.removeRecord(book);
-            scope.savedRecords  = SavedRecordsService.getRecords();
+            scope.savedRecords = SavedRecordsService.getRecords();
+            if($state.current.controller === 'SavedRecordsCtrl'){
+              scope.refresh();
+            }
           };
 
           /**
@@ -88,5 +92,24 @@
           };
         }
       };
-    }]);
+    }])
+    .directive('storageEventListener', ['$state', 'SavedRecordsService', 'SAVED_ITEMS', function($state, SavedRecordsService, SAVED_ITEMS) {
+      return {
+        restrict: 'AE',
+        template: '',
+        link: function (scope, elem, attrs) {
+
+          //Watch for storage events
+          angular.element(window).on('storage', function(event) {
+            if (event.key === SAVED_ITEMS.recordKey) {
+              if($state.current.controller === 'SavedRecordsCtrl'){
+                scope.refresh();
+              }
+              scope.$apply();
+            }
+          });
+        }
+      };
+    }
+    ]);
 })();

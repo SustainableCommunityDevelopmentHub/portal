@@ -25,7 +25,7 @@ describe('Book Detail', function() {
   });
 
   it('should return an item page with 2 entries in Type field', function() {
-    element.all(by.repeater('entry in book._source.dublin_core.type')).then(function(types) {
+    element.all(by.repeater('entry in book.dublin_core.type')).then(function(types) {
       expect(types.length).toEqual(2);
       var typeElement1 = types[0].$('.book-field-val');
       var typeElement2 = types[1].$('.book-field-val');
