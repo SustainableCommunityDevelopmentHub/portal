@@ -35,7 +35,8 @@
       updateSearch: updateSearch,
       updateOpts: updateOpts,
       setResultsData: setResultsData,
-      resetOpts: resetOpts
+      resetOpts: resetOpts,
+      calculatePage: calculatePage
     };
 
     return service;
@@ -143,6 +144,16 @@
         facets: []
       };
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
+    }
+
+    /*
+     * Calculate current page based on 'from' and 'size' params
+     * @return {int} the current page
+     */
+    function calculatePage() {
+      // Math.ceil so the page comes out right for times like from=30, size=25
+      var page = 1 + Math.ceil(this.opts.from / this.opts.size);
+      return page;
     }
 
     ///////////////////////////////////

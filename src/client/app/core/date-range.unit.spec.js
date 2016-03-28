@@ -107,10 +107,10 @@ describe("Date Range Filter", function() {
     scope.newQuerySearch("painting");
     scope.setPageNum(2);
     expect(scope.queryTerm).toEqual("painting");
-    expect(scope.pagination.page).toEqual(2);
+    expect(SearchService.calculatePage()).toEqual(2);
 
     scope.setDateRange(scope.fromDate, scope.toDate);
-    expect(scope.pagination.page).toEqual(1);
+    expect(SearchService.calculatePage()).toEqual(1);
   });
 
   describe("Tests for building elasticsearch date range query", function(){

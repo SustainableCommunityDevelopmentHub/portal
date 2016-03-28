@@ -1,16 +1,23 @@
 'use strict';
 
-
 var ResultsPage = function() {
   browser.get('/search');
 };
 
-
 ResultsPage.prototype = Object.create({}, {
 
+  // Load page directly
+  loadPageByURL: { value: function(q, from, size) {
+    browser.get('/search?q=' + q + '&size=' + size + '&from=' + from);
+  }},
+  loadPage: { value: function (page) {
+    //from=0 for page 1, from=25 for page 2, etc
+    this.loadPageByURL('', (page - 1)*25, 25);
+  }},
+
   // Search Bar
-  searchButton: { get: function() { 
-    return element(by.id('go-btn-results')); 
+  searchButton: { get: function() {
+    return element(by.id('go-btn-results'));
   }},
   submitNewSearchTerm: { value: function(term) {
     element(by.model('newQueryTerm')).sendKeys(term);
@@ -32,7 +39,7 @@ ResultsPage.prototype = Object.create({}, {
     return element.all(by.repeater("advancedField in advancedFields"));
   }},
 
-  // Sorting & Pagination
+  // Sorting
   sortOptions: { get: function() {
     return element.all(by.repeater('sortMode in validSortModes'));
   }},
@@ -40,14 +47,67 @@ ResultsPage.prototype = Object.create({}, {
     element(by.id('toggle-sort-btn')).click();
     element(by.linkText(label)).click();
   }},
-  paginationBar: { get: function() {
+
+  // Pagination
+  pagingTopExists: { get: function() {
     return $('.results-pagination-top');
+  }},
+  pagingBottomExists: { get: function() {
+    return $('.results-pagination');
+  }},
+  // next page
+  pagingTopNextPage: { value: function(){
+    // the ng-click function is inserted by the dirPaginate directive
+    element(by.css('.results-pagination-top [ng-click="setCurrent(pagination.current + 1)"]')).click();
+  }},
+  pagingBottomNextPage: { value: function(){
+    element(by.css('.results-pagination [ng-click="setCurrent(pagination.current + 1)"]')).click();
+  }},
+  // prev page
+  pagingTopPreviousPage: { value: function(){
+    element(by.css('.results-pagination-top [ng-click="setCurrent(pagination.current - 1)"]')).click();
+  }},
+  pagingBottomPreviousPage: { value: function(){
+    element(by.css('.results-pagination [ng-click="setCurrent(pagination.current - 1)"]')).click();
+  }},
+  // page 3
+  pagingTopGoToPageThree: { value: function(page){
+    element.all(by.css('.results-pagination-top [ng-click="setCurrent(pageNumber)"]')).get(2).click();
+  }},
+  pagingBottomGoToPageThree: { value: function(page){
+    element.all(by.css('.results-pagination [ng-click="setCurrent(pageNumber)"]')).get(2).click();
+  }},
+  // first page
+  pagingTopFirstPage: { value: function(){
+    element(by.css('.results-pagination-top [ng-click="setCurrent(1)"]')).click();
+  }},
+  pagingBottomFirstPage: { value: function(){
+    element(by.css('.results-pagination [ng-click="setCurrent(1)"]')).click();
+  }},
+  // last page
+  pagingTopLastPage: { value: function(){
+    element(by.css('.results-pagination-top [ng-click="setCurrent(pagination.last)"]')).click();
+  }},
+  pagingBottomLastPage: { value: function(){
+    element(by.css('.results-pagination [ng-click="setCurrent(pagination.last)"]')).click();
+  }},
+
+  // Saved Records
+  toggleSavingRecord: { value: function(position) {
+    element.all(by.css('.bookmark')).get(position).click();
+  }},
+  getBookMark: {value: function(position) {
+    return element.all(by.css('.bookmark p i i')).get(position);
   }},
 
   // Results
+  showingResultsDialogue: { get: function() {
+    return element.all(by.css('.showing')).get(1).getText();
+  }},
   numTotalHits: { get: function() {
     return element.all(by.css('.showing')).get(0).evaluate('numTotalHits');
   }},
+  // returns promise
   getHits: { value: function() {
     return element.all(by.css('.book-listing')).get(0).evaluate('hits');
   }},
@@ -56,7 +116,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._date_facet);
-      }      
+      }
     });
     return dates;
   }},
@@ -65,7 +125,7 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._ingest_date);
-      }      
+      }
     });
     return dates;
   }},
@@ -74,12 +134,9 @@ ResultsPage.prototype = Object.create({}, {
     this.getHits().then(function(hits) {
       for(var i = 0; i < hits.length; i++){
         titles.push(hits[i]._title_display);
-      }      
+      }
     });
     return titles;
-  }},
-  toggleSavingRecord: { value: function(position) {
-    element.all(by.css('.bookmark')).get(position).click();
   }},
   getBookMark: {value: function(position) {
     return element.all(by.css('.bookmark .inside')).get(position);
@@ -114,6 +171,8 @@ ResultsPage.prototype = Object.create({}, {
   toggleFacetOption: { value: function(facet, label) {
     this.getFacetOptionByLabel(facet, label).click();
   }},
+
+  // Date Range
   submitDateRange: { value: function(from, to) {
     var from = typeof from !== 'undefined' ? from : '';
     var to = typeof to !== 'undefined' ? to : '';
@@ -153,7 +212,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
   selectModalOptions: { value: function(positions) {
     for (var position in positions) {
-      this.modalOptions.get(position).click(); 
+      this.modalOptions.get(position).click();
     }
   }},
   toggleModalSeeOnly: { value: function() {

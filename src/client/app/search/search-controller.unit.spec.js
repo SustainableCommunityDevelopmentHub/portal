@@ -63,7 +63,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(10);
       expect(SearchService.opts.size).toEqual(10);
-      expect(scope.pagination.page).toEqual(6);
+      expect(SearchService.calculatePage()).toEqual(6);
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
@@ -73,7 +73,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
-      expect(scope.pagination.page).toEqual(2);
+      expect(SearchService.calculatePage()).toEqual(2);
     });
 
     it("should set page size and pageNum correctly with a large from value", function(){
@@ -83,7 +83,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(25);
       expect(SearchService.opts.size).toEqual(25);
-      expect(scope.pagination.page).toEqual(37);
+      expect(SearchService.calculatePage()).toEqual(38);
     });
   });
 
@@ -96,7 +96,7 @@ describe("Search Controller", function(){
       scope.setPageNum(1);
 
       expect(SearchService.opts.from).toEqual(0);
-      expect(scope.pagination.page).toEqual(1);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
 
     it("should set opts correctly when going to next page", function(){
@@ -106,7 +106,7 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(3);
       expect(SearchService.opts.from).toEqual(100);
-      expect(scope.pagination.page).toEqual(3);
+      expect(SearchService.calculatePage()).toEqual(3);
     });
 
     it("should set opts correctly when going back a page", function(){
@@ -116,7 +116,7 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(2);
       expect(SearchService.opts.from).toEqual(50);
-      expect(scope.pagination.page).toEqual(2);
+      expect(SearchService.calculatePage()).toEqual(2);
     });
 
     it("should set opts correctly when going to first page", function(){
@@ -126,16 +126,14 @@ describe("Search Controller", function(){
       };
       scope.setPageNum(1);
       expect(SearchService.opts.from).toEqual(0);
-      expect(scope.pagination.page).toEqual(1);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
   });
 
   describe("Facet selection", function(){
-    beforeEach(function(){
-      spyOn(SearchService, 'updateOpts');
-    });
 
     it("should set opts and scope vars correctly when adding a facet", function(){
+      spyOn(SearchService, 'updateOpts');
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
@@ -149,17 +147,21 @@ describe("Search Controller", function(){
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
-      scope.setPageNum(2);
-      expect(scope.pagination.page).toEqual(2);
+      SearchService.opts = {
+        size: 25,
+        from: 25
+      };
+      expect(SearchService.calculatePage()).toEqual(2);
 
       scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
-      expect(scope.pagination.page).toEqual(1);
+      expect(SearchService.opts.from).toEqual(0);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
 
     it("should set opts and scope vars correctly when adding second facet", function(){
+      spyOn(SearchService, 'updateOpts');
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
@@ -175,6 +177,7 @@ describe("Search Controller", function(){
     });
 
     it("should update opts and scope correctly when deactivating a particular facet", function(){
+      spyOn(SearchService, 'updateOpts');
       var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
@@ -248,11 +251,11 @@ describe("Search Controller", function(){
       scope.newQuerySearch("painting");
       scope.setPageNum(2);
       expect(scope.queryTerm).toEqual("painting");
-      expect(scope.pagination.page).toEqual(2);
+      expect(SearchService.calculatePage()).toEqual(2);
 
       scope.newQuerySearch("art");
       expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
-      expect(scope.pagination.page).toEqual(1);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
 
   });

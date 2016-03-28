@@ -17,7 +17,7 @@
       search: search
     };
 
-    console.log('app.core........Returning DataService factory');
+    //console.log('app.core........Returning DataService factory');
     return service;
 
     //////////////////////////////////
@@ -36,14 +36,14 @@
         esQueryBuilder.buildSearchQuery(opts)
       );
 
-      console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
+      //console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
       return esClient.msearch(mSearchQueryObj).then(function(response){
         var resultsObj = response.responses[0];
         resultsObj.aggregations = response.responses[1].aggregations;
         return resultsObj;
       })
       .catch(function(response){
-        console.log('DataService::search -- error: ' + JSON.stringify(response));
+        //console.log('DataService::search -- error: ' + JSON.stringify(response));
       });
     }
 
@@ -52,7 +52,7 @@
         esQueryBuilder.buildContributorsQuery()
       );
 
-      console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
+      //console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
       return response;
     }
 
