@@ -1,22 +1,30 @@
 <div class="getty-portal-app">
-<div class="item-page">
-<div class="item-details">
-<hr class="sr-top">
-<h3 class="book-detail-title" print-section>{{book._source._title_display}}</h3>
-<div class="rec-options">
-  <save-record-button></save-record-button>
-<ul class="view-export-print">
-  <li><a href="{{book._source._record_link}}" ng-click="">View Digital Item</a></li>
-  <li class="dropdown">
-  <a href="#" id="exportBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
-    <ul class="dropdown-menu export-dropdown">
-        <li><a href="#">RIS</a></li>
-        <li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
-    </ul>
-  </li>
-  <li><a print-btn>Print</a></li>
-</ul>
-</div>
+  <div  id= "item-details" class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Record Detail</h3>
+         <div class="view-export-print">
+            <button class="btn btn-primary"><a href="{{book._source._record_link}}" ng-click="">View Digital Item</a></button>
+            <div class="btn-group" uib-dropdown>
+              <button class="btn btn-primary" type="button" uib-dropdown-toggle><a href="#" id="exportBtn">Export <span class="caret"></span></a></button>
+              <ul class="uib-dropdown-menu role="menu"">
+                <li><a href="#">RIS</a></li>
+                <li><a class="saveJson" ng-click="saveAsJson(book._source.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
+              </ul>
+            </div>
+            <button class="btn btn-primary"><a print-btn>Print</a></button>
+        </div>
+        <hr class="sr-top">
+      </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <save-record-button></save-record-button>
+        <h6 class="book-detail-title" print-section>{{book._source._title_display}}</h6>
+      </div>
+    </div><!-- /.row -->
+
 <h4 class="detail-begin">Details</h4>
 <hr class="sr-top">
 <!--<ul print-section class="specs" ng-repeat="(key, field) in book._source.dublin_core">-->
@@ -321,6 +329,5 @@
 </ul>
 <h5>Question about this record?</h5>
 <button id="emailGRI"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
-</div>
-</div>
+</div> <!-- /.container -->
 <div ng-app="app" class="app">
