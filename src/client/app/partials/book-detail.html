@@ -1,6 +1,6 @@
 <div class="getty-portal-app">
 
-  <div  id= "item-details" class="container">
+  <div  id="item-details" class="container">
     <div class="row">
       <div class="col-xs-12">
         <h3>Record Detail</h3>
@@ -22,9 +22,19 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="record-summary">
-        <save-record-button></save-record-button>
-        <h6 class="book-title" print-section>{{book._source._title_display}}</h6>
-      </div>
+          <save-record-button></save-record-button>
+          <h6 class="book-detail-title" print-section>{{book._title_display}}</h6>
+          <div class"book-summary-cd">
+            <b class="summary-field-title" ng-show="book.dublin_core.creator">Creator</b>
+            <ul class="summary-value" ng-show="book.dublin_core.creator" ng-repeat="entry in book.dublin_core.creator">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+            <b class="summary-field-title" ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0">Date</b>
+            <ul class="summary-value" ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div><!-- /.row -->
 

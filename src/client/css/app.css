@@ -1078,20 +1078,34 @@ text-decoration: none;
 }
 
 #item-details .bookmark {
-  width: 88px;
+  margin-right: 10px;
 }
+
 
 #item-details .glyphicon-bookmark {
   float: left;
-
   display: inline;
-  clear:both;
+  clear: both;
 }
 
-.book-title {
+.book-detail-title {
   color: #5998c9;
   font-size: 18px;
   margin-bottom: 20px;
+}
+
+.book-summary-cd {
+  display: block;
+}
+
+.summary-field-title {
+  display: inline-block;
+}
+
+.summary-value {
+  display: inline-block;
+  list-style: none;
+  padding-left: 5px;
 }
 
 .vdi {
