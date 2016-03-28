@@ -9,6 +9,7 @@
     /////////////////////////////////
     //Init
     /////////////////////////////////
+
     var ss = SearchService;
 
     $scope.hits = searchResults.hits;
@@ -56,6 +57,7 @@
     $scope.bookMarkText = "";
     saveSearch(ss.opts, $scope.numTotalHits);
 
+
     /////////////////////////////////
     //Variables
     /////////////////////////////////
@@ -90,8 +92,8 @@
       $scope.activeFacets.forEach(function(facet){
         facet.active = false;
       });
-      $scope.activeFacets = DEFAULTS.searchOpts.facets;
-      $scope.advancedFields = DEFAULTS.searchOpts.advancedFields;
+      $scope.activeFacets = [];
+      $scope.advancedFields = [];
     }
 
     /**
@@ -116,7 +118,8 @@
      * @param results {integer} number of results for search options
      */
     function saveSearch (searchOpts, results) {
-      SavedRecordsService.saveSearch(searchOpts, results);
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(searchOpts, results, timestamp);
     };
 
 
