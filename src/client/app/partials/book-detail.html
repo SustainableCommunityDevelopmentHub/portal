@@ -1,4 +1,5 @@
 <div class="getty-portal-app">
+
   <div  id= "item-details" class="container">
     <div class="row">
       <div class="col-xs-12">
@@ -20,13 +21,14 @@
 
     <div class="row">
       <div class="col-xs-12">
+        <div class="record-summary">
         <save-record-button></save-record-button>
-        <h6 class="book-detail-title" print-section>{{book._source._title_display}}</h6>
+        <h6 class="book-title" print-section>{{book._source._title_display}}</h6>
+      </div>
       </div>
     </div><!-- /.row -->
 
-<h4 class="detail-begin">Details</h4>
-<hr class="sr-top">
+<hr>
 <!--<ul print-section class="specs" ng-repeat="(key, field) in book.dublin_core">-->
 <ul print-section class="specs">
   <li class="book-field-key">
