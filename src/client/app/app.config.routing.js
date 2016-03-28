@@ -15,8 +15,8 @@
         templateUrl: config.app.root + '/search/search.home.html',
         controller: 'HomePageCtrl',
         resolve: {
-          searchResults: function(SearchService, DEFAULTS) {
-            return SearchService.newSearch(DEFAULTS.searchOpts).then(function(data) {
+          searchResults: function(SearchService) {
+            return SearchService.updateSearch({q: ""}).then(function(data) {
               return SearchService.setResultsData(data);
             });
           }
