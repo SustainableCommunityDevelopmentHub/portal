@@ -47,7 +47,6 @@ h3 {
 }
 
 h6 {
-  display: inline-block;
   font-size: 18px;
   margin: 0;
 }
@@ -1076,6 +1075,12 @@ text-decoration: none;
   margin-bottom: 30px;
   padding: 20px 12px;
   background-color: #eee;
+}
+
+.summary-info {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 #item-details .bookmark {
