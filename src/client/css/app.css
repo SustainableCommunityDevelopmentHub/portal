@@ -821,6 +821,25 @@ li.book-listing {
     font-size: 12px;
   }
 
+.book-info {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-left: 56px;
+  max-width: 436px;
+}
+
+.results-data {
+}
+
+.results-data-vals {
+  display: inline;
+}
+
+.results-data-val {
+  display: inline;
+}
+
 
 /*
 .facet {
@@ -895,7 +914,7 @@ li.book-listing {
 
     .facet-tabs li {
       list-style: none;
-      height: 40px;
+      /*height: 40px;*/
     }
 
     .facet-tabs li:hover {

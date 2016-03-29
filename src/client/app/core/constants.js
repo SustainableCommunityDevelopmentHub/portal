@@ -26,13 +26,6 @@
           display: 'Subject',
           options:[]
         },
-        type: {
-          name: 'type',
-          key: '_grp_type',
-          rawKey: '_grp_type.raw',
-          display: 'Type',
-          options:[]
-        },
         creator: {
           name: 'creator',
           key: '_creator_facet',
