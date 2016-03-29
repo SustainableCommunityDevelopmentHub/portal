@@ -38,308 +38,530 @@
       </div>
     </div><!-- /.row -->
 
-<hr>
-<!--<ul print-section class="specs" ng-repeat="(key, field) in book.dublin_core">-->
-<ul print-section class="specs">
-  <li class="book-field-key">
-    <b ng-show="(book.dublin_core.identifier | filter:{encoding: 'URI'}).length > 1">Additional Volumes</b>
-      <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{encoding: 'URI'}).length > 1" ng-repeat="entry in (book.dublin_core.identifier | filter:{encoding: 'URI'})">
-        <li class="book-field-val" ng-show="!$first"><a ng-show="entry.volume" ng-href="{{entry.value}}" target="_blank">{{entry.volume}}</a><a ng-show="!entry.volume" ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="book.dublin_core.creator">Creator</b>
-      <ul class="specs" ng-show="book.dublin_core.creator" ng-repeat="entry in book.dublin_core.creator">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'issued'}).length > 0">Date Issued</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'issued'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'issued'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'created'}).length > 0">Date Created</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'created'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'created'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'copyrighted'}).length > 0">Date Copyrighted</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'copyrighted'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'copyrighted'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'digitized'}).length > 0">Date Digitized</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'digitized'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'digitized'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'valid'}).length > 0">Date Valid</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'valid'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'valid'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'available'}).length > 0">Date Available</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'available'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'available'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: 'modified'}).length > 0">Date Modified</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'modified'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'modified'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0">Date</b>
-      <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.publisher">Publisher</b>
-      <ul class="specs" ng-show="book.dublin_core.publisher" ng-repeat="entry in book.dublin_core.publisher">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book._edition">Edition</b>
-      <ul class="specs" ng-show="book._edition">
-        <li class="book-field-val">{{book._edition}}</li>
-      </ul>
-    <b ng-show="book._grp_contributor">Contributing Institution</b>
-      <ul class="specs" ng-show="book._grp_contributor">
-        <li class="book-field-val">{{book._grp_contributor}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.format | filter:{qualifier: '!'}).length > 0">Format</b>
-      <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.format | filter:{qualifier: 'extent'}).length > 0">Extent</b>
-      <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: 'extent'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: 'extent'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.format | filter:{qualifier: 'medium'}).length > 0">Medium</b>
-      <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: 'medium'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: 'medium'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.type">Type</b>
-      <ul class="specs" ng-show="book.dublin_core.type" ng-repeat="entry in book.dublin_core.type">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book._series">Series</b>
-      <ul class="specs" ng-show="book._series">
-        <li class="book-field-val">{{book._series}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.description | filter:{qualifier: '!'}).length > 0">Description</b>
-      <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.description | filter:{qualifier: 'abstract'}).length > 0">Abstract</b>
-      <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: 'abstract'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: 'abstract'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.description | filter:{qualifier: 'tableOfContents'}).length > 0">Table of Contents</b>
-      <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: 'tableOfContents'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: 'tableOfContents'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.provenance">Provenance</b>
-      <ul class="specs" ng-show="book.dublin_core.provenance" ng-repeat="entry in book.dublin_core.provenance">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.language">Language</b>
-      <ul class="specs" ng-show="book.dublin_core.language" ng-repeat="entry in book.dublin_core.language">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.subject">Subject</b>
-      <ul class="specs" ng-show="book.dublin_core.subject" ng-repeat="entry in book.dublin_core.subject">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.coverage | filter:{qualifier: 'spatial'}).length > 0">Spatial Coverage</b>
-      <ul class="specs" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'spatial'}).length > 0" ng-repeat="entry in (book.dublin_core.coverage | filter:{qualifier: 'spatial'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.coverage | filter:{qualifier: 'temporal'}).length > 0">Temporal Coverage</b>
-      <ul class="specs" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'temporal'}).length > 0" ng-repeat="entry in (book.dublin_core.coverage | filter:{qualifier: 'temporal'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.title | filter:{qualifier: 'alternative'}).length > 0">Alternate Title</b>
-      <ul class="specs" ng-show="(book.dublin_core.title | filter:{qualifier: 'alternative'}).length > 0" ng-repeat="entry in (book.dublin_core.title | filter:{qualifier: 'alternative'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.contributor">Contributor</b>
-      <ul class="specs" ng-show="book.dublin_core.contributor" ng-repeat="entry in book.dublin_core.contributor">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Format</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Format</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'}).length > 0">Has Format</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Format Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Format Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'}).length > 0">Is Format Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Part Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Part Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'}).length > 0">Is Part Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Version</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Version</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'}).length > 0">Has Version</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Version Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Version Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'}).length > 0">Is Version Of</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Part</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Part</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'}).length > 0">Has Part</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Referenced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Referenced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'}).length > 0">Is Referenced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Replaced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Replaced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'}).length > 0">Is Replaced By</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Replaces</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Replaces</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0">Replaces</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Requires</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Requires</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0">Requires</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Relation</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Relation</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-        <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-        <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0">Relation</b>
-      <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0">Source</b>
-      <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'})">
-        <li class="book-field-val"><a ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
-      </ul>
-    <b ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0">Source</b>
-      <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0">Source</b>
-      <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0">Access Rights</b>
-      <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'accessRights'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0">Rights Holder</b>
-      <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'rightsHolder'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0">Rights</b>
-      <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: '!'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0">Bibliographic Citation</b>
-      <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0" ng-repeat="entry in (book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'})">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.accrualMethod">Accrual Method</b>
-      <ul class="specs" ng-show="book.dublin_core.accrualMethod" ng-repeat="entry in book.dublin_core.accrualMethod">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.accrualPeriodicity">Accrual Periodicity</b>
-      <ul class="specs" ng-show="book.dublin_core.accrualPeriodicity" ng-repeat="entry in book.dublin_core.accrualPeriodicity">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-    <b ng-show="book.dublin_core.audience">Audience</b>
-      <ul class="specs" ng-show="book.dublin_core.audience" ng-repeat="entry in book.dublin_core.audience">
-        <li class="book-field-val">{{entry.value}}</li>
-      </ul>
-  </li>
-</ul>
-<h5>Question about this record?</h5>
-<button id="emailGRI"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <!--<ul print-section class="specs" ng-repeat="(key, field) in book.dublin_core">-->
+        <ul print-section class="specs">
+          <li class="book-field-key">
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.identifier | filter:{encoding: 'URI'}).length > 1">Additional Volumes</div>
+              <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{encoding: 'URI'}).length > 1" ng-repeat="entry in (book.dublin_core.identifier | filter:{encoding: 'URI'})">
+                <li class="book-field-val" ng-show="!$first"><a ng-show="entry.volume" ng-href="{{entry.value}}" target="_blank">{{entry.volume}}</a><a ng-show="!entry.volume" ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="book.dublin_core.creator">Creator</div>
+              <ul class="specs" ng-show="book.dublin_core.creator" ng-repeat="entry in book.dublin_core.creator">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'issued'}).length > 0">Date Issued</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'issued'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'issued'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'created'}).length > 0">Date Created</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'created'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'created'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'copyrighted'}).length > 0">Date Copyrighted</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'copyrighted'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'copyrighted'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'digitized'}).length > 0">Date Digitized</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'digitized'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'digitized'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'valid'}).length > 0">Date Valid</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'valid'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'valid'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'available'}).length > 0">Date Available</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'available'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'available'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: 'modified'}).length > 0">Date Modified</div>
+              <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: 'modified'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: 'modified'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+
+            <div class="cat-group">
+              <div class="cat-title" ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0">Date</div>
+              <div class="cat-value">
+                <ul class="specs" ng-show="(book.dublin_core.date | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.date | filter:{qualifier: '!'})">
+                  <li class="book-field-val">{{entry.value}}</li>
+                </ul>
+              </div>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.publisher">Publisher</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book.dublin_core.publisher" ng-repeat="entry in book.dublin_core.publisher">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book._edition">Edition</div>
+            <ul class="specs" ng-show="book._edition">
+              <li class="book-field-val">{{book._edition}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book._grp_contributor">Contributing Institution</div>
+            <ul class="specs" ng-show="book._grp_contributor">
+              <li class="book-field-val">{{book._grp_contributor}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.format | filter:{qualifier: '!'}).length > 0">Format</div>
+            <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.format | filter:{qualifier: 'extent'}).length > 0">Extent</div>
+            <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: 'extent'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: 'extent'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.format | filter:{qualifier: 'medium'}).length > 0">Medium</div>
+            <ul class="specs" ng-show="(book.dublin_core.format | filter:{qualifier: 'medium'}).length > 0" ng-repeat="entry in (book.dublin_core.format | filter:{qualifier: 'medium'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.type">Type</div>
+            <ul class="specs" ng-show="book.dublin_core.type" ng-repeat="entry in book.dublin_core.type">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book._series">Series</div>
+            <ul class="specs" ng-show="book._series">
+              <li class="book-field-val">{{book._series}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.description | filter:{qualifier: '!'}).length > 0">Description</div>
+            <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.description | filter:{qualifier: 'abstract'}).length > 0">Abstract</div>
+            <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: 'abstract'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: 'abstract'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.description | filter:{qualifier: 'tableOfContents'}).length > 0">Table of Contents</div>
+            <ul class="specs" ng-show="(book.dublin_core.description | filter:{qualifier: 'tableOfContents'}).length > 0" ng-repeat="entry in (book.dublin_core.description | filter:{qualifier: 'tableOfContents'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.provenance">Provenance</div>
+            <ul class="specs" ng-show="book.dublin_core.provenance" ng-repeat="entry in book.dublin_core.provenance">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.language">Language</div>
+            <ul class="specs" ng-show="book.dublin_core.language" ng-repeat="entry in book.dublin_core.language">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.subject">Subject</div>
+            <ul class="specs" ng-show="book.dublin_core.subject" ng-repeat="entry in book.dublin_core.subject">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'spatial'}).length > 0">Spatial Coverage</div>
+            <ul class="specs" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'spatial'}).length > 0" ng-repeat="entry in (book.dublin_core.coverage | filter:{qualifier: 'spatial'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'temporal'}).length > 0">Temporal Coverage</div>
+            <ul class="specs" ng-show="(book.dublin_core.coverage | filter:{qualifier: 'temporal'}).length > 0" ng-repeat="entry in (book.dublin_core.coverage | filter:{qualifier: 'temporal'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.title | filter:{qualifier: 'alternative'}).length > 0">Alternate Title</div>
+            <ul class="specs" ng-show="(book.dublin_core.title | filter:{qualifier: 'alternative'}).length > 0" ng-repeat="entry in (book.dublin_core.title | filter:{qualifier: 'alternative'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.contributor">Contributor</div>
+            <ul class="specs" ng-show="book.dublin_core.contributor" ng-repeat="entry in book.dublin_core.contributor">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Format</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Format</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'}).length > 0">Has Format</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasFormat'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Format Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Format Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'}).length > 0">Is Format Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isFormatOf'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Part Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Part Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'}).length > 0">Is Part Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isPartOf'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Version</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Version</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'}).length > 0">Has Version</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasVersion'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Version Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Version Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'}).length > 0">Is Version Of</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isVersionOf'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Has Part</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Has Part</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'}).length > 0">Has Part</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'hasPart'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Referenced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Referenced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'}).length > 0">Is Referenced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReferencedBy'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Is Replaced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Is Replaced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'}).length > 0">Is Replaced By</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'isReplacedBy'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Replaces</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Replaces</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0">Replaces</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Requires</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Requires</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0">Requires</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">Relation</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">Relation</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+              <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+              <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0">Relation</div>
+            <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0">Source</div>
+            <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'})">
+              <li class="book-field-val"><a ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0">Source</div>
+            <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0">Source</div>
+            <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0">Access Rights</div>
+            <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'accessRights'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0">Rights Holder</div>
+            <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'rightsHolder'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0">Rights</div>
+            <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: '!'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0">Bibliographic Citation</div>
+            <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0" ng-repeat="entry in (book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'})">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.accrualMethod">Accrual Method</div>
+            <ul class="specs" ng-show="book.dublin_core.accrualMethod" ng-repeat="entry in book.dublin_core.accrualMethod">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.accrualPeriodicity">Accrual Periodicity</div>
+            <ul class="specs" ng-show="book.dublin_core.accrualPeriodicity" ng-repeat="entry in book.dublin_core.accrualPeriodicity">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+
+          <div class="cat-group">
+            <div class="cat-title" ng-show="book.dublin_core.audience">Audience</div>
+            <ul class="specs" ng-show="book.dublin_core.audience" ng-repeat="entry in book.dublin_core.audience">
+              <li class="book-field-val">{{entry.value}}</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /.row -->
+
+  <h5>Question about this record?</h5>
+  <button id="emailGRI"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
 </div> <!-- /.container -->
+
 <div ng-app="app" class="app">
