@@ -166,7 +166,7 @@ ResultsPage.prototype = Object.create({}, {
 
   // Facet Sidebar
   tabPositions: { get: function() {
-    return {'type': 0, 'subject': 1, 'creator': 2, 'language': 3, 'grp_contributor': 4};
+    return {'creator': 0, 'subject': 1, 'language': 2, 'grp_contributor': 3};
   }},
   getSidebarTab: { value: function(position) {
     return element.all(by.css(".panel-heading")).get(position);

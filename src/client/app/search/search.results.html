@@ -35,7 +35,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'creator')">See All</a>
+              <a ng-click="openFacetModal(facets, 'creator')" id="see-all-creator">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -67,7 +67,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'language')" class="see-all-facets" >See All</a>
+              <a ng-click="openFacetModal(facets, 'language')" class="see-all-facets"  id="see-all-language">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
@@ -83,7 +83,7 @@
               <label for="{{ facet.option | stripspaces }}-sidebar" class="facet-labels">{{ facet.option }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
-              <a ng-click="openFacetModal(facets, 'grp_contributor')" class="see-all-facets" >See All</a>
+              <a ng-click="openFacetModal(facets, 'grp_contributor')" class="see-all-facets"  id="see-all-grp_contributor">See All</a>
             </div>
           </uib-accordion-group><!-- /accordion-group -->
         </uib-accordion>
