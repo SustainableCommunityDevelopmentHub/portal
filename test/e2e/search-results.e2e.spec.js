@@ -22,6 +22,12 @@ describe('Search Results', function() {
     expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
   });
 
+  it('should send user to digital item upon clicking of View Digital Item button', function() {
+    resultsPage.submitNewSearchTern('Handbook of arms and armor');
+    resultsPage.viewDigitalItem();
+    expect(broswer.getCurrentUrl()).toEqual('https://archive.org/details/handbookofarmsar00metr_0')
+  });
+
   it('should display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
