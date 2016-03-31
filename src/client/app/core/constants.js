@@ -30,14 +30,14 @@
           name: 'creator',
           key: '_creator_facet',
           rawKey: '_creator_facet.raw',
-          display: 'Creator',
+          display: 'Creator/Contributor',
           options:[]
         },
         grp_contributor: {
           name: 'grp_contributor',
           key: '_grp_contributor',
           rawKey: '_grp_contributor.raw',
-          display: 'Contributed By',
+          display: 'Contributing Institution',
           options:[]
         }
     })

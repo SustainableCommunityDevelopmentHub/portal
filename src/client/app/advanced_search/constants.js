@@ -4,7 +4,7 @@
   angular.module('app.advanced-search')
     .constant('ADVANCED_SEARCH', {
       contributor: {
-        display: 'Contributed by',
+        display: 'Contributing Institution',
         searchKey: '_grp_contributor'
       },
       creator: {
