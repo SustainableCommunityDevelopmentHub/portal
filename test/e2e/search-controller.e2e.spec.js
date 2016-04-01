@@ -7,7 +7,7 @@ describe('Search Controller', function() {
   var homePage;
 
   beforeEach(function() {
-    homePage = new HomePage();    
+    homePage = new HomePage();
   });
 
   it('Should load 6 sorting options in dropdown list', function() {

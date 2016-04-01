@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -40,9 +40,9 @@
     $scope.categories = FACETS;
 
     if(ss.opts.sort){
-      $scope.sort = ss.opts.sort.display;
+      $scope.sort = SORT_MODES[ss.opts.sort].display;
     } else {
-      $scope.sort = "Relevance";
+      $scope.sort = SORT_MODES[SORT_DEFAULT].display;
     }
 
     console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
@@ -148,9 +148,7 @@
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.from = 0;
-        opts.sort = { display: "Relevance",
-          mode: "relevance"
-        };
+        opts.sort = SORT_DEFAULT;
       }
 
       $scope.newQueryTerm = "";

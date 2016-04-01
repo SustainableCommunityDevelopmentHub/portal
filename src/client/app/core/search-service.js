@@ -68,7 +68,8 @@
       console.log('SearchService.updateSearch() -- new opts: ' + JSON.stringify(opts));
       // allow for no opts to be passed
       opts = opts || {};
-      _.merge(this.opts, opts);
+      this.updateOpts(opts);
+      //_.merge(this.opts, opts);
       console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = search(this.opts);
       return this.returnedPromise;
@@ -80,10 +81,13 @@
      */
     // TODO? Strip Angular.js $$hashKey prop from facet opts objs?
     function updateOpts(newOpts){
-      // search query terms always handled as lowercase
       if(newOpts.q){
         newOpts.q = newOpts.q.toLowerCase();
       }
+      if(newOpts.sort && (typeof newOpts.sort === 'object') && newOpts.sort.mode){
+        newOpts.sort = newOpts.sort.mode;
+      }
+
       _.merge(this.opts, newOpts);
 
       // hack to handle correctly deleting all facets and advanced fields
@@ -141,7 +145,8 @@
         q: DEFAULTS.searchOpts.q,
         from: DEFAULTS.searchOpts.from,
         size: DEFAULTS.searchOpts.size,
-        facets: []
+        facets: [],
+        sort: DEFAULTS.searchOpts.sort
       };
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
