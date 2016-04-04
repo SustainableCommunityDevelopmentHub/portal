@@ -1072,6 +1072,12 @@ li.book-listing {
 text-decoration: none;
 }
 
+#exportBtn .glyphicon {
+  margin-left: 5px;
+  top: 3px;
+
+}
+
 .record-summary {
   display: block;
   min-height: 120px;
@@ -1108,17 +1114,20 @@ text-decoration: none;
 }
 
 .summary-field-title {
-  display: inline-block;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 18px;
 }
 
 .summary-value {
-  display: inline-block;
+  display: inline;
   list-style: none;
   margin-bottom: 0;
   padding-left: 5px;
   font-size: 16px;
+}
+
+.summary-value li {
+  display: inline;
 }
 
 .cat-group {
@@ -1166,7 +1175,7 @@ ul.specs {
   clear: both;
   margin: 0;
   padding: 0;
-  list-style: none;
+  list-style: none
 }
 
 li.book-field-val {
@@ -1180,12 +1189,13 @@ li.book-field-val {
 }
 
 #emailGRI button {
-  width: 150px;
-  height: 40px;
+  width: 180px;
+  height: 50px;
 }
 
 #emailGRI .btn a {
   text-decoration: none;
+  font-size: 16px;
   color: #fff;
 }
 
