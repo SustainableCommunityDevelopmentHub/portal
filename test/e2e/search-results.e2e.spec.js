@@ -23,7 +23,7 @@ describe('Search Results', function() {
   });
 
   it('should send user to digital item upon clicking of View Digital Item button', function() {
-    resultsPage.submitNewSearchTern('Handbook of arms and armor');
+    resultsPage.submitNewSearchTerm('Handbook of arms and armor');
     resultsPage.viewDigitalItem();
     expect(browser.getCurrentUrl()).toEqual('https://archive.org/details/handbookofarmsar00metr_0')
   });
