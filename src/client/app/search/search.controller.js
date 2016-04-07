@@ -148,7 +148,7 @@
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.from = 0;
-        opts.sort = SORT_DEFAULT;
+        opts.sort = SORT_MODES[SORT_DEFAULT];
       }
 
       $scope.newQueryTerm = "";
