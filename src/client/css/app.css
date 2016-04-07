@@ -636,6 +636,7 @@ a.adv:hover, a.adv:focus {
 
 .book-info {
   display: inline-block;
+  width: 100%;
 }
 
 .book-info b {
@@ -666,19 +667,7 @@ li.book-listing {
   font-size: 12px;
 }
 
-.creator-display  {
-  display: block;
-}
-
-.date-display {
-  display: block;
-}
-
-.edition-display {
-  display: block;
-}
-
-.contributor-display {
+.short-display  {
   display: block;
 }
 
@@ -1534,146 +1523,169 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   clear: both;
 }
 
-/** Saved Records Page **/
 
-.num-records {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  float: left;
-  margin-right: 20px;
-}
+/* Saved Records Page */
 
-.records-tabs {
-  padding-left: 0px;
-}
+  /* My Records */
 
-.records-tabs li {
-  list-style: none;
-  display: inline-block;
-  padding-right: 10px;
-  cursor: pointer;
-}
-
-.active-tab {
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
-}
-
-.records-items {
-  list-style: none;
-}
-
-.record-info {
-  margin-left: 56px;
-  max-width: 550px;
-}
-
-.saved-records-list {
-  padding-left: 0;
-}
-
-.saved-searches-list {
-  padding-left: 0;
-}
-
-.search-filters-list {
-  padding-left: 0;
-  margin-top:10px;
-}
-
-.search-filters-list li {
-  list-style: none;
-  line-height: 10px;
-}
-
-.search-filters-heading {
-  margin-top: 10px;
-}
-
-.search-info {
-  float: left;
-  border-right: 1px solid darkgray;
-  width: 70%;
-  min-height: 100px;
-  margin-bottom: 10px;
-  padding-right: 10px;
-}
-
-.additional-search-info {
-  display: inline-block;
-  margin-top: 25px;
-  margin-left: 50px;
-}
-
-.saved-search-title {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.search-list-hr {
-  background-color: lightslategray;
-  clear: both;
-  margin-bottom: 0;
-  height: 2px;
-}
-
-.remove-search-btn {
-  cursor: pointer;
-}
-
-.search-info a {
-  font-size: 16px;
-}
-
-@media print {
-  .header-complete {
-    display: none;
+  .records-tabs {
+    margin-bottom: 20px;
+    padding-left: 0px;
   }
 
-  .book-detail-title {
-    margin-bottom: 20px;
-    padding-bottom: 0;
+  .records-tabs h4 {
+    margin: 5px 0;
+  }
+
+  .records-tabs li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+  }
+
+  .records-tabs li:first-child {
+    padding-left: 0;
+  }
+
+  .records-tabs li:last-child {
+    border-right: none;
+  }
+
+  .active-tab {
+    border-bottom: 2px solid #f68c20;
+    padding-bottom: 5px;
+  }
+
+  .record-sorting {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    margin: 10px 0 40px;
+  }
+
+  .num-records {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .saved-records-list {
+    padding-left: 0;
+  }
+
+  .saved-records-list li.book-listing {
+    margin-bottom: 30px;
+  }
+
+    .saved-records-list #view-digital-item{
+      margin-bottom: 30px;
+  }
+
+  /* Recent Searches */
+
+  .saved-searches-list {
+    padding-left: 0;
+  }
+
+  .search-filters-list {
+    padding-left: 0;
+    margin-top:10px;
+  }
+
+  .search-filters-list li {
+    list-style: none;
+    line-height: 10px;
+  }
+
+  .search-filters-heading {
+    margin-top: 10px;
+  }
+
+  .search-info {
+    float: left;
+    border-right: 1px solid darkgray;
+    width: 70%;
+    min-height: 100px;
+    margin-bottom: 10px;
+    padding-right: 10px;
+  }
+
+  .additional-search-info {
+    display: inline-block;
+    margin-top: 25px;
+    margin-left: 50px;
+  }
+
+  .saved-search-title {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .search-list-hr {
+    background-color: lightslategray;
+    clear: both;
+    margin-bottom: 0;
+    height: 2px;
+  }
+
+  .remove-search-btn {
+    cursor: pointer;
+  }
+
+  .search-info a {
     font-size: 16px;
   }
 
-  .detail-begin {
-    display: none;
-  }
+  @media print {
+    .header-complete {
+      display: none;
+    }
 
-  .sr-top {
-    display: none;
-  }
+    .book-detail-title {
+      margin-bottom: 20px;
+      padding-bottom: 0;
+      font-size: 16px;
+    }
 
-  .rec-options {
-    display: none;
-  }
+    .detail-begin {
+      display: none;
+    }
 
-  .book-field-key {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+    .sr-top {
+      display: none;
+    }
 
-  .book-field-val {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    line-height: 1em;
-  }
+    .rec-options {
+      display: none;
+    }
 
-  .ng-binding b {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
+    .book-field-key {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
 
-  .footer {
-    display: none;
+    .book-field-val {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 1em;
+    }
+
+    .ng-binding b {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .footer {
+      display: none;
+    }
   }
-}
 
 
 

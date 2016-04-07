@@ -1,54 +1,49 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Saved Records</h3>
-            <hr class="results-list-hr"><br>
-            <ul class="records-tabs">
-                <li>
-                    <h4 ng-class="{'active-tab': recordsActive}" ng-click="setActiveTab('records')">MY RECORDS</h4>
-                </li>
-                <li>
-                    <h4>|</h4>
-                </li>
-                <li>
-                    <h4 ng-class="{'active-tab': searchesActive}" ng-click="setActiveTab('searches')">RECENT SEARCHES</h4>
-                </li>
-            </ul>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Saved Records</h3>
+      <hr class="sr-top">
+      <ul class="records-tabs">
+        <li><h4 ng-class="{'active-tab': recordsActive}" ng-click="setActiveTab('records')">My Records</h4></li>
+        <li><h4 ng-class="{'active-tab': searchesActive}" ng-click="setActiveTab('searches')">Recent Searches</h4></li>
+      </ul>
     </div>
-</div>
+  </div><!-- /.row -->
+</div><!-- /.container -->
+
 <div ng-show="recordsActive" class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="num-records"><p >You have <b>{{ numRecords }}</b> saved records.</p></div>
-            <div class="record-sorting">
-                <div class="btn-group" uib-dropdown>
-                    <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ currentSort }}<span class="caret"></span></button>
-                    <ul uib-dropdown-menu role="menu" class="dropdown-menu">
-                        <li ng-repeat="sortMode in validSortModes">
-                            <a ng-click="sortRecords(sortMode)">{{ sortMode.display }}</a>
-                        </li>
-                    </ul>
-                </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="record-sorting">
+        <div class="num-records"><p >You have <b>{{ numRecords }}</b> saved records.</p></div>
+           <div class="btn-group" uib-dropdown>
+              <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ currentSort }}<span class="caret"></span></button>
+              <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+                <li ng-repeat="sortMode in validSortModes">
+                  <a ng-click="sortRecords(sortMode)">{{ sortMode.display }}</a>
+                </li>
+              </ul>
             </div>
-        </div>
-    </div>
+          </div>
+      </div>
+    </div><!-- /.row -->
+
     <div class="row">
         <div class="col-xs-12">
             <ul class="saved-records-list">
                 <storage-event-listener></storage-event-listener>
-                <li dir-paginate="book in savedRecords | itemsPerPage: 10" class="records-items" current-page="currentPage" pagination-id="records">
+                <li dir-paginate="book in savedRecords | itemsPerPage: 10" class="book-listing" current-page="currentPage" pagination-id="records">
                     <save-record-button></save-record-button>
-                    <div class="record-info">
-                        <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
-                        <b ng-show="book._creator_display"><br/>Creator: </b>{{book._creator_display}}
-                        <b ng-show="book._date_display"><br/>Date: </b>{{book._date_display}}
-                        <b ng-show="book._edition"><br/>Edition: </b>{{book._edition}}
-                        <b><br/>Contributing Institution: </b>{{book._grp_contributor}}<br/>
-                        <br/>
-                        <a class="digital-item-link" ng-href="{{book._record_link}}" target="_blank">View Digital Item</a><br/>
+                    <div class="book-info">
+                        <a ui-sref="books({bookID: book._id})" target="_blank" class="book-title">{{book._title_display}}</a>
+                        <div class="display-data">
+                          <div class="short-display"><b ng-show="book._creator_display">Creator: </b>{{book._creator_display}}</div>
+                          <div class="short-display"><b ng-show="book._date_display">Date: </b>{{book._date_display}}</div>
+                          <div class="short-display"><b ng-show="book._edition">Edition: </b>{{book._edition}}</div>
+                          <div class="short-display"><b>Contributing Institution: </b>{{book._grp_contributor}}</div>
+                        </div>
+                        <button class="btn" type="button" id="view-digital-item" ng-href="{{book._record_link}}" target="_blank">View Digital Item</button>
                     </div>
-                    <hr class="results-list-hr"><br>
                 </li>
             </ul>
             <div class="results-pagination">
