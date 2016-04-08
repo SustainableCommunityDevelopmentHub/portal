@@ -1591,7 +1591,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   li.records-items {
     list-style: none;
-    line-height: 10px;
+    line-height: 18px;
     border-bottom: 2px solid #ddd;
   }
 
@@ -1606,7 +1606,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     font-size: 17px;
     font-weight: bold;
     display: block;
-    margin-top: 10px;
+    margin: 10px 0 -5px;
   }
 
 
