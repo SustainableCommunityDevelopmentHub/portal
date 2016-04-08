@@ -1592,7 +1592,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   li.records-items {
     list-style: none;
     line-height: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
   }
 
   .search-info {
@@ -1636,6 +1636,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   .additional-search-info {
     margin: 30px 0 28px;
+  }
+
+  .num-results {
+    margin-bottom: 15px;
   }
 
   .remove-search-btn {
@@ -1828,6 +1832,37 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   #left_sidebar_accordion__container {
     margin-top: -10px;
+  }
+
+
+  /* Recent Searches */
+
+  .search-info {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    margin: 15px 0;
+  }
+
+  .additional-search-info {
+    margin: 0 10px 15px;
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .additional-search-info p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .num-results {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  .remove-search-btn {
+    display: inline-block;
+    margin-bottom: 0;
   }
 
 
