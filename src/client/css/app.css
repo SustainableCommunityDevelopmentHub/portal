@@ -63,6 +63,7 @@ a:focus, a:active {
 
 hr {
   border-top: 2px solid #eee;
+  width: 100%;
 }
 
 .sr-top {
@@ -1588,54 +1589,60 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     padding-left: 0;
   }
 
-  .search-filters-list {
-    padding-left: 0;
-    margin-top:10px;
-  }
-
-  .search-filters-list li {
+  li.records-items {
     list-style: none;
     line-height: 10px;
-  }
-
-  .search-filters-heading {
-    margin-top: 10px;
+    border-bottom: 1px solid #ddd;
   }
 
   .search-info {
-    float: left;
-    border-right: 1px solid darkgray;
-    width: 70%;
-    min-height: 100px;
-    margin-bottom: 10px;
-    padding-right: 10px;
-  }
-
-  .additional-search-info {
-    display: inline-block;
-    margin-top: 25px;
-    margin-left: 50px;
+    border-right: 1px solid #ddd;
+    width: 100%;
+    margin:  10px 0;
+    padding: 10px;
   }
 
   .saved-search-title {
     font-size: 17px;
     font-weight: bold;
+    display: block;
+    margin-top: 10px;
   }
 
-  .search-list-hr {
-    background-color: lightslategray;
-    clear: both;
-    margin-bottom: 0;
-    height: 2px;
+
+
+  .saved-search-terms {
+    display: block;
+  }
+
+  .search-info a {
+    font-size: 16px;
+  }
+
+  .search-filters-heading {
+    margin-top: 25px;
+    display: block;
+  }
+
+  .search-filters-list {
+    padding-left: 0;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .search-filters-list li {
+    list-style: none;
+  }
+
+  .additional-search-info {
+    margin: 30px 0 28px;
   }
 
   .remove-search-btn {
     cursor: pointer;
   }
 
-  .search-info a {
-    font-size: 16px;
-  }
+
 
   @media print {
     .header-complete {
