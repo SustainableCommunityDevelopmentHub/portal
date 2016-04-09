@@ -916,34 +916,47 @@ li.book-listing {
 
   /** Facet Modal **/
 
+    .modal-content {
+      padding: 20px;
+    }
+
     .modal-body {
       padding-top: 0;
       padding-left: 0;
+    }
 
+    .modal-header {
+      padding: 0 0 10px;
+    }
+
+    .close-modal {
+      display: inline-block;
+      float: right;
+      cursor: pointer;
+      height: 20px;
+      font-size: 22px;
     }
 
     .facet-tabs {
       float: left;
-      width: 140px;
       padding-left: 0;
       border-right: 1px solid #ddd;
       height: 268px;
-
     }
 
     .facet-tabs li {
       list-style: none;
       height: 40px;
+      border-bottom: 1px solid #ddd;
     }
 
     .facet-tabs li a {
       display: block;
-      padding: 10px 15px 10px 28px;
+      padding: 10px 20px;
       font-size: 14px;
       font-weight: bold;
-      color: black;
+      color: #333;
       text-decoration: none;
-
     }
 
     .facet-tabs li:hover {
@@ -951,15 +964,9 @@ li.book-listing {
       text-decoration: none;
     }
 
-    .borderBottom {
-      margin-left: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-
     .facet-tab-content {
       margin-left: 140px;
       padding-top: 10px;
-      padding-left: 18px;
     }
 
     .active-facet-tab {
@@ -971,34 +978,11 @@ li.book-listing {
       content: "\25cf";
       font-size: 1em;
       padding-right: 0.25em;
-      color: orange;
+      color: #f68c20;
     }
 
     .selected-facet-tabs {
       margin-left: -.825em;
-    }
-
-    .modal-footer {
-      clear: both;
-      border-top: none;
-    }
-
-    .apply-btn {
-      border: 3px solid black;
-      border-radius: 2px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 22px;
-      padding-right: 22px;
-      background-color: #fff;
-    }
-
-    .filters-selected {
-      float: left;
-      margin: 0 auto;
-      width: 44%;
-      padding-top: 9px;
-      font-weight: 200;
     }
 
     #filter-instructions {
@@ -1025,10 +1009,6 @@ li.book-listing {
       padding-right: 6px;
       padding-top: 8px;
       text-decoration: underline;
-    }
-
-    .checked-filters a {
-      color: black;
     }
 
     .checkbox-list {
@@ -1059,26 +1039,25 @@ li.book-listing {
       vertical-align: top;
     }
 
-    .modal-title {
-      display: inline-block;
-      
-      font-weight: 700;
-    }
-
-    .modal-header {
-      padding-bottom: 6px;
-    }
-
-    .close-modal {
-      display: inline-block;
-      float: right;
-      cursor: pointer;
-      height: 20px;
-      font-size: 22px;
-    }
-
     .pagination {
       margin: 0;
+    }
+
+    .modal-footer {
+      clear: both;
+      border-top: none;
+    }
+
+    .apply-btn {
+      padding: 10px 30px;
+    }
+
+    .filters-selected {
+      float: left;
+      margin: 0 auto;
+      width: 44%;
+      padding-top: 9px;
+      font-weight: 200;
     }
 
     @media screen and (min-width: 768px){
