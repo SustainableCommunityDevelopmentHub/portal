@@ -163,7 +163,7 @@
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl::setPageSize - current: ' + ss.opts.size + ' , new: ' + newPageSize);
-      updateSearch({size: newPageSize});
+      updateSearch({size: newPageSize, from: 0});
     };
 
     $scope.setSortMode = function(sortMode) {
@@ -182,13 +182,7 @@
     $scope.setPageNum = function(newPage){
       console.log('SearchCtrl::setPageNum -- calculatePage():' + ss.calculatePage() + ' , newPage: ' + newPage);
       if(ss.calculatePage() !== newPage){
-        var newFrom;
-        if(newPage > ss.calculatePage()){
-          // this correctly handles edge case where user paginates then increases pageSize
-          newFrom = ss.opts.from + (ss.opts.size * (newPage - ss.calculatePage()));
-        } else{
-          newFrom = ss.opts.size * (newPage - 1);
-        }
+        var newFrom = ss.opts.size * (newPage - 1);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom});
       }

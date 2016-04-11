@@ -63,7 +63,8 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(10);
       expect(SearchService.opts.size).toEqual(10);
-      expect(SearchService.calculatePage()).toEqual(6);
+      expect(SearchService.opts.from).toEqual(0);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
@@ -73,7 +74,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
-      expect(SearchService.calculatePage()).toEqual(2);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
 
     it("should set page size and pageNum correctly with a large from value", function(){
@@ -83,7 +84,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(25);
       expect(SearchService.opts.size).toEqual(25);
-      expect(SearchService.calculatePage()).toEqual(38);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
   });
 
