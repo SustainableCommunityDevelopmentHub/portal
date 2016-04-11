@@ -19,6 +19,13 @@ describe("Advanced Search", function(){
     expect(advancedPage.numTotalHits).toEqual(309);
   });
 
+  it("should submit search with enter button", function() {
+    advancedPage.addKeywordTerm('art');
+    advancedPage.submitWithEnterBtn();
+    expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
+    expect(advancedPage.numTotalHits).toEqual(309);
+  });
+
   it("should search by fields", function(){
     
     advancedPage.addKeywordTerm('art');
@@ -46,6 +53,18 @@ describe("Advanced Search", function(){
       });
     });
     expect(resultsMatch).toBe(true);
+  });
+
+  it("should submit search fields with enter button", function() {
+    advancedPage.addKeywordTerm('art');
+    advancedPage.addFilterSearches([
+      ['Contributed by', 'Getty'],
+      ['Date', '1907']]
+    );
+    advancedPage.submitWithEnterBtn();
+    expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
+    expect(advancedPage.facetChips.get(1).getText()).toEqual('Getty (Keyword: Contributed by)');
+    expect(advancedPage.facetChips.get(2).getText()).toEqual('1907 (Keyword: Date)');
   });
 
   it("should be able to apply facets after searching", function(){
