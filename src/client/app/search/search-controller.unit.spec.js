@@ -74,6 +74,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
+      expect(SearchService.opts.from).toEqual(0);
       expect(SearchService.calculatePage()).toEqual(1);
     });
 
@@ -84,6 +85,7 @@ describe("Search Controller", function(){
       };
       scope.setPageSize(25);
       expect(SearchService.opts.size).toEqual(25);
+      expect(SearchService.opts.from).toEqual(0);
       expect(SearchService.calculatePage()).toEqual(1);
     });
   });
