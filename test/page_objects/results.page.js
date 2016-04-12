@@ -23,6 +23,9 @@ ResultsPage.prototype = Object.create({}, {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
+  viewDigitalItem: {value: function() {
+    element(by.id('view-digital-item')).click();
+  }},
   activeFacets: { get: function() {
     return element.all(by.repeater('activeFacet in activeFacets'));
   }},
