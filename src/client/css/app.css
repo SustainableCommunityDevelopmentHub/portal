@@ -921,8 +921,7 @@ li.book-listing {
     }
 
     .modal-body {
-      padding-top: 0;
-      padding-left: 0;
+      padding: 0;
     }
 
     .modal-header {
@@ -938,7 +937,6 @@ li.book-listing {
     }
 
     .facet-tabs {
-      float: left;
       padding-left: 0;
       border-right: 1px solid #ddd;
       height: 268px;
@@ -965,8 +963,7 @@ li.book-listing {
     }
 
     .facet-tab-content {
-      margin-left: 140px;
-      padding-top: 10px;
+      margin-left: -30px;
     }
 
     .active-facet-tab {
@@ -987,20 +984,24 @@ li.book-listing {
 
     #filter-instructions {
       font-size: 12px;
-      padding-left: 6px;
-      padding-right: 6px;
+      padding-left: 5px;
+    }
+
+    .search-wrapper {
+      background-color: #eee;
+      padding: 10px;
     }
 
     .search-filters {
       width: 100%;
       height: 40px;
-      padding-left: 14px;
+      padding-left: 10px;
     }
 
     .search-filters:placeholder-shown {
       font-style: italic;
       font-size: 12px;
-      border: 1px solid #9d9d9d;
+      border: 1px solid #ddd;
     }
 
     .checked-filters {
@@ -1009,13 +1010,15 @@ li.book-listing {
       padding-right: 6px;
       padding-top: 8px;
       text-decoration: underline;
+      color: #f68c20;
     }
 
     .checkbox-list {
       margin-top: 20px;
-      padding-left: 2px;
-      height: 200px;
+      padding-left: 0;
+      height: 220px;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .filter-checkboxes {
@@ -1026,17 +1029,22 @@ li.book-listing {
       line-height: 24px;
       vertical-align: top;
       position: relative;
-      padding-left: 6px;
+      padding-left: 25px;
+    }
+
+    .filter-checkboxes input {
+      margin: 4px 0 15px -16px;
+      float: left;
     }
 
     .filter-checkboxes label {
-      font-weight: normal;
-      padding-left: 4px;
-      font-size: 13px;
+      font-weight: 300;
       max-width: 200px;
       position: relative;
-      display: inline-block;
       vertical-align: top;
+      display: inline-block;
+      margin-bottom: 10px;
+      padding-left: 10px;
     }
 
     .pagination {
@@ -1044,8 +1052,9 @@ li.book-listing {
     }
 
     .modal-footer {
-      clear: both;
       border-top: none;
+      padding: 0 0 0 10px;
+      margin-left: -30px;
     }
 
     .apply-btn {
@@ -1054,26 +1063,11 @@ li.book-listing {
 
     .filters-selected {
       float: left;
-      margin: 0 auto;
-      width: 44%;
       padding-top: 9px;
       font-weight: 200;
+      font-size: 16px;
     }
 
-    @media screen and (min-width: 768px){
-      .modal-dialog {
-        min-width: 700px;
-      }
-    }
-
-    @media screen and (max-width: 700px){
-      .filter-checkboxes {
-        width: 100%;
-      }
-      .facet-tabs {
-        height: 413px;
-      }
-    }
 
 
 /** Detail View **/
@@ -1716,10 +1710,15 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Search Results */
 
-
   #facets-mobile {
     display: none;
   }
+
+    /* Facets Modal */
+
+    .modal-dialog {
+      min-width: 700px;
+    }
   
 
 }
@@ -1789,6 +1788,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   #left_sidebar_accordion__container {
     margin-top: -10px;
   }
+
+    /* Filter Modal */
+
+    .filter-checkboxes {
+      width: 100%;
+    }
+    .facet-tabs {
+      height: 413px;
+    }
+
+        .modal-footer {
+      margin-left: 0;
+    }
+
+    .filter-checkboxes label {
+      max-width: 100%;
+    }
 
 
   /* Search Help */
