@@ -301,11 +301,11 @@ hr {
 
 .adv {
   display: flex;
-  width: 100%;
   justify-content: flex-end;
   padding-top: 5px;
   color: #666;
   text-decoration: underline;
+  float: right;
 }
 
 a.adv:hover, a.adv:focus {
