@@ -12,6 +12,16 @@ describe('Search Results', function() {
     resultsPage = new ResultsPage();
   });
 
+  it('should have correct default settings in URL', function() {
+    resultsPage.submitNewSearchTerm('');
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance');
+    });
+  });
+  it('Should have correct text in sort button', function() {
+    resultsPage.submitNewSearchTerm('');
+    expect(resultsPage.getSortButtonText()).toEqual('Sort by: Relevance');
+  });
   it('should return correct search results', function() {
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(6);

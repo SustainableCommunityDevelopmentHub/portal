@@ -48,32 +48,33 @@
           options:[]
         }
     })
+    .constant('SORT_DEFAULT', 'relevance')
     .constant('SORT_MODES', {
         relevance : {
           display: "Relevance",
           mode: "relevance"
         },
-        dateAdded : {
+        date_added : {
           display: "Newly Added First",
           mode: "date_added",
           sortQuery: {"_ingest_date": {"order": "desc"}}
         },
-        titleAZ : {
+        title_asc : {
           display: "Title: A-Z",
           mode: "title_asc",
           sortQuery: "_title_display.sort"
         },
-        titleZA : {
+        title_desc : {
           display: "Title: Z-A",
           mode: "title_desc",
           sortQuery: {"_title_display.sort": {"order": "desc"}}
         },
-        dateAscend : {
+        date_asc : {
           display: "Date (ascending)",
           mode: "date_asc",
           sortQuery: "_date_facet"
         },
-        dateDesc : {
+        date_desc : {
           display: "Date (descending)",
           mode: "date_desc",
           sortQuery: { "_date_facet": {"order": "desc"}}

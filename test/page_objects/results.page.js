@@ -6,6 +6,12 @@ var ResultsPage = function() {
 
 ResultsPage.prototype = Object.create({}, {
 
+  // Get URL, etc
+  getQueryString: { value: function() {
+    return browser.getCurrentUrl().then(function(url){
+      return url.split('search?')[1];
+    });
+  }},
   // Load page directly
   loadPageByURL: { value: function(q, from, size) {
     browser.get('/search?q=' + q + '&size=' + size + '&from=' + from);
@@ -49,6 +55,10 @@ ResultsPage.prototype = Object.create({}, {
   selectSortOption: { value: function(label) {
     element(by.id('toggle-sort-btn')).click();
     element(by.linkText(label)).click();
+  }},
+  getSortButtonText: { value: function() {
+    return element(by.id('toggle-sort-btn')).getText();
+    //element(by.linkText(label)).getText();
   }},
 
   // Pagination
@@ -115,31 +125,31 @@ ResultsPage.prototype = Object.create({}, {
     return element.all(by.css('.book-listing')).get(0).evaluate('hits');
   }},
   getHitsDates: { value: function() {
-    var dates = [];
-    this.getHits().then(function(hits) {
+    return this.getHits().then(function(hits) {
+      var dates = [];
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._date_facet);
       }
+      return dates;
     });
-    return dates;
   }},
   getHitsIngestDates: { value: function() {
-    var dates = [];
-    this.getHits().then(function(hits) {
+    return this.getHits().then(function(hits) {
+      var dates = [];
       for(var i = 0; i < hits.length; i++){
         dates.push(hits[i]._ingest_date);
       }
+      return dates;
     });
-    return dates;
   }},
   getHitsTitles: { value: function() {
-    var titles = [];
-    this.getHits().then(function(hits) {
+    return this.getHits().then(function(hits) {
+      var titles = [];
       for(var i = 0; i < hits.length; i++){
         titles.push(hits[i]._title_display);
       }
+      return titles;
     });
-    return titles;
   }},
   getBookMark: {value: function(position) {
     return element.all(by.css('.bookmark .inside')).get(position);
