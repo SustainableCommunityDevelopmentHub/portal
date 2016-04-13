@@ -37,7 +37,7 @@
           name: 'grp_contributor',
           key: '_grp_contributor',
           rawKey: '_grp_contributor.raw',
-          display: 'Contributing Institution',
+          display: 'From',
           options:[]
         }
     })

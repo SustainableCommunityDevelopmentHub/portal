@@ -194,7 +194,7 @@
       },
       {
         name: 'grp_contributor',
-        display: 'Contributing Institution'
+        display: 'From'
       }];
 
       $scope.currentFacets = facets[category];
