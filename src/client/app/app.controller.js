@@ -8,6 +8,7 @@
   function($scope, SearchService, $state, searchResults) {
 
     $scope.numTotalHits = searchResults.numTotalHits;
+    //$('.search-input').focus();
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.

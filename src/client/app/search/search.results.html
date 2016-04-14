@@ -129,7 +129,7 @@
 
         <div class="search-bar-results">
           <form ng-submit="newQuerySearch(newQueryTerm)">
-            <div class="facet-chip-search-bar facet-search" focus-input >
+            <div class="facet-chip-search-bar facet-search" focus-search-input>
               <ul class="facet-chip-list facet-search">
                 <li class="facet-search" ng-if="queryTerm">
                   <div class="facet-chip">
@@ -152,7 +152,7 @@
                   </div>
                 </li>
                 <li>
-                  <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size>
+                  <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size myFocus>
                 </li>
               </ul>
             </div>
