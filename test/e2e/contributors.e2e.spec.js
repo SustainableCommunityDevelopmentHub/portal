@@ -40,7 +40,7 @@ describe('Contributors Page', function() {
 			element.all(by.repeater('activeFacet in activeFacets')).then(function(chips) {
 				expect(chips.length).toEqual(1);
 				var contribFacet = chips[0];
-				expect(contribFacet.getText()).toEqual('Metropolitan Museum of Art (Contributed By)');
+				expect(contribFacet.getText()).toEqual('Metropolitan Museum of Art (From)');
 			});
 		});
 	});
