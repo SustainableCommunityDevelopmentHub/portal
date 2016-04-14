@@ -301,11 +301,11 @@ hr {
 
 .adv {
   display: flex;
-  width: 100%;
   justify-content: flex-end;
   padding-top: 5px;
   color: #666;
   text-decoration: underline;
+  float: right;
 }
 
 a.adv:hover, a.adv:focus {
@@ -1789,7 +1789,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-bottom: 20px;
     }
 
-    /* Main Body */
+    /* Homepage */
 
     #go-btn {
       width: 17%;
@@ -1810,10 +1810,19 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-bottom: 40px;
     }
 
+    .stats .box { 
+      margin-bottom: 10px
+    }
+
     /* Search Results */
 
     .facet-header-desktop {
       display: none;
+    }
+
+    #facets-mobile h4 {
+      font-size: 16px;
+      padding-top: 16px;
     }
 
     #clear-all {

@@ -66,6 +66,15 @@ describe("Saved Records Service", function() {
       var records = item[recordKey];
       expect(records.length).toBe(0);
     });
+
+    it('should save records even when previous records are corrupt', function() {
+      var badItem = {};
+      badItem[SAVED_ITEMS.recordKey] = [{"notABook": 0}];
+      localStorage.setItem("getty_portal_records", JSON.stringify(badItem));
+      SavedRecordsService.saveRecord(book);
+      var record = JSON.parse(localStorage.getItem(recordKey));
+      expect(record['getty_portal_records'].length).toBe(2);
+    });
   });
 
   describe("searches", function() {
@@ -118,6 +127,28 @@ describe("Saved Records Service", function() {
       SavedRecordsService.removeSearch(searches[0]);
       var remainingSearches = SavedRecordsService.getSearches();
       expect(remainingSearches.length).toEqual(0);
+    });
+
+    it('should save searches when previous searches are not in correct format', function() {
+      var badItem = {
+        "getty_portal_searches": [{
+          q: "painting",
+          facets: []
+        }]
+      };
+      
+      //incorrectly save a search
+      localStorage.setItem("getty_portal_searches", JSON.stringify(badItem));
+
+      //correctly save another search
+      var searchOpts = {
+        q: "art",
+        facets: []
+      };
+      SavedRecordsService.saveSearch(searchOpts, 20, Date.now());
+      var searches = SavedRecordsService.getSearches();
+      expect(searches.length).toBe(2);
+      expect(searches[1].opts.q).toBeDefined();
     });
   });
 });

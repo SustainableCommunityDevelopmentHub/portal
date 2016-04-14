@@ -12,6 +12,16 @@ describe('Search Results', function() {
     resultsPage = new ResultsPage();
   });
 
+  it('should have correct default settings in URL', function() {
+    resultsPage.submitNewSearchTerm('');
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance');
+    });
+  });
+  it('Should have correct text in sort button', function() {
+    resultsPage.submitNewSearchTerm('');
+    expect(resultsPage.getSortButtonText()).toEqual('Sort by: Relevance');
+  });
   it('should return correct search results', function() {
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(6);
@@ -20,6 +30,14 @@ describe('Search Results', function() {
   it('should show decoded urls in search bar', function() {
     resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
     expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
+  });
+
+  it('should send user to digital item upon clicking of View Digital Item button', function() {
+    resultsPage.submitNewSearchTerm('Handbook of arms and armor');
+    resultsPage.viewDigitalItem();
+    browser.ignoreSynchronization = true;
+    expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
+    browser.ignoreSynchronization = false;
   });
 
   it('should display active facets in sidebar', function(){
