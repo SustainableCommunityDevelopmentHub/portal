@@ -1772,6 +1772,25 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       font-size: 14px;
     }
 
+    .results-list {
+      padding: 10px 10px 80px;
+    }
+
+    #sorting {
+      width: 100%;
+      margin: 0 0 10px;
+    }
+
+    #sorting .btn-group {
+      width: 49%;
+      margin-left: 0;
+    }
+
+    #sorting .btn {
+      width: 100%;
+      margin-top: 0;
+    }
+
     /* Advanced Search */
 
     .keyword-search-input {
