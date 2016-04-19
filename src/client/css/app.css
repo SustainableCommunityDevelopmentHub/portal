@@ -622,7 +622,7 @@ li.book-listing {
   font-size: 12px;
 }
 
-.creator-display  {
+/*.creator-display  {
   display: block;
 }
 
@@ -636,7 +636,7 @@ li.book-listing {
 
 .contributor-display {
   display: block;
-}
+}*/
 
 #view-digital-item {
   font-size: 12px;
@@ -825,8 +825,6 @@ li.book-listing {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  margin-left: 56px;
-  max-width: 436px;
 }
 
 .results-data {

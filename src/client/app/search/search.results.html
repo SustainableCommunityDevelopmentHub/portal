@@ -191,28 +191,29 @@
       <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
         <save-record-button></save-record-button>
         <div class="book-info">
-
           <a ui-sref="books({bookID: book._id})" target="_blank">{{book._title_display}}</a>
-          <div class="results-data" ng-show="book._creator_display">
-            <b>Creator: </b>
-            <p class="results-data-vals" ng-repeat="creator in book._creator_display" ng-show="!$last">{{creator}}; </p>
-            <p class="results-data-val" ng-repeat="creator in book._creator_display" ng-show="$last">{{creator}}</p>
+          <div class="display-data">
+            <div class="results-data" ng-show="book._creator_display">
+              <b>Creator: </b>
+              <p class="results-data-vals" ng-repeat="creator in book._creator_display" ng-show="!$last">{{creator}}; </p>
+              <p class="results-data-val" ng-repeat="creator in book._creator_display" ng-show="$last">{{creator}}</p>
+            </div>
+            <div class="results-data" ng-show="!book._creator_display && book._contributor_display">
+              <b>Contributor: </b>
+              <p class="results-data-vals" ng-repeat="contributor in book._contributor_display" ng-show="!$last">{{contributor}}; </p>
+              <p class="results-data-val" ng-repeat="contributor in book._contributor_display" ng-show="$last">{{contributor}}</p>
+            </div>
+            <div class="results-data" ng-show="book._date_display">
+              <b>Date: </b><p class="results-data-val">{{book._date_display}}</p>
+            </div>
+            <div class="results-data" ng-show="book._edition">
+              <b>Edition: </b><p class="results-data-val">{{book._edition}}</p>
+            </div>
+            <div class="results-data">
+              <b>From: </b><p class="results-data-val">{{book._grp_contributor}}</p>
+            </div>
           </div>
-          <div class="results-data" ng-show="!book._creator_display && book._contributor_display">
-            <b>Contributor: </b>
-            <p class="results-data-vals" ng-repeat="contributor in book._contributor_display" ng-show="!$last">{{contributor}}; </p>
-            <p class="results-data-val" ng-repeat="contributor in book._contributor_display" ng-show="$last">{{contributor}}</p>
-          </div>
-          <div class="results-data" ng-show="book._date_display">
-            <b>Date: </b><p class="results-data-val">{{book._date_display}}</p>
-          </div>
-          <div class="results-data" ng-show="book._edition">
-            <b>Edition: </b><p class="results-data-val">{{book._edition}}</p>
-          </div>
-          <div class="results-data">
-            <b>From: </b><p class="results-data-val">{{book._grp_contributor}}</p>
-          </div>
-          <a class="digital-item-link" ng-href="{{book._record_link}}" id="view-digital-item" target="_blank">View Digital Item</a><br/>
+          <a ng-href="{{book._record_link}}"><button class="btn" type="button" id="view-digital-item" target="_blank">View Digital Item</button></a>
         </div>
       </li>
 
