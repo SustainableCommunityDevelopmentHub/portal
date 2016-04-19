@@ -622,7 +622,7 @@ li.book-listing {
   font-size: 12px;
 }
 
-.creator-display  {
+/*.creator-display  {
   display: block;
 }
 
@@ -636,7 +636,7 @@ li.book-listing {
 
 .contributor-display {
   display: block;
-}
+}*/
 
 #view-digital-item {
   font-size: 12px;
@@ -821,6 +821,23 @@ li.book-listing {
     font-size: 12px;
   }
 
+.book-info {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.results-data {
+}
+
+.results-data-vals {
+  display: inline;
+}
+
+.results-data-val {
+  display: inline;
+}
+
 
 /*
 .facet {
@@ -895,7 +912,7 @@ li.book-listing {
 
     .facet-tabs li {
       list-style: none;
-      height: 40px;
+      /*height: 40px;*/
     }
 
     .facet-tabs li:hover {

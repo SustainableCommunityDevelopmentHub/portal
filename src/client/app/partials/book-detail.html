@@ -152,15 +152,6 @@
               </div>
             </div>
 
-            <div class="cat-group" ng-show="book._grp_contributor">
-              <div class="cat-title">Contributing Institution</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="book._grp_contributor">
-                  <li class="book-field-val">{{book._grp_contributor}}</li>
-                </ul>
-              </div>
-            </div>
-
             <div class="cat-group" ng-show="(book.dublin_core.format | filter:{qualifier: '!'}).length > 0">
               <div class="cat-title">Format</div>
               <div class="cat-value">
@@ -690,6 +681,15 @@
             <div class="cat-value">
               <ul class="specs" ng-show="book.dublin_core.audience" ng-repeat="entry in book.dublin_core.audience">
                 <li class="book-field-val">{{entry.value}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cat-group" ng-show="book._grp_contributor">
+            <div class="cat-title">From</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book._grp_contributor">
+                <li class="book-field-val">{{book._grp_contributor}}</li>
               </ul>
             </div>
           </div>
