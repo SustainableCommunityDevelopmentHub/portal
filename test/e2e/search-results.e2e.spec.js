@@ -24,7 +24,7 @@ describe('Search Results', function() {
   });
   it('should return correct search results', function() {
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
   });
 
   it('should show decoded urls in search bar', function() {
@@ -51,20 +51,20 @@ describe('Search Results', function() {
 
   it('should clear facets when you uncheck them in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
     browser.wait(function () {
       return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
     }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
   });
 
   it('should filter results by date when you use date range filter', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.submitDateRange('1905', '1910');
-    expect(resultsPage.numTotalHits).toEqual(3);
+    expect(resultsPage.numTotalHits).toEqual(4);
 
     resultsPage.getHits().then(function(hits) {
        for(var i = 0; i < hits.length; i++){
