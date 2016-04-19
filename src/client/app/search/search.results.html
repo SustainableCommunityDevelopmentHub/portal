@@ -23,8 +23,8 @@
         <div class="search-facet-group">
         <uib-accordion close-others="false">
 
-          <uib-accordion-group ng-init="isopen = true" is-open="isopen">
-            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen, 'glyphicon-plus': !isopen}"></i>Creator/Contributor
+          <uib-accordion-group ng-init="isOpenCreator = true" is-open="isOpenCreator">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenCreator, 'glyphicon-plus': !isOpenCreator}"></i>Creator/Contributor
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.creator | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
@@ -39,8 +39,8 @@
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
-          <uib-accordion-group ng-init="isopen2 = true" is-open="isopen2">
-            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen2, 'glyphicon-plus': !isopen2}"></i>Subject
+          <uib-accordion-group ng-init="isOpenSubject = true" is-open="isOpenSubject">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenSubject, 'glyphicon-plus': !isOpenSubject}"></i>Subject
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.subject | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
@@ -55,8 +55,8 @@
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
-          <uib-accordion-group ng-init="isopen3 = true" is-open="isopen3">
-            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen3, 'glyphicon-plus': !isopen3}"></i>Language
+          <uib-accordion-group ng-init="isOpenLanguage = true" is-open="isOpenLanguage">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenLanguage, 'glyphicon-plus': !isOpenLanguage}"></i>Language
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.language | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
@@ -71,8 +71,8 @@
             </div>
           </uib-accordion-group><!-- /accordion-group -->
 
-          <uib-accordion-group ng-init="isopen4 = true" is-open="isopen4">
-            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isopen4, 'glyphicon-plus': !isopen4}"></i>From
+          <uib-accordion-group ng-init="isOpenFrom = true" is-open="isOpenFrom">
+            <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenFrom, 'glyphicon-plus': !isOpenFrom}"></i>From
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
               <input type="checkbox" id="{{ facet.option | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
