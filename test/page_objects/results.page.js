@@ -47,6 +47,12 @@ ResultsPage.prototype = Object.create({}, {
   advancedFacetChips: { get: function() {
     return element.all(by.repeater("advancedField in advancedFields"));
   }},
+  getFocusedElement: { get: function() {
+    return browser.driver.switchTo().activeElement();
+  }},
+  searchResultsInput: { get: function() {
+    return element(by.id("facet-chip-input"));
+  }},
 
   // Sorting
   sortOptions: { get: function() {

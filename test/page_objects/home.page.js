@@ -14,7 +14,10 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     seeAll: { value: function() {
         //element(by.id('see-all-btn')).click();
         element(by.id('go-btn')).click();
-    }}
+    }},
+    searchBar: { get: function() {
+    return element.all(by.css(".search-input")).get(0);
+  }},
 });
 
 module.exports = HomePage;

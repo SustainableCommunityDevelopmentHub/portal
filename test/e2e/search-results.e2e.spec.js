@@ -128,6 +128,26 @@ describe('Search Results', function() {
     });
   });
 
+  it('should have the search bar focused after each action', function(){
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+    
+    resultsPage.submitNewSearchTerm("art");
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+
+    resultsPage.pagingTopNextPage();
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+  });
+
+  it('should focus on search bar when going back to home page', function() {
+    resultsPage.submitNewSearchTerm("art");
+    var homePage = new HomePage();
+    browser.waitForAngular();
+    expect(homePage.searchBar.getAttribute("class")).toEqual(resultsPage.getFocusedElement.getAttribute("class"));
+  });
+
 
   describe('Pagination', function(){
     var query = '';
@@ -357,5 +377,7 @@ describe('Search Results', function() {
     var activeAdvancedFields = resultsPage.advancedFacetChips;
     expect(activeAdvancedFields.count()).toBe(0);
   });
+
+  
 
 });
