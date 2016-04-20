@@ -1,12 +1,13 @@
 (function() {
+  /* jshint validthis: true */
   'use strict';
 
   angular
   .module('app.core')
-  .factory('esQueryBuilder', ['DEFAULTS', 'SORT_MODES', esQueryBuilder]);
+  .factory('esQueryBuilder', ['DEFAULTS', 'SORT_MODES', '_', esQueryBuilder]);
 
   /* Functions to build various ES Queries */
-  function esQueryBuilder(DEFAULTS, SORT_MODES) {
+  function esQueryBuilder(DEFAULTS, SORT_MODES, _) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -212,27 +213,27 @@
           language: {
             name: 'language',
             key: '_language',
-            options:[]
+            values:[]
           },
           subject: {
             name: 'subject',
             key: '_subject_facets.raw',
-            options:[]
+            values:[]
           },
           type: {
             name: 'type',
             key: '_grp_type.raw',
-            options:[]
+            values:[]
           },
           creator: {
             name: 'creator',
             key: '_creator_facet.raw',
-            options:[]
+            values:[]
           },
           grp_contributor: {
             name: 'grp_contributor',
             key: '_grp_contributor.raw',
-            options:[]
+            values:[]
           }
         };
 
@@ -240,17 +241,17 @@
         opts.facets.forEach(function(facet){
           //console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
 
-          facetCategories[facet.facet].options.push(facet.option);
+          facetCategories[facet.categories].values.push(facet.value);
         });
 
         var facetCategoriesArr = _.values(facetCategories);
 
         // add filters to main search query
         facetCategoriesArr.forEach(function(facetCategory){
-          if(facetCategory.options.length){
+          if(facetCategory.values.length){
             fullQuery.body.query.bool
             .filter.bool.must
-            .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.options)));
+            .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.values)));
 
           }
           //console.log('esQueryBuilder::buildSearchQuery -- exited facetCategoriesArr.forEach');
@@ -260,14 +261,14 @@
           // apply filters from each other facet opt to our aggregation
           facetCategoriesArr.forEach(function(otherFacetCategory){
             //console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
-            if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.options.length){
+            if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.values.length){
               // ES throws err if aggFilter.bool.must[] is empty
               if(!aggFilter.bool || !aggFilter.bool.must){
                 aggFilter.bool = { must: [] };
               }
 
               var singleTermFilters =
-                createSingleTermFilters(otherFacetCategory.key, otherFacetCategory.options);
+                createSingleTermFilters(otherFacetCategory.key, otherFacetCategory.values);
 
               var facetOptsFilter = createBoolShouldFilter(singleTermFilters);
 
@@ -335,7 +336,7 @@
     /**
      * Construct ES query for ES term (only one term) filter.
      * Used to add a term filter on facet aggregations...
-     * ...to display correct facet options for each category
+     * ...to display correct facet values for each category
      *
      * @param {string} key name of property on ES obj we want to filter on
      * @param {array} filterVals values to filter on
@@ -439,8 +440,8 @@
 
     /**
      * Construct ES query for ES terms filter.
-     * Used to apply specific facet type, with one or more options, to a query.
-     * Add to base query to filter on particular facet and facet options
+     * Used to apply specific facet type, with one or more values, to a query.
+     * Add to base query to filter on particular facet and facet values
      *
      * @return {object} elasticsearch query DSL for terms filter
      */

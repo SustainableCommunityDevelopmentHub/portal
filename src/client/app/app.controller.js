@@ -215,7 +215,7 @@
               categoryCounts[prop] = 1;
             }
           }
-          $scope.selectedFacets[facet.option] = facet.active;
+          $scope.selectedFacets[facet.value] = facet.active;
         }
       }
     }
@@ -234,8 +234,8 @@
     }
 
     function checkFacet(facet){
-      var facetCategory = facet.facet;
-      var facetText = facet.option;
+      var facetCategory = facet.category;
+      var facetText = facet.value;
 
       if($scope.selectedFacets[facetText]){
         if(categoryCounts[facetCategory]){
@@ -261,7 +261,7 @@
         var checkedFilters = [];
         for (var i = 0; i < $scope.currentFacets.length; i++){
           var currentFacet = $scope.currentFacets[i];
-          if($scope.selectedFacets[currentFacet.option]){
+          if($scope.selectedFacets[currentFacet.value]){
             checkedFilters.push(currentFacet);
           }
         }
@@ -280,7 +280,7 @@
 
         for(var i = 0; i < facetsByCategory.length; i++){
           var facet = facetsByCategory[i];
-          if($scope.selectedFacets[facet.option]){
+          if($scope.selectedFacets[facet.value]){
             facet.active = true;
             applyFacets.push(facet);
           }
@@ -298,7 +298,7 @@
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
         var facet = $scope.categoryFacets[i];
-        if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
+        if(facet.value.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
           filteredFacets.push(facet);
         }
       }

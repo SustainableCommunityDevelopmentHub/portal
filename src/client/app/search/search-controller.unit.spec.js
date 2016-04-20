@@ -12,6 +12,8 @@ describe("Search Controller", function(){
       defaultSearchObj,
       SavedRecordsService;
 
+  var testFacet = {"category":"type","value":"Text","count":249,"active":true};
+  var secondFacet = {"category":"type","value":"Image","count":53,"active":true};
 
   beforeEach(function(){
     module('ui.router');
@@ -140,7 +142,6 @@ describe("Search Controller", function(){
 
     it("should set opts and scope vars correctly when adding a facet", function(){
       spyOn(SearchService, 'updateOpts');
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -150,7 +151,6 @@ describe("Search Controller", function(){
     });
 
     it("should set page number to 1 in SearchService when adding a facet", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
       SearchService.opts = {
@@ -168,8 +168,6 @@ describe("Search Controller", function(){
 
     it("should set opts and scope vars correctly when adding second facet", function(){
       spyOn(SearchService, 'updateOpts');
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -184,8 +182,6 @@ describe("Search Controller", function(){
 
     it("should update opts and scope correctly when deactivating a particular facet", function(){
       spyOn(SearchService, 'updateOpts');
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
-      var secondFacet = {"facet":"type","option":"Image","count":53,"active":true};
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
       scope.updateFacet(testFacet, true);
@@ -212,7 +208,6 @@ describe("Search Controller", function(){
     });
 
     it("should toggle between active and non-active facets correctly", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":false};
       var index = scope.activeFacets.indexOf(testFacet);
       // testFacet.active is false, so it should not be in scope.activeFacets
       expect(index).toBe(-1);
@@ -268,7 +263,6 @@ describe("Search Controller", function(){
 
   describe("Clear All functionality", function(){
     it("should clear applied facets", function(){
-      var testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       scope.updateFacet(testFacet, true);
 
       scope.clearFacetsAndUpdate();

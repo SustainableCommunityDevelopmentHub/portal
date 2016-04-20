@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', '_', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, _){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -194,30 +194,16 @@
     $scope.updateFacet = function(facetOption, active){
       console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
       if(active){
-        console.log('.....facet has been set');
         facetOption.active = true;
-        console.log($scope.activeFacets);
         _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.option === facetOption.option;
+          return aFacet.value === facetOption.value;
         });
         $scope.activeFacets.push(facetOption);
-
-
-
-        // remove facet option from facets sidebar once selected
-        // we are using the $$hashkey id prop which angular adds...
-        // ...to arr elements when ng-repeat is applied.
-        //_.remove($scope.facets[facetOption.facet], function(f){
-        //if(f.$$hashkey === facetOption.$$hashkey){
-        //console.log('Remove facet, hashkeys match. Facet to remove: ' + JSON.stringify(facetOption));
-        //return true;
-        //}
-        //});
       }
       else{
         facetOption.active = false;
         _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.option === facetOption.option;
+          return aFacet.value === facetOption.value;
         });
       }
       //reset pagination when applying facet

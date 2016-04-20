@@ -29,7 +29,6 @@ describe("Facet modal", function(){
   }));
 
   it("should open with variables set correctly", function(){
-    expect(true).toEqual(mockData.getMockSimpleSearchRes());
     expect(myScope.currentFacets).toBeDefined();
     expect(myScope.selectedFacets).toBeDefined();
     expect(myScope.categoryFacets).toBeDefined();
@@ -42,7 +41,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < myScope.currentFacets.length; i++){
       var facet = myScope.currentFacets[i];
-      if(facet.facet !== category){
+      if(facet.category !== category){
         correctCategory = false;
       }
     }
@@ -56,7 +55,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < myScope.currentFacets.length; i++){
       var facet = myScope.currentFacets[i];
-      if(facet.facet !== newCategory){
+      if(facet.category !== newCategory){
         correctCategory = false;
       }
     }
@@ -65,7 +64,7 @@ describe("Facet modal", function(){
 
   it("should increase the filter count when a facet is checked", function(){
     var facet = {facet: 'subject', option: 'Art', count: 34, active: false};
-    myScope.selectedFacets[facet.option] = true;
+    myScope.selectedFacets[facet.value] = true;
     myScope.checkFacet(facet);
     expect(myScope.filterCount).toBe(1);
   });
@@ -77,7 +76,7 @@ describe("Facet modal", function(){
     var containsFilterTerm = true;
     for(var i = 0; i < myScope.currentFacets.length; i++){
       var facet = myScope.currentFacets[i];
-      var facetTerm = facet.option.toLowerCase();
+      var facetTerm = facet.value.toLowerCase();
       if(facetTerm.indexOf(filterTerm) < 0){
         containsFilterTerm = false;
       }

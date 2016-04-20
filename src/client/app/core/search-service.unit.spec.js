@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* global inject */
+
 describe('SearchService Unit Tests', function(){
   var SearchService;
 

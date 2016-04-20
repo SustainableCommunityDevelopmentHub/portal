@@ -47,15 +47,15 @@
      * @param {object} agg Aggregation object in field from ES response obj. Contains aggregation for a facet.
      * @param {string} facetName Facet option name
      * @param {array} activeFacets Array of objects of all active facets.
-     *                             Each object must have a 'facet' prop (facet name) and an 'option' prop (value)
+     *                             Each object must have a 'category' prop (facet category) and an 'value' prop (value)
      */
     function parseAggregationResults(agg, facetName, activeFacets){
       console.log('....activeFacets:::: ' + activeFacets);
       return agg.buckets.map(function(facetOption){
 
         var parsedOption = {
-          facet: facetName,
-          option: facetOption.key,
+          category: facetName,
+          value: facetOption.key,
           count: facetOption.doc_count,
           active: false
         };
@@ -65,8 +65,8 @@
         // effectively we are requiring a specific object structure for activeFacets objs for facet activation.
         if(activeFacets.length){
           activeFacets.forEach(function(facet){
-            if(facet.facet && facet.option && parsedOption.facet && parsedOption.option){
-              if(facet.facet === parsedOption.facet && facet.option === parsedOption.option){
+            if(facet.category && facet.value && parsedOption.category && parsedOption.value){
+              if(facet.category === parsedOption.category && facet.value === parsedOption.value){
                 parsedOption.active = true;
               }
             }

@@ -17,8 +17,8 @@
       <p class="checked-filters"><a ng-click="toggleFilterView()" href="">{{ filterViewText }}</a></p>
       <ul class="checkbox-list">
         <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
-          <input type="checkbox" id="{{facet.option}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
-          <label for="{{facet.option}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div>
+          <input type="checkbox" id="{{facet.value}}" ng-model="selectedFacets[facet.value]" ng-checked="selectedFacets[facet.value]" ng-change="checkFacet(facet)">
+          <label for="{{facet.value}}"><div class="filter-labels">{{ facet.value }} ({{ facet.count }})</div>
         </label>
         </li>
       </ul>

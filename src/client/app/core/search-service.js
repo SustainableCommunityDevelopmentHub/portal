@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', 'SearchResParser', 'searchOptions', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['DataService', 'FacetService', 'SearchResParser', 'searchOptions', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, searchOptions, SearchResParser, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService(DataService, FacetService, SearchResParser, searchOptions, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['language', 'subject', 'creator', 'grp_contributor'];
 
     // initialize searchOptions singleton
@@ -41,7 +41,9 @@
       resetOpts: resetOpts,
       calculatePage: calculatePage,
       parseFacetsArrToObj: parseFacetsArrToObj,
-      getDefaultOptsObj: getDefaultOptsObj
+      getDefaultOptsObj: getDefaultOptsObj,
+
+      activateFacet: activateFacet
     };
 
     return service;
@@ -49,6 +51,13 @@
     //////////////////////////////////
     //Public Functions
     //////////////////////////////////
+
+    /**
+     * Activate a facet
+     */
+    function activateFacet(facet){
+
+    }
 
     /**
      * Return object with correct data structure for search opts
@@ -84,7 +93,7 @@
         };
 
         facetsArr.forEach(function(facet){
-          facetCategories[facet.facet].push(facet.option);
+          facetCategories[facet.category].push(facet.value);
         });
 
         console.log('~~~~~~~parseFacetsArrToObj::facetCategories: ' + JSON.stringify(facetCategories));
@@ -127,8 +136,9 @@
      * Updates opts.
      * @param {Object} opts - search options
      */
-    // TODO? Strip Angular.js $$hashKey prop from facet opts objs?
     function updateOpts(newOpts){
+      newOpts = newOpts || {};
+
       if(newOpts.q){
         newOpts.q = newOpts.q.toLowerCase();
       }

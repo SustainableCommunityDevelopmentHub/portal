@@ -70,7 +70,7 @@
                         <p class="saved-search-title search-filters-heading" ng-show="search.opts.facets.length">Filters:</p>
                         <ul class="search-filters-list">
                             <li ng-repeat="facet in search.opts.facets">
-                                <p>{{ facet.facet | capitalize }}: {{ facet.option }} </p>
+                                <p>{{ facet.category | capitalize }}: {{ facet.value }} </p>
                             </li>
                         </ul>
                     </div>
