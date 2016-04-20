@@ -14,7 +14,7 @@
 
             console.log('ContribCtrl....state change success. DataService.contribResults: ' + JSON.stringify(contribResults));
 
-            $scope.institutions = contribResults.aggregations.grp_contributor.buckets;            
+            $scope.institutions = contribResults.aggregations.grp_contributor.buckets;
 
           });
       }
@@ -23,8 +23,17 @@
       // for when user clicks on records for a particular institution.
       // changes state to search.results, which will trigger search operation.
 
-    $scope.contribSearch = function(opts) {
+    $scope.contribSearch = function(contributor) {
       SearchService.resetOpts();
+
+      var opts = {
+        facets: [
+          {
+            category: 'grp_contributor',
+            value: contributor
+          }
+        ]
+      };
 
       // convention is to always pass SearchService.opts
       SearchService.updateOpts(opts);

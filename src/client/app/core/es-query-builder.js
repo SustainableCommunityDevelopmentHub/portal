@@ -240,8 +240,7 @@
         // add new facets by category
         opts.facets.forEach(function(facet){
           //console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
-
-          facetCategories[facet.categories].values.push(facet.value);
+          facetCategories[facet.category].values.push(facet.value);
         });
 
         var facetCategoriesArr = _.values(facetCategories);
