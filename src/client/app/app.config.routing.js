@@ -24,17 +24,18 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&type&date_lte&date_gte',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
+        params: {
+          creator: { array: true },
+          grp_contributor: { array: true },
+          language: { array: true },
+          subject: { array: true },
+          type: { array: true }
+        },
         resolve: {
-          // run search and load resulting promise into controller prior to state load
           searchResults: function($stateParams, SearchService, SORT_MODES){
-            console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
-            // NOTE: We must pull search opts from stateParams to handle case
-            //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10
-            //       into address bar. In this case, SearchService has no opts
-            //       and stateParams will grab opts vals from the URL.
             var searchOpts = {
               q: $stateParams.q,
               size: parseInt($stateParams.size),

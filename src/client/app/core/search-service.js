@@ -1,9 +1,10 @@
 (function() {
+  /* jshint validthis: true */
   'use strict';
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', 'SearchResParser', '_', 'FACETS', 'DEFAULTS', SearchService]);
+  .factory('SearchService', ['DataService', 'SearchResParser', 'searchOptions', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -12,7 +13,12 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, SearchResParser, _, FACETS, DEFAULTS){
+  function SearchService(DataService, searchOptions, SearchResParser, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+    var facetCategoriesList = ['language', 'subject', 'creator', 'grp_contributor'];
+
+    // initialize searchOptions singleton
+    searchOptions = getDefaultOptsObj();
+
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -25,10 +31,7 @@
         numTotalHits: null,
         facetOptions: {}
       },
-      // search query options/params
-      opts: {
-        facets: []
-      },
+      opts: searchOptions, // search query options/params
 
       // functions //
       newSearch: newSearch,
@@ -36,7 +39,9 @@
       updateOpts: updateOpts,
       setResultsData: setResultsData,
       resetOpts: resetOpts,
-      calculatePage: calculatePage
+      calculatePage: calculatePage,
+      parseFacetsArrToObj: parseFacetsArrToObj,
+      getDefaultOptsObj: getDefaultOptsObj
     };
 
     return service;
@@ -45,6 +50,49 @@
     //Public Functions
     //////////////////////////////////
 
+    /**
+     * Return object with correct data structure for search opts
+     * and default search opts settings
+     */
+    function getDefaultOptsObj(){
+      return {
+        from: FROM_DEFAULT,
+        size: SIZE_DEFAULT,
+        q: '',
+        sort: SORT_DEFAULT,
+        facets: [],
+        advancedFields: [],
+        date: {
+          gte: null,
+          lte: null
+        }
+      };
+    }
+
+    /**
+     * Convert facets[] array into an object w/a property for each facet category
+     * which contains active facets
+     */
+    function parseFacetsArrToObj(facetsArr){
+      if(facetsArr && facetsArr.length){
+        var facetCategories = {
+          creator: [],
+          grp_contributor: [],
+          language: [],
+          subject: [],
+          type: []
+        };
+
+        facetsArr.forEach(function(facet){
+          facetCategories[facet.facet].push(facet.option);
+        });
+
+        console.log('~~~~~~~parseFacetsArrToObj::facetCategories: ' + JSON.stringify(facetCategories));
+        return facetCategories;
+      }
+
+      return false;
+    }
     /**
      * Executes new search. Overwrites existing opts,except defaults.
      * @param {Object} opts - search options
@@ -120,11 +168,11 @@
       var allAggregations = results.aggregations;
 
       // must do `var_this = this` so 'this' is correct inside the forEach(), otherwise failure.
+      //TODO: move _this to top of file
       var _this = this;
-      var FACETS_ARR = _.values(FACETS);
 
-      FACETS_ARR.forEach(function(FACET){
-        _this.results.facetOptions[FACET.name] = SearchResParser.parseAggregationResults(results.aggregations[FACET.name][FACET.name], FACET.name, _this.opts.facets);
+      facetCategoriesList.forEach(function(category){
+        _this.results.facetOptions[category] = SearchResParser.parseAggregationResults(results.aggregations[category][category], category, _this.opts.facets);
       });
 
       // return parsed data so it can be assigned on scope or elsewhere
@@ -141,13 +189,7 @@
      * Clear search opts and reset defaults
      */
     function resetOpts(){
-      this.opts = {
-        q: DEFAULTS.searchOpts.q,
-        from: DEFAULTS.searchOpts.from,
-        size: DEFAULTS.searchOpts.size,
-        facets: [],
-        sort: DEFAULTS.searchOpts.sort
-      };
+      this.opts = this.getDefaultOptsObj();
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
 
@@ -164,6 +206,7 @@
     ///////////////////////////////////
     //Private Functions
     ///////////////////////////////////
+
     function search(opts){
       // if no value set default vals
       if(!opts.from){

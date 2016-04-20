@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* jshint jasmine: true */
+/* global inject, mockData */
 
 describe("Facet modal", function(){
   var myScope, controller, modalInstance, mySearchService, mockResults;
@@ -26,6 +29,7 @@ describe("Facet modal", function(){
   }));
 
   it("should open with variables set correctly", function(){
+    expect(true).toEqual(mockData.getMockSimpleSearchRes());
     expect(myScope.currentFacets).toBeDefined();
     expect(myScope.selectedFacets).toBeDefined();
     expect(myScope.categoryFacets).toBeDefined();
@@ -38,7 +42,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < myScope.currentFacets.length; i++){
       var facet = myScope.currentFacets[i];
-      if(facet.facet != category){
+      if(facet.facet !== category){
         correctCategory = false;
       }
     }
@@ -52,7 +56,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < myScope.currentFacets.length; i++){
       var facet = myScope.currentFacets[i];
-      if(facet.facet != newCategory){
+      if(facet.facet !== newCategory){
         correctCategory = false;
       }
     }

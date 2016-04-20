@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* global inject, $state, spyOn */
+
 describe("Search Controller", function(){
   var scope,
       SearchService,

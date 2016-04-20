@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* globals protractor */
+
 exports.config = {
   allScriptsTimeout: 11000,
 
@@ -8,7 +11,6 @@ exports.config = {
   ],
 
   multiCapabilities: [
-    {'browserName': 'chrome'},
     {'browserName': 'firefox'}
   ],
 

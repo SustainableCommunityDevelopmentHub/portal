@@ -12,6 +12,7 @@
           root: 'app'
         }
     })
+    .value('searchOptions', {}) // set in SearchService
     .constant('FACETS', {
         language: {
           name: 'language',
@@ -41,7 +42,6 @@
           options:[]
         }
     })
-    .constant('SORT_DEFAULT', 'relevance')
     .constant('SORT_MODES', {
         relevance : {
           display: "Relevance",
@@ -78,6 +78,9 @@
       searchKey: "getty_portal_searches",
       gettyID: "getty_portal"
     })
+    .constant('FROM_DEFAULT', 0)
+    .constant('SIZE_DEFAULT', 25)
+    .constant('SORT_DEFAULT', 'relevance')
     .constant('DEFAULTS', {
       searchOpts: {
         q: '',

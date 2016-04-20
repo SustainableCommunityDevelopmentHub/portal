@@ -156,7 +156,7 @@
   .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets;
+    $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -200,7 +200,7 @@
       $scope.currentFacets = facets[category];
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
-    };
+    }
 
     function setFacetsChecked(){
       for(var prop in allFacets){
@@ -227,11 +227,11 @@
       $scope.text = "";
       seeOnlyChecked = false;
       $scope.filterViewText = seeOnlyCheckedText[0];
-    };
+    }
 
     function isActive(cat){
       return (activeCategory === cat);
-    };
+    }
 
     function checkFacet(facet){
       var facetCategory = facet.facet;
@@ -248,7 +248,7 @@
         $scope.filterCount--;
         categoryCounts[facetCategory]--;
       }
-    };
+    }
 
     function isCategorySelected(category){
       return categoryCounts[category];
@@ -287,7 +287,7 @@
         }
       }
       $uibModalInstance.close(applyFacets);
-    };
+    }
 
     function close() {
       $uibModalInstance.close();
@@ -303,6 +303,6 @@
         }
       }
       $scope.currentFacets = filteredFacets;
-    };
+    }
 }]);
 })();
