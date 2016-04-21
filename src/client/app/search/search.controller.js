@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -40,9 +40,9 @@
     $scope.categories = FACETS;
 
     if(ss.opts.sort){
-      $scope.sort = ss.opts.sort.display;
+      $scope.sort = SORT_MODES[ss.opts.sort].display;
     } else {
-      $scope.sort = "Relevance";
+      $scope.sort = SORT_MODES[SORT_DEFAULT].display;
     }
 
     console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
@@ -148,9 +148,7 @@
       // if new query term or empty string query term, need to reset pagination
       if(!opts.q || (opts.q !== ss.opts.q) ){
         opts.from = 0;
-        opts.sort = { display: "Relevance",
-          mode: "relevance"
-        };
+        opts.sort = SORT_MODES[SORT_DEFAULT];
       }
 
       $scope.newQueryTerm = "";
@@ -163,7 +161,7 @@
      */
     $scope.setPageSize = function(newPageSize){
       console.log('SearchCtrl::setPageSize - current: ' + ss.opts.size + ' , new: ' + newPageSize);
-      updateSearch({size: newPageSize});
+      updateSearch({size: newPageSize, from: 0});
     };
 
     $scope.setSortMode = function(sortMode) {
@@ -182,13 +180,7 @@
     $scope.setPageNum = function(newPage){
       console.log('SearchCtrl::setPageNum -- calculatePage():' + ss.calculatePage() + ' , newPage: ' + newPage);
       if(ss.calculatePage() !== newPage){
-        var newFrom;
-        if(newPage > ss.calculatePage()){
-          // this correctly handles edge case where user paginates then increases pageSize
-          newFrom = ss.opts.from + (ss.opts.size * (newPage - ss.calculatePage()));
-        } else{
-          newFrom = ss.opts.size * (newPage - 1);
-        }
+        var newFrom = ss.opts.size * (newPage - 1);
         console.log('SearchCtrl........updating from from: ' + ss.opts.from + ' to: ' + newFrom);
         updateSearch({from: newFrom});
       }

@@ -43,7 +43,7 @@
         return resultsObj;
       })
       .catch(function(response){
-        //console.log('DataService::search -- error: ' + JSON.stringify(response));
+        console.log('DataService::search -- error: ' + JSON.stringify(response));
       });
     }
 

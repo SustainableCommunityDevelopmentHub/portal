@@ -12,14 +12,32 @@ describe('Search Results', function() {
     resultsPage = new ResultsPage();
   });
 
+  it('should have correct default settings in URL', function() {
+    resultsPage.submitNewSearchTerm('');
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance');
+    });
+  });
+  it('Should have correct text in sort button', function() {
+    resultsPage.submitNewSearchTerm('');
+    expect(resultsPage.getSortButtonText()).toEqual('Sort by: Relevance');
+  });
   it('should return correct search results', function() {
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
   });
 
   it('should show decoded urls in search bar', function() {
     resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
     expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
+  });
+
+  it('should send user to digital item upon clicking of View Digital Item button', function() {
+    resultsPage.submitNewSearchTerm('Handbook of arms and armor');
+    resultsPage.viewDigitalItem();
+    browser.ignoreSynchronization = true;
+    expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
+    browser.ignoreSynchronization = false;
   });
 
   it('should display active facets in sidebar', function(){
@@ -33,20 +51,20 @@ describe('Search Results', function() {
 
   it('should clear facets when you uncheck them in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
     browser.wait(function () {
       return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
     }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(6);
+    expect(resultsPage.numTotalHits).toEqual(7);
   });
 
   it('should filter results by date when you use date range filter', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.submitDateRange('1905', '1910');
-    expect(resultsPage.numTotalHits).toEqual(3);
+    expect(resultsPage.numTotalHits).toEqual(4);
 
     resultsPage.getHits().then(function(hits) {
        for(var i = 0; i < hits.length; i++){
@@ -108,6 +126,26 @@ describe('Search Results', function() {
         });
       });
     });
+  });
+
+  it('should have the search bar focused after each action', function(){
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+    
+    resultsPage.submitNewSearchTerm("art");
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+
+    resultsPage.pagingTopNextPage();
+    browser.waitForAngular();
+    expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
+  });
+
+  it('should focus on search bar when going back to home page', function() {
+    resultsPage.submitNewSearchTerm("art");
+    var homePage = new HomePage();
+    browser.waitForAngular();
+    expect(homePage.searchBar.getAttribute("class")).toEqual(resultsPage.getFocusedElement.getAttribute("class"));
   });
 
 
@@ -339,5 +377,7 @@ describe('Search Results', function() {
     var activeAdvancedFields = resultsPage.advancedFacetChips;
     expect(activeAdvancedFields.count()).toBe(0);
   });
+
+  
 
 });

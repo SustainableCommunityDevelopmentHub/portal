@@ -1,38 +1,64 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="main-body">
-      <div class="adv-search-container">
-        <h3>Advanced Search</h3>
-        <hr class="sr-top">
-        <h5>Filter by keywords:</h5>
-        <input ng-model="queryTerm" class="keyword-search-input" type="text">
-        <p class="keyword-search-input-subtext">For tips on advanced searches, see <a ui-sref="help">Search Help</a>.</p>
+    <div class="col-xs-12">
+      <h3>Advanced Search</h3>
+      <hr class="sr-top">
+    </div>
+  </div><!-- /.row -->
 
-        <h4 class="sbf-heading">Search by Field</h4>
-        <div ng-repeat="filter in filters">
-          <div class="filter-item">
-            <div class="dropdown results-top" uib-dropdown>
-              <button class="btn btn-primary filter-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">
-                <div class="dropdown-text">{{filter.field.display}}</div>
-                <div class="dropdown-icon">
-                  <i class="glyphicon glyphicon-menu-down"></i>
-                </div>
-              </button>
-              <ul uib-dropdown-menu role="menu" class="dropdown-menu" id="filter-menu">
-                <li ng-repeat="field in fields">
-                  <a ng-click="selectField(filter, field)">{{ field.display }}</a>
-                </li>
-              </ul>
-              <input class="sf-input" ng-model="filter.text" placeholder="Enter text">
-              <div ng-show="filter.lastFilter" ng-click="addFilter()" class="plus-button">
-                <i class="glyphicon-plus glyphicon add-field-glyph" ></i>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Filter by keywords</h4>
+
+      <form ng-submit="search()">
+      <input ng-model="queryTerm" class="keyword-search-input" type="text">
+      <p class="keyword-search-input-subtext">For tips on advanced searches, see <a ui-sref="help">Search Help</a>.</p>
+    </div>
+  </div><!-- /.row -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Search by field</h4>
+      <div class="row">
+        <div class="col-xs-4 col-md-2 sbf-button-col">
+          <div ng-repeat="filter in filters">
+            <div class="filter-item">
+              <div class="dropdown results-top" uib-dropdown>
+                <button class="btn btn-primary filter-dropdown dropdown-toggle" uib-dropdown-toggle id="toggle-select-btn">
+                  <span class="glyphicon glyphicon-triangle-bottom" style="color:white; float: right"></span>
+                  <div class="dropdown-text">{{filter.field.display}}</div>
+                </button>
+                <ul uib-dropdown-menu role="menu" class="dropdown-menu" id="filter-menu">
+                  <li ng-repeat="field in fields">
+                    <a ng-click="selectField(filter, field)">{{ field.display }}</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <button ng-click="search()" class="search-btn">Search</button>
-      </div>   
+        <div class="col-xs-8 col-md-6 sbf-input-col">
+          <div ng-repeat="filter in filters">
+            <div class="filter-item">
+              <input class="sf-input" ng-model="filter.text" placeholder="Enter text">
+              <div ng-show="filter.lastFilter" ng-click="addFilter()" class="plus-button">
+                <i class="glyphicon-plus glyphicon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.row -->
+
     </div>
-  </div>
-</div>
+  </div><!-- /.row -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <button ng-click="search()" class="btn btn-primary search-btn">Search</button>
+    </div>   
+  </div><!-- /.row -->
+
+      </form>
+
+</div><!-- /.container -->
 
