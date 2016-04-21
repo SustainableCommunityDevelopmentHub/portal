@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('esQueryBuilder', ['DEFAULTS', esQueryBuilder]);
+  .factory('esQueryBuilder', ['DEFAULTS', 'SORT_MODES', esQueryBuilder]);
 
   /* Functions to build various ES Queries */
-  function esQueryBuilder(DEFAULTS) {
+  function esQueryBuilder(DEFAULTS, SORT_MODES) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -64,7 +64,7 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         //console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
-        fullQuery.body.query.bool.must = 
+        fullQuery.body.query.bool.must =
           {
             query_string: {
               query: opts.q,
@@ -139,14 +139,14 @@
       }
 
       if(opts.sort){
-        var sortQuery = buildSortQuery(opts.sort.mode);
+        var sortQuery = SORT_MODES[opts.sort].sortQuery;
         if(sortQuery){
           fullQuery.body.sort = sortQuery;
         }
 
-        //console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
+        //console.log('esQueryBuilder -- opts.sort:' + opts.sort);
       }
-      
+
       if(opts.date){
         var dateRange = buildDateRangeQuery(opts.date.gte, opts.date.lte);
         if(dateRange) {
@@ -164,7 +164,7 @@
       if (opts.advancedFields) {
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
-          
+
           if (item.field.searchKey.startsWith('dublin_core') && item.field.searchKey !== 'dublin_core.date') {
             var query = {
               query_string: {
@@ -456,7 +456,7 @@
 
     function buildDateRangeQuery(fromDate, toDate) {
       if (fromDate || toDate) {
-        var dateRangeFilter = 
+        var dateRangeFilter =
         {
           "range" : {
             "_date_facet" : {
@@ -467,35 +467,6 @@
         };
         return dateRangeFilter;
       }
-    }
-
-    /**
-     * build sort portion of query
-     * @param {string} sortMode string identifying the selected sort mode
-     * @return {object} sortQuery sort portion of elasticsearch query
-     */
-    function buildSortQuery(sortMode){
-      //console.log(sortMode);
-      var sortQuery;
-      switch(sortMode) {
-          case "date_asc":
-            sortQuery = "_date_facet";
-            break;
-          case "date_desc":
-            sortQuery = { "_date_facet": {"order": "desc"}};
-            break;
-          case "date_added":
-            sortQuery = {"_ingest_date": {"order": "desc"}};
-            break;
-          case "title_asc":
-            sortQuery = "_title_display.sort";
-            break;
-          case "title_desc":
-            sortQuery = {"_title_display.sort": {"order": "desc"}};
-            break;
-        }
-
-      return sortQuery;
     }
 
     /**
@@ -536,6 +507,5 @@
               ]
       };
     }
-
   }
 })();

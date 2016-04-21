@@ -53,11 +53,14 @@
      */
     function saveSearch(searchOpts, results, timestamp) {
       var searches = getSearches();
-      var lastSearch = DEFAULTS.searchOpts;
+      var lastSearchOpts = DEFAULTS.searchOpts;
       if (searches && searches.length > 0) {
-        lastSearch = searches[searches.length - 1].opts;
+        var lastSearch = searches[searches.length - 1].opts;
+        if (lastSearch) {
+          lastSearchOpts = lastSearch;
+        }
       }
-      if(!searchesMatch(lastSearch, searchOpts)) {
+      if(!searchesMatch(lastSearchOpts, searchOpts)) {
         var newSearch = {
           opts: searchOpts,
           numResults: results,

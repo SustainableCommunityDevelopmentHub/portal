@@ -14,11 +14,26 @@
       });
     };
   })
-  .directive('focusInput', function(){
+  .directive('focusHomeSearch', function() {
     return function(scope, elem, attr){
+      elem[0].querySelector('.search-input').focus();
+    };
+  })
+  .directive('focusSearchOnLoad', function() {
+    return function(scope, elem, attr){
+      elem[0].querySelector('#facet-chip-input').focus();
+      elem.addClass('input-div-focus');
+    };
+  })
+  .directive('focusSearchInput', function(){
+    return function(scope, elem, attr){
+      elem[0].querySelector('#facet-chip-input').focus();
+      elem.addClass('input-div-focus');
+
       $(document).on("click", function(e) {
-        if (!$(e.target).hasClass("facet-search")) {
+        if (!$(e.target).hasClass("facet-search") && !$(e.target).is("a") && !$(e.target).is("button") && e.target.type !== "checkbox") {
           if(elem.hasClass('input-div-focus')){
+            console.log("removing focus");
             elem.removeClass('input-div-focus');
           }          
         }

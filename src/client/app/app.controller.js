@@ -181,16 +181,12 @@
     function initialize(){
       allFacets = facets;
       $scope.facetCategories = [{
-        name: 'type',
-        display: 'Type'
+        name: 'creator',
+        display: 'Creator/ Contributor'
       },
       {
         name: 'subject',
         display: 'Subject'
-      },
-      {
-        name: 'creator',
-        display: 'Creator'
       },
       {
         name: 'language',
@@ -198,7 +194,7 @@
       },
       {
         name: 'grp_contributor',
-        display: 'Contributors'
+        display: 'From'
       }];
 
       $scope.currentFacets = facets[category];

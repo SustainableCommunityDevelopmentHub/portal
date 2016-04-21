@@ -10,16 +10,12 @@ describe('Facet Sidebar Functionality', function() {
   beforeEach(function() {
     resultsPage = new ResultsPage();
     resultsPage.submitNewSearchTerm('Art');
-    expect(resultsPage.numTotalHits).toEqual(309);
+    expect(resultsPage.numTotalHits).toEqual(310);
   });
   
   describe('Facets should behave correctly', function(){
     
     describe('At least 1 facet option should exist for each category', function(){
-      it('type', function(){
-        expect(resultsPage.getFacetOption('type', 0).getText()).toBeTruthy();
-      });
-      
       it('subject', function(){
         expect(resultsPage.getFacetOption('subject', 0).getText()).toBeTruthy();
       });
@@ -39,11 +35,6 @@ describe('Facet Sidebar Functionality', function() {
     });
     
     describe('Should be able to apply a facet to filter results for each category', function(){
-      it('type', function(){
-        resultsPage.addFacetOption('type', 'Text');
-        expect(resultsPage.numTotalHits).toEqual(253);
-      });
-
       it('subject', function(){
         resultsPage.addFacetOption('subject', 'Art');
         expect(resultsPage.numTotalHits).toEqual(35);
@@ -56,7 +47,7 @@ describe('Facet Sidebar Functionality', function() {
 
       it('language', function(){
         resultsPage.addFacetOption('language', 'French');
-        expect(resultsPage.numTotalHits).toEqual(204);
+        expect(resultsPage.numTotalHits).toEqual(205);
       });
 
       it('contributing institution', function(){
@@ -71,16 +62,16 @@ describe('Facet Sidebar Functionality', function() {
          'facet options inside chosen category should NOT update', function(){
         
         resultsPage.addFacetOption('creator', 'Bem, Eliz');
-        resultsPage.addFacetOption('creator', 'Institut de France');
-        expect(resultsPage.numTotalHits).toEqual(9);
+        resultsPage.addFacetOption('creator', 'A. Colin');
+        expect(resultsPage.numTotalHits).toEqual(24);
       });
       
       it('should behave with logical AND between 2 facets in different categories, and' +
          'facet options outside chosen category should update', function(){
 
-        resultsPage.addFacetOption('type', 'Text');
+        resultsPage.addFacetOption('subject', 'Russia');
         resultsPage.addFacetOption('creator', 'Bem, Eliz');
-        expect(resultsPage.numTotalHits).toEqual(4);
+        expect(resultsPage.numTotalHits).toEqual(5);
       });
 
       /**********
