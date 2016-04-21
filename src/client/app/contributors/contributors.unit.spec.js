@@ -1,3 +1,7 @@
+/* jshint node: true */
+/* jshint jasmine: true */
+/* global inject */
+
 describe('Contributors page tests', function() {
 
 	var scope, controller, $state, searchService, dataService, es, esqb, mockInstitutions;
@@ -49,16 +53,22 @@ describe('Contributors page tests', function() {
 
 		it("should call Search Service's reset opts when calling contribSearch", function(){
 			spyOn(searchService, 'resetOpts');
-			scope.contribSearch({facets: [{facet: 'grp_contributor', option: mockInstitutions[0].key}]});
+			scope.contribSearch({facets: [{category: 'grp_contributor', value: mockInstitutions[0].key}]});
 			expect(searchService.resetOpts).toHaveBeenCalled();
-		})
+		});
 
 		it("should call Search Service's update opts when calling contribSearch", function(){
-		  spyOn(searchService, 'updateOpts');
-	    scope.contribSearch({facets: [{facet: 'grp_contributor', option: mockInstitutions[0].key}]});
-	    expect(searchService.updateOpts).toHaveBeenCalledWith({facets: [{facet: 'grp_contributor', option: 'Gallica - Bibliothèque nationale de France'}]});
+      spyOn(searchService, 'updateOpts');
+	    var facetsArr = [{category: 'grp_contributor', value: mockInstitutions[0].key}];
+	    scope.contribSearch(mockInstitutions[0].key);
+      expect(searchService.updateOpts).toHaveBeenCalled();
 	  });
 
+		it("should correctly update Search Service's opts.facets when calling contribSearch", function(){
+	    var facetsArr = [{category: 'grp_contributor', value: mockInstitutions[0].key}];
+	    scope.contribSearch(mockInstitutions[0].key);
+	    expect(searchService.opts.facets).toEqual(facetsArr);
+	  });
 	});
 
 });
