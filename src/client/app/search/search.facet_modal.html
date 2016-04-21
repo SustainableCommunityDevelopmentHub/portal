@@ -4,38 +4,39 @@
      <i class="glyphicon-remove glyphicon"></i>
    </div>
 </div>
+
 <div class="modal-body">
   <div class="tab-container">
     <div class="row">
       <div class="col-xs-6 col-sm-3">
-    <ul class="facet-tabs">
-      <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
-        <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-xs-6 col-sm-9">
-    <div class="facet-tab-content">
-      <div class="search-wrapper">
-        <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>
-        <input class="search-filters" type="text" placeholder="Search filters" ng-model="text" ng-change="searchFilters()">
-        <p class="checked-filters"><a ng-click="toggleFilterView()" href="">{{ filterViewText }}</a></p>
+        <ul class="facet-tabs">
+          <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
+          <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
+          </li>
+        </ul>
       </div>
-      <ul class="checkbox-list">
-        <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
-          <input type="checkbox" id="{{facet.option}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
-          <label for="{{facet.option}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div>
-        </label>
-        </li>
-      </ul>
-    </div>
-  </div>
-<div class="col-xs-12 col-sm-9 col-sm-offset-3">
-              <div class="modal-footer">
-  <div class="filters-selected"><span class="selected-facet-tabs"></span>Filters Selected ({{ filterCount }})</div>
-  <button class="btn btn-primary apply-btn" type="button" ng-click="apply()">Apply</button>
-</div>
-</div>
-</div><!-- /.row -->
+
+      <div class="col-xs-6 col-sm-9">
+        <div class="facet-tab-content">
+          <div class="search-wrapper">
+            <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>
+            <input class="search-filters" type="text" placeholder="Search filters" ng-model="text" ng-change="searchFilters()">
+            <p class="checked-filters"><a ng-click="toggleFilterView()" href="">{{ filterViewText }}</a></p>
+          </div>
+          <ul class="checkbox-list">
+            <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
+              <input type="checkbox" id="{{facet.option}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
+              <label for="{{facet.option}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div></label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+        <div class="modal-footer">
+          <div class="filters-selected"><span class="selected-facet-tabs"></span>Filters Selected ({{ filterCount }})</div>
+          <button class="btn btn-primary apply-btn" type="button" ng-click="apply()">Apply</button>
+        </div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 </div>
