@@ -1,21 +1,17 @@
 (function() {
   'use strict';
 
-
   angular
   .module('app.core')
-  .value('activeFacets', {});
-
-  angular
-  .module('app.core')
-  .factory('FacetService', ['activeFacets', '_', FacetService]);
+  .factory('FacetService', ['searchOptions', '_', FacetService]);
 
 
-  function FacetService(activeFacets, _){
+  function FacetService(searchOptions, _){
     /////////////////////////////////
     // Private Vars
     /////////////////////////////////
     var _this = this;
+    var activeFacets = searchOptions.facets;
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
     var facetCategoriesObj = getDefaultDataStructure();
 
@@ -28,25 +24,73 @@
       isValidCategory: isValidCategory,
       isValidFacet: isValidFacet,
       isSameFacet: isSameFacet,
-      clearFacetCategory: clearFacetCategory,
+      clearFacetsIn: clearFacetsIn,
       activateFacet: activateFacet,
       deActivateFacet: deActivateFacet,
       getActiveFacets: getActiveFacets,
       buildFacet: buildFacet,
-      getFacetCategoriesList: getFacetCategoriesList
+      getFacetCategoriesList: getFacetCategoriesList,
+
+      // variables //
+      config: getFacetConfigObj()
     };
 
     return service;
+
+    function init(searchOptsFacets){
+      this.activeFacets = searchOptsFacets;
+    }
 
     //////////////////////////////////
     //Private Functions
     //////////////////////////////////
     function getDefaultDataStructure(){
-      var obj = {};
-      facetCategoriesList.forEach(function(c){
-        obj[c] = [];
-      });
-      return obj;
+      return {
+        language: {
+          options:[],
+          active: []
+        },
+        subject: {
+          options:[],
+          active: []
+        },
+        creator: {
+          options:[],
+          active: []
+        },
+        grp_contributor: {
+          options:[],
+          active: []
+        }
+      };
+    }
+
+    function getFacetConfigObj(){
+      return {
+        language: {
+          name: 'language',
+          key: '_language',
+          display: 'Language'
+        },
+        subject: {
+          name: 'subject',
+          key: '_subject_facets',
+          rawKey: '_subject_facets.raw',
+          display: 'Subject'
+        },
+        creator: {
+          name: 'creator',
+          key: '_creator_facet',
+          rawKey: '_creator_facet.raw',
+          display: 'Creator/Contributor'
+        },
+        grp_contributor: {
+          name: 'grp_contributor',
+          key: '_grp_contributor',
+          rawKey: '_grp_contributor.raw',
+          display: 'From'
+        }
+      };
     }
 
     function isValidCategory(category){
@@ -82,22 +126,34 @@
 
     /**
      * @return {array} string arr of facet categories
+     * Does not allow facet categories list to be modified
      */
     function getFacetCategoriesList(){
       return _.clone(facetCategoriesList);
     }
 
-    function clearFacetCategory(category){
+    function clearFacetsIn(category){
       if(category === 'all'){
-        facetCategoriesList.forEach(function(c){
-          activeFacets[c] = [];
-        });
+        activeFacets = [];
         return true;
+
+        // Use this instead if facet data struct is obj
+        //facetCategoriesList.forEach(function(c){
+          //activeFacets[c] = [];
+        //});
+        //return true;
       }
 
       if(isValidCategory(category)){
-        activeFacets[category] = [];
-        return true;
+        var numFacetsRemoved = 0;
+        // Use this instead if facet data struct is obj
+        for(var i = 0; i < activeFacets.length; i++){
+          if(activeFacets[i].category === category){
+            activeFacets.splice(i, 1);
+            numFacetsRemoved++;
+          }
+        }
+        return numFacetsRemoved;
       }
 
       return false;
@@ -124,14 +180,31 @@
      * Returns true if facet was successfully activated
      */
     function activateFacet(facet){
-      _this.getActiveFacets(facet.category).forEach(function(existingFacet){
-        if(isSameFacet(facet, existingFacet)){
-          existingFacet.active = true;
-          return true;
+      if(!isValidFacet(facet)){
+        return false;
+      }
+      facet.active = true;
+
+      // This code is for if we want to use an arry to store all facets
+      activeFacets.forEach(function(otherFacet){
+        if(isSameFacet(facet, otherFacet)){
+          otherFacet.active = true;
+          return otherFacet;
         }
       });
-      activeFacets[facet.category].push(facet);
-      return true;
+
+      activeFacets.push(facet);
+      console.log('FacetService::activateFacet -- activeFacets[] after new facet: ' + JSON.stringify(activeFacets));
+      return facet;
+
+      // This code is for if we want to use an obj to store facets by category
+      //_this.getActiveFacets(facet.category).forEach(function(otherFacet){
+        //if(isSameFacet(facet, otherFacet)){
+          //return facet;
+        //}
+      //});
+      //activeFacets[facet.category].push(facet);
+      //return facet;
     }
 
     function deActivateFacet(facet){

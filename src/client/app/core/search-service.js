@@ -14,10 +14,7 @@
    * Handles search variables, overall search state, etc.
    */
   function SearchService(DataService, FacetService, SearchResParser, searchOptions, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
-    var facetCategoriesList = ['language', 'subject', 'creator', 'grp_contributor'];
-
-    // initialize searchOptions singleton
-    searchOptions = getDefaultOptsObj();
+    var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
     // Expose Service
@@ -31,19 +28,31 @@
         numTotalHits: null,
         facetOptions: {}
       },
-      opts: searchOptions, // search query options/params
+      opts: getDefaultOptsObj(), // initalize below
+      facetCategoriesList: _.clone(facetCategoriesList),
 
       // functions //
-      newSearch: newSearch,
-      updateSearch: updateSearch,
+      // general opts
       updateOpts: updateOpts,
-      setResultsData: setResultsData,
       resetOpts: resetOpts,
+      // utility
       calculatePage: calculatePage,
       parseFacetsArrToObj: parseFacetsArrToObj,
       getDefaultOptsObj: getDefaultOptsObj,
-
-      activateFacet: activateFacet
+      // update specific opt
+      updateDate: updateDate,
+      // facets
+      isValidCategory: isValidCategory,
+      isValidFacet: isValidFacet,
+      isSameFacet: isSameFacet,
+      buildFacet: buildFacet,
+      activateFacet: activateFacet,
+      clearFacetsIn: clearFacetsIn,
+      // search execution
+      executeSearch: executeSearch,
+      updateSearch: updateSearch,
+      newSearch: newSearch,
+      setResultsData: setResultsData,
     };
 
     return service;
@@ -51,13 +60,6 @@
     //////////////////////////////////
     //Public Functions
     //////////////////////////////////
-
-    /**
-     * Activate a facet
-     */
-    function activateFacet(facet){
-
-    }
 
     /**
      * Return object with correct data structure for search opts
@@ -112,7 +114,7 @@
     function newSearch(opts){
       console.log('SearchService.newSearch() -- opts: ' + JSON.stringify(opts));
       this.opts = opts;
-      this.returnedPromise = search(this.opts);
+      this.returnedPromise = this.executeSearch();
       return this.returnedPromise;
     }
 
@@ -128,7 +130,7 @@
       this.updateOpts(opts);
       //_.merge(this.opts, opts);
       console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
-      this.returnedPromise = search(this.opts);
+      this.returnedPromise = this.executeSearch();
       return this.returnedPromise;
     }
 
@@ -160,6 +162,28 @@
       if(newOpts.advancedFields && !newOpts.advancedFields.length){
         this.opts.advancedFields = [];
       }
+
+      console.log('SearchService::updateOpts -- opts now: ' + JSON.stringify(this.opts));
+      return this.opts;
+    }
+
+    /**
+     * Update date filter
+     * @param {string} gte - date greater than or equal to
+     * @param {string} lte - date less than or equal to
+     * @return {bool} returns true on successful update
+     */
+    function updateDate(gte, lte){
+      if(!this.opts.date){
+        this.opts.date = { gte: '', lte: '' };
+      }
+      if(gte){
+        this.opts.date.gte = gte;
+      }
+      if(lte){
+        this.opts.date.gte = lte;
+      }
+      return true;
     }
 
     /**
@@ -178,10 +202,8 @@
       var allAggregations = results.aggregations;
 
       // must do `var_this = this` so 'this' is correct inside the forEach(), otherwise failure.
-      //TODO: move _this to top of file
       var _this = this;
-
-      facetCategoriesList.forEach(function(category){
+      this.facetCategoriesList.forEach(function(category){
         _this.results.facetOptions[category] = SearchResParser.parseAggregationResults(results.aggregations[category][category], category, _this.opts.facets);
       });
 
@@ -213,21 +235,135 @@
       return page;
     }
 
+    /**
+     * Construct a facet object
+     * @param {string} category valid facet cateogry - required
+     * @param {string} value such as 'art' or 'picasso' - required
+     * @param {int} count can be null - number of hits associated w/this facet - optional
+     * @param {boolean} active if facet is active or not- optional
+     */
+    function buildFacet(category, value, count, active){
+      if(!isValidCategory(category) || !value){
+        return false;
+      }
+
+      return {
+        category: category,
+        value: value,
+        count: count || null,
+        active: active || null
+      };
+    }
+
+    function isValidCategory(category){
+      return (facetCategoriesList.indexOf(category) > -1);
+    }
+
+    function isValidFacet(facet){
+      if(!facet.category || !facet.value){
+        return false;
+      }
+      if(!isValidCategory(facet.category)){
+        return false;
+      }
+      return true;
+    }
+
+    function isSameFacet(facetA, facetB){
+      if(facetA.category.toLowerCase() !== facetB.category.toLowerCase()){
+        return false;
+      }
+      if(facetA.value.toLowerCase() !== facetB.value.toLowerCase()){
+        return false;
+      }
+      return true;
+    }
+
+    /**
+     * Returns false if facet is already active
+     * Returns facet obj if facet was successfully activated
+     */
+    function activateFacet(facet){
+      if(!isValidFacet(facet)){
+        return false;
+      }
+      facet.active = true;
+
+      this.opts.facets.forEach(function(otherFacet){
+        if(isSameFacet(facet, otherFacet)){
+          otherFacet.active = true;
+          return otherFacet;
+        }
+      });
+
+      this.opts.facets.push(facet);
+      console.log('SearchService::activateFacet -- this.opts.facets[] after new facet: ' + JSON.stringify(this.opts.facets));
+      return facet;
+    }
+
+    /**
+     * Clear all facets in a particular category.
+     * Or, pass 'all' as an arg to clear all facets in all categories.
+     * Returns number of facets removed on success.
+     */
+    function clearFacetsIn(category){
+      if(category === 'all'){
+        this.opts.facets = [];
+        return true;
+      }
+
+      if(isValidCategory(category)){
+        var numFacetsRemoved = 0;
+        for(var i = 0; i < this.opts.facets.length; i++){
+          if(this.opts.facets[i].category === category){
+            this.opts.facets.splice(i, 1);
+            numFacetsRemoved++;
+          }
+        }
+        return numFacetsRemoved;
+      }
+      return false;
+    }
+
     ///////////////////////////////////
     //Private Functions
     ///////////////////////////////////
 
-    function search(opts){
+    function executeSearch(){
       // if no value set default vals
-      if(!opts.from){
-        opts.from = DEFAULTS.searchOpts.from;
+      if(!this.opts.q){
+        this.opts.q = '';
       }
-      if(!opts.size){
-        opts.size = DEFAULTS.searchOpts.size;
+      this.opts.q = this.opts.q.toLowerCase();
+
+      if(!this.opts.from){
+        this.opts.from = FROM_DEFAULT;
+      }
+      if(!this.opts.size){
+        this.opts.size = SIZE_DEFAULT;
+      }
+      if(!this.opts.sort){
+        this.opts.sort = SORT_DEFAULT;
+      }
+      this.opts.sort.toLowerCase();
+      if(!this.opts.date){
+        this.opts.date = {
+          gte: '',
+          lte: ''
+        };
+      }
+      if(this.opts.date && !(this.opts.date.gte || this.opts.date.lte)){
+        this.opts.date = {
+          gte: '',
+          lte: ''
+        };
+      }
+      if(this.opts.advancedFields && !this.opts.advancedFields.length){
+        this.opts.advancedFields = [];
       }
 
-      console.log('SearchService::search() -- executing with opts: ' +JSON.stringify(opts));
-      return DataService.search(opts);
+      console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
+      return DataService.search(this.opts);
     }
 
   }

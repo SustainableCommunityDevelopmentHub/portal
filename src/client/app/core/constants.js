@@ -12,7 +12,6 @@
           root: 'app'
         }
     })
-    .value('searchOptions', {}) // set in SearchService
     .constant('FACETS', {
         language: {
           name: 'language',
@@ -81,6 +80,18 @@
     .constant('FROM_DEFAULT', 0)
     .constant('SIZE_DEFAULT', 25)
     .constant('SORT_DEFAULT', 'relevance')
+    .value('searchOptions', {
+      from: 0,
+      size: 25,
+      q: '',
+      sort: 'relevance',
+      facets: [],
+      advancedFields: [],
+      date: {
+        gte: null,
+        lte: null
+      }
+    })
     .constant('DEFAULTS', {
       searchOpts: {
         q: '',

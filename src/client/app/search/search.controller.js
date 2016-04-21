@@ -17,8 +17,8 @@
     $scope.facets = searchResults.facets;
 
     // bind search opts to scope
-    $scope.activeFacets = ss.opts.facets || [];
-    $scope.advancedFields = ss.opts.advancedFields || [];
+    $scope.activeFacets = ss.opts.facets;
+    $scope.advancedFields = ss.opts.advancedFields;
 
     $scope.fromDate = "";
     $scope.toDate = "";

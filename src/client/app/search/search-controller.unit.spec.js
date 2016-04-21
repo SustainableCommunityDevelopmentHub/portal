@@ -151,6 +151,7 @@ describe("Search Controller", function(){
     });
 
     it("should set page number to 1 in SearchService when adding a facet", function(){
+      expect(scope.activeFacets).toEqual([]);
       var facetOpts = {facets: scope.activeFacets, from: 0};
 
       SearchService.opts = {
@@ -183,6 +184,7 @@ describe("Search Controller", function(){
     it("should update opts and scope correctly when deactivating a particular facet", function(){
       spyOn(SearchService, 'updateOpts');
       var facetOpts = {facets: scope.activeFacets, from: 0};
+      expect(scope.activeFacets).toEqual([]);
 
       scope.updateFacet(testFacet, true);
       expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);

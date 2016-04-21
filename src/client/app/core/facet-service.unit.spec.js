@@ -60,8 +60,6 @@ describe('FacetService Unit Tests', function(){
       var facetB = FacetService.buildFacet('subject', 'painting', 6, false);
       expect(FacetService.isSameFacet(facetA, facetB)).toEqual(false);
     });
-
   });
-
 
 });

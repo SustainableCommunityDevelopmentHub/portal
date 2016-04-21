@@ -16,7 +16,8 @@
         controller: 'HomePageCtrl',
         resolve: {
           searchResults: function(SearchService) {
-            return SearchService.updateSearch({q: ""}).then(function(data) {
+            SearchService.updateOpts({q: ""});
+            return SearchService.executeSearch().then(function(data) {
               return SearchService.setResultsData(data);
             });
           }
@@ -36,14 +37,43 @@
         },
         resolve: {
           searchResults: function($stateParams, SearchService, SORT_MODES){
+            var ss = SearchService;
+            //ss.resetOpts(); //NOTE: ALL PARAMS MUST BE PASSED IN URL FOR THIS TO WORK!
+
             var searchOpts = {
               q: $stateParams.q,
               size: parseInt($stateParams.size),
               from: parseInt($stateParams.from),
               sort: SORT_MODES[$stateParams.sort]
             };
-            return SearchService.updateSearch(searchOpts).then(function(data) {
-              return SearchService.setResultsData(data);
+
+            ss.clearFacetsIn('all'); //TODO: Remove when we use ss.resetOpts() instead.
+            ss.facetCategoriesList.forEach(function(category){
+              if($stateParams[category] && $stateParams[category].length){
+                $stateParams[category].forEach(function(facetVal){
+                  var newFacet = ss.buildFacet(category, facetVal, null, true);
+                  if(newFacet){
+                    console.log('~~~NEWFACET: ' + JSON.stringify(newFacet));
+                    console.log('~~~activating Facet returns: ' + JSON.stringify(ss.activateFacet(newFacet)));
+              console.log('~~~SEARCHSERVICE OPTS: ' + JSON.stringify(ss.opts));
+                  }
+                });
+              }
+            });
+
+            //ss.updateDate($stateParams.gte, $stateParams.lte);
+
+            /***
+            ss.updateQ($stateParams.q);
+            ss.updateSize($stateParams.size);
+            ss.updateFrom($stateParams.from);
+            ss.updateSort($stateParams.sort);
+            // do same thing, as appropriate for adv. fields
+            ***/
+
+            ss.updateOpts(searchOpts);
+            return ss.executeSearch().then(function(data) {
+              return ss.setResultsData(data);
             });
           }
         }
