@@ -25,7 +25,9 @@
 
     var service = {
       // functions //
-      facetsAreSame: facetsAreSame,
+      isValidCategory: isValidCategory,
+      isValidFacet: isValidFacet,
+      isSameFacet: isSameFacet,
       clearFacetCategory: clearFacetCategory,
       activateFacet: activateFacet,
       deActivateFacet: deActivateFacet,
@@ -48,17 +50,27 @@
     }
 
     function isValidCategory(category){
-      if(facetCategoriesObj[category]){
+      if(facetCategoriesObj[category.toLowerCase()]){
         return true;
       }
       return false;
     }
 
-    function facetsAreSame(facetA, facetB){
-      if(facetA.category !== facetB.category){
+    function isValidFacet(facet){
+      if(!facet.category || !facet.value){
         return false;
       }
-      if(facetA.option !== facetB.option){
+      if(!isValidCategory(facet.category)){
+        return false;
+      }
+      return true;
+    }
+
+    function isSameFacet(facetA, facetB){
+      if(facetA.category.toLowerCase() !== facetB.category.toLowerCase()){
+        return false;
+      }
+      if(facetA.value.toLowerCase() !== facetB.value.toLowerCase()){
         return false;
       }
       return true;
@@ -113,7 +125,7 @@
      */
     function activateFacet(facet){
       _this.getActiveFacets(facet.category).forEach(function(existingFacet){
-        if(facetsAreSame(facet, existingFacet)){
+        if(isSameFacet(facet, existingFacet)){
           existingFacet.active = true;
           return true;
         }
@@ -125,7 +137,7 @@
     function deActivateFacet(facet){
       var facets = _this.getActiveFacets(facet.category);
       _.remove(facets, function(f){
-        return facetsAreSame(facet, f);
+        return isSameFacet(facet, f);
       });
     }
 
@@ -144,8 +156,8 @@
       return {
         category: category,
         value: value,
-        count: count,
-        active: active
+        count: count || null,
+        active: active || null
       };
     }
 
