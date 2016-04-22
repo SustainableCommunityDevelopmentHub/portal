@@ -36,7 +36,8 @@
       updateOpts: updateOpts,
       setResultsData: setResultsData,
       resetOpts: resetOpts,
-      calculatePage: calculatePage
+      calculatePage: calculatePage,
+      getDefaultOpts: getDefaultOpts
     };
 
     return service;
@@ -138,16 +139,23 @@
     }
 
     /**
-     * Clear search opts and reset defaults
+     * Returns the default Search Opts object.
      */
-    function resetOpts(){
-      this.opts = {
+    function getDefaultOpts(){
+      return {
         q: DEFAULTS.searchOpts.q,
         from: DEFAULTS.searchOpts.from,
         size: DEFAULTS.searchOpts.size,
         facets: [],
         sort: DEFAULTS.searchOpts.sort
       };
+    }
+
+    /**
+     * Clear search opts and reset defaults
+     */
+    function resetOpts(){
+      this.opts = getDefaultOpts();
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
 
