@@ -63,6 +63,7 @@ a:focus, a:active {
 
 hr {
   border-top: 2px solid #eee;
+  width: 100%;
 }
 
 .sr-top {
@@ -566,8 +567,17 @@ a.adv:hover, a.adv:focus {
   justify-content: center;
 }
 
+.book-info {
+  display: inline-block;
+}
 
+.results-data-val {
+  display: inline;
+}
 
+.book-info b {
+  line-height: 1.5;
+}
 
 li.book-listing {
   list-style: none;
@@ -592,22 +602,6 @@ li.book-listing {
   margin-bottom: 10px;
   font-size: 12px;
 }
-
-/*.creator-display  {
-  display: block;
-}
-
-.date-display {
-  display: block;
-}
-
-.edition-display {
-  display: block;
-}
-
-.contributor-display {
-  display: block;
-}*/
 
 #view-digital-item {
   font-size: 12px;
@@ -792,45 +786,6 @@ li.book-listing {
     font-size: 12px;
   }
 
-.book-info {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-
-.results-data {
-}
-
-.results-data-vals {
-  display: inline;
-}
-
-.results-data-val {
-  display: inline;
-}
-
-
-/*
-.facet {
-  margin-top: 10px;
-}
-
-.facet ul li {
-  display: inline;
-}
-
-.facet ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.facet li {
-  list-style: none;
-  padding-right: 10px;
-}
-*/
-
 
   /* Facet Dropdown Mobile */
 
@@ -857,7 +812,7 @@ li.book-listing {
   }
 
 
-  /** Facet Modal **/
+  /* Facet Modal */
 
     .modal-content {
       padding: 20px;
@@ -1437,146 +1392,176 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 
-/** Saved Records Page **/
+/* Saved Records Page */
 
-.num-records {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  float: left;
-  margin-right: 20px;
-}
+  /* My Records */
 
-.records-tabs {
-  padding-left: 0px;
-}
-
-.records-tabs li {
-  list-style: none;
-  display: inline-block;
-  padding-right: 10px;
-  cursor: pointer;
-}
-
-.active-tab {
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
-}
-
-.records-items {
-  list-style: none;
-}
-
-.record-info {
-  margin-left: 56px;
-  max-width: 550px;
-}
-
-.saved-records-list {
-  padding-left: 0;
-}
-
-.saved-searches-list {
-  padding-left: 0;
-}
-
-.search-filters-list {
-  padding-left: 0;
-  margin-top:10px;
-}
-
-.search-filters-list li {
-  list-style: none;
-  line-height: 10px;
-}
-
-.search-filters-heading {
-  margin-top: 10px;
-}
-
-.search-info {
-  float: left;
-  border-right: 1px solid darkgray;
-  width: 70%;
-  min-height: 100px;
-  margin-bottom: 10px;
-  padding-right: 10px;
-}
-
-.additional-search-info {
-  display: inline-block;
-  margin-top: 25px;
-  margin-left: 50px;
-}
-
-.saved-search-title {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.search-list-hr {
-  background-color: lightslategray;
-  clear: both;
-  margin-bottom: 0;
-  height: 2px;
-}
-
-.remove-search-btn {
-  cursor: pointer;
-}
-
-.search-info a {
-  font-size: 16px;
-}
-
-@media print {
-  .header-complete {
-    display: none;
+  .records-tabs {
+    margin-bottom: 20px;
+    padding-left: 0px;
   }
 
-  .book-detail-title {
-    margin-bottom: 20px;
-    padding-bottom: 0;
+  .records-tabs h4 {
+    margin: 5px 0;
+  }
+
+  .records-tabs li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+  }
+
+  .records-tabs li:first-child {
+    padding-left: 0;
+  }
+
+  .records-tabs li:last-child {
+    border-right: none;
+  }
+
+  .active-tab {
+    border-bottom: 2px solid #f68c20;
+    padding-bottom: 5px;
+  }
+
+  .record-sorting {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    margin: 10px 0 40px;
+  }
+
+  .num-records {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .saved-records-list {
+    padding-left: 0;
+  }
+
+  .saved-records-list li.book-listing {
+    margin-bottom: 30px;
+  }
+
+    .saved-records-list #view-digital-item{
+      margin-bottom: 30px;
+  }
+
+  /* Recent Searches */
+
+  .saved-searches-list {
+    padding-left: 0;
+  }
+
+  li.records-items {
+    list-style: none;
+    line-height: 18px;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .search-info {
+    border-right: 1px solid #ddd;
+    width: 100%;
+    margin:  10px 0;
+    padding: 10px;
+  }
+
+  .saved-search-title {
+    font-size: 17px;
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 -5px;
+  }
+
+  .saved-search-terms {
+    display: block;
+  }
+
+  .search-info a {
     font-size: 16px;
   }
 
-  .detail-begin {
-    display: none;
+  .search-filters-heading {
+    margin-top: 25px;
+    display: block;
   }
 
-  .sr-top {
-    display: none;
+  .search-filters-list {
+    padding-left: 0;
+    margin-top: 10px;
+    display: block;
   }
 
-  .rec-options {
-    display: none;
+  .search-filters-list li {
+    list-style: none;
   }
 
-  .book-field-key {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+  .additional-search-info {
+    margin: 30px 0 28px;
   }
 
-  .book-field-val {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    line-height: 1em;
+  .num-results {
+    margin-bottom: 15px;
   }
 
-  .ng-binding b {
-    margin-bottom: 0;
-    padding-bottom: 0;
+  .remove-search-btn {
+    cursor: pointer;
   }
 
-  .footer {
-    display: none;
+
+
+  @media print {
+    .header-complete {
+      display: none;
+    }
+
+    .book-detail-title {
+      margin-bottom: 20px;
+      padding-bottom: 0;
+      font-size: 16px;
+    }
+
+    .detail-begin {
+      display: none;
+    }
+
+    .sr-top {
+      display: none;
+    }
+
+    .rec-options {
+      display: none;
+    }
+
+    .book-field-key {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .book-field-val {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 1em;
+    }
+
+    .ng-binding b {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .footer {
+      display: none;
+    }
   }
-}
 
 
 
@@ -1729,14 +1714,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-bottom: 40px;
     }
 
-    .modal-footer {
-      margin-left: 0;
-    }
-
-    .filter-checkboxes label {
-      max-width: 100%;
-    }
-
     .search-input {
       width: 81%;
     }
@@ -1801,8 +1778,17 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .filter-checkboxes {
       width: 100%;
     }
+
+    .filter-checkboxes label {
+      max-width: 100%;
+    }
+
     .facet-tabs {
       height: 413px;
+    }
+
+    .modal-footer {
+      margin-left: 0;
     }
 
     /* Advanced Search */
@@ -1835,6 +1821,36 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .cat-title {
       min-width: 125px;
       width: 22%;
+    }
+
+    /* Recent Searches */
+
+    .search-info {
+      border-right: none;
+      border-bottom: 1px solid #eee;
+      margin: 15px 0;
+    }
+
+    .additional-search-info {
+      margin: 0 10px 15px;
+      display: flex;  
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .additional-search-info p {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+
+    .num-results {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    .remove-search-btn {
+      display: inline-block;
+      margin-bottom: 0;
     }
 
     /* Contributors */
