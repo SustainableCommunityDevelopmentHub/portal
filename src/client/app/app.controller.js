@@ -302,8 +302,6 @@
           deactivated.push(facet);
         }
       }
-      
-      console.log(activated);
       var facetsToUpdate = [activated, deactivated];
       $uibModalInstance.close(facetsToUpdate);
     };
