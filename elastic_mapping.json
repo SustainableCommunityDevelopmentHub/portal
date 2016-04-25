@@ -15,16 +15,6 @@
           }
         }
       },
-      "_grp_type": {
-        "type": "string",
-        "index": "not_analyzed",
-        "fields": {
-          "raw": {
-            "type": "string",
-            "index": "not_analyzed"
-          }
-        }
-      },
       "_ingest_date": {
         "type": "date"
       },

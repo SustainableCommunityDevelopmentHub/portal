@@ -34,20 +34,20 @@ SavedRecordsPage.prototype = Object.create({}, {
     return result;
   }},
   getRecord: {get: function(position) {
-    return element.all(by.css('.records-items')).get(position);
+    return element.all(by.css('.book-listing')).get(position);
   }},
   clickBookmark: { value: function(position) {
-    element.all(by.css('.records-items .bookmark')).get(position).click();
+    element.all(by.css('.book-listing .bookmark')).get(position).click();
   }},
   getBookmark: { value: function(position) {
-    return element.all(by.css('.records-items .bookmark')).get(position);
+    return element.all(by.css('.book-listing .bookmark')).get(position);
   }},
   selectSortMode: { value: function(position) {
     element(by.css('.record-sorting div button')).click();
     element.all(by.css('.record-sorting a')).get(position).click();
   }},
   clickRecentSearches: {value: function() {
-    element.all(by.css('.records-tabs li')).get(2).click();
+    element.all(by.css('.records-tabs li')).get(1).click();
   }},
   getAllSearches: {value: function () {
     return element.all(by.css('.saved-searches-list .search-info'));

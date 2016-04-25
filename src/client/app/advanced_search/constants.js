@@ -3,9 +3,9 @@
   
   angular.module('app.advanced-search')
     .constant('ADVANCED_SEARCH', {
-      contributor: {
-        display: 'Contributed by',
-        searchKey: '_grp_contributor'
+      title: {
+        display: 'Title',
+        searchKey: 'dublin_core.title'
       },
       creator: {
         display: 'Creator',
@@ -23,13 +23,9 @@
         display: 'Subject',
         searchKey: 'dublin_core.subject'
       },
-      title: {
-        display: 'Title',
-        searchKey: 'dublin_core.title'
+      contributor: {
+        display: 'From',
+        searchKey: '_grp_contributor'
       },
-      type: {
-        display: 'Type',
-        searchKey: 'dublin_core.type'
-      }
     });
 })();

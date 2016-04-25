@@ -9,7 +9,7 @@ describe("Facet Modal", function(){
   beforeEach(function() {
     resultsPage = new ResultsPage();
     resultsPage.submitNewSearchTerm('painting');
-    expect(resultsPage.numTotalHits).toEqual(24);
+    expect(resultsPage.numTotalHits).toEqual(25);
   });
   
   it("should open modal window with previously checked facets checked", function(){
@@ -35,26 +35,26 @@ describe("Facet Modal", function(){
     expect(resultsPage.activeFacets.count()).toBe(1);
   })
   
-  describe("tests launching modal from 'Type' category", function(){
+  describe("tests launching modal from 'Language' category", function(){
     beforeEach(function(){
-      resultsPage.openFacetModal('type');
+      resultsPage.openFacetModal('language');
     });
 
     it("should apply checked filters when you click 'Apply'", function(){
       var EC = protractor.ExpectedConditions;
 
-      expect(resultsPage.getModalFacetOption('Text')).toBeDefined();
-      resultsPage.applyModalFacetOption('Text');
+      expect(resultsPage.getModalFacetOption('Russian')).toBeDefined();
+      resultsPage.applyModalFacetOption('Russian');
 
       // chrome can run too fast so we must wait
       browser.wait(EC.visibilityOf(resultsPage.getActiveFacetText(0)), 5000);
 
-      expect(resultsPage.getActiveFacetText(0)).toEqual("Text (Type)");
+      expect(resultsPage.getActiveFacetText(0)).toEqual("Russian (Language)");
     });
 
     it("should change the active category when you click on a different category tab", function(){
-      resultsPage.clickModalFacetTab(2);
-      expect(resultsPage.activeModalTab.getText()).toEqual('Creator');
+      resultsPage.clickModalFacetTab(1);
+      expect(resultsPage.activeModalTab.getText()).toEqual('Subject');
     });
 
   });

@@ -35,7 +35,7 @@ describe('Search Results Page Sorting', function() {
   it('Should sort by publication date', function() {
     resultsPage.selectSortOption('Date (ascending)');
     resultsPage.getHitsDates().then(function(dates){
-      expect(dates.length).toEqual(24);
+      expect(dates.length).toEqual(25);
       expect(dates).toEqual(dates.sort());
     });
   });
@@ -55,7 +55,7 @@ describe('Search Results Page Sorting', function() {
   it('Should sort by publication date descending', function() {
     resultsPage.selectSortOption('Date (descending)');
     resultsPage.getHitsDates().then(function(dates){
-      expect(dates.length).toEqual(24);
+      expect(dates.length).toEqual(25);
       expect(dates).toEqual(dates.sort().reverse());
     });
   });
@@ -63,7 +63,7 @@ describe('Search Results Page Sorting', function() {
   it('Should sort by newly added first', function() {
     resultsPage.selectSortOption('Newly Added First');
     resultsPage.getHitsIngestDates().then(function(dates){
-      expect(dates.length).toEqual(24);
+      expect(dates.length).toEqual(25);
       expect(dates).toEqual(dates.sort());
     });
   });
@@ -71,7 +71,7 @@ describe('Search Results Page Sorting', function() {
   it('Should sort by title', function() {
     resultsPage.selectSortOption('Title: A-Z');
     resultsPage.getHitsTitles().then(function(titles){
-      expect(titles.length).toEqual(24);
+      expect(titles.length).toEqual(25);
       expect(titles).toEqual(titles.sort());
     });
   });
@@ -79,7 +79,7 @@ describe('Search Results Page Sorting', function() {
   it('Should sort by title Z-A', function() {
     resultsPage.selectSortOption('Title: Z-A');
     resultsPage.getHitsTitles().then(function(titles){
-      expect(titles.length).toEqual(24);
+      expect(titles.length).toEqual(25);
       expect(titles).toEqual(titles.sort().reverse());
     });
   });
