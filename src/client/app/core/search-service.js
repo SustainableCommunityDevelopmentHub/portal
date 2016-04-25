@@ -37,7 +37,7 @@
       resetOpts: resetOpts,
       // utility
       calculatePage: calculatePage,
-      parseFacetsArrToObj: parseFacetsArrToObj,
+      parseFacetsToObj: parseFacetsToObj,
       getDefaultOptsObj: getDefaultOptsObj,
       // update specific opt
       updateDate: updateDate,
@@ -47,8 +47,10 @@
       isSameFacet: isSameFacet,
       buildFacet: buildFacet,
       activateFacet: activateFacet,
+      deActivateFacet: deActivateFacet,
       clearFacetsIn: clearFacetsIn,
       // search execution
+      buildQueryParams: buildQueryParams,
       executeSearch: executeSearch,
       updateSearch: updateSearch,
       newSearch: newSearch,
@@ -81,29 +83,49 @@
     }
 
     /**
-     * Convert facets[] array into an object w/a property for each facet category
-     * which contains active facets
+     * Parse search opts obj into URL query params which can be passed
+     * into the search results state.
+     * @returns {Object} Search opts in query params form
      */
-    function parseFacetsArrToObj(facetsArr){
-      if(facetsArr && facetsArr.length){
-        var facetCategories = {
-          creator: [],
-          grp_contributor: [],
-          language: [],
-          subject: [],
-          type: []
-        };
+    function buildQueryParams(){
+      var queryParams = {};
+      queryParams.q = this.opts.q;
+      queryParams.from = this.opts.from;
+      queryParams.size = this.opts.size;
+      queryParams.sort = this.opts.sort;
+      queryParams.date_gte = this.opts.date.gte;
+      queryParams.date_lte = this.opts.date.lte;
 
-        facetsArr.forEach(function(facet){
-          facetCategories[facet.category].push(facet.value);
-        });
+      this.facetCategoriesList.forEach(function(category){
+        queryParams[category] = [];
+      });
+      this.opts.facets.forEach(function(facet){
+        queryParams[facet.category].push(facet.value);
+      });
 
-        console.log('~~~~~~~parseFacetsArrToObj::facetCategories: ' + JSON.stringify(facetCategories));
-        return facetCategories;
-      }
-
-      return false;
+      console.log('SearchService::buildQueryParams - queryParams: ' + JSON.stringify(queryParams));
+      return queryParams;
     }
+
+    /**
+     * @returns {object} Data struct of active facets, each object property
+     * is a facet category with an array of the active facets in that category.
+     */
+    function parseFacetsToObj(){
+      var _this = this;
+      var obj = {};
+
+      this.facetCategoriesList.forEach(function(category){
+        obj[category] = [];
+        obj[category] = _this.opts.facets.filter(function(facet){
+          return facet.category === category;
+        });
+      });
+
+      console.log('SearchService::parseFacetsToObj - facets obj: ' + JSON.stringify(obj));
+      return obj;
+    }
+
     /**
      * Executes new search. Overwrites existing opts,except defaults.
      * @param {Object} opts - search options
@@ -317,8 +339,7 @@
         return false;
       }
       facet.active = false;
-      var facets = this.getActiveFacets(facet.category);
-      _.remove(facets, function(f){
+      _.remove(this.opts.facets, function(f){
         return isSameFacet(facet, f);
       });
     }
@@ -329,6 +350,9 @@
      */
     function clearFacetsIn(category){
       if(category === 'all'){
+        this.opts.facets.forEach(function(facet){
+          facet.active = false; // so facet doesn't get reset
+        });
         this.opts.facets = [];
         return true;
       }
@@ -338,6 +362,7 @@
 
       for(var i = 0; i < this.opts.facets.length; i++){
         if(this.opts.facets[i].category === category){
+          this.opts.facets[i].active = false; // so facet doesn't get reset
           this.opts.facets.splice(i, 1);
         }
       }

@@ -187,34 +187,28 @@
     };
 
     /**
-     * Used to activate or deactivate a facet.Updates $scope / state
-     * @param facetOption {object} Facet option object
+     * Activate or deactivate a facet. Triggers search update.
+     * @param facetOption {object} Facet object
      * @param active {boolean} Set true to activate facet, false to deactivate
      */
     $scope.updateFacet = function(facetOption, active){
       console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
       if(active){
-        facetOption.active = true;
-        _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.value === facetOption.value;
-        });
-        $scope.activeFacets.push(facetOption);
+        ss.activateFacet(facetOption);
       }
       else{
-        facetOption.active = false;
-        _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.value === facetOption.value;
-        });
+        ss.deActivateFacet(facetOption);
       }
+
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, from: 0});
+      ss.updateOpts({from: 0});
+      $state.go('searchResults', ss.buildQueryParams(), {reload: true});
     };
 
     /**
-     * Toggles facet.active status by calling updateFacet
-     * @param facet {object} Facet option object
+     * Toggles facet.active status
+     * @param facet {object} Facet object
      */
-
     $scope.toggleFacet = function(facet){
       $scope.updateFacet(facet, !facet.active);
     };

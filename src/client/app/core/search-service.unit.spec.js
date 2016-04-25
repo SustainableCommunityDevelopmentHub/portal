@@ -105,9 +105,14 @@ describe('SearchService Unit Tests', function(){
   });
 
   describe('Facet functions', function(){
-    it('should expose facetCategoriesList array', function(){
+    it('should expose correct facetCategoriesList array', function(){
       expect(SearchService.facetCategoriesList.length).toEqual(4);
+      expect(SearchService.facetCategoriesList.indexOf('language') > -1).toBeTruthy();
+      expect(SearchService.facetCategoriesList.indexOf('subject') > -1).toBeTruthy();
+      expect(SearchService.facetCategoriesList.indexOf('grp_contributor') > -1).toBeTruthy();
+      expect(SearchService.facetCategoriesList.indexOf('creator') > -1).toBeTruthy();
     });
+
     describe('buildFacet', function(){
       it('should return false if buildFacet is passed an invalid category', function(){
         expect( SearchService.buildFacet('foobar', 'English') )
@@ -190,6 +195,33 @@ describe('SearchService Unit Tests', function(){
       });
     });
 
+    describe('deActivateFacet', function(){
+      it('should return false if invalid facet obj passed', function(){
+        // isValidFacet() already unit tested so we just need to test that its being applied here.
+        var badFacet = {active: true};
+        expect(SearchService.deActivateFacet(badFacet)).toEqual(false);
+      });
+      it('should return false if invalid category prop in facet obj', function(){
+        var badFacet = {category: 'foobar', value: 'French'};
+        expect(SearchService.deActivateFacet(badFacet)).toEqual(false);
+      });
+      it('should remove desired facet from opts.facets[] and set facet.active to false', function(){
+        var facet = SearchService.buildFacet('language', 'French', 10, true);
+        var facetB = SearchService.buildFacet('language', 'English', 10, true);
+        SearchService.activateFacet(facet);
+        SearchService.activateFacet(facetB);
+        expect(SearchService.opts.facets.length).toEqual(2);
+
+        SearchService.deActivateFacet(facet);
+        expect(SearchService.opts.facets.length).toEqual(1);
+        expect(facet.active).toEqual(false);
+        expect(facetB.active).toEqual(true);
+        SearchService.deActivateFacet(facetB);
+        expect(SearchService.opts.facets.length).toEqual(0);
+        expect(facetB.active).toEqual(false);
+      });
+    });
+
     describe('clearFacetsIn', function(){
       var numCategories;
 
@@ -197,10 +229,12 @@ describe('SearchService Unit Tests', function(){
         expect(SearchService.clearFacetsIn('foobar')).toEqual(false);
       });
       it('should clear all facets in opts.facets[]', function(){
+        var facetsArr = [];
         numCategories = SearchService.facetCategoriesList.length;
 
         SearchService.facetCategoriesList.forEach(function(category){
-          SearchService.activateFacet( SearchService.buildFacet(category, 'foobar', 10, false) );
+          facetsArr.push( SearchService.buildFacet(category, 'foobar', 10, false) );
+          SearchService.activateFacet( facetsArr[facetsArr.length - 1] );
         });
         expect(SearchService.opts.facets.length).toEqual(numCategories);
         SearchService.clearFacetsIn('all');
@@ -221,8 +255,51 @@ describe('SearchService Unit Tests', function(){
       });
     });
 
-    describe('deActivateFacet', function(){
+    describe('parseFacetsToObj', function(){
+      it('should correctly build an object with a property for each facet category', function(){
+        var facetCatObj = SearchService.parseFacetsToObj();
+        SearchService.facetCategoriesList.forEach(function(category){
+          expect(facetCatObj[category]).toBeDefined();
+        });
+      });
+      it('should correctly populate the facet category object with active facets in each category', function(){
+        SearchService.facetCategoriesList.forEach(function(category){
+          SearchService.activateFacet( SearchService.buildFacet(category, 'foobar', 10, false) );
+        });
+        expect(SearchService.opts.facets.length).toEqual(4);
 
+        var facetCatObj = SearchService.parseFacetsToObj();
+        SearchService.facetCategoriesList.forEach(function(category){
+          expect(facetCatObj[category].length).toEqual(1);
+        });
+      });
+    });
+
+    describe('buildQueryParams', function(){
+      it('should build query params obj from Search Options, with all correct properties and values', function(){
+        SearchService.resetOpts();
+        SearchService.opts.q = 'painting';
+        SearchService.opts.from = 50;
+        SearchService.opts.size = 50;
+        SearchService.opts.date = {gte: 1900, lte: 1920};
+
+        var catFacetVals = ['facetA', 'facetB', 'facetC', 'facetD'];
+        SearchService.facetCategoriesList.forEach(function(category, i){
+          SearchService.activateFacet( SearchService.buildFacet(category, catFacetVals[i], 10, false) );
+        });
+
+        var qParams = SearchService.buildQueryParams();
+        expect(qParams.q).toEqual('painting');
+        expect(qParams.from).toEqual(50);
+        expect(qParams.size).toEqual(50);
+        expect(qParams.date_gte).toEqual(1900);
+        expect(qParams.date_lte).toEqual(1920);
+        SearchService.facetCategoriesList.forEach(function(category, i){
+          expect(qParams[category].length).toEqual(1);
+          expect(qParams[category][0]).toEqual(catFacetVals[i]);
+        });
+      });
     });
   });
+
 });

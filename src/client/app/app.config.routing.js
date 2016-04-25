@@ -25,15 +25,14 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&type&date_lte&date_gte',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_lte&date_gte',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
           creator: { array: true },
           grp_contributor: { array: true },
           language: { array: true },
-          subject: { array: true },
-          type: { array: true }
+          subject: { array: true }
         },
         resolve: {
           searchResults: function($stateParams, SearchService, SORT_MODES){
