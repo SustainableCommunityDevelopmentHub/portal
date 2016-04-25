@@ -17,6 +17,23 @@ describe("Facet Modal", function(){
     resultsPage.openFacetModal('subject');
     expect(resultsPage.getModalFacetOptionValue('Exhibitions')).toEqual('on');
   });
+
+  it("should deactivate previously checked facets correctly", function() {
+    resultsPage.addFacetOption('subject', 'Exhibitions');
+    expect(resultsPage.activeFacets.count()).toBe(1);
+    resultsPage.openFacetModal('subject');
+    resultsPage.applyModalFacetOption('Exhibitions');
+    expect(resultsPage.activeFacets.count()).toBe(0);
+  });
+
+  it("should deactivate and activate facets correctly", function() {
+    resultsPage.addFacetOption('subject', 'Exhibitions');
+    resultsPage.openFacetModal('subject');
+    resultsPage.getModalFacetOption('Painting').click();
+    resultsPage.applyModalFacetOption('Exhibitions');
+    
+    expect(resultsPage.activeFacets.count()).toBe(1);
+  })
   
   describe("tests launching modal from 'Type' category", function(){
     beforeEach(function(){
@@ -63,7 +80,7 @@ describe("Facet Modal", function(){
 
     it("should display only checked facets when 'See Only Checked' is clicked", function(){
       var initialCount = resultsPage.modalOptions.count();
-      resultsPage.selectModalOptions([0,3,4]);      
+      resultsPage.selectModalOptions([1,3,4]);     
       resultsPage.toggleModalSeeOnly();
       expect(resultsPage.modalOptions.count()).toBe(3);
 
