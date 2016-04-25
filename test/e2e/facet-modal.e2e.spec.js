@@ -31,7 +31,6 @@ describe("Facet Modal", function(){
     resultsPage.openFacetModal('subject');
     resultsPage.getModalFacetOption('Painting').click();
     resultsPage.applyModalFacetOption('Exhibitions');
-    
     expect(resultsPage.activeFacets.count()).toBe(1);
   })
   
@@ -80,7 +79,7 @@ describe("Facet Modal", function(){
 
     it("should display only checked facets when 'See Only Checked' is clicked", function(){
       var initialCount = resultsPage.modalOptions.count();
-      resultsPage.selectModalOptions([1,3,4]);     
+      resultsPage.selectModalOptions([0,3,4]);     
       resultsPage.toggleModalSeeOnly();
       expect(resultsPage.modalOptions.count()).toBe(3);
 
@@ -93,7 +92,6 @@ describe("Facet Modal", function(){
         });
       });
       expect(allChecked).toBe(true);
-
       resultsPage.toggleModalSeeOnly();
       expect(resultsPage.modalOptions.count()).toEqual(initialCount);
     });

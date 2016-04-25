@@ -150,12 +150,8 @@
             $scope.updateFacet(facet, false);
           });
         }
-        
       });
     };
-
-
-
   }])
   .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
@@ -173,7 +169,6 @@
     $scope.toggleFilterView = toggleFilterView;
     $scope.close = close;
     $scope.filterViewText = "See Only Checked Filters";
-    $scope.appliedFacets = facetsToApply;
 
     var seeOnlyCheckedText = ["See Only Checked Filters", "See All Filters"];
     var seeOnlyChecked = false;
@@ -272,8 +267,6 @@
           checked: true
         }
       }
-      
-      console.log(facetsToApply);
     };
 
     function isCategorySelected(category){
