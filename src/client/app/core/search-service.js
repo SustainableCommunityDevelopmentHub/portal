@@ -74,8 +74,8 @@
         facets: [],
         advancedFields: [],
         date: {
-          gte: null,
-          lte: null
+          gte: '',
+          lte: ''
         }
       };
     }
@@ -280,10 +280,14 @@
     }
 
     /**
-     * Returns false if facet is already active
-     * Returns facet obj if facet was successfully activated
+     * Set a facet's 'active' prop to true, and adds to opts.facets[]
+     * @param {Object} Valid facet object
+     * @returns {Bool} True if facet successfully added,
+     * false if facet obj was invalid or failure.
      */
     function activateFacet(facet){
+      var dupeFacet = false;
+
       if(!isValidFacet(facet)){
         return false;
       }
@@ -292,15 +296,32 @@
       this.opts.facets.forEach(function(otherFacet){
         if(isSameFacet(facet, otherFacet)){
           otherFacet.active = true;
-          return otherFacet;
+          dupeFacet = true;
         }
       });
-
-      this.opts.facets.push(facet);
-      console.log('SearchService::activateFacet -- this.opts.facets[] after new facet: ' + JSON.stringify(this.opts.facets));
-      return facet;
+      if(!dupeFacet){
+        this.opts.facets.push(facet);
+      }
+      //console.log('SearchService::activateFacet -- this.opts.facets[] after new facet: ' + JSON.stringify(this.opts.facets));
+      return true;
     }
 
+    /**
+     * Set a facet's 'active' prop to false, remove from opts.facets[]
+     * @param {Object} Valid facet obj
+     * @returns {Bool} True if facet successfully removed,
+     * false if facet obj was invalid or failure.
+     */
+    function deActivateFacet(facet){
+      if(!isValidFacet(facet)){
+        return false;
+      }
+      facet.active = false;
+      var facets = this.getActiveFacets(facet.category);
+      _.remove(facets, function(f){
+        return isSameFacet(facet, f);
+      });
+    }
     /**
      * Clear all facets in a particular category.
      * Or, pass 'all' as an arg to clear all facets in all categories.
@@ -311,18 +332,16 @@
         this.opts.facets = [];
         return true;
       }
-
-      if(isValidCategory(category)){
-        var numFacetsRemoved = 0;
-        for(var i = 0; i < this.opts.facets.length; i++){
-          if(this.opts.facets[i].category === category){
-            this.opts.facets.splice(i, 1);
-            numFacetsRemoved++;
-          }
-        }
-        return numFacetsRemoved;
+      else if(!isValidCategory(category)){
+        return false;
       }
-      return false;
+
+      for(var i = 0; i < this.opts.facets.length; i++){
+        if(this.opts.facets[i].category === category){
+          this.opts.facets.splice(i, 1);
+        }
+      }
+      return true;
     }
 
     ///////////////////////////////////
