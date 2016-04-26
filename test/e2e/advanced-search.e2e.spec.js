@@ -55,13 +55,13 @@ describe("Advanced Search", function(){
     expect(resultsMatch).toBe(true);
   });
 
-  it("should submit search fields with enter button", function() {
+  fit("should submit search fields with enter button", function() {
     advancedPage.addKeywordTerm('art');
     advancedPage.addFilterSearches([
       ['From', 'Getty'],
       ['Date', '1907']]
     );
-    advancedPage.submitWithEnterBtn();
+    advancedPage.submitFiltersWithEnter();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
     expect(advancedPage.facetChips.get(1).getText()).toEqual('Getty (Keyword: From)');
     expect(advancedPage.facetChips.get(2).getText()).toEqual('1907 (Keyword: Date)');
