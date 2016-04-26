@@ -5,12 +5,10 @@
       <hr class="sr-top">
     </div>
   </div><!-- /.row -->
-
+  <form ng-submit="search()">
   <div class="row">
     <div class="col-xs-12">
       <h4>Filter by keywords</h4>
-
-      <form ng-submit="search()">
       <input ng-model="queryTerm" class="keyword-search-input" type="text">
       <p class="keyword-search-input-subtext">For tips on advanced searches, see <a ui-sref="help">Search Help</a>.</p>
     </div>
@@ -24,7 +22,7 @@
           <div ng-repeat="filter in filters">
             <div class="filter-item">
               <div class="dropdown results-top" uib-dropdown>
-                <button class="btn btn-primary filter-dropdown dropdown-toggle" uib-dropdown-toggle id="toggle-select-btn">
+                <button type="button" class="btn btn-primary filter-dropdown dropdown-toggle" uib-dropdown-toggle id="toggle-select-btn">
                   <span class="glyphicon glyphicon-triangle-bottom" style="color:white; float: right"></span>
                   <div class="dropdown-text">{{filter.field.display}}</div>
                 </button>
@@ -54,7 +52,7 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <button ng-click="search()" class="btn btn-primary search-btn">Search</button>
+      <button type="submit" class="btn btn-primary search-btn">Search</button>
     </div>   
   </div><!-- /.row -->
 
