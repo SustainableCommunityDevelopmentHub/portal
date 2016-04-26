@@ -11,10 +11,12 @@ describe("Search Controller", function(){
       SORT_MODES,
       SAVED_ITEMS,
       defaultSearchObj,
-      SavedRecordsService;
+      SavedRecordsService,
+      testFacet,
+      secondFacet;
 
-  var testFacet = {"category":"type","value":"Text","count":249,"active":true};
-  var secondFacet = {"category":"type","value":"Image","count":53,"active":true};
+  //testFacet = {"category":"type","value":"Text","count":249,"active":true};
+  //secondFacet = {"category":"type","value":"Image","count":53,"active":true};
 
   beforeEach(function(){
     module('ui.router');
@@ -37,6 +39,9 @@ describe("Search Controller", function(){
     SavedRecordsService = _SavedRecordsService_;
     var _ = ___;
 
+    testFacet = SearchService.buildFacet('language', 'French', 270, true);
+    secondFacet = SearchService.buildFacet('language', 'German', 65, true);
+
     defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
     controller = $controller('SearchCtrl', {
@@ -52,22 +57,23 @@ describe("Search Controller", function(){
      });
   }));
 
+  beforeEach(function(){
+    SearchService.resetOpts();
+  });
+
   describe("Changing page size", function(){
     it("should call updateSearch with correct page size and page number", function(){
-      SearchService.opts = {
-        size: 25,
-        from: 0
-      };
+      SearchService.opts.size = 25;
+      SearchService.opts.from = 0;
 
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
     });
 
     it("should set page size and pageNum correctly based on size and from options", function(){
-      SearchService.opts = {
-        size: 25,
-        from: 50
-      };
+      SearchService.opts.size = 25;
+      SearchService.opts.from = 50;
+
       scope.setPageSize(10);
       expect(SearchService.opts.size).toEqual(10);
       expect(SearchService.opts.from).toEqual(0);
@@ -75,10 +81,9 @@ describe("Search Controller", function(){
     });
 
     it("should set page size and pageNum correctly when an edge case", function(){
-      SearchService.opts = {
-        size: 10,
-        from: 30
-      };
+      SearchService.opts.size = 10;
+      SearchService.opts.from = 30;
+
       scope.setPageSize(50);
       expect(SearchService.opts.size).toEqual(50);
       expect(SearchService.opts.from).toEqual(0);
@@ -86,10 +91,9 @@ describe("Search Controller", function(){
     });
 
     it("should set page size and pageNum correctly with a large from value", function(){
-      SearchService.opts = {
-        size: 10,
-        from: 923
-      };
+      SearchService.opts.size = 10;
+      SearchService.opts.from = 923;
+
       scope.setPageSize(25);
       expect(SearchService.opts.size).toEqual(25);
       expect(SearchService.opts.from).toEqual(0);
@@ -99,10 +103,9 @@ describe("Search Controller", function(){
 
   describe("Changing page number", function(){
     it("should set from and page number options correctly", function(){
-      SearchService.opts = {
-        size: 25,
-        from: 10
-      };
+      SearchService.opts.size = 25;
+      SearchService.opts.from = 10;
+
       scope.setPageNum(1);
 
       expect(SearchService.opts.from).toEqual(0);
@@ -110,30 +113,27 @@ describe("Search Controller", function(){
     });
 
     it("should set opts correctly when going to next page", function(){
-      SearchService.opts = {
-        size: 50,
-        from: 50
-      };
+      SearchService.opts.size = 50;
+      SearchService.opts.from = 50;
+
       scope.setPageNum(3);
       expect(SearchService.opts.from).toEqual(100);
       expect(SearchService.calculatePage()).toEqual(3);
     });
 
     it("should set opts correctly when going back a page", function(){
-      SearchService.opts = {
-        size: 50,
-        from: 100
-      };
+      SearchService.opts.size = 50;
+      SearchService.opts.from = 100;
+
       scope.setPageNum(2);
       expect(SearchService.opts.from).toEqual(50);
       expect(SearchService.calculatePage()).toEqual(2);
     });
 
     it("should set opts correctly when going to first page", function(){
-      SearchService.opts = {
-        size: 25,
-        from: 75
-      };
+      SearchService.opts.size = 25;
+      SearchService.opts.from = 75;
+
       scope.setPageNum(1);
       expect(SearchService.opts.from).toEqual(0);
       expect(SearchService.calculatePage()).toEqual(1);
@@ -142,32 +142,61 @@ describe("Search Controller", function(){
 
   describe("Facet selection", function(){
 
-    it("should set opts and scope vars correctly when adding a facet", function(){
-      spyOn(SearchService, 'updateOpts');
-      var facetOpts = {facets: scope.activeFacets, from: 0};
+    it("should call SearchService::activateFacet() when adding a facet", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
 
+      spyOn(SearchService, 'activateFacet');
       scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(1);
-      expect(scope.activeFacets[0]).toEqual(testFacet);
+      expect(SearchService.activateFacet).toHaveBeenCalledWith(testFacet);
     });
 
-    it("should set page number to 1 in SearchService when adding a facet", function(){
-      expect(scope.activeFacets).toEqual([]);
-      var facetOpts = {facets: scope.activeFacets, from: 0};
+    it("should call SearchService::updateOpts() to set page number to 1 when adding a facet", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
 
-      SearchService.opts = {
-        size: 25,
-        from: 25
-      };
+      SearchService.opts.from = 25;
+      SearchService.opts.size = 25;
       expect(SearchService.calculatePage()).toEqual(2);
 
+      //spyOn(SearchService, 'updateOpts');
       scope.updateFacet(testFacet, true);
+      //expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 0});
+      expect(SearchService.calculatePage()).toEqual(1);
+
+      //var facetOpts = {facets: scope.activeFacets, from: 0};
+
+      //SearchService.opts.from = 25;
+      //SearchService.opts.size = 25;
+      //expect(SearchService.calculatePage()).toEqual(2);
+
+      //scope.updateFacet(testFacet, true);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
       expect(SearchService.opts.from).toEqual(0);
-      expect(SearchService.calculatePage()).toEqual(1);
+      //expect(SearchService.calculatePage()).toEqual(1);
     });
+    it("should set opts and scope vars correctly when adding a facet", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
+      scope.updateFacet(testFacet, true);
+
+      // opts updated
+      expect(SearchService.opts.facets.length).toEqual(1);
+      expect(SearchService.opts.facets[0]).toEqual(testFacet);
+      expect(SearchService.opts.facets[0].category).toEqual(testFacet.category);
+      expect(SearchService.opts.facets[0].value).toEqual(testFacet.value);
+      expect(SearchService.opts.facets[0].count).toEqual(testFacet.count);
+      expect(SearchService.opts.facets[0].active).toEqual(true);
+
+      // scope updated
+      expect(scope.activeFacets.length).toEqual(1);
+      expect(scope.activeFacets[0].category).toEqual(testFacet.category);
+      expect(scope.activeFacets[0].value).toEqual(testFacet.value);
+      expect(scope.activeFacets[0].count).toEqual(testFacet.count);
+      expect(scope.activeFacets[0].active).toEqual(true);
+    });
+
 
     it("should set opts and scope vars correctly when adding second facet", function(){
       spyOn(SearchService, 'updateOpts');
@@ -269,7 +298,7 @@ describe("Search Controller", function(){
     it("should clear applied facets", function(){
       scope.updateFacet(testFacet, true);
 
-      scope.clearFacetsAndUpdate();
+      scope.clearSearchOpts();
       expect(scope.activeFacets).toEqual([]);
       expect(SearchService.opts.facets).toEqual([]);
     });
@@ -277,7 +306,7 @@ describe("Search Controller", function(){
       var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
       scope.advancedFields = [gettyField];
 
-      scope.clearFacetsAndUpdate();
+      scope.clearSearchOpts();
       expect(scope.advancedFields).toEqual([]);
       expect(SearchService.opts.advancedFields).toEqual([]);
     });

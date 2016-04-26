@@ -83,6 +83,10 @@
       $scope.advancedFields = [];
     }
 
+    function executeSearch(){
+      $state.go('searchResults', ss.buildQueryParams(), {reload: true});
+    }
+
     /**
      * reload search result state to trigger search.
      * if no opts passed uses SearchService.opts.
@@ -92,7 +96,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
       console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      $state.go('searchResults', ss.opts, {reload: true});
+      executeSearch();
     }
 
     /**
@@ -192,7 +196,6 @@
      * @param active {boolean} Set true to activate facet, false to deactivate
      */
     $scope.updateFacet = function(facetOption, active){
-      console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
       if(active){
         ss.activateFacet(facetOption);
       }
@@ -202,7 +205,7 @@
 
       //reset pagination when applying facet
       ss.updateOpts({from: 0});
-      $state.go('searchResults', ss.buildQueryParams(), {reload: true});
+      executeSearch();
     };
 
     /**
@@ -225,9 +228,9 @@
     };
 
     // clear all, not just facets. TODO: Change name when will not cause conflicts
-    $scope.clearFacetsAndUpdate = function(){
-      clearActiveFacets();
-      updateSearch(_.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]}));
+    $scope.clearSearchOpts = function(){
+      SearchService.resetOpts();
+      executeSearch();
     };
 
     /**

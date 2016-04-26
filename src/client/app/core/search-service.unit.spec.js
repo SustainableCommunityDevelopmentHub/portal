@@ -171,8 +171,14 @@ describe('SearchService Unit Tests', function(){
       it('should add a new facet to opts.facets[] and set the facet.active to true', function(){
         var facet = SearchService.buildFacet('language', 'French', 10, false);
         SearchService.activateFacet(facet);
+
         expect(SearchService.opts.facets.length).toEqual(1);
         expect(facet.active).toEqual(true);
+
+        expect(SearchService.opts.facets[0].category).toEqual('language');
+        expect(SearchService.opts.facets[0].value).toEqual('French');
+        expect(SearchService.opts.facets[0].count).toEqual(10);
+        expect(SearchService.opts.facets[0].active).toEqual(true);
       });
       it('should add several new facets to opts.facets[] and set the facet.active to true', function(){
         var facet = SearchService.buildFacet('language', 'French', 10, false);

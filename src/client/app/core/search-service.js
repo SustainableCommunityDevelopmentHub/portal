@@ -89,12 +89,17 @@
      */
     function buildQueryParams(){
       var queryParams = {};
-      queryParams.q = this.opts.q;
-      queryParams.from = this.opts.from;
-      queryParams.size = this.opts.size;
-      queryParams.sort = this.opts.sort;
-      queryParams.date_gte = this.opts.date.gte;
-      queryParams.date_lte = this.opts.date.lte;
+      queryParams.q = this.opts.q || '';
+      queryParams.from = this.opts.from || FROM_DEFAULT;
+      queryParams.size = this.opts.size || SIZE_DEFAULT;
+      queryParams.sort = this.opts.sort || SORT_DEFAULT;
+      if(!this.opts.date){
+        queryParams.date_gte = '';
+        queryParams.date_lte = '';
+      }
+
+      queryParams.date_gte = this.opts.date.gte || '';
+      queryParams.date_lte = this.opts.date.lte || '';
 
       this.facetCategoriesList.forEach(function(category){
         queryParams[category] = [];
