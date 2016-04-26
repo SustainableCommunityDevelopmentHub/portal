@@ -248,6 +248,7 @@
      * Clear search opts and reset defaults
      */
     function resetOpts(){
+      this.clearFacetsIn('all');
       this.opts = this.getDefaultOptsObj();
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }

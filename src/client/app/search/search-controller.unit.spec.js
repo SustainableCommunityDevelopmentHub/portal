@@ -15,9 +15,6 @@ describe("Search Controller", function(){
       testFacet,
       secondFacet;
 
-  //testFacet = {"category":"type","value":"Text","count":249,"active":true};
-  //secondFacet = {"category":"type","value":"Image","count":53,"active":true};
-
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
@@ -31,7 +28,7 @@ describe("Search Controller", function(){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
-    scope.activeFacets = [];
+    //scope.activeFacets = [];
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
     DEFAULTS = _DEFAULTS_;
     SORT_MODES = _SORT_MODES_;
@@ -159,22 +156,13 @@ describe("Search Controller", function(){
       SearchService.opts.size = 25;
       expect(SearchService.calculatePage()).toEqual(2);
 
-      //spyOn(SearchService, 'updateOpts');
       scope.updateFacet(testFacet, true);
-      //expect(SearchService.updateOpts).toHaveBeenCalledWith({from: 0});
       expect(SearchService.calculatePage()).toEqual(1);
 
-      //var facetOpts = {facets: scope.activeFacets, from: 0};
-
-      //SearchService.opts.from = 25;
-      //SearchService.opts.size = 25;
-      //expect(SearchService.calculatePage()).toEqual(2);
-
-      //scope.updateFacet(testFacet, true);
       expect(scope.activeFacets.length).toBe(1);
       expect(scope.activeFacets[0]).toEqual(testFacet);
       expect(SearchService.opts.from).toEqual(0);
-      //expect(SearchService.calculatePage()).toEqual(1);
+      expect(SearchService.calculatePage()).toEqual(1);
     });
     it("should set opts and scope vars correctly when adding a facet", function(){
       SearchService.resetOpts();
@@ -197,39 +185,19 @@ describe("Search Controller", function(){
       expect(scope.activeFacets[0].active).toEqual(true);
     });
 
-
-    it("should set opts and scope vars correctly when adding second facet", function(){
-      spyOn(SearchService, 'updateOpts');
-      var facetOpts = {facets: scope.activeFacets, from: 0};
-
-      scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(1);
-      expect(scope.activeFacets[0]).toEqual(testFacet);
-      scope.updateFacet(secondFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(2);
-      expect(scope.activeFacets[1]).toEqual(secondFacet);
-    });
-
-    it("should update opts and scope correctly when deactivating a particular facet", function(){
-      spyOn(SearchService, 'updateOpts');
-      var facetOpts = {facets: scope.activeFacets, from: 0};
-      expect(scope.activeFacets).toEqual([]);
+    it("should update opts and scope correctly when deactivating a facet", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
 
       scope.updateFacet(testFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(1);
-      expect(scope.activeFacets[0]).toEqual(testFacet);
-      scope.updateFacet(secondFacet, true);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(2);
-      expect(scope.activeFacets[1]).toEqual(secondFacet);
-      // testing deactivation, and that correct facet deactivated
+      expect(SearchService.opts.facets.length).toEqual(1);
+      expect(SearchService.opts.facets[0].value).toEqual(testFacet.value);
+      expect(testFacet.active).toEqual(true);
+
       scope.updateFacet(testFacet, false);
-      expect(SearchService.updateOpts).toHaveBeenCalledWith(facetOpts);
-      expect(scope.activeFacets.length).toBe(1);
-      expect(scope.activeFacets[0]).toEqual(secondFacet);
+      expect(SearchService.opts.facets.length).toEqual(0);
+      expect(scope.activeFacets.length).toEqual(0);
+      expect(testFacet.active).toEqual(false);
     });
 
     it("should clear advanced field facets correctly", function(){
@@ -241,21 +209,30 @@ describe("Search Controller", function(){
     });
 
     it("should toggle between active and non-active facets correctly", function(){
-      var index = scope.activeFacets.indexOf(testFacet);
+      scope.activeFacets = SearchService.opts.facets;
+      testFacet.active = false;
+
       // testFacet.active is false, so it should not be in scope.activeFacets
+      var index = scope.activeFacets.indexOf(testFacet);
       expect(index).toBe(-1);
+      expect(scope.activeFacets.length).toEqual(0);
+      expect(SearchService.opts.facets.length).toEqual(0);
 
       // toggle facet to turn it on
       scope.toggleFacet(testFacet);
       expect(testFacet.active).toBe(true);
       index = scope.activeFacets.indexOf(testFacet);
       expect(index).toBeGreaterThan(-1);
+      expect(scope.activeFacets.length).toEqual(1);
+      expect(SearchService.opts.facets.length).toEqual(1);
 
       // toggle facet again to turn it off
       scope.toggleFacet(testFacet);
       expect(testFacet.active).toBe(false);
       index = scope.activeFacets.indexOf(testFacet);
       expect(index).toBe(-1);
+      expect(scope.activeFacets.length).toEqual(0);
+      expect(SearchService.opts.facets.length).toEqual(0);
     });
   });
 
@@ -295,20 +272,28 @@ describe("Search Controller", function(){
   });
 
   describe("Clear All functionality", function(){
-    it("should clear applied facets", function(){
+    it("should clear applied facets and set them to inactive", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
+
       scope.updateFacet(testFacet, true);
+      expect(testFacet.active).toEqual(true);
+      expect(SearchService.opts.facets.length).toEqual(1);
 
       scope.clearSearchOpts();
-      expect(scope.activeFacets).toEqual([]);
       expect(SearchService.opts.facets).toEqual([]);
+      expect(testFacet.active).toEqual(false);
     });
     it("should clear all advanced search fields", function(){
+      SearchService.resetOpts();
+      scope.activeFacets = SearchService.opts.facets;
+
       var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
       scope.advancedFields = [gettyField];
 
       scope.clearSearchOpts();
-      expect(scope.advancedFields).toEqual([]);
       expect(SearchService.opts.advancedFields).toEqual([]);
+      expect(scope.advancedFields).toEqual([]);
     });
   });
 });

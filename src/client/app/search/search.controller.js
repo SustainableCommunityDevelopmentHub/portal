@@ -205,7 +205,7 @@
 
       //reset pagination when applying facet
       ss.updateOpts({from: 0});
-      executeSearch();
+      //executeSearch();
     };
 
     /**
@@ -227,7 +227,9 @@
       updateSearch({advancedFields: $scope.advancedFields, from: 0});
     };
 
-    // clear all, not just facets. TODO: Change name when will not cause conflicts
+    /**
+     * Clear Search Options
+     */
     $scope.clearSearchOpts = function(){
       SearchService.resetOpts();
       executeSearch();
