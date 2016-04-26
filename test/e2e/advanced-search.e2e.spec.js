@@ -55,7 +55,7 @@ describe("Advanced Search", function(){
     expect(resultsMatch).toBe(true);
   });
 
-  fit("should submit search fields with enter button", function() {
+  it("should submit search fields with enter button", function() {
     advancedPage.addKeywordTerm('art');
     advancedPage.addFilterSearches([
       ['From', 'Getty'],
