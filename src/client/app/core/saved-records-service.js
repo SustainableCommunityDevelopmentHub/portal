@@ -3,9 +3,9 @@
 
   angular
     .module('app.core')
-    .factory('SavedRecordsService', ['$rootScope', 'SAVED_ITEMS', 'DEFAULTS', 'StorageService', SavedRecordsService]);
+    .factory('SavedRecordsService', ['$rootScope', 'SAVED_ITEMS', 'DEFAULTS', 'StorageService', '_', SavedRecordsService]);
 
-  function SavedRecordsService($rootScope, SAVED_ITEMS, DEFAULTS, StorageService){
+  function SavedRecordsService($rootScope, SAVED_ITEMS, DEFAULTS, StorageService, _){
 
     var service = {
       getRecords: getRecords,
@@ -44,7 +44,7 @@
         }
       }
       return true;
-    };
+    }
 
     /**
      * Saves search if it differs from the last saved search

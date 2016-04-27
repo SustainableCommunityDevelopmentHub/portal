@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  angular
-    .module('app.saved-records')
+  angular .module('app.saved-records')
     .controller('SavedRecordsCtrl', ['$scope', '$state', 'records', 'searches', 'SavedRecordsService', 'SearchService', 'SAVED_RECORDS_SORT', '_', SavedRecordsCtrl]);
 
   function SavedRecordsCtrl($scope, $state, records, searches, SavedRecordsService, SearchService, SAVED_RECORDS_SORT, _) {
@@ -112,8 +111,15 @@
      * @param search {object}
      */
     $scope.runSearch = function(search) {
+      if(search.opts.facets && search.opts.facets.length){
+        search.opts.facets.forEach(function(facet){
+          SearchService.activateFacet(facet);
+        });
+        delete search.opts.facets;
+      }
+
       SearchService.updateOpts(search.opts);
-      $state.go('searchResults', SearchService.opts);
+      SearchService.transitionStateAndSearch();
     };
 
   }
