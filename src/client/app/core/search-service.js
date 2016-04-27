@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['DataService', 'SearchResParser', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['$state', 'DataService', 'SearchResParser', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService(DataService, SearchResParser, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService($state, DataService, SearchResParser, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
@@ -51,6 +51,7 @@
       clearFacetsIn: clearFacetsIn,
       // search execution
       buildQueryParams: buildQueryParams,
+      transitionStateAndSearch: transitionStateAndSearch,
       executeSearch: executeSearch,
       updateSearch: updateSearch,
       newSearch: newSearch,
@@ -330,7 +331,7 @@
       if(!dupeFacet){
         this.opts.facets.push(facet);
       }
-      //console.log('SearchService::activateFacet -- this.opts.facets[] after new facet: ' + JSON.stringify(this.opts.facets));
+      console.log('SearchService::activateFacet -- this.opts.facets[] after new facet: ' + JSON.stringify(this.opts.facets));
       return true;
     }
 
@@ -375,6 +376,16 @@
       return true;
     }
 
+    /**
+     * Transition to SearchResults state
+     * and pass query parameters for search options.
+     * In SearchResults state search options will be set
+     * based on query params and an Elasticsearch query executed.
+     */
+    function transitionStateAndSearch(){
+      $state.go('searchResults', this.buildQueryParams(), {reload: true});
+    }
+
     ///////////////////////////////////
     //Private Functions
     ///////////////////////////////////
@@ -415,6 +426,5 @@
       console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
       return DataService.search(this.opts);
     }
-
   }
 })();

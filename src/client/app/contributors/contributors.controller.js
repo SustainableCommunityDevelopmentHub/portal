@@ -6,6 +6,7 @@
   .controller('ContributorsCtrl', ['$scope', '$state', 'DataService', 'SearchService', ContributorsCtrl]);
 
   function ContributorsCtrl($scope, $state, DataService, SearchService) {
+    var ss = SearchService;
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       if(toState.controller === 'ContributorsCtrl'){
@@ -20,24 +21,11 @@
       }
     });
 
-      // for when user clicks on records for a particular institution.
-      // changes state to search.results, which will trigger search operation.
-
+    // for when user clicks on records for a particular institution.
     $scope.contribSearch = function(contributor) {
-      SearchService.resetOpts();
-
-      var opts = {
-        facets: [
-          {
-            category: 'grp_contributor',
-            value: contributor
-          }
-        ]
-      };
-
-      // convention is to always pass SearchService.opts
-      SearchService.updateOpts(opts);
-      $state.go('searchResults', SearchService.opts);
+      ss.resetOpts();
+      ss.activateFacet( ss.buildFacet('grp_contributor', contributor, null, true) );
+      ss.transitionStateAndSearch();
     };
 
   }

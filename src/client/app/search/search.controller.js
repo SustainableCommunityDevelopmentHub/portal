@@ -83,10 +83,6 @@
       $scope.advancedFields = [];
     }
 
-    function executeSearch(){
-      $state.go('searchResults', ss.buildQueryParams(), {reload: true});
-    }
-
     /**
      * reload search result state to trigger search.
      * if no opts passed uses SearchService.opts.
@@ -96,7 +92,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
       console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      executeSearch();
+      ss.transitionStateAndSearch();
     }
 
     /**
@@ -205,7 +201,7 @@
 
       //reset pagination when applying facet
       ss.updateOpts({from: 0});
-      //executeSearch();
+      ss.transitionStateAndSearch();
     };
 
     /**
@@ -231,8 +227,8 @@
      * Clear Search Options
      */
     $scope.clearSearchOpts = function(){
-      SearchService.resetOpts();
-      executeSearch();
+      ss.resetOpts();
+      ss.transitionStateAndSearch();
     };
 
     /**
