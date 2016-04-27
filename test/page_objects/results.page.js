@@ -1,4 +1,6 @@
 'use strict';
+/* jshint node: true */
+/* globals by */
 
 var ResultsPage = function() {
   browser.get('/search');
