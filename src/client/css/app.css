@@ -6,7 +6,7 @@
   2. Header
   3. Main Nav
   4. Hamburger Menu
-  5. Main Body
+  5. Homepage
   6. Stat Boxes
   7. Advanced Search
   8. Search Results
@@ -63,6 +63,7 @@ a:focus, a:active {
 
 hr {
   border-top: 2px solid #eee;
+  width: 100%;
 }
 
 .sr-top {
@@ -129,6 +130,16 @@ hr {
   margin-left: 5px;
 }
 
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
 .site-nav .navbar-nav .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
   color: #333 !important;
   background-color: #f5f5f5 !important;
@@ -150,7 +161,6 @@ hr {
 .header .gri-portal-logo {
   width: 270px;
 }
-
 
 #container-test {
   width: 100%;
@@ -196,6 +206,7 @@ hr {
     color: #ddd;
     background-color: #000;
   }
+
 
   /* Hamburger Menu */
 
@@ -249,7 +260,8 @@ hr {
     }
 
 
-/* Main body */
+
+/* Homepage */
 
 .main-body {
   margin-left: auto;
@@ -339,36 +351,62 @@ a.adv:hover, a.adv:focus {
     }
 
 
-/** Advanced Search **/
-
-.adv-search-container {
-  margin-top: 30px;
-}
-
-.sbf-heading {
-  margin-top: 40px;
-}
+/* Advanced Search */
 
 .keyword-search-input {
-  width: 600px;
-  height: 34px;
+  width: 61%;
+  height: 40px;
+  padding: 10px;
 }
 
 .keyword-search-input-subtext {
-  font-size: .8em;
-  width: 600px;
+  font-size: 12px;
 }
 
-.select-field {
-  height: 34px;
-  border: 1px solid;
-  border-radius: 0;
+.filter-item {
+  margin-bottom: 10px;
+}
+
+.sbf-input-col {
+  padding-left: 0;
 }
 
 .sf-input {
-  height: 34px;
-  margin-left: 5px;
-  width: 470px;
+  height: 40px;
+  width: 90%;
+  padding: 10px;
+}
+
+.results-top button {
+  height: 40px;
+  width: 100%;
+}
+
+.results-top span {
+  float: right;
+}
+
+.dropdown-text {
+  display: inline-block;
+}
+
+#filter-menu {
+  margin-bottom: 15px;
+}
+
+.dropdown-text {
+  display: inline-block;
+}
+
+.dropdown-icon {
+  display: inline-block;
+}
+
+.plus-button {
+  display: inline-block;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .add-field-glyph {
@@ -379,70 +417,10 @@ a.adv:hover, a.adv:focus {
     border-radius: 15px;
 }
 
-.adv-search-btn {
-  margin-top: 200px;
-  float: right;
-}
-
-.filter-input {
-  max-width: 600px;
-  margin-right: 0;
-}
-
-.filter-item input {
-  display: inline-block;
-}
-
-#filter-menu {
-  width: 120px;
-  margin-top: -12px;
-  font-size: 12px;
-  min-width: 120px;
-  border-radius: 0;
-  padding: 0;
-}
-
-#filter-menu > li > a {
-  padding: 7px 20px;
-  border-bottom: 1px solid #ddd
-}
-
-.filter-dropdown {
-  color: black;
-  background-color: white;
-  border: solid black 1px;
-  border-radius: 0;
-  font-size: .8em;
-  margin-top: 10px;
-  margin-bottom: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  width: 120px;
-  text-align: left;
-  white-space: normal;
-}
-
-.dropdown-text {
-  display: inline-block;
-}
-
-.dropdown-icon {
-  float: right;
-  display: inline-block;
-}
-
-.plus-button {
-  display: inline-block;
-  cursor: pointer;
-}
-
 .search-btn {
-  border: 2px solid black;
-  border-radius: 2px;
-  padding: 10px 40px;
-  background-color: #fff;
+  margin-top: 20px;
+  padding: 10px 50px;
   float: right;
-  font-size: 12px;
 }
 
 
@@ -515,7 +493,6 @@ a.adv:hover, a.adv:focus {
 .facet-chip a {
   color: white;
 }
-
 
 .facet-labels:hover {
   text-decoration: underline;
@@ -594,6 +571,10 @@ a.adv:hover, a.adv:focus {
   display: inline-block;
 }
 
+.results-data-val {
+  display: inline;
+}
+
 .book-info b {
   line-height: 1.5;
 }
@@ -621,22 +602,6 @@ li.book-listing {
   margin-bottom: 10px;
   font-size: 12px;
 }
-
-/*.creator-display  {
-  display: block;
-}
-
-.date-display {
-  display: block;
-}
-
-.edition-display {
-  display: block;
-}
-
-.contributor-display {
-  display: block;
-}*/
 
 #view-digital-item {
   font-size: 12px;
@@ -821,45 +786,6 @@ li.book-listing {
     font-size: 12px;
   }
 
-.book-info {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-
-.results-data {
-}
-
-.results-data-vals {
-  display: inline;
-}
-
-.results-data-val {
-  display: inline;
-}
-
-
-/*
-.facet {
-  margin-top: 10px;
-}
-
-.facet ul li {
-  display: inline;
-}
-
-.facet ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.facet li {
-  list-style: none;
-  padding-right: 10px;
-}
-*/
-
 
   /* Facet Dropdown Mobile */
 
@@ -886,33 +812,48 @@ li.book-listing {
   }
 
 
-  /** Facet Modal **/
+  /* Facet Modal */
+
+    .modal-content {
+      padding: 20px;
+    }
 
     .modal-body {
+      padding: 0;
+    }
+
+    .modal-header {
+      padding: 0 0 10px;
+    }
+
+    .close-modal {
+      display: inline-block;
+      float: right;
+      cursor: pointer;
+      height: 20px;
+      font-size: 22px;
       padding-top: 0;
       padding-left: 0;
     }
 
     .facet-tabs {
-      float: left;
-      width: 140px;
       padding-left: 0;
       border-right: 1px solid #ddd;
       height: 268px;
     }
 
-    .facet-tabs li a {
-      display: block;
-      padding: 10px 15px 10px 28px;
-      font-size: 14px;
-      font-weight: bold;
-      color: black;
-      text-decoration: none;
-    }
-
     .facet-tabs li {
       list-style: none;
-      /*height: 40px;*/
+      border-bottom: 1px solid #ddd;
+    }
+
+    .facet-tabs li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
     }
 
     .facet-tabs li:hover {
@@ -920,15 +861,8 @@ li.book-listing {
       text-decoration: none;
     }
 
-    .borderBottom {
-      margin-left: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-
     .facet-tab-content {
-      margin-left: 140px;
-      padding-top: 10px;
-      padding-left: 18px;
+      margin-left: -30px;
     }
 
     .active-facet-tab {
@@ -940,52 +874,33 @@ li.book-listing {
       content: "\25cf";
       font-size: 1em;
       padding-right: 0.25em;
-      color: orange;
+      color: #f68c20;
     }
 
     .selected-facet-tabs {
       margin-left: -.825em;
     }
 
-    .modal-footer {
-      clear: both;
-      border-top: none;
-    }
-
-    .apply-btn {
-      border: 3px solid black;
-      border-radius: 2px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 22px;
-      padding-right: 22px;
-      background-color: #fff;
-    }
-
-    .filters-selected {
-      float: left;
-      margin: 0 auto;
-      width: 44%;
-      padding-top: 9px;
-      font-weight: 200;
-    }
-
     #filter-instructions {
       font-size: 12px;
-      padding-left: 6px;
-      padding-right: 6px;
+      padding-left: 5px;
+    }
+
+    .search-wrapper {
+      background-color: #eee;
+      padding: 10px;
     }
 
     .search-filters {
       width: 100%;
       height: 40px;
-      padding-left: 14px;
+      padding-left: 10px;
     }
 
     .search-filters:placeholder-shown {
       font-style: italic;
       font-size: 12px;
-      border: 1px solid #9d9d9d;
+      border: 1px solid #ddd;
     }
 
     .checked-filters {
@@ -994,17 +909,15 @@ li.book-listing {
       padding-right: 6px;
       padding-top: 8px;
       text-decoration: underline;
-    }
-
-    .checked-filters a {
-      color: black;
+      color: #f68c20;
     }
 
     .checkbox-list {
       margin-top: 20px;
-      padding-left: 2px;
-      height: 200px;
+      padding-left: 0;
+      height: 220px;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .filter-checkboxes {
@@ -1015,7 +928,12 @@ li.book-listing {
       line-height: 24px;
       vertical-align: top;
       position: relative;
-      padding-left: 6px;
+      padding-left: 25px;
+    }
+
+    .filter-checkboxes input {
+      margin: 4px 0 15px -16px;
+      float: left;
     }
 
     .modal-title {
@@ -1024,45 +942,40 @@ li.book-listing {
     }
 
     .filter-checkboxes label {
-      font-weight: normal;
-      padding-left: 4px;
-      font-size: 13px;
+      font-weight: 300;
       max-width: 200px;
       position: relative;
-      display: inline-block;
       vertical-align: top;
-    }
-
-    .modal-header {
-      padding-bottom: 6px;
-    }
-
-    .close-modal {
       display: inline-block;
-      float: right;
-      cursor: pointer;
-      height: 20px;
-      font-size: 22px;
+      margin-bottom: 10px;
+      padding-left: 10px;
     }
 
     .pagination {
       margin: 0;
     }
 
-    @media screen and (min-width: 768px){
-      .modal-dialog {
-        min-width: 700px;
-      }
+    .modal-header {
+      padding-bottom: 6px;
     }
 
-    @media screen and (max-width: 700px){
-      .filter-checkboxes {
-        width: 100%;
-      }
-      .facet-tabs {
-        height: 413px;
-      }
+    .modal-footer {
+      border-top: none;
+      padding: 0 0 0 10px;
+      margin-left: -30px;
     }
+
+    .apply-btn {
+      padding: 10px 30px;
+    }
+
+    .filters-selected {
+      float: left;
+      padding-top: 9px;
+      font-weight: 200;
+      font-size: 16px;
+    }
+
 
 
 /* Item Detail Page */
@@ -1198,7 +1111,7 @@ ul.specs {
 li.book-field-val {
   margin-bottom: 10px;
   line-height: 16px;
-  word-wrap: break-word;
+  word-break: break-word;
 }
 
 #emailGRI {
@@ -1479,394 +1392,493 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 }
 
 
-/** Saved Records Page **/
+/* Saved Records Page */
 
-.num-records {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  float: left;
-  margin-right: 20px;
-}
+  /* My Records */
 
-.records-tabs {
-  padding-left: 0px;
-}
-
-.records-tabs li {
-  list-style: none;
-  display: inline-block;
-  padding-right: 10px;
-  cursor: pointer;
-}
-
-.active-tab {
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
-}
-
-.records-items {
-  list-style: none;
-}
-
-.record-info {
-  margin-left: 56px;
-  max-width: 550px;
-}
-
-.saved-records-list {
-  padding-left: 0;
-}
-
-.saved-searches-list {
-  padding-left: 0;
-}
-
-.search-filters-list {
-  padding-left: 0;
-  margin-top:10px;
-}
-
-.search-filters-list li {
-  list-style: none;
-  line-height: 10px;
-}
-
-.search-filters-heading {
-  margin-top: 10px;
-}
-
-.search-info {
-  float: left;
-  border-right: 1px solid darkgray;
-  width: 70%;
-  min-height: 100px;
-  margin-bottom: 10px;
-  padding-right: 10px;
-}
-
-.additional-search-info {
-  display: inline-block;
-  margin-top: 25px;
-  margin-left: 50px;
-}
-
-.saved-search-title {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.search-list-hr {
-  background-color: lightslategray;
-  clear: both;
-  margin-bottom: 0;
-  height: 2px;
-}
-
-.remove-search-btn {
-  cursor: pointer;
-}
-
-.search-info a {
-  font-size: 16px;
-}
-
-@media print {
-  .header-complete {
-    display: none;
+  .records-tabs {
+    margin-bottom: 20px;
+    padding-left: 0px;
   }
 
-  .book-detail-title {
-    margin-bottom: 20px;
-    padding-bottom: 0;
+  .records-tabs h4 {
+    margin: 5px 0;
+  }
+
+  .records-tabs li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 15px;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+  }
+
+  .records-tabs li:first-child {
+    padding-left: 0;
+  }
+
+  .records-tabs li:last-child {
+    border-right: none;
+  }
+
+  .active-tab {
+    border-bottom: 2px solid #f68c20;
+    padding-bottom: 5px;
+  }
+
+  .record-sorting {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    margin: 10px 0 40px;
+  }
+
+  .num-records {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .saved-records-list {
+    padding-left: 0;
+  }
+
+  .saved-records-list li.book-listing {
+    margin-bottom: 30px;
+  }
+
+    .saved-records-list #view-digital-item{
+      margin-bottom: 30px;
+  }
+
+  /* Recent Searches */
+
+  .saved-searches-list {
+    padding-left: 0;
+  }
+
+  li.records-items {
+    list-style: none;
+    line-height: 18px;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .search-info {
+    border-right: 1px solid #ddd;
+    width: 100%;
+    margin:  10px 0;
+    padding: 10px;
+  }
+
+  .saved-search-title {
+    font-size: 17px;
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 -5px;
+  }
+
+  .saved-search-terms {
+    display: block;
+  }
+
+  .search-info a {
     font-size: 16px;
   }
 
-  .detail-begin {
-    display: none;
+  .search-filters-heading {
+    margin-top: 25px;
+    display: block;
   }
 
-  .sr-top {
-    display: none;
+  .search-filters-list {
+    padding-left: 0;
+    margin-top: 10px;
+    display: block;
   }
 
-  .rec-options {
-    display: none;
+  .search-filters-list li {
+    list-style: none;
   }
 
-  .book-field-key {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+  .additional-search-info {
+    margin: 30px 0 28px;
   }
 
-  .book-field-val {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    line-height: 1em;
+  .num-results {
+    margin-bottom: 15px;
   }
 
-  .ng-binding b {
-    margin-bottom: 0;
-    padding-bottom: 0;
+  .remove-search-btn {
+    cursor: pointer;
   }
 
-  .footer {
-    display: none;
+
+
+  @media print {
+    .header-complete {
+      display: none;
+    }
+
+    .book-detail-title {
+      margin-bottom: 20px;
+      padding-bottom: 0;
+      font-size: 16px;
+    }
+
+    .detail-begin {
+      display: none;
+    }
+
+    .sr-top {
+      display: none;
+    }
+
+    .rec-options {
+      display: none;
+    }
+
+    .book-field-key {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .book-field-val {
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 1em;
+    }
+
+    .ng-binding b {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .footer {
+      display: none;
+    }
   }
-}
 
 
 
 /** RESPONSIVE **/
 
-@media (min-width: 300px) and (max-width: 483px) {
 
-  /* Search Results */
+/** --------------------------
+        DESKTOP DISPLAY 
+--------------------------- **/
 
-  .facet-chip-search-bar {
-    width: 80%;
+  @media (min-width: 992px) {
 
-  }
-}
+    /* Homepage */
 
+    #go-btn span {
+       display: none;
+    }
 
-@media (min-width: 482px) and (max-width: 669px) {
+    /* Search Results */
 
-  /* Search Results */
+    #facets-mobile {
+      display: none;
+    }
 
-  .facet-chip-search-bar {
-    width: 87%;
+    /* Facets Modal */
 
-  }
-}
+    .modal-dialog {
+      min-width: 700px;
+    }
 
-
-@media (min-width: 670px) and (max-width: 777px) {
-
-  /* Search Results */
-
-  .facet-chip-search-bar {
-    width: 91%;
-  }
-
-}
-
-
-@media (min-width: 768px) {
-
-  /* Header */
-
-  .navbar .navbar-nav {
-    display: inline-block;
-    float: none;
-    vertical-align: top;
-  }
-
-  .navbar .navbar-collapse {
-    text-align: center;
-  }
-
-  /* Main Body */
-
-  #go-btn span {
-    display: none;
   }
 
 
-  /* Search Results */
 
-  #facets-mobile {
-    display: none;
-  }
- 
-}
+/** --------------------------
+        TABLET DISPLAY 
+--------------------------- **/
+
+ @media (min-width: 769px) and (max-width: 991px) {
+
+    /* Homepage */
+
+    #go-btn span {
+      display: none;
+    }
 
 
-@media (max-width: 768px) {
+    /* Search Results */
 
-  /* Header */
+    #facets-mobile {
+      display: none;
+    }
 
-  .header .getty-logo {
-    width:  50px;
-  }
+    .facet-header-desktop {
+      margin-bottom: 35px;
+    }
 
-  .header .gri-portal-logo {
-    width: 200px;
-  }
+    #clear-all {
+      float: left;
+    }
 
-  .navbar-default {
-    margin-bottom: 30px;
-  }
+    .facet-header-desktop h6 {
+      margin-bottom: 10px;
+    }
 
-  .sr-top {
-    margin-bottom: 20px;
-  }
+    .results-list {
+      padding: 10px 10px 80px;
+    }
 
-  /* Main Body */
+    #sorting {
+      width: 100%;
+      margin: 0 0 10px;
+    }
 
-  #go-btn {
-    width: 17%;
-    font-size: 22px;
-    padding-top: 7px;
-  }
-
-  #go-btn p {
-    display: none;
-  }
-
-  .search-input {
-    width: 81%;
-  }
-
-  .search-bar {
-    padding: 15px 15px 10px 15px;
-    margin-bottom: 40px;
-  }
-
-  /*   Search Results */
-
-  .facet-header-desktop {
-    display: none;
-  }
-
-  #clear-all {
-    height: 30px;
-    margin: 10px;
-    padding: 0 15px;
-    font-size: 14px;
-  }
-
-  .left_sidebar_hr {
-    display: none;
-  }
-
-  #left_sidebar_accordion__container {
-    margin-top: -10px;
-  }
-
-  /* Item Detail */
-
-  #item-details h3 {
-    display: block;
-  }
-
-  .view-export-print {
-    display: block;
-    float: left;
-    margin: 0 0 10px;
-  }
+    #facets-mobile {
+      display: none;
+    }
   
-  .cat-title {
-    min-width: 125px;
-    width: 22%;
+    #sorting .btn-group {
+      width: 49%;
+      margin-left: 0;
+    }
+
+    #sorting .btn {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    /* Advanced Search */
+
+    .keyword-search-input {
+      width: 100%;
+    }
+
+    /* Item Detail */
+
+    .cat-title {
+      min-width: 125px;
+      width: 38%;
+    }
+
+    /* Footer */
+
+    .footer p {
+      display: block;
+      text-align: center;
+    }
+
   }
 
-  #emailGRI {
-    margin: 50px 0;
+
+
+  /** --------------------------
+        MOBILE DISPLAY 
+--------------------------- **/
+
+
+  @media (max-width: 768px) {
+
+    /* Header */
+
+    .header .getty-logo {
+      width:  50px;
+    }
+
+    .header .gri-portal-logo {
+      width: 200px;
+    }
+
+    .navbar .navbar-nav {
+      display: block;
+    }
+
+    .navbar .navbar-collapse {
+      text-align: left;
+    }
+
+    .navbar-default {
+      margin-bottom: 20px;
+    }
+
+    .sr-top {
+      margin-bottom: 20px;
+    }
+
+    /* Homepage */
+
+    .search-bar {
+      padding: 15px 15px 10px 15px;
+      margin-bottom: 40px;
+    }
+
+    .search-input {
+      width: 81%;
+    }
+
+    #go-btn {
+      width: 17%;
+      font-size: 22px;
+      padding-top: 7px;
+    }
+
+    #go-btn p {
+      display: none;
+    }
+
+    .stats .box { 
+      margin-bottom: 10px
+    }
+
+    /* Search Results */
+
+    .facet-header-desktop {
+      display: none;
+    }
+
+    #left_sidebar_accordion__container {
+      margin-top: -10px;
+    }
+
+    #facets-mobile h4 {
+      font-size: 16px;
+      padding-top: 16px;
+    }
+
+    #clear-all {
+      height: 30px;
+      margin: 10px;
+      padding: 0 15px;
+      font-size: 14px;
+    }
+
+    .results-list {
+      padding: 10px 10px 80px;
+    }
+
+    #sorting {
+      width: 100%;
+      margin: 0 0 10px;
+    }
+
+    #sorting .btn-group {
+      width: 49%;
+      margin-left: 0;
+    }
+
+    #sorting .btn {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    /* Filter Modal */
+
+    .filter-checkboxes {
+      width: 100%;
+    }
+
+    .filter-checkboxes label {
+      max-width: 100%;
+    }
+
+    .facet-tabs {
+      height: 413px;
+    }
+
+    .modal-footer {
+      margin-left: 0;
+    }
+
+    /* Advanced Search */
+
+    .keyword-search-input {
+      width: 100%;
+    }
+
+    #toggle-select-btn {
+      font-size: 10px;
+      padding: 10px;
+    }
+
+    .sf-input {
+      width: 80%;
+    }
+
+    /* Item Detail */
+
+    #item-details h3 {
+      display: block;
+    }
+
+    .view-export-print {
+      display: block;
+      float: left;
+      margin: 0 0 10px;
+    }
+
+    .cat-title {
+      min-width: 125px;
+      width: 22%;
+    }
+
+    /* Recent Searches */
+
+    .search-info {
+      border-right: none;
+      border-bottom: 1px solid #eee;
+      margin: 15px 0;
+    }
+
+    .additional-search-info {
+      margin: 0 10px 15px;
+      display: flex;  
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .additional-search-info p {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+
+    .num-results {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    .remove-search-btn {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    /* Contributors */
+
+    .contrib-vl-center {
+      border-right: none;
+    }
+
+    /* Footer */
+
+    .footer p {
+      display: block;
+      text-align: center;
+    }
+
+
   }
 
-  /* Search Help */
+  @media (max-width: 380px) {
 
-  #help h5 {
-    margin: 25px 0 ;
-  }
+    /* Advanced Search */
 
-  /* Contributors */
+    .sbf-button-col {
+      padding-right: 5px;
+    }
 
-  .contrib-vl-center {
-    border-right: none;
+    .results-top span {
+      display: block;
+      float: none;
+    }
 
-  }
-}
-
-
-@media (min-width: 769px) and (max-width: 991px) {
-
-  /* Search Results */
-
-  .facet-chip-search-bar {
-    width: 88%;
-  }
-
-  .facet-header-desktop {
-    margin-bottom: 35px;
-  }
-
-  #clear-all {
-    float: left;
-  }
-
-  .facet-header-desktop h6 {
-    margin-bottom: 10px;
-  }
-
-  /* Item Detail */
-
-  .cat-title {
-    min-width: 125px;
-    width: 38%;
-  }
-
-}
-
-
-@media (max-width: 992px) {
-
-/* Search Results */
-
-.results-list {
-  padding: 10px 10px 80px;
-}
-
-#sorting {
-  width: 100%;
-  margin: 0 0 10px;
-}
-
-#sorting .btn-group {
-  width: 49%;
-  margin-left: 0;
-}
-
-#sorting .btn {
-  width: 100%;
-  margin-top: 0;
-}
-
-#toggle-sort-btn {
-  margin-right: 5px;
-}
-
-/* footer */
-
-.footer p {
-  display: block;
-  text-align: center;
-}
-
-}
-
-
-@media (min-width: 993px) {
-
-   /*   Search Results */
-
-  .facet-chip-search-bar {
-    width: 91%;
-  }
-}
-
-
-@media (min-width: 1200px) {
-
-   /*   Search Results */
-
-  .facet-chip-search-bar  {
-    width: 93%;
-  }
-}
