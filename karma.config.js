@@ -1,3 +1,12 @@
+/* jshint node: true */
+
+var isDebug = process.env.DEBUG || false;
+var browsers = ['Chrome', 'Firefox'];
+if(isDebug){
+   console.log('~~~~RUNNING TESTS IN DEBUG MODE~~~~~');
+   browsers = ['PhantomJS'];
+ }
+
 module.exports = function(config) {
   config.set({
 
@@ -50,6 +59,7 @@ module.exports = function(config) {
 
     plugins: [
       'karma-jasmine',
+      'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       "karma-spec-reporter",
@@ -105,7 +115,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: browsers,
 
 
     // Continuous Integration mode
