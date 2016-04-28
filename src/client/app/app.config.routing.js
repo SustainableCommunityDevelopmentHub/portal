@@ -25,7 +25,7 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_lte&date_gte',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
