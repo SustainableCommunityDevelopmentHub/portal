@@ -47,7 +47,7 @@
      * @param {object} agg Aggregation object in field from ES response obj. Contains aggregation for a facet.
      * @param {string} facetName Facet option name
      * @param {array} activeFacets Array of objects of all active facets.
-     *                             Each object must have a 'category' prop (facet category) and an 'value' prop (value)
+     * Each object must have a 'category' prop (facet category) and an 'value' prop (value)
      */
     function parseAggregationResults(agg, facetName, activeFacets){
       console.log('....activeFacets:::: ' + activeFacets);

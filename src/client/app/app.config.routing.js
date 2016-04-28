@@ -37,7 +37,6 @@
         resolve: {
           searchResults: function($stateParams, SearchService, SORT_MODES){
             var ss = SearchService;
-            //ss.resetOpts(); //NOTE: ALL PARAMS MUST BE PASSED IN URL FOR THIS TO WORK!
 
             var searchOpts = {
               q: $stateParams.q,
@@ -51,7 +50,9 @@
              * 2. Replace updateOpts with specific lines of code to add advanced fields, date, to searchOpts
              *    Ideally we will have a SearchService function specific to updating every field, like:
              *      updateDate(), updateSort(), etc
+             * 3. Use ss.resetOpts() instead of ss.clearFacetsIn('all')
              */
+
             ss.clearFacetsIn('all');
             ss.facetCategoriesList.forEach(function(category){
               if($stateParams[category] && $stateParams[category].length){
@@ -59,8 +60,6 @@
                   var newFacet = ss.buildFacet(category, facetVal, null, true);
                   if(newFacet){
                     ss.activateFacet(newFacet);
-                    console.log('~~~NEWFACET: ' + JSON.stringify(newFacet));
-                    console.log('~~~SEARCHSERVICE OPTS: ' + JSON.stringify(ss.opts));
                   }
                 });
               }

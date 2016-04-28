@@ -21,25 +21,21 @@
     /////////////////////////////////
 
     var service = {
-      // variables //
+      /* variables */
       returnedPromise: null,
       results: {
         hits: null,
         numTotalHits: null,
         facetOptions: {}
       },
-      opts: getDefaultOptsObj(), // initalize below
+      opts: getDefaultOptsObj(),
       facetCategoriesList: _.clone(facetCategoriesList),
 
-      // functions //
-      // general opts
+      /* functions */
+      // general opts update
       updateOpts: updateOpts,
       resetOpts: resetOpts,
-      // utility
-      calculatePage: calculatePage,
-      parseFacetsToObj: parseFacetsToObj,
-      getDefaultOptsObj: getDefaultOptsObj,
-      // update specific opt
+      // specific opts update
       updateDate: updateDate,
       // facets
       isValidCategory: isValidCategory,
@@ -49,6 +45,10 @@
       activateFacet: activateFacet,
       deActivateFacet: deActivateFacet,
       clearFacetsIn: clearFacetsIn,
+      // utility
+      calculatePage: calculatePage,
+      parseFacetsToObj: parseFacetsToObj,
+      getDefaultOptsObj: getDefaultOptsObj,
       // search execution
       buildQueryParams: buildQueryParams,
       transitionStateAndSearch: transitionStateAndSearch,
@@ -249,9 +249,7 @@
      * Clear search opts and reset defaults
      */
     function resetOpts(){
-      //this.clearFacetsIn('all');
       this.opts = this.getDefaultOptsObj();
-      console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
 
     /*
