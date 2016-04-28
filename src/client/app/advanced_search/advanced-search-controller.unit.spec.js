@@ -1,3 +1,6 @@
+'use strict';
+/* jshint node: true */
+/* globals inject, $state, spyOn */
 describe("Advanced Search", function(){
   var scope, searchService, controller;
 
@@ -83,5 +86,5 @@ describe("Advanced Search", function(){
       advancedFields: [{field: filter.field, term: filter.text}]
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
-  })
+  });
 });

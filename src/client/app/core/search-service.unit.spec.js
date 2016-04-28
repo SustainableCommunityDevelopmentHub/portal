@@ -125,7 +125,10 @@ describe('SearchService Unit Tests', function(){
 
       it('should build a facet object and handle empty arguments for count or active', function(){
         expect( SearchService.buildFacet('language', 'English'))
-        .toEqual( {category: 'language', value: 'English', count: null, active: null} );
+        .toEqual( {category: 'language', value: 'English'} );
+
+        expect( SearchService.buildFacet('language', 'English', 10))
+        .toEqual( {category: 'language', value: 'English', count: 10} );
 
         expect( SearchService.buildFacet('language', 'English', 6, true))
         .toEqual( {category: 'language', value: 'English', count: 6, active: true} );

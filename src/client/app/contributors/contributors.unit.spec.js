@@ -65,9 +65,10 @@ describe('Contributors page tests', function() {
 	  });
 
 		it("should correctly update Search Service's opts.facets when calling contribSearch", function(){
-	    var facetsArr = [{category: 'grp_contributor', value: mockInstitutions[0].key}];
-	    scope.contribSearch(mockInstitutions[0].key);
-	    expect(searchService.opts.facets).toEqual(facetsArr);
+      scope.contribSearch(mockInstitutions[0].key); // param is name of a contributor
+	    expect(searchService.opts.facets[0].category).toEqual('grp_contributor');
+	    expect(searchService.opts.facets[0].value).toEqual(mockInstitutions[0].key);
+	    expect(searchService.opts.facets[0].active).toEqual(true);
 	  });
 	});
 

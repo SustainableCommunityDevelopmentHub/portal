@@ -24,7 +24,7 @@
     // for when user clicks on records for a particular institution.
     $scope.contribSearch = function(contributor) {
       ss.resetOpts();
-      ss.activateFacet( ss.buildFacet('grp_contributor', contributor, null, true) );
+      ss.activateFacet( ss.buildFacet('grp_contributor', contributor) );
       ss.transitionStateAndSearch();
     };
 

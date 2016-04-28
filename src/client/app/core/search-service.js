@@ -249,7 +249,7 @@
      * Clear search opts and reset defaults
      */
     function resetOpts(){
-      this.clearFacetsIn('all');
+      //this.clearFacetsIn('all');
       this.opts = this.getDefaultOptsObj();
       console.log('SearchService.resetOpts() -- opts: ' + JSON.stringify(this.opts));
     }
@@ -276,12 +276,14 @@
         return false;
       }
 
-      return {
+      var facet= {
         category: category,
-        value: value,
-        count: count || null,
-        active: active || false
+        value: value
       };
+      if(count){ facet.count = count; }
+      if(active !== undefined){ facet.active = active; }
+
+      return facet;
     }
 
     function isValidCategory(category){
@@ -357,9 +359,9 @@
      */
     function clearFacetsIn(category){
       if(category === 'all'){
-        this.opts.facets.forEach(function(facet){
-          facet.active = false; // so facet doesn't get reset
-        });
+        //this.opts.facets.forEach(function(facet){
+          //facet.active = false; // so facet doesn't get reset
+        //});
         this.opts.facets = [];
         return true;
       }
