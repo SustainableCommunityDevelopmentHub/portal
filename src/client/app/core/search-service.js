@@ -280,7 +280,7 @@
         category: category,
         value: value,
         count: count || null,
-        active: active || null
+        active: active || false
       };
     }
 

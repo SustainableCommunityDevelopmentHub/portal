@@ -185,20 +185,33 @@ describe("Search Controller", function(){
       expect(scope.activeFacets[0].active).toEqual(true);
     });
 
+    /****/
     it("should update opts and scope correctly when deactivating a facet", function(){
+      testFacet = SearchService.buildFacet('language', 'French', 270, false);
+
       SearchService.resetOpts();
+
       scope.activeFacets = SearchService.opts.facets;
 
+      //spyOn(SearchService, 'activateFacet').and.callThrough();
+      //spyOn(SearchService, 'updateOpts').and.callThrough();
+      //expect(SearchService.activateFacet).toHaveBeenCalledWith(testFacet);
+
       scope.updateFacet(testFacet, true);
+
       expect(SearchService.opts.facets.length).toEqual(1);
       expect(SearchService.opts.facets[0].value).toEqual(testFacet.value);
+      expect(scope.activeFacets[0]).toEqual(testFacet);
+      expect(scope.activeFacets[0].value).toEqual(testFacet.value);
       expect(testFacet.active).toEqual(true);
+      expect(SearchService.opts.facets[0].active).toEqual(true);
 
       scope.updateFacet(testFacet, false);
       expect(SearchService.opts.facets.length).toEqual(0);
       expect(scope.activeFacets.length).toEqual(0);
       expect(testFacet.active).toEqual(false);
     });
+    /***/
 
     it("should clear advanced field facets correctly", function(){
       var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};

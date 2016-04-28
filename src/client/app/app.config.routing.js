@@ -52,23 +52,13 @@
                 $stateParams[category].forEach(function(facetVal){
                   var newFacet = ss.buildFacet(category, facetVal, null, true);
                   if(newFacet){
+                    ss.activateFacet(newFacet);
                     console.log('~~~NEWFACET: ' + JSON.stringify(newFacet));
-                    console.log('~~~activating Facet returns: ' + JSON.stringify(ss.activateFacet(newFacet)));
-              console.log('~~~SEARCHSERVICE OPTS: ' + JSON.stringify(ss.opts));
+                    console.log('~~~SEARCHSERVICE OPTS: ' + JSON.stringify(ss.opts));
                   }
                 });
               }
             });
-
-            //ss.updateDate($stateParams.gte, $stateParams.lte);
-
-            /***
-            ss.updateQ($stateParams.q);
-            ss.updateSize($stateParams.size);
-            ss.updateFrom($stateParams.from);
-            ss.updateSort($stateParams.sort);
-            // do same thing, as appropriate for adv. fields
-            ***/
 
             ss.updateOpts(searchOpts);
             return ss.executeSearch().then(function(data) {
