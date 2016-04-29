@@ -70,9 +70,8 @@
         };
       });
       opts.q = ($scope.queryTerm);
-      $state.go('searchResults', searchService.opts);
       searchService.updateOpts(opts);
-      
+      $state.go('searchResults', searchService.opts);            
     };
   };
 })();
