@@ -8,15 +8,21 @@
 <div class="modal-body">
   <div class="tab-container">
     <div class="row">
-      <div class="col-xs-6 col-sm-3">
-        <ul class="facet-tabs">
+      <div class="col-xs-12 col-sm-3">
+      <div id="facets-mobile" data-toggle="collapse" data-target="#mobile-facet-tabs"> 
+        <a href=""><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a>
+      </div>
+
+
+          <ul id="mobile-facet-tabs" class="facet-tabs navbar-collapse collapse" ng-controller="FaqsCtrl">
           <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
           <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
           </li>
         </ul>
-      </div>
 
-      <div class="col-xs-6 col-sm-9">
+    </div>
+
+      <div class="col-xs-12 col-sm-9">
         <div class="facet-tab-content">
           <div class="search-wrapper">
             <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>

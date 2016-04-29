@@ -846,9 +846,8 @@ li.book-listing {
     }
 
     .facet-tabs {
-      padding-left: 0;
+      padding: 0;
       border-right: 1px solid #ddd;
-      height: 268px;
     }
 
     .facet-tabs li {
@@ -1784,6 +1783,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     /* Filter Modal */
 
+    .modal-header {
+      display: none;
+    }
+
     .filter-checkboxes {
       width: 100%;
     }
@@ -1792,8 +1795,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       max-width: 100%;
     }
 
-    .facet-tabs {
-      height: 413px;
+    #mobile-facet-tabs {
+      margin-top: -12px;
+    }
+
+    .facet-tab-content {
+      margin-left: 0;
     }
 
     .modal-footer {
