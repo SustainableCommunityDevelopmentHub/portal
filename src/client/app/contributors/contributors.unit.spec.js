@@ -59,7 +59,6 @@ describe('Contributors page tests', function() {
 
 		it("should call Search Service's update opts when calling contribSearch", function(){
       spyOn(searchService, 'updateOpts');
-	    var facetsArr = [{category: 'grp_contributor', value: mockInstitutions[0].key}];
 	    scope.contribSearch(mockInstitutions[0].key);
       expect(searchService.updateOpts).toHaveBeenCalled();
 	  });

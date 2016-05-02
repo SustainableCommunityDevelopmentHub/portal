@@ -107,10 +107,10 @@ describe('SearchService Unit Tests', function(){
   describe('Facet functions', function(){
     it('should expose correct facetCategoriesList array', function(){
       expect(SearchService.facetCategoriesList.length).toEqual(4);
-      expect(SearchService.facetCategoriesList.indexOf('language') > -1).toBeTruthy();
-      expect(SearchService.facetCategoriesList.indexOf('subject') > -1).toBeTruthy();
-      expect(SearchService.facetCategoriesList.indexOf('grp_contributor') > -1).toBeTruthy();
-      expect(SearchService.facetCategoriesList.indexOf('creator') > -1).toBeTruthy();
+      expect(SearchService.facetCategoriesList.indexOf('language')).toBeGreaterThan(-1);
+      expect(SearchService.facetCategoriesList.indexOf('subject')).toBeGreaterThan(-1);
+      expect(SearchService.facetCategoriesList.indexOf('grp_contributor')).toBeGreaterThan(-1);
+      expect(SearchService.facetCategoriesList.indexOf('creator')).toBeGreaterThan(-1);
     });
 
     describe('buildFacet', function(){
@@ -135,15 +135,26 @@ describe('SearchService Unit Tests', function(){
       });
     });
 
+    describe('isValidCategory', function() {
+      it('should return true if facet category is valid', function() {
+        expect(SearchService.isValidCategory('language')).toEqual(true);
+        expect(SearchService.isValidCategory('foobar')).toEqual(false);
+      });
+      // check case where facet.category does not exist
+      it('should return false if undefined param value passed', function() {
+        var facet = {};
+        expect(SearchService.isValidCategory(facet.category)).toEqual(false);
+      });
+
+    });
     describe('isValidFacet', function(){
       it('should return false if facet is missing category or value, or has invalid category', function(){
         var facetA = SearchService.buildFacet('subject', 'painting', 6, true);
-        expect(SearchService.isValidFacet(facetA)).toEqual(true);
-
+        expect(SearchService.isValidFacet(facetA)).toBe(true);
         expect(SearchService.isValidFacet({category: 'foobar', value: 'painting'}))
-        .toEqual(false);
+        .toBe(false);
         expect(SearchService.isValidFacet({category: 'subject', count: 5, active: true}))
-        .toEqual(false);
+        .toBe(false);
       });
     });
 
@@ -154,7 +165,13 @@ describe('SearchService Unit Tests', function(){
         expect(SearchService.isSameFacet(facetA, facetB)).toEqual(true);
       });
 
-      it('should return false if facets have different category or value', function(){
+      it('should return false if facets have different category', function(){
+        var facetA = SearchService.buildFacet('subject', 'art');
+        var facetB = SearchService.buildFacet('language', 'English', 6, false);
+        expect(SearchService.isSameFacet(facetA, facetB)).toEqual(false);
+      });
+
+      it('should return false if facets have different value', function(){
         var facetA = SearchService.buildFacet('subject', 'art');
         var facetB = SearchService.buildFacet('subject', 'painting', 6, false);
         expect(SearchService.isSameFacet(facetA, facetB)).toEqual(false);
@@ -238,12 +255,11 @@ describe('SearchService Unit Tests', function(){
         expect(SearchService.clearFacetsIn('foobar')).toEqual(false);
       });
       it('should clear all facets in opts.facets[]', function(){
-        var facetsArr = [];
         numCategories = SearchService.facetCategoriesList.length;
 
         SearchService.facetCategoriesList.forEach(function(category){
-          facetsArr.push( SearchService.buildFacet(category, 'foobar', 10, false) );
-          SearchService.activateFacet( facetsArr[facetsArr.length - 1] );
+          var facet = SearchService.buildFacet(category, 'foobar', 10, false);
+          SearchService.activateFacet(facet);
         });
         expect(SearchService.opts.facets.length).toEqual(numCategories);
         SearchService.clearFacetsIn('all');

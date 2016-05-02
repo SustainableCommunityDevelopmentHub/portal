@@ -29,7 +29,7 @@
         facetOptions: {}
       },
       opts: getDefaultOptsObj(),
-      facetCategoriesList: _.clone(facetCategoriesList),
+      facetCategoriesList: ['creator', 'grp_contributor', 'language', 'subject'],
 
       /* functions */
       // general opts update
@@ -156,7 +156,6 @@
       // allow for no opts to be passed
       opts = opts || {};
       this.updateOpts(opts);
-      //_.merge(this.opts, opts);
       console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
       this.returnedPromise = this.executeSearch();
       return this.returnedPromise;
@@ -284,20 +283,32 @@
       return facet;
     }
 
+    /**
+     * Check if string is valid facet category
+     * @param {string} category category to check
+     * @return {boolean} true if valid
+     */
     function isValidCategory(category){
       return (facetCategoriesList.indexOf(category) > -1);
     }
 
+    /**
+     * Check if facet is valid
+     * Facet considered valid if 'category' param is valid and 'value' param exists.
+     * @param {object} facet a facet object
+     * @return {boolean} true if valid
+     */
     function isValidFacet(facet){
-      if(!facet.category || !facet.value){
-        return false;
-      }
-      if(!isValidCategory(facet.category)){
-        return false;
-      }
-      return true;
+      return Boolean(facet.category && isValidCategory(facet.category) && facet.value);
     }
 
+    /**
+     * Check if two facets are the same
+     * Compares 'category' and 'value' params only.
+     * @param {object} facetA facet object
+     * @param {object} facetB facet object
+     * @return {boolean} true if same
+     */
     function isSameFacet(facetA, facetB){
       if(facetA.category.toLowerCase() !== facetB.category.toLowerCase()){
         return false;
@@ -350,16 +361,14 @@
         return isSameFacet(facet, f);
       });
     }
+
     /**
-     * Clear all facets in a particular category.
-     * Or, pass 'all' as an arg to clear all facets in all categories.
-     * Returns number of facets removed on success.
+     * Clear facets in a particular category or clear all facets.
+     * @param {string} category facet category to clear. or, 'all' to clear all facets
+     * @return {boolan} true on success, false if 'category' arg is invalid
      */
     function clearFacetsIn(category){
       if(category === 'all'){
-        //this.opts.facets.forEach(function(facet){
-          //facet.active = false; // so facet doesn't get reset
-        //});
         this.opts.facets = [];
         return true;
       }
@@ -369,7 +378,6 @@
 
       for(var i = 0; i < this.opts.facets.length; i++){
         if(this.opts.facets[i].category === category){
-          this.opts.facets[i].active = false; // so facet doesn't get reset
           this.opts.facets.splice(i, 1);
         }
       }

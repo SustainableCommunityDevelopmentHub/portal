@@ -111,12 +111,12 @@
      * @param search {object}
      */
     $scope.runSearch = function(search) {
-      if(search.opts.facets && search.opts.facets.length){
-        search.opts.facets.forEach(function(facet){
-          SearchService.activateFacet(facet);
-        });
-        delete search.opts.facets;
-      }
+      //if(search.opts.facets && search.opts.facets.length){
+        //search.opts.facets.forEach(function(facet){
+          //SearchService.activateFacet(facet);
+        //});
+        //delete search.opts.facets;
+      //}
 
       SearchService.updateOpts(search.opts);
       SearchService.transitionStateAndSearch();
