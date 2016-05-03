@@ -494,8 +494,17 @@ a.adv:hover, a.adv:focus {
   color: white;
 }
 
+.facet-chip a:hover {
+  text-decoration: none;
+}
+
 .facet-labels:hover {
-  text-decoration: underline;
+  text-decoration: none;
+}
+
+.facet-chip span {
+  margin-left: 5px;
+  top: 2px;
 }
 
 .results-list {
