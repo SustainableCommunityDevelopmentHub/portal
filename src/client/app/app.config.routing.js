@@ -45,14 +45,6 @@
               sort: SORT_MODES[$stateParams.sort]
             };
 
-            /* TODO - Once advanced fields are in URL:
-             * 1. Replace clearFacetsIn('all') with resetOpts() once advanced fields are in URL
-             * 2. Replace updateOpts with specific lines of code to add advanced fields, date, to searchOpts
-             *    Ideally we will have a SearchService function specific to updating every field, like:
-             *      updateDate(), updateSort(), etc
-             * 3. Use ss.resetOpts() instead of ss.clearFacetsIn('all')
-             */
-
             ss.clearFacetsIn('all');
             ss.facetCategoriesList.forEach(function(category){
               if($stateParams[category] && $stateParams[category].length){

@@ -7,7 +7,8 @@
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
   function($scope, SearchService, $state, searchResults) {
 
-    $scope.numTotalHits = searchResults.numTotalHits;
+    $scope.totalTitles = searchResults.numTotalHits;
+    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.
