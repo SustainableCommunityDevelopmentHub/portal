@@ -3,7 +3,7 @@
 
   angular
   .module('app.advanced-search')
-  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService',  'ADVANCED_SEARCH', AdvancedSearchCtrl]);
+  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService', 'ADVANCED_SEARCH', AdvancedSearchCtrl]);
 
   function AdvancedSearchCtrl($scope, $state, SearchService, ADVANCED_SEARCH){
     $scope.filters = [];
