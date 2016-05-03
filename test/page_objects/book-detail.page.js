@@ -6,7 +6,7 @@ var BookDetailPage = function() {
 
 BookDetailPage.prototype = Object.create({}, {
   clickBookmark: { value: function(position) {
-    element.all(by.css('.item-details .bookmark')).get(position).click();
+    element.all(by.css('.bookmark')).get(position).click();
   }}
 });
 

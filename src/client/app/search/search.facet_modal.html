@@ -8,15 +8,22 @@
 <div class="modal-body">
   <div class="tab-container">
     <div class="row">
-      <div class="col-xs-6 col-sm-3">
-        <ul class="facet-tabs">
+      <div class="col-xs-12 col-sm-3">
+        <div id="facets-mobile-modal" data-toggle="collapse" data-target="#mobile-facet-tabs"> 
+          <a href=""><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a>
+          <div class="close-modal" ng-click="close()">
+            <i class="glyphicon-remove glyphicon"></i>
+          </div>
+        </div>
+
+        <ul id="mobile-facet-tabs" class="facet-tabs navbar-collapse collapse" ng-controller="FaqsCtrl">
           <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
-          <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
+            <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
           </li>
         </ul>
       </div>
 
-      <div class="col-xs-6 col-sm-9">
+      <div class="col-xs-12 col-sm-9">
         <div class="facet-tab-content">
           <div class="search-wrapper">
             <p id="filter-instructions">To quickly locate a filter, simply type its first few characters below</p>
@@ -25,18 +32,19 @@
           </div>
           <ul class="checkbox-list">
             <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
-              <input type="checkbox" id="{{facet.option}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
-              <label for="{{facet.option}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div></label>
+              <input type="checkbox" id="{{facet.option | stripspaces}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
+              <label for="{{facet.option | stripspaces}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div></label>
             </li>
           </ul>
         </div>
       </div>
+
       <div class="col-xs-12 col-sm-9 col-sm-offset-3">
         <div class="modal-footer">
           <div class="filters-selected"><span class="selected-facet-tabs"></span>Filters Selected ({{ filterCount }})</div>
           <button class="btn btn-primary apply-btn" type="button" ng-click="apply()">Apply</button>
         </div>
       </div>
+      
     </div><!-- /.row -->
-  </div><!-- /.container -->
 </div>
