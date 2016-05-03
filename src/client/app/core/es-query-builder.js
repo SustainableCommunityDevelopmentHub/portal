@@ -166,7 +166,7 @@
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
 
-          if (item.field.searchKey.startsWith('dublin_core') && item.field.searchKey !== 'dublin_core.date') {
+          if (item.field.searchKey.substr(0, 11) == "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
             var query = {
               query_string: {
                 query: item.term,

@@ -31,6 +31,9 @@ ResultsPage.prototype = Object.create({}, {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
+  clickAdvancedSearchLink: { value: function() {
+    element(by.css('.adv-drawer')).click();
+  }},
   viewDigitalItem: {value: function() {
     element(by.id('view-digital-item')).click();
   }},

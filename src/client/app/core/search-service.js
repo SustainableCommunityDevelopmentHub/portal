@@ -245,7 +245,7 @@
     }
 
     /**
-     * Clear search opts and reset defaults
+     * Returns the default Search Opts object.
      */
     function resetOpts(){
       this.opts = this.getDefaultOptsObj();
