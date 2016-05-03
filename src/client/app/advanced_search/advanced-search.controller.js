@@ -67,11 +67,12 @@
         if(filter.text && filter.field !== initialField){
           var f = {field: filter.field, term: filter.text};
           opts.advancedFields.push(f);
-        };
+        }
       });
       opts.q = $scope.queryTerm;
+      searchService.resetOpts();
       searchService.updateOpts(opts);
       $state.go('searchResults', searchService.opts);
-    };
-  };
+    }
+  }
 })();
