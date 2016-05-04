@@ -16,8 +16,8 @@
         controller: 'HomePageCtrl',
         resolve: {
           searchResults: function(SearchService) {
-            SearchService.resetOpts();
-            return SearchService.updateSearch({q: ""}).then(function(data) {
+            SearchService.updateOpts({q: ""});
+            return SearchService.executeSearch().then(function(data) {
               return SearchService.setResultsData(data);
             });
           }
@@ -25,25 +25,45 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
+        params: {
+          creator: { array: true },
+          grp_contributor: { array: true },
+          language: { array: true },
+          subject: { array: true }
+        },
         resolve: {
-          // run search and load resulting promise into controller prior to state load
           searchResults: function($stateParams, SearchService, SORT_MODES){
-            console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
-            // NOTE: We must pull search opts from stateParams to handle case
-            //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10
-            //       into address bar. In this case, SearchService has no opts
-            //       and stateParams will grab opts vals from the URL.
+            var ss = SearchService;
+
             var searchOpts = {
               q: $stateParams.q,
               size: parseInt($stateParams.size),
               from: parseInt($stateParams.from),
-              sort: SORT_MODES[$stateParams.sort]
+              sort: SORT_MODES[$stateParams.sort],
+              date: {
+                gte: $stateParams.date_gte || null,
+                lte: $stateParams.date_lte || null
+              }
             };
-            return SearchService.updateSearch(searchOpts).then(function(data) {
-              return SearchService.setResultsData(data);
+
+            ss.clearFacetsIn('all');
+            ss.facetCategoriesList.forEach(function(category){
+              if($stateParams[category] && $stateParams[category].length){
+                $stateParams[category].forEach(function(facetVal){
+                  var newFacet = ss.buildFacet(category, facetVal, null, true);
+                  if(newFacet){
+                    ss.activateFacet(newFacet);
+                  }
+                });
+              }
+            });
+
+            ss.updateOpts(searchOpts);
+            return ss.executeSearch().then(function(data) {
+              return ss.setResultsData(data);
             });
           }
         }

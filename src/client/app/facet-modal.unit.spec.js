@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* jshint jasmine: true */
+/* global inject, mockData */
 
 describe("Facet modal", function(){
   var scope, controller, modalInstance, mySearchService, mockResults;
@@ -38,7 +41,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < scope.currentFacets.length; i++){
       var facet = scope.currentFacets[i];
-      if(facet.facet != category){
+      if(facet.category !== category){
         correctCategory = false;
       }
     }
@@ -52,7 +55,7 @@ describe("Facet modal", function(){
     var correctCategory = true;
     for(var i = 0; i < scope.currentFacets.length; i++){
       var facet = scope.currentFacets[i];
-      if(facet.facet != newCategory){
+      if(facet.category !== newCategory){
         correctCategory = false;
       }
     }
@@ -60,8 +63,8 @@ describe("Facet modal", function(){
   });
 
   it("should increase the filter count when a facet is checked", function(){
-    var facet = {facet: 'subject', option: 'Art', count: 34, active: false};
-    scope.selectedFacets[facet.option] = true;
+    var facet = {category: 'subject', value: 'Art', count: 34, active: false};
+    scope.selectedFacets[facet.value] = true;
     scope.checkFacet(facet);
     expect(scope.filterCount).toBe(1);
   });
@@ -73,7 +76,7 @@ describe("Facet modal", function(){
     var containsFilterTerm = true;
     for(var i = 0; i < scope.currentFacets.length; i++){
       var facet = scope.currentFacets[i];
-      var facetTerm = facet.option.toLowerCase();
+      var facetTerm = facet.value.toLowerCase();
       if(facetTerm.indexOf(filterTerm) < 0){
         containsFilterTerm = false;
       }

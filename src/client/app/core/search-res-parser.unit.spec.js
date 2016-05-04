@@ -1,3 +1,7 @@
+/* jshint node: true */
+/* jshint jasmine: true */
+/* global mockData, inject */
+
 describe('SearchResParser Unit Tests', function(){
   var mockSearchHits,
       mockAgg,
@@ -77,13 +81,13 @@ describe('SearchResParser Unit Tests', function(){
       it('each option obj should have correct vals for facet, option, count, and active props', function(){
 
         parsedAgg.forEach(function(facetOption, index){
-          expect(facetOption.facet).toBeDefined();
-          expect(facetOption.option).toBeDefined();
+          expect(facetOption.category).toBeDefined();
+          expect(facetOption.value).toBeDefined();
           expect(facetOption.count).toBeDefined();
           expect(facetOption.active).toBeDefined();
 
-          expect(facetOption.facet).toEqual(mockAggName);
-          expect(facetOption.option).toEqual(mockAggArr[index].key);
+          expect(facetOption.category).toEqual(mockAggName);
+          expect(facetOption.value).toEqual(mockAggArr[index].key);
           expect(facetOption.count).toEqual(mockAggArr[index].doc_count);
           expect(facetOption.active).toEqual(false);
 
@@ -96,11 +100,11 @@ describe('SearchResParser Unit Tests', function(){
 
       beforeAll(function(){
         mockActiveFacets = [
-          { facet: mockAggName,
-            option: "Chennevières-Pointel, Charles-Philippe de",
+          { category: mockAggName,
+            value: "Chennevières-Pointel, Charles-Philippe de",
           },
-          { facet: mockAggName,
-            option: "Dussieux, Louis"
+          { category: mockAggName,
+            value: "Dussieux, Louis"
           }
         ];
 
@@ -111,16 +115,16 @@ describe('SearchResParser Unit Tests', function(){
 
       it('each option obj should have correct vals for facet, option, count, and active props', function(){
         parsedAgg.forEach(function(facetOption, index){
-          expect(facetOption.facet).toBeDefined();
-          expect(facetOption.option).toBeDefined();
+          expect(facetOption.category).toBeDefined();
+          expect(facetOption.value).toBeDefined();
           expect(facetOption.count).toBeDefined();
           expect(facetOption.active).toBeDefined();
 
-          expect(facetOption.facet).toEqual(mockAggName);
-          expect(facetOption.option).toEqual(mockAggArr[index].key);
+          expect(facetOption.category).toEqual(mockAggName);
+          expect(facetOption.value).toEqual(mockAggArr[index].key);
           expect(facetOption.count).toEqual(mockAggArr[index].doc_count);
 
-          if(activeFacetsHelperArr.indexOf(facetOption.option) > -1){
+          if(activeFacetsHelperArr.indexOf(facetOption.value) > -1){
             expect(facetOption.active).toEqual(true);
           }
           else{

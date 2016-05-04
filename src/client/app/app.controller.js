@@ -157,7 +157,7 @@
   .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets;
+    $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -202,10 +202,10 @@
       $scope.currentFacets = facets[category];
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
-    };
+    }
 
     function getFacetKey(facet) {
-      return facet.facet + facet.option;
+      return facet.category + facet.value;
     }
 
     function setFacetsChecked(){
@@ -224,9 +224,9 @@
             facetsToApply[key] = {
               facetObj: facet,
               checked: true
-            }
+            };
           }
-          $scope.selectedFacets[facet.option] = facet.active;
+          $scope.selectedFacets[facet.value] = facet.active;
         }
       }
     }
@@ -238,15 +238,15 @@
       $scope.text = "";
       seeOnlyChecked = false;
       $scope.filterViewText = seeOnlyCheckedText[0];
-    };
+    }
 
     function isActive(cat){
       return (activeCategory === cat);
-    };
+    }
 
     function checkFacet(facet){
-      var facetCategory = facet.facet;
-      var facetText = facet.option;
+      var facetCategory = facet.category;
+      var facetText = facet.value;
 
       if($scope.selectedFacets[facetText]){
         if(categoryCounts[facetCategory]){
@@ -266,9 +266,9 @@
         facetsToApply[key] = {
           facetObj: facet,
           checked: true
-        }
+        };
       }
-    };
+    }
 
     function isCategorySelected(category){
       return categoryCounts[category];
@@ -281,7 +281,7 @@
         var checkedFilters = [];
         for (var i = 0; i < $scope.currentFacets.length; i++){
           var currentFacet = $scope.currentFacets[i];
-          if($scope.selectedFacets[currentFacet.option]){
+          if($scope.selectedFacets[currentFacet.value]){
             checkedFilters.push(currentFacet);
           }
         }
@@ -305,7 +305,7 @@
       }
       var facetsToUpdate = [activated, deactivated];
       $uibModalInstance.close(facetsToUpdate);
-    };
+    }
 
     function close() {
       $uibModalInstance.close();
@@ -316,11 +316,11 @@
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
         var facet = $scope.categoryFacets[i];
-        if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
+        if(facet.value.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
           filteredFacets.push(facet);
         }
       }
       $scope.currentFacets = filteredFacets;
-    };
+    }
 }]);
 })();

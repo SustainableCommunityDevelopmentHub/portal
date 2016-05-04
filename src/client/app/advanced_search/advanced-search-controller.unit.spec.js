@@ -1,3 +1,6 @@
+'use strict';
+/* jshint node: true */
+/* globals inject, $state, spyOn */
 describe("Advanced Search", function(){
   var scope, searchService, controller;
 
@@ -102,7 +105,7 @@ describe("Advanced Search", function(){
     filter.field = scope.fields[0];
     filter.text = "getty";
 
-    var correctOps = searchService.getDefaultOpts();
+    var correctOps = searchService.getDefaultOptsObj();
     correctOps.advancedFields = [{field: filter.field, term: filter.text}];
 
     scope.search();

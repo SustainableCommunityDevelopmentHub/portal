@@ -1,4 +1,5 @@
 'use strict';
+/* globals protractor, by */
 
 var ResultsPage = require('../page_objects/results.page.js');
 
@@ -86,7 +87,7 @@ describe("Facet Modal", function(){
       var allChecked = true;
       resultsPage.modalOptions.each(function(checkbox){
         checkbox.getAttribute("value").then(function(val){
-          if(val != "on"){
+          if(val !== "on"){
             allChecked = false;
           }
         });

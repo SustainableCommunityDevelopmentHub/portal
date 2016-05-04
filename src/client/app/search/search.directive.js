@@ -33,7 +33,7 @@
       $(document).on("click", function(e) {
         if (!$(e.target).hasClass("facet-search") && !$(e.target).is("a") && !$(e.target).is("button") && e.target.type !== "checkbox") {
           if(elem.hasClass('input-div-focus')){
-            console.log("removing focus");
+            //console.log("removing focus");
             elem.removeClass('input-div-focus');
           }          
         }

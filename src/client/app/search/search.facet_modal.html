@@ -9,7 +9,7 @@
   <div class="tab-container">
     <div class="row">
       <div class="col-xs-12 col-sm-3">
-        <div id="facets-mobile-modal" data-toggle="collapse" data-target="#mobile-facet-tabs"> 
+        <div id="facets-mobile-modal" data-toggle="collapse" data-target="#mobile-facet-tabs">
           <a href=""><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a>
           <div class="close-modal" ng-click="close()">
             <i class="glyphicon-remove glyphicon"></i>
@@ -32,8 +32,8 @@
           </div>
           <ul class="checkbox-list">
             <li class="filter-checkboxes" ng-repeat="facet in currentFacets">
-              <input type="checkbox" id="{{facet.option | stripspaces}}" ng-model="selectedFacets[facet.option]" ng-checked="selectedFacets[facet.option]" ng-change="checkFacet(facet)">
-              <label for="{{facet.option | stripspaces}}"><div class="filter-labels">{{ facet.option }} ({{ facet.count }})</div></label>
+              <input type="checkbox" id="{{facet.value}}" ng-model="selectedFacets[facet.value]" ng-checked="selectedFacets[facet.value]" ng-change="checkFacet(facet)">
+              <label for="{{facet.value}}"><div class="filter-labels">{{ facet.value }} ({{ facet.count }})</div></label>
             </li>
           </ul>
         </div>
@@ -45,6 +45,6 @@
           <button class="btn btn-primary apply-btn" type="button" ng-click="apply()">Apply</button>
         </div>
       </div>
-      
+
     </div><!-- /.row -->
 </div>

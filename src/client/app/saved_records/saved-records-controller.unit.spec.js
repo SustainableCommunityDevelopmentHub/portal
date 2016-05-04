@@ -42,10 +42,10 @@ describe("Saved Records Controller", function(){
     };
 
     spyOn(SearchService, 'updateOpts');
-    spyOn(SearchService, 'updateSearch');
+    spyOn(SearchService, 'executeSearch');
     scope.runSearch(search);
     expect(SearchService.updateOpts).toHaveBeenCalled();
-    expect(SearchService.updateSearch).toHaveBeenCalled();
+    expect(SearchService.executeSearch).toHaveBeenCalled();
   });
 
   it('should remove searches correctly', function() {

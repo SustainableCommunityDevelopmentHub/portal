@@ -44,7 +44,7 @@ describe("Advanced Search", function(){
           if (facet_date !== "1907" && date.value !== "1907"){
             resultsMatch = false;
           }
-        })
+        });
 
         var contributor = hit._grp_contributor;
         if (contributor.indexOf("Getty") < 0){
