@@ -61,7 +61,7 @@ describe("Advanced Search", function(){
       ['From', 'Getty'],
       ['Date', '1907']]
     );
-    advancedPage.submitWithEnterBtn();
+    advancedPage.submitFiltersWithEnter();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
     expect(advancedPage.facetChips.get(1).getText()).toEqual('Getty (Keyword: From)');
     expect(advancedPage.facetChips.get(2).getText()).toEqual('1907 (Keyword: Date)');
