@@ -167,6 +167,7 @@
      */
     function updateOpts(newOpts){
       newOpts = newOpts || {};
+      console.log('SearchService::updateOpts -- newOpts: ' + JSON.stringify(newOpts));
 
       if(newOpts.q){
         newOpts.q = newOpts.q.toLowerCase();

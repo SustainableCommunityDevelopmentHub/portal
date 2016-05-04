@@ -20,12 +20,18 @@
     $scope.activeFacets = ss.opts.facets;
     $scope.advancedFields = ss.opts.advancedFields;
 
-    $scope.fromDate = "";
-    $scope.toDate = "";
+    $scope.fromDate = null;
+    $scope.toDate = null;
     if (ss.opts.date) {
       $scope.dateRange = ss.opts.date;
-      $scope.fromDate = ss.opts.date.gte;
-      $scope.toDate = ss.opts.date.lte;
+      if(ss.opts.date.gte){
+        ss.opts.date.gte = parseInt(ss.opts.date.gte);
+        $scope.fromDate = ss.opts.date.gte;
+      }
+      if(ss.opts.date.lte){
+        ss.opts.date.lte = parseInt(ss.opts.date.lte);
+        $scope.toDate = ss.opts.date.lte;
+      }
     }
 
     $scope.queryTerm = ss.opts.q;

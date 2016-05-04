@@ -42,7 +42,11 @@
               q: $stateParams.q,
               size: parseInt($stateParams.size),
               from: parseInt($stateParams.from),
-              sort: SORT_MODES[$stateParams.sort]
+              sort: SORT_MODES[$stateParams.sort],
+              date: {
+                gte: $stateParams.date_gte || null,
+                lte: $stateParams.date_lte || null 
+              }
             };
 
             ss.clearFacetsIn('all');
