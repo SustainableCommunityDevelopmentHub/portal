@@ -45,7 +45,7 @@
               sort: SORT_MODES[$stateParams.sort],
               date: {
                 gte: $stateParams.date_gte || null,
-                lte: $stateParams.date_lte || null 
+                lte: $stateParams.date_lte || null
               }
             };
 

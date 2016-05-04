@@ -432,6 +432,23 @@ describe('Search Results', function() {
     expect(activeAdvancedFields.count()).toBe(0);
   });
 
+  describe('Routing, copying and pasting URL with query params into browser', function(){
+    it('should apply query term, size, from, and sort when in URL', function(){
+      browser.get('/search?q=art&from=10&size=10&sort=title_asc');
+      expect(resultsPage.numTotalHits).toEqual(310);
+      expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 310 results');
+      expect(resultsPage.getSortButtonText()).toEqual('Sort by: Title: A-Z');
+    });
 
+    it('should apply facets when in URL', function(){
+      browser.get('/search?from=0&size=25&sort=relevance&subject=Catalogs&language=French');
+      expect(resultsPage.numTotalHits).toEqual(4);
+    });
+
+    it('should apply date range when in URL', function(){
+      browser.get('/search?from=0&size=25&date_gte=1800&date_lte=1900&sort=relevance');
+      expect(resultsPage.numTotalHits).toEqual(280);
+    });
+  });
 
 });
