@@ -3,35 +3,30 @@
   <div class="container">
     <div class="row row-centered">
       <div class="col-xs-12 col-md-8 col-centered">
-        <h4 class="intro-copy">Access digitized art history publications, rare books, and related literature.</h4>
-      </div>
-    </div><!-- /row -->
-
-    <div class="row row-centered">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-centered">
-        <div class="search-bar">
-        <form ng-submit="newSearch({q: queryTerm})">
-        <input ng-model="queryTerm" class="search-input" type="text" autofocus />
-
-        <button ng-click="newSearch({q: queryTerm})" class="btn" type="button" id="go-btn"><p>Search</p>
-          <span class="glyphicon glyphicon-search"></span></button>
-          
-        </form>
+        <div class="intro-copy">
+          <h4>Access digitized art history publications, rare books, and related literature.</h4>
+          <a href="http://www.getty.edu/research/tools/portal/index.html">Learn more about the Research Portal</a>
         </div>
       </div>
     </div><!-- /row -->
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+    <div class="row row-centered">
+      <div class="col-xs-12 col-md-10 col-centered">
+        <div class="search-bar">
+        <form ng-submit="newSearch({q: queryTerm})" focus-home-search>
+        <input ng-model="queryTerm" class="search-input" type="text"  />
+
+        <button ng-click="newSearch({q: queryTerm})" class="btn-primary" type="button" id="go-btn"><p>Search</p>
+          <span class="glyphicon glyphicon-search"></span></button>
+          
+        </form>
         <a ui-sref="advanced" class="adv">Advanced Search</a>
       </div>
     </div><!-- /row -->
-
-    <div class="row row-centered">
-      <div class ="col-xs-12 col-sm-6 col-md-3 col-centered">
-        <button ng-click="newSearch({q: ''})" class="btn" id="see-all-btn" type="button">See All Records</button>
+        </div>
       </div>
-    </div><!-- /row -->
+
+
   </div><!-- /container -->
 
   <!--Stats for: Total Titles, Lastu Updated, Recent Contributors-->
@@ -42,7 +37,7 @@
           <div class="box">
             <hr class="tlc-hr">
             <h4>Total Titles</h4>
-            <p>{{numTotalHits}}</p>
+            <p>{{totalTitles}}</p>
           </div>
         </div>
         <div class="col-xs-12 col-sm-4">
@@ -62,7 +57,7 @@
               <br>Sterling and Francine Clark Institute Library
               <br>Heidelberg University Library
             </p>
-            <a class="tlc-orange" ui-sref="contributors">See All Contributors</a>
+            <a ui-sref="contributors">See All Contributors</a>
           </div>
         </div>
       </div>

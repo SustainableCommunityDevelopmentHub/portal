@@ -2,11 +2,13 @@ describe("Sorting tests", function() {
   var scope,
       controller,
       $state,
-      MySearchService,
       data,
       es,
       opts,
+      SearchService,
+      SavedRecordsService,
       queryBuilder,
+      sortModes,
       baseESQuery;
 
   beforeEach(function(){
@@ -18,14 +20,15 @@ describe("Sorting tests", function() {
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder, SORT_MODES, ___){
-    data = DataService;
+  beforeEach(inject(function($rootScope, $controller, _$state_,  _SearchService_, _SavedRecordsService_, _DataService_, esClient, esQueryBuilder, SORT_MODES, ___){
+    data = _DataService_;
     es = esClient;
     queryBuilder = esQueryBuilder;
     $state = _$state_;
     scope = $rootScope.$new();
-    searchService = SearchService;
-    sortModes = SORT_MODES,
+    SearchService = _SearchService_;
+    SavedRecordsService = _SavedRecordsService_;
+    sortModes = SORT_MODES;
     _ = ___;
 
     // reset baseESQuery
@@ -34,25 +37,27 @@ describe("Sorting tests", function() {
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService
+        'SearchService': SearchService,
+        'SavedRecordsService': SavedRecordsService,
+        'searchResults': {}
       });
     }));
 
   it("should call Search Service's update opts when calling setSortMode", function(){
-    spyOn(searchService, 'updateOpts');
-    scope.setSortMode(scope.validSortModes.titleAZ);
-    expect(searchService.updateOpts).toHaveBeenCalled();
+    spyOn(SearchService, 'updateOpts');
+    scope.setSortMode(scope.validSortModes.title_asc);
+    expect(SearchService.updateOpts).toHaveBeenCalled();
   });
 
   it("adds sort object to SearchService's options", function(){
-    scope.setSortMode(scope.validSortModes.titleAZ);
-    expect(searchService.opts.sort).toBeDefined();
-    expect(searchService.opts.sort).toEqual(scope.validSortModes.titleAZ);
+    scope.setSortMode(scope.validSortModes.title_asc);
+    expect(SearchService.opts.sort).toBeDefined();
+    expect(SearchService.opts.sort).toEqual(scope.validSortModes.title_asc.mode);
   });
 
   describe("Tests for building elasticsearch sort queries", function(){
     beforeEach(function(){
-      opts = {"facets":[]}; 
+      opts = {"facets":[]};
       spyOn(queryBuilder, 'transformToMultiSearchQuery');
 
     });
@@ -66,24 +71,25 @@ describe("Sorting tests", function() {
     });
 
     it("builds correct elasticsearch query for title sorting", function(){
-      opts.sort = scope.validSortModes.titleAZ;
+      opts.sort = scope.validSortModes.title_asc.mode;
       var titleQuery = baseESQuery;
-      titleQuery.body.sort = sortModes.titleAZ.sortQuery;
+      titleQuery.body.sort = sortModes.title_asc.sortQuery;
 
       data.search(opts);
 
       // NOTE: Strange comparison errs, 0 integer being cast to string somewere.
       // And lodash _.isEqual() will return true when appropriate while jasmine's .toEqual() fails
       var actualQueryBody = queryBuilder.transformToMultiSearchQuery.calls.mostRecent().args[0].body;
-      expect(_.isEqual(actualQueryBody, titleQuery.body)).toEqual(true);
+      //expect(_.isEqual(actualQueryBody, titleQuery.body)).toEqual(true);
+      expect(actualQueryBody).toEqual(titleQuery.body);
 
 
     });
 
     it("builds correct elasticsearch query for title descending sorting", function(){
-      opts.sort = scope.validSortModes.titleZA;
+      opts.sort = scope.validSortModes.title_desc.mode;
       var titleDescQuery = baseESQuery;
-      titleDescQuery.body.sort = sortModes.titleZA.sortQuery;
+      titleDescQuery.body.sort = sortModes.title_desc.sortQuery;
 
       data.search(opts);
 
@@ -92,9 +98,9 @@ describe("Sorting tests", function() {
     });
 
     it("builds correct elasticsearch query for date added", function() {
-      opts.sort = scope.validSortModes.dateAdded;
+      opts.sort = scope.validSortModes.date_added.mode;
       var dateAddedQuery = baseESQuery;
-      dateAddedQuery.body.sort = sortModes.dateAdded.sortQuery;
+      dateAddedQuery.body.sort = sortModes.date_added.sortQuery;
 
       data.search(opts);
       var actualQueryBody = queryBuilder.transformToMultiSearchQuery.calls.mostRecent().args[0].body;
@@ -102,9 +108,9 @@ describe("Sorting tests", function() {
     });
 
     it("builds correct elasticsearch query for publication date ascending", function() {
-      opts.sort = scope.validSortModes.dateAscend;
+      opts.sort = scope.validSortModes.date_asc.mode;
       var dateAscQuery = baseESQuery;
-      dateAscQuery.body.sort = sortModes.dateAscend.sortQuery;
+      dateAscQuery.body.sort = sortModes.date_asc.sortQuery;
 
       data.search(opts);
       var actualQueryBody = queryBuilder.transformToMultiSearchQuery.calls.mostRecent().args[0].body;
@@ -112,7 +118,7 @@ describe("Sorting tests", function() {
     });
 
     it("builds correct elasticsearch query for publication date descending", function(){
-      opts.sort = scope.validSortModes.dateDesc;
+      opts.sort = scope.validSortModes.date_desc.mode;
       var dateDescQuery = baseESQuery;
       dateDescQuery.body.sort = { "_date_facet": {"order": "desc"}};
 
@@ -122,7 +128,7 @@ describe("Sorting tests", function() {
     });
 
     it("does not build an elasticsearch query for relevance", function() {
-      opts.sort = scope.validSortModes.relevance;
+      opts.sort = scope.validSortModes.relevance.mode;
       data.search(opts);
       //expect(queryBuilder.transformToMultiSearchQuery).toHaveBeenCalledWith(baseESQuery);
       var actualQueryBody = queryBuilder.transformToMultiSearchQuery.calls.mostRecent().args[0].body;

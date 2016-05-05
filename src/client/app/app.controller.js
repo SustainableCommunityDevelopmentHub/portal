@@ -4,20 +4,11 @@
 
   angular.module('app.controller', ['ui.bootstrap'])
 
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state',
-  function($scope, SearchService, $state, results) {
-    //  clear SearchService.opts when state loads
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      if(toState.controller === 'HomePageCtrl'){
-        console.log('HomePageCtrl::$scope.$on($stateChangeSuccess -- toState: ' + JSON.stringify(toState));
-        SearchService.resetOpts();
-        SearchService.newSearch(SearchService.opts)
-          .then(function(results){
-            var allResults = SearchService.setResultsData(results);
-            $scope.numTotalHits = allResults.numTotalHits;
-          });
-      }
-    });
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
+  function($scope, SearchService, $state, searchResults) {
+
+    $scope.totalTitles = searchResults.numTotalHits;
+    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.
@@ -30,54 +21,44 @@
       $state.go('searchResults', SearchService.opts);
     };
   }])
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 
+    function($scope, $stateParams, $window, bookData) {
 
+      $scope.book = bookData;
 
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'esClient', 'SearchService',
-    function($scope, $stateParams, $window, esClient, SearchService) {
-      esClient.get({
-        index: 'portal',
-        type: 'book',
-        id: $stateParams.bookID}, function(error, response) {
-          if(error) {
-            console.log(error);
-          }
-          else {
-            $scope.book = response;
+      $scope.saveAsJson = function (data, filename) {
 
-            $scope.saveAsJson = function (data, filename) {
+        if (!data) {
+          console.error('No data');
+          return;
+        }
 
-              if (!data) {
-                console.error('No data');
-                return;
-              }
+        if (!filename) {
+          filename = 'book.json';
+        }
 
-              if (!filename) {
-                filename = 'book.json';
-              }
-              
-              if (typeof data === 'object') {
-                data = angular.toJson(data, undefined, 2);
-                $scope.fileContents = data;
-              }
+        if (typeof data === 'object') {
+          data = angular.toJson(data, undefined, 2);
+          $scope.fileContents = data;
+        }
 
-              var blob = new Blob([data], {type: 'text/json'}),
-                e = document.createEvent('MouseEvents'),
-                a = document.createElement('a');
+        var blob = new Blob([data], {type: 'text/json'}),
+          e = document.createEvent('MouseEvents'),
+          a = document.createElement('a');
 
-              a.download = filename;
-              a.href = window.URL.createObjectURL(blob);
-              a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-              e.initMouseEvent('click', true, false, window,
-                0, 0, 0, 0, 0, false, false, false, false, 0, null);
-              a.dispatchEvent(e);
-            };
+        a.download = filename;
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initMouseEvent('click', true, false, window,
+          0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
+      };
 
-            $scope.redirect = function(){
-              $window.location.assign($scope.book._source._record_link);
-              return false;
-            };
-          }
-        });
+      $scope.redirect = function(){
+        $window.location.assign($scope.book._source._record_link);
+        return false;
+      };
+
     }])
 
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
@@ -159,24 +140,24 @@
           }
         }
       });
-      modalInstance.result.then(function (facetsToApply) {
-        if(facetsToApply){
-          for(var i = 0; i < facetsToApply.length; i++){
-            var facet = facetsToApply[i];
-            //updateFacet from SearchCtrl. Might have to change if that controller is refactored.
-            $scope.updateFacet(facet, facet.active);
-          }
+      modalInstance.result.then(function (facets) {
+        if (facets){
+          var activatedFacets = facets[0];
+          var deactivatedFacets = facets[1];
+          activatedFacets.forEach(function(facet) {
+            $scope.updateFacet(facet, true);
+          });
+          deactivatedFacets.forEach(function(facet) {
+            $scope.updateFacet(facet, false);
+          });
         }
       });
     };
-
-
-
   }])
   .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets;
+    $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -195,22 +176,19 @@
     var activeCategory = category;
     var allFacets = [];
     var categoryCounts = {};
+    var facetsToApply = {};
 
     initialize();
 
     function initialize(){
       allFacets = facets;
       $scope.facetCategories = [{
-        name: 'type',
-        display: 'Type'
+        name: 'creator',
+        display: 'Creator/ Contributor'
       },
       {
         name: 'subject',
         display: 'Subject'
-      },
-      {
-        name: 'creator',
-        display: 'Creator'
       },
       {
         name: 'language',
@@ -218,13 +196,17 @@
       },
       {
         name: 'grp_contributor',
-        display: 'Contributors'
+        display: 'From'
       }];
 
       $scope.currentFacets = facets[category];
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
-    };
+    }
+
+    function getFacetKey(facet) {
+      return facet.category + facet.value;
+    }
 
     function setFacetsChecked(){
       for(var prop in allFacets){
@@ -238,8 +220,13 @@
             } else {
               categoryCounts[prop] = 1;
             }
+            var key = getFacetKey(facet);
+            facetsToApply[key] = {
+              facetObj: facet,
+              checked: true
+            };
           }
-          $scope.selectedFacets[facet.option] = facet.active;
+          $scope.selectedFacets[facet.value] = facet.active;
         }
       }
     }
@@ -251,15 +238,15 @@
       $scope.text = "";
       seeOnlyChecked = false;
       $scope.filterViewText = seeOnlyCheckedText[0];
-    };
+    }
 
     function isActive(cat){
       return (activeCategory === cat);
-    };
+    }
 
     function checkFacet(facet){
-      var facetCategory = facet.facet;
-      var facetText = facet.option;
+      var facetCategory = facet.category;
+      var facetText = facet.value;
 
       if($scope.selectedFacets[facetText]){
         if(categoryCounts[facetCategory]){
@@ -272,7 +259,16 @@
         $scope.filterCount--;
         categoryCounts[facetCategory]--;
       }
-    };
+      var key = getFacetKey(facet);
+      if (facetsToApply[key]) {
+        facetsToApply[key].checked = !facetsToApply[key].checked;
+      } else {
+        facetsToApply[key] = {
+          facetObj: facet,
+          checked: true
+        };
+      }
+    }
 
     function isCategorySelected(category){
       return categoryCounts[category];
@@ -285,12 +281,11 @@
         var checkedFilters = [];
         for (var i = 0; i < $scope.currentFacets.length; i++){
           var currentFacet = $scope.currentFacets[i];
-          if($scope.selectedFacets[currentFacet.option]){
+          if($scope.selectedFacets[currentFacet.value]){
             checkedFilters.push(currentFacet);
           }
         }
         $scope.currentFacets = checkedFilters;
-        //$scope.categoryFacets = this.currentFacets;
       } else {
         $scope.filterViewText = seeOnlyCheckedText[0];
         $scope.currentFacets = allFacets[activeCategory];
@@ -298,20 +293,19 @@
     }
 
     function apply(){
-      var applyFacets = [];
-      for(var prop in allFacets){
-        var facetsByCategory = allFacets[prop];
-
-        for(var i = 0; i < facetsByCategory.length; i++){
-          var facet = facetsByCategory[i];
-          if($scope.selectedFacets[facet.option]){
-            facet.active = true;
-            applyFacets.push(facet);
-          }
+      var activated = [];
+      var deactivated = [];
+      for (var facetKey in facetsToApply) {
+        var facet = facetsToApply[facetKey].facetObj;
+        if (facetsToApply[facetKey].checked) {
+          activated.push(facet);
+        } else {
+          deactivated.push(facet);
         }
       }
-      $uibModalInstance.close(applyFacets);
-    };
+      var facetsToUpdate = [activated, deactivated];
+      $uibModalInstance.close(facetsToUpdate);
+    }
 
     function close() {
       $uibModalInstance.close();
@@ -322,11 +316,11 @@
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
         var facet = $scope.categoryFacets[i];
-        if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
+        if(facet.value.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
           filteredFacets.push(facet);
         }
       }
       $scope.currentFacets = filteredFacets;
-    };
+    }
 }]);
 })();

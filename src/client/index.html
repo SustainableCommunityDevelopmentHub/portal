@@ -23,6 +23,7 @@
     <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
     <script src="bower_components/angular-print/angularPrint.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.js"></script>
 
     <!--Main app-->
     <script src="app/app.module.js"></script>
@@ -37,17 +38,25 @@
     <script src="app/core/data-service.js"></script>
     <script src="app/core/search-res-parser.js"></script>
     <script src="app/core/search-service.js"></script>
+    <script src="app/core/saved-records-service.js"></script>
+    <script src="app/core/storage-service.js"></script>
 
-    <!--Widgets: Animation, etc-->
+    <!--Widgets: Helpers, Animation, etc-->
     <script src="app/widgets/widgets.module.js"></script>
     <script src="app/widgets/config.js"></script>
     <script src="app/widgets/scroll.js"></script>
     <script src="app/widgets/animations.js"></script>
+    <script src="app/widgets/utils.js"></script>
 
     <!--Search-->
     <script src="app/search/search.module.js"></script>
     <script src="app/search/search.controller.js"></script>
     <script src="app/search/search.directive.js"></script>
+
+    <!--Saved Records-->
+    <script src="app/saved_records/saved-records.module.js"></script>
+    <script src="app/saved_records/saved-records.controller.js"></script>
+    <script src="app/saved_records/constants.js"></script>
 
     <!--Advanced Search-->
     <script src="app/advanced_search/advanced-search.module.js"></script>
@@ -58,7 +67,9 @@
     <script src="app/contributors/contributors.module.js"></script>
     <script src="app/contributors/contributors.controller.js"></script>
 
+    <!--Controllers for various pages. Directives-->
     <script src="app/app.controller.js"></script>
+    <script src="app/app.directive.js"></script>
   </head>
 
   <body>

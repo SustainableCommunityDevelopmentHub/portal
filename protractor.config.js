@@ -1,11 +1,13 @@
+/* jshint node: true */
+/* globals protractor */
+
 exports.config = {
   allScriptsTimeout: 11000,
 
   rootElement: '.app',
 
   specs: [
-    'src/client/app/**/*e2e.spec.js',
-    'src/client/app/*e2e.spec.js'
+    'test/e2e/*.e2e.spec.js',
   ],
 
   multiCapabilities: [

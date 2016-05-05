@@ -9,10 +9,12 @@
     'app.widgets',
     'angularUtils.directives.dirPagination',
     'app.search',
+    'app.saved-records',
     'app.advanced-search',
     'app.controller',
     'app.contributors',
-    'AngularPrint'
+    'AngularPrint',
+    'smoothScroll'
   ])
 
   // make lodash injectable

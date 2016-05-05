@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, MySearchService, data, es, opts, queryBuilder;
+  var scope, controller, $state, SearchService, data, es, opts, queryBuilder, SavedRecordsService;
 
   var baseESQuery = {
     "index":"portal",
@@ -8,8 +8,8 @@ describe("Date Range Filter", function() {
     "from":"0",
     "body":{
       "query":{
-        "filtered":{
-          "query":{
+        "bool": {
+          "must": {
             "match_all":{}
           },
           "filter": {
@@ -20,35 +20,49 @@ describe("Date Range Filter", function() {
           }
         }
       },
-      "aggregations":{
-        "creator":{
-            "terms":{
-              "field":"_creator_facet.raw"
+      "aggregations": {
+        "creator": {
+          "filter": { },
+          "aggs": {
+            "creator": {
+              "terms": { "field": "_creator_facet.raw", "size": 1000 }
             }
-          },
-          "language":{
-            "terms":{
-              "field":"_language"
+          }
+        },
+        "language": {
+          "filter": { },
+          "aggs": {
+            "language": {
+              "terms": { "field": "_language", "size": 1000 }
             }
-          },
-          "grp_contributor":{
-            "terms":{
-              "field":"_grp_contributor.raw"
+          }
+        },
+        "grp_contributor": {
+          "filter": { },
+          "aggs": {
+            "grp_contributor": {
+              "terms": { "field": "_grp_contributor.raw", "size": 1000 }
             }
-          },
-          "subject":{
-            "terms":{
-              "field":"_subject_facets.raw"
+          }
+        },
+        "subject": {
+          "filter": { },
+          "aggs": {
+            "subject": {
+              "terms": { "field": "_subject_facets.raw", "size": 1000 }
             }
-          },
-          "type":{
-            "terms":{
-              "field":"_grp_type.raw"
+          }
+        },
+        "type": {
+          "filter": { },
+          "aggs": {
+            "type": {
+              "terms": { "field": "_grp_type.raw", "size": 1000 }
             }
           }
         }
       }
-    
+    }
   };
 
   beforeEach(function(){
@@ -59,33 +73,44 @@ describe("Date Range Filter", function() {
     module('app');
     module('app.search');
   });
-  
-  beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
+
+  beforeEach(inject(function($rootScope, $controller, _$state_, _SearchService_, _SavedRecordsService_, DataService, esClient, esQueryBuilder){
     data = DataService;
     es = esClient;
     $state = _$state_;
     scope = $rootScope.$new();
-    searchService = SearchService;
+    SearchService = _SearchService_;
+    SavedRecordsService = _SavedRecordsService_;
     queryBuilder = esQueryBuilder;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
         '$state': $state,
-        'SearchService': searchService
+        'SearchService': SearchService,
+        'SavedRecordsService': SavedRecordsService,
+        'searchResults': {
+          hits: [],
+          numTotalResults: 0,
+          facets: []
+        }
       });
     }));
 
   it("should call Search Service's update opts when calling setDateRange", function(){
-    spyOn(searchService, 'updateOpts');
+    spyOn(SearchService, 'updateOpts');
     scope.setDateRange(scope.fromDate, scope.toDate);
-    expect(searchService.updateOpts).toHaveBeenCalled();
+    expect(SearchService.updateOpts).toHaveBeenCalled();
   });
 
-  it("adds date range object to SearchService's options", function(){
+  it("should reset page to 1 in when date range filter applied", function(){
+    scope.clearQueryTerm();
+    scope.newQuerySearch("painting");
+    scope.setPageNum(2);
+    expect(scope.queryTerm).toEqual("painting");
+    expect(SearchService.calculatePage()).toEqual(2);
+
     scope.setDateRange(scope.fromDate, scope.toDate);
-    expect(searchService.opts.date).toBeDefined();
-    expect(searchService.opts.date.gte).toEqual(scope.fromDate);
-    expect(searchService.opts.date.lte).toEqual(scope.toDate);
+    expect(SearchService.calculatePage()).toEqual(1);
   });
 
   describe("Tests for building elasticsearch date range query", function(){
@@ -93,15 +118,13 @@ describe("Date Range Filter", function() {
       opts = {"facets":[],"page":1,"from":'0', size: 25};
       scope.fromDate = "1900";
       scope.toDate = "1905";
-      spyOn(es, 'search');
-
     });
 
     afterEach(function(){
       /* Tear down properly so state does not persist between tests */
       delete opts.date;
       if(baseESQuery.body.date){
-        delete baseESQuery.body.date;   
+        delete baseESQuery.body.date;
       }
     });
 
@@ -110,8 +133,15 @@ describe("Date Range Filter", function() {
       var dateRange = {"range":{"_date_facet":{"gte": scope.fromDate,"lte": scope.toDate}}};
       var newQuery = queryBuilder.buildSearchQuery(opts);
 
-      var filter = newQuery.body.query.filtered.filter.bool.filter;
-      expect(filter).toContain(dateRange);    
+      var filter = newQuery.body.query.bool.filter.bool.filter;
+      expect(filter).toContain(dateRange);
+    });
+
+    it("adds date range object to SearchService's options", function(){
+      scope.setDateRange(scope.fromDate, scope.toDate);
+      expect(SearchService.opts.date).toBeDefined();
+      expect(SearchService.opts.date.gte).toEqual(scope.fromDate);
+      expect(SearchService.opts.date.lte).toEqual(scope.toDate);
     });
   });
 });

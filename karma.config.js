@@ -1,3 +1,4 @@
+/* jshint node: true */
 module.exports = function(config) {
   config.set({
 
@@ -23,6 +24,7 @@ module.exports = function(config) {
       'src/client/bower_components/angularUtils-pagination/dirPagination.js',
       'src/client/bower_components/angular-print/angularPrint.js',
       'src/client/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.js',
 
       'src/client/bower_components/angular-mocks/angular-mocks.js',
 
@@ -36,6 +38,8 @@ module.exports = function(config) {
       'src/client/app/widgets/*.js',
       'src/client/app/contributors/*.js',
       'src/client/app/advanced_search/*.js',
+      'src/client/app/partials/save-record-button.html',
+      'src/client/app/saved_records/*.js',
 
       // helpers for jasmine, etc
       'test/mockData.js'
@@ -45,11 +49,27 @@ module.exports = function(config) {
     // list of files to exclude
     exclude: ['src/client/app/**/*.e2e.spec.js'],
 
+    plugins: [
+      'karma-jasmine',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      "karma-spec-reporter",
+      'karma-ng-html2js-preprocessor'
+    ],
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "src/client/app/partials/save-record-button.html": 'ng-html2js'
     },
 
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'src/client/',
+      moduleName: 'templates',
+      files: [
+        "app/partials/save-record-button.html"
+      ]
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

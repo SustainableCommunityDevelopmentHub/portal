@@ -3,7 +3,7 @@
 
   angular
   .module('app.advanced-search')
-  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService',  'ADVANCED_SEARCH', AdvancedSearchCtrl]);
+  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService', 'ADVANCED_SEARCH', AdvancedSearchCtrl]);
 
   function AdvancedSearchCtrl($scope, $state, SearchService, ADVANCED_SEARCH){
     $scope.filters = [];
@@ -20,15 +20,14 @@
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       $scope.filters = [{field: initialField, text: "", lastFilter: true}];
       $scope.fields = [
-          ADVANCED_SEARCH.contributor,
+          ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.creator,
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.title,
-          ADVANCED_SEARCH.type
+          ADVANCED_SEARCH.contributor,
         ];
-    })
+    });
 
     /**
      * Adds new filter object to the filters array, which angular will use to render out
@@ -68,11 +67,12 @@
         if(filter.text && filter.field !== initialField){
           var f = {field: filter.field, term: filter.text};
           opts.advancedFields.push(f);
-        };
+        }
       });
       opts.q = $scope.queryTerm;
+      searchService.resetOpts();
       searchService.updateOpts(opts);
       $state.go('searchResults', searchService.opts);
-    };
-  };
+    }
+  }
 })();

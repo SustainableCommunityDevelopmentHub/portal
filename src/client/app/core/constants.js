@@ -26,25 +26,18 @@
           display: 'Subject',
           options:[]
         },
-        type: {
-          name: 'type',
-          key: '_grp_type',
-          rawKey: '_grp_type.raw',
-          display: 'Type',
-          options:[]
-        },
         creator: {
           name: 'creator',
           key: '_creator_facet',
           rawKey: '_creator_facet.raw',
-          display: 'Creator',
+          display: 'Creator/Contributor',
           options:[]
         },
         grp_contributor: {
           name: 'grp_contributor',
           key: '_grp_contributor',
           rawKey: '_grp_contributor.raw',
-          display: 'Contributed By',
+          display: 'From',
           options:[]
         }
     })
@@ -53,38 +46,45 @@
           display: "Relevance",
           mode: "relevance"
         },
-        dateAdded : {
+        date_added : {
           display: "Newly Added First",
           mode: "date_added",
           sortQuery: {"_ingest_date": {"order": "desc"}}
         },
-        titleAZ : {
+        title_asc : {
           display: "Title: A-Z",
           mode: "title_asc",
           sortQuery: "_title_display.sort"
         },
-        titleZA : {
+        title_desc : {
           display: "Title: Z-A",
           mode: "title_desc",
           sortQuery: {"_title_display.sort": {"order": "desc"}}
         },
-        dateAscend : {
+        date_asc : {
           display: "Date (ascending)",
           mode: "date_asc",
           sortQuery: "_date_facet"
         },
-        dateDesc : {
+        date_desc : {
           display: "Date (descending)",
           mode: "date_desc",
           sortQuery: { "_date_facet": {"order": "desc"}}
         }
     })
+    .constant('SAVED_ITEMS', {
+      recordKey: "getty_portal_records",
+      searchKey: "getty_portal_searches",
+      gettyID: "getty_portal"
+    })
+    .constant('FROM_DEFAULT', 0)
+    .constant('SIZE_DEFAULT', 25)
+    .constant('SORT_DEFAULT', 'relevance')
     .constant('DEFAULTS', {
       searchOpts: {
         q: '',
         size: 25,
         from: 0,
-        page: 1,
         facets: [],
         advancedFields: [],
         sort: 'relevance',

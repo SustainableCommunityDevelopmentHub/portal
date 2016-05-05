@@ -1,22 +1,25 @@
-<div class="main-body">
-  <h3>Contributors</h3>
-  <hr class="faqs-hr">
-  <ul class="contributors">
-    <li dir-paginate="contributor in institutions | itemsPerPage: 10">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Contributors</h3>
+      <hr class="sr-top">
+    </div>
+  </div>
+
+  <div class="row">
+    <ul class="contributors">
+      <li ng-repeat="contributor in institutions">
         <div class="contributor-list-item">
-          <p class="name-contrib">{{contributor.key}}</p>
-          <div class="contrib-vl-center" ng-show="$even"></div>
-          <div class="contrib-vl-right" ng-show="$odd"></div>
-          <a ng-click="contribSearch({facets: [{facet: 'grp_contributor', option: contributor.key}]})" class="num-contrib">{{contributor.doc_count}} Records</a>
+          <div class="col-xs-12 col-sm-6">
+            <p class="name-contrib">{{contributor.key}}</p>
+            <div class="contrib-vl-center" ng-show="$even"></div>
+            <div class="contrib-vl-right" ng-show="$odd"></div>
+            <a ng-click="contribSearch(contributor.key)" class="num-contrib">{{contributor.doc_count}} Records</a>
           <!--<a ui-sref="searchResults" class="num-contrib">{{contributor.doc_count}} Records</a>-->
+            <hr>
+          </div>
         </div>
-        <hr class="contributors-table">
       </li>
-  </ul>
-  <div class="contrib-pagination">
-    <dir-pagination-controls boundary-links="true" max-size="5"></dir-pagination-controls>
-  <!--<a ui-sref="#">First</a><a ui-sref="#">Prev</a>-->
-  <!--<a ui-sref="#">1</a><p>2</p><a ui-sref="#">3 ... 22</a>-->
-  <!--<a ui-sref="#">Next</a><a ui-sref="#">Last</a>-->
+    </ul>
   </div>
 </div>

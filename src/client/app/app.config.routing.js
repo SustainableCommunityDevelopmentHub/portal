@@ -10,79 +10,139 @@
     // assign states to urls
     $stateProvider
     // abstract state used to load other search states
-    .state('home', {
-      url: '/',
-      templateUrl: config.app.root + '/search/search.home.html',
-      controller: 'HomePageCtrl'
-    })
-
-    .state('searchResults', {
-      url: '/search?q&from&size',
-      controller: 'SearchCtrl',
-      templateUrl: config.app.root + '/search/search.results.html',
-      resolve: {
-        // run search and load resulting promise into controller prior to state load
-        searchResults: function($stateParams, SearchService){
-          console.log('Router....in state searchResults resolve. $stateParams: ' + JSON.stringify($stateParams));
-
-          // NOTE: We must pull search opts from stateParams to handle case
-          //       where user pastes URL like: http://gettyportal.com?search?q=art&from=20&size=10
-          //       into address bar. In this case, SearchService has no opts
-          //       and stateParams will grab opts vals from the URL.
-          var searchOpts = {
-            q: $stateParams.q,
-            size: parseInt($stateParams.size),
-            from: parseInt($stateParams.from)
-          };
-
-          return SearchService.updateSearch(searchOpts);
+      .state('home', {
+        url: '/',
+        templateUrl: config.app.root + '/search/search.home.html',
+        controller: 'HomePageCtrl',
+        resolve: {
+          searchResults: function(SearchService) {
+            SearchService.updateOpts({q: ""});
+            return SearchService.executeSearch().then(function(data) {
+              return SearchService.setResultsData(data);
+            });
+          }
         }
-      }
-    })
+      })
 
-    .state('books', {
-      url: '/books/:bookID',
-      templateUrl: config.app.root + '/partials/book-detail.html',
-      controller: 'BookDetailCtrl'
-    })
+      .state('searchResults', {
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte',
+        controller: 'SearchCtrl',
+        templateUrl: config.app.root + '/search/search.results.html',
+        params: {
+          creator: { array: true },
+          grp_contributor: { array: true },
+          language: { array: true },
+          subject: { array: true }
+        },
+        resolve: {
+          searchResults: function($stateParams, SearchService, SORT_MODES){
+            var ss = SearchService;
 
-    .state('advanced', {
-      url: '/advanced',
-      templateUrl: config.app.root + '/advanced_search/advanced-search.html',
-      controller: 'AdvancedSearchCtrl'
-    })
+            var searchOpts = {
+              q: $stateParams.q,
+              size: parseInt($stateParams.size),
+              from: parseInt($stateParams.from),
+              sort: SORT_MODES[$stateParams.sort],
+              date: {
+                gte: $stateParams.date_gte || null,
+                lte: $stateParams.date_lte || null
+              }
+            };
 
-    .state('contributors', {
-      url: '/contributors',
-      templateUrl: config.app.root + '/contributors/contributors.html',
-      controller: 'ContributorsCtrl',
-      resolve: {
+            ss.clearFacetsIn('all');
+            ss.facetCategoriesList.forEach(function(category){
+              if($stateParams[category] && $stateParams[category].length){
+                $stateParams[category].forEach(function(facetVal){
+                  var newFacet = ss.buildFacet(category, facetVal, null, true);
+                  if(newFacet){
+                    ss.activateFacet(newFacet);
+                  }
+                });
+              }
+            });
 
-        contributors: function($stateParams, DataService){
-          console.log('Router....in state contributors resolve. $stateParams: ' + JSON.stringify($stateParams));
-          return DataService.getContributors();
-
+            ss.updateOpts(searchOpts);
+            return ss.executeSearch().then(function(data) {
+              return ss.setResultsData(data);
+            });
+          }
         }
-      }
-    })
+      })
 
-    .state('feedback', {
-      url: '/feedback',
-      templateUrl: config.app.root + '/partials/feedback.html',
-      controller: 'FeedbackFormCtrl'
-    })
+      .state('books', {
+        url: '/books/:bookID',
+        templateUrl: config.app.root + '/partials/book-detail.html',
+        controller: 'BookDetailCtrl',
+        resolve: {
+          bookData: function($stateParams, DataService) {
+            var book = {
+              index: 'portal',
+              type: 'book',
+              id: $stateParams.bookID
+            };
+            return DataService.getBookData(book).then(function(response) {
+              var bookData = response._source;
+              bookData._id = response._id;
+              return bookData;
+            });
+          }
+        }
+      })
 
-    .state('help', {
-      url: '/help',
-      templateUrl: config.app.root + '/partials/help.html',
-      controller: 'SearchHelpCtrl'
-    })
+      .state('advanced', {
+        url: '/advanced',
+        templateUrl: config.app.root + '/advanced_search/advanced-search.html',
+        controller: 'AdvancedSearchCtrl'
+      })
 
-    .state('faq', {
-      url: '/faq',
-      templateUrl: config.app.root + '/partials/faqs.html',
-      controller: 'FaqsCtrl'
-    });
+      .state('contributors', {
+        url: '/contributors',
+        templateUrl: config.app.root + '/contributors/contributors.html',
+        controller: 'ContributorsCtrl',
+        resolve: {
+
+          contributors: function($stateParams, DataService){
+            console.log('Router....in state contributors resolve. $stateParams: ' + JSON.stringify($stateParams));
+            return DataService.getContributors();
+
+          }
+        }
+      })
+
+      .state('feedback', {
+        url: '/feedback',
+        templateUrl: config.app.root + '/partials/feedback.html',
+        controller: 'FeedbackFormCtrl'
+      })
+
+      .state('help', {
+        url: '/help',
+        templateUrl: config.app.root + '/partials/help.html',
+        controller: 'SearchHelpCtrl'
+      })
+
+      .state('faq', {
+        url: '/faq',
+        templateUrl: config.app.root + '/partials/faqs.html',
+        controller: 'FaqsCtrl'
+      })
+      .state('savedRecords', {
+        url: '/saved',
+        templateUrl: config.app.root + '/saved_records/saved-records.html',
+        controller: 'SavedRecordsCtrl',
+        resolve: {
+          records: function($q, SavedRecordsService) {
+            return $q.when(SavedRecordsService.getRecords()).then(function(records) {
+              return records;
+            });
+          },
+          searches: function($q, SavedRecordsService) {
+            return $q.when(SavedRecordsService.getSearches()).then(function(searches){
+              return searches;
+            });
+          }
+        }
+      });
 
     // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
     $locationProvider.html5Mode(true);

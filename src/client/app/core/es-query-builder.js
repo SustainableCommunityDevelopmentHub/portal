@@ -1,12 +1,13 @@
 (function() {
+  /* jshint validthis: true */
   'use strict';
 
   angular
   .module('app.core')
-  .factory('esQueryBuilder', ['DEFAULTS', esQueryBuilder]);
+  .factory('esQueryBuilder', ['DEFAULTS', 'SORT_MODES', '_', esQueryBuilder]);
 
   /* Functions to build various ES Queries */
-  function esQueryBuilder(DEFAULTS) {
+  function esQueryBuilder(DEFAULTS, SORT_MODES, _) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -63,26 +64,94 @@
 
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
-        console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
-        fullQuery.body.query.filtered.query.match = { _all: opts.q };
+        //console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
+        fullQuery.body.query.bool.must =
+          {
+            query_string: {
+              query: opts.q,
+              minimum_should_match: '2<-1 5<75%',
+              fields: [
+                '_record_link',
+                '_language',
+                '_language.folded',
+                '_grp_type',
+                '_title_display^18',
+                '_title_display.folded^18',
+                '_subject_facets^15',
+                '_subject_facets.folded^15',
+                '_creator_display',
+                '_creator_display.folded',
+                '_creator_facet^12',
+                '_creator_facet.folded^12',
+                '_date_facet.folded',
+                '_date_display',
+                '_date_display.folded',
+                '_grp_contributor',
+                '_grp_contributor.folded',
+                '_grp_id',
+                '_edition',
+                '_edition.folded',
+                '_series',
+                '_series.folded',
+                'dublin_core.identifier.value',
+                'dublin_core.identifier.value.folded',
+                'dublin_core.creator.value',
+                'dublin_core.creator.value.folded',
+                'dublin_core.date.value',
+                'dublin_core.date.value.folded',
+                'dublin_core.publisher.value',
+                'dublin_core.publisher.value.folded',
+                'dublin_core.format.value',
+                'dublin_core.format.value.folded',
+                'dublin_core.type.value',
+                'dublin_core.type.value.folded',
+                'dublin_core.description.value',
+                'dublin_core.description.value.folded',
+                'dublin_core.provenance.value',
+                'dublin_core.provenance.value.folded',
+                'dublin_core.language.value',
+                'dublin_core.language.value.folded',
+                'dublin_core.subject.value',
+                'dublin_core.subject.value.folded',
+                'dublin_core.coverage.value',
+                'dublin_core.coverage.value.folded',
+                'dublin_core.title.value',
+                'dublin_core.title.value.folded',
+                'dublin_core.contributor.value',
+                'dublin_core.contributor.value.folded',
+                'dublin_core.relation.value',
+                'dublin_core.relation.value.folded',
+                'dublin_core.source.value',
+                'dublin_core.source.value.folded',
+                'dublin_core.rights.value',
+                'dublin_core.rights.value.folded',
+                'dublin_core.accrualMethod.value',
+                'dublin_core.accrualMethod.value.folded',
+                'dublin_core.accrualPeriodicity.value',
+                'dublin_core.accrualPeriodicity.value.folded',
+                'dublin_core.audience.value',
+                'dublin_core.audience.value.folded'
+              ]
+            }
+          };
       }
       else{
-        fullQuery.body.query.filtered.query.match_all = {};
+        fullQuery.body.query.bool.must.match_all = {};
       }
 
       if(opts.sort){
-        var sortQuery = buildSortQuery(opts.sort.mode);
+        var sortQuery = SORT_MODES[opts.sort].sortQuery;
         if(sortQuery){
           fullQuery.body.sort = sortQuery;
         }
 
-        console.log('esQueryBuilder.buildSortQuery -- opts.sort:' + opts.sort);
+        //console.log('esQueryBuilder -- opts.sort:' + opts.sort);
       }
-      
+
       if(opts.date){
         var dateRange = buildDateRangeQuery(opts.date.gte, opts.date.lte);
         if(dateRange) {
-          fullQuery.body.query.filtered
+          fullQuery.body.query.bool
           .filter.bool.filter
           .push(dateRange);
           this.globalFilters.push(dateRange);
@@ -96,11 +165,40 @@
       if (opts.advancedFields) {
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
-          
-          var query = {match_phrase: {}};
-          query.match_phrase[item.field.searchKey] = item.term;
-          fullQuery.body.query.filtered.filter.bool.filter.push(query);
-          allAdvancedFilters.push(query);
+
+          if (item.field.searchKey.substr(0, 11) == "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
+            var query = {
+              query_string: {
+                query: item.term,
+                minimum_should_match: '2<-1 5<75%',
+                fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
+          else if (item.field.searchKey === 'dublin_core.date') {
+            var query = {
+              query_string: {
+                query: item.term,
+                minimum_should_match: '2<-1 5<75%',
+                fields: ['_date_facet.folded', item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
+          else {
+            var query = {
+              query_string: {
+                query: item.term,
+                minimum_should_match: '2<-1 5<75%',
+                fields: [item.field.searchKey, item.field.searchKey + '.folded']
+              }
+            };
+            fullQuery.body.query.bool.filter.bool.filter.push(query);
+            allAdvancedFilters.push(query);
+          }
         });
         if(allAdvancedFilters.length > 0){
           this.globalFilters.push(allAdvancedFilters);
@@ -115,62 +213,61 @@
           language: {
             name: 'language',
             key: '_language',
-            options:[]
+            values:[]
           },
           subject: {
             name: 'subject',
             key: '_subject_facets.raw',
-            options:[]
+            values:[]
           },
           type: {
             name: 'type',
             key: '_grp_type.raw',
-            options:[]
+            values:[]
           },
           creator: {
             name: 'creator',
             key: '_creator_facet.raw',
-            options:[]
+            values:[]
           },
           grp_contributor: {
             name: 'grp_contributor',
             key: '_grp_contributor.raw',
-            options:[]
+            values:[]
           }
         };
 
         // add new facets by category
         opts.facets.forEach(function(facet){
-          console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
-
-          facetCategories[facet.facet].options.push(facet.option);
+          //console.log('esQueryBuilder::buildSearchQuery: adding search query filter: ' + JSON.stringify(facet));
+          facetCategories[facet.category].values.push(facet.value);
         });
 
         var facetCategoriesArr = _.values(facetCategories);
 
         // add filters to main search query
         facetCategoriesArr.forEach(function(facetCategory){
-          if(facetCategory.options.length){
-            fullQuery.body.query.filtered
+          if(facetCategory.values.length){
+            fullQuery.body.query.bool
             .filter.bool.must
-            .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.options)));
+            .push(createBoolShouldFilter(createSingleTermFilters(facetCategory.key, facetCategory.values)));
 
           }
-          console.log('esQueryBuilder::buildSearchQuery -- exited facetCategoriesArr.forEach');
+          //console.log('esQueryBuilder::buildSearchQuery -- exited facetCategoriesArr.forEach');
 
           var aggFilter = fullQuery.body.aggregations[facetCategory.name].filter;
 
           // apply filters from each other facet opt to our aggregation
           facetCategoriesArr.forEach(function(otherFacetCategory){
-            console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
-            if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.options.length){
+            //console.log('esQueryBuilder::buildSearchQuery -- facetCategoriesArr.forEach() -- otherFacetCategory: ' + JSON.stringify(otherFacetCategory));
+            if(otherFacetCategory.name !== facetCategory.name && otherFacetCategory.values.length){
               // ES throws err if aggFilter.bool.must[] is empty
               if(!aggFilter.bool || !aggFilter.bool.must){
                 aggFilter.bool = { must: [] };
               }
 
               var singleTermFilters =
-                createSingleTermFilters(otherFacetCategory.key, otherFacetCategory.options);
+                createSingleTermFilters(otherFacetCategory.key, otherFacetCategory.values);
 
               var facetOptsFilter = createBoolShouldFilter(singleTermFilters);
 
@@ -181,7 +278,7 @@
 
       } // close if(facets.length)
 
-      console.log('esQueryBuilder.buildSearchQuery() -- returning fullQuery:' + JSON.stringify(fullQuery));
+      //console.log('esQueryBuilder.buildSearchQuery() -- returning fullQuery:' + JSON.stringify(fullQuery));
       return fullQuery;
     }
 
@@ -202,7 +299,7 @@
             }
           }
         };
-        console.log('esQueryBuilder.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
+        //console.log('esQueryBuilder.getContributorsQuery executed, contributorsQuery: ' + JSON.stringify(contributorsQuery));
         return _.cloneDeep(contributorsQuery);
     }
 
@@ -217,8 +314,8 @@
      *
      */
     function createBoolShouldFilter(arrFilters){
-      console.log('esQueryBuilder::createBoolShouldFilter - arg: ' + JSON.stringify(arrFilters));
-      console.log('esQueryBuilder::createBoolShouldFilter - returning filter: ' + JSON.stringify(arrFilters));
+      //console.log('esQueryBuilder::createBoolShouldFilter - arg: ' + JSON.stringify(arrFilters));
+      //console.log('esQueryBuilder::createBoolShouldFilter - returning filter: ' + JSON.stringify(arrFilters));
       return { bool: { should: arrFilters } };
     }
 
@@ -238,7 +335,7 @@
     /**
      * Construct ES query for ES term (only one term) filter.
      * Used to add a term filter on facet aggregations...
-     * ...to display correct facet options for each category
+     * ...to display correct facet values for each category
      *
      * @param {string} key name of property on ES obj we want to filter on
      * @param {array} filterVals values to filter on
@@ -257,7 +354,7 @@
         return filterObj;
       });
 
-      console.log('esQueryBuilder::createSingleTermFilters -- made: ' + JSON.stringify(filterObjsArr) + ' on key: ' + key);
+      //console.log('esQueryBuilder::createSingleTermFilters -- made: ' + JSON.stringify(filterObjsArr) + ' on key: ' + key);
 
       return filterObjsArr;
     }
@@ -277,8 +374,8 @@
         {
           // fulltext query across all fields - the "search term"
           "query": {
-            "filtered": {
-              "query": {
+            "bool": {
+              "must": {
               },
               "filter": {
                 "bool": {
@@ -342,8 +439,8 @@
 
     /**
      * Construct ES query for ES terms filter.
-     * Used to apply specific facet type, with one or more options, to a query.
-     * Add to base query to filter on particular facet and facet options
+     * Used to apply specific facet type, with one or more values, to a query.
+     * Add to base query to filter on particular facet and facet values
      *
      * @return {object} elasticsearch query DSL for terms filter
      */
@@ -353,13 +450,13 @@
 
         // set prop on terms obj to represent field name to filter on, set arr of values to filter by.
         termsFilter.terms[key] = filterValuesArr;
-        console.log('esQueryBuilder::createFilter -- made term filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
+        //console.log('esQueryBuilder::createFilter -- made term filter: ' + JSON.stringify(termsFilter) + ' on key: ' + key + ' for vals: ' + JSON.stringify(filterValuesArr));
         return termsFilter;
     }
 
     function buildDateRangeQuery(fromDate, toDate) {
       if (fromDate || toDate) {
-        var dateRangeFilter = 
+        var dateRangeFilter =
         {
           "range" : {
             "_date_facet" : {
@@ -367,38 +464,9 @@
               "lte" : toDate
             }
           }
-        }
+        };
         return dateRangeFilter;
       }
-    }
-
-    /**
-     * build sort portion of query
-     * @param {string} sortMode string identifying the selected sort mode
-     * @return {object} sortQuery sort portion of elasticsearch query
-     */
-    function buildSortQuery(sortMode){
-      console.log(sortMode);
-      var sortQuery;
-      switch(sortMode) {
-          case "date_asc":
-            sortQuery = "_date_facet";
-            break;
-          case "date_desc":
-            sortQuery = { "_date_facet": {"order": "desc"}};
-            break;
-          case "date_added":
-            sortQuery = {"_ingest_date": {"order": "desc"}};
-            break;
-          case "title_asc":
-            sortQuery = "_title_display.sort";
-            break;
-          case "title_desc":
-            sortQuery = {"_title_display.sort": {"order": "desc"}};
-            break;
-        }
-
-      return sortQuery;
     }
 
     /**
@@ -425,8 +493,8 @@
                 {
                   size: 0,
                   query: {
-                    filtered: {
-                      query: fullQuery.body.query.filtered.query,
+                    bool: {
+                      must: fullQuery.body.query.bool.must,
                       filter: {
                         bool: {
                           must: this.globalFilters
@@ -439,6 +507,5 @@
               ]
       };
     }
-
   }
 })();

@@ -13,10 +13,11 @@
 
     var service = {
       getContributors: getContributors,
+      getBookData: getBookData,
       search: search
     };
 
-    console.log('app.core........Returning DataService factory');
+    //console.log('app.core........Returning DataService factory');
     return service;
 
     //////////////////////////////////
@@ -35,7 +36,7 @@
         esQueryBuilder.buildSearchQuery(opts)
       );
 
-      console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
+      //console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
       return esClient.msearch(mSearchQueryObj).then(function(response){
         var resultsObj = response.responses[0];
         resultsObj.aggregations = response.responses[1].aggregations;
@@ -51,9 +52,18 @@
         esQueryBuilder.buildContributorsQuery()
       );
 
-      console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
+      //console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
       return response;
     }
 
+    /**
+     * Gets data from elasticsearch client for particular book record
+     * @param book {object} record to get
+     * @returns response from elasticsearch
+     */
+    function getBookData(book){
+      var response = esClient.get(book);
+      return response;
+    }
   }
 })();

@@ -6,6 +6,7 @@
   .controller('ContributorsCtrl', ['$scope', '$state', 'DataService', 'SearchService', ContributorsCtrl]);
 
   function ContributorsCtrl($scope, $state, DataService, SearchService) {
+    var ss = SearchService;
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       if(toState.controller === 'ContributorsCtrl'){
@@ -14,21 +15,17 @@
 
             console.log('ContribCtrl....state change success. DataService.contribResults: ' + JSON.stringify(contribResults));
 
-            $scope.institutions = contribResults.aggregations.grp_contributor.buckets;            
+            $scope.institutions = contribResults.aggregations.grp_contributor.buckets;
 
           });
       }
     });
 
-      // for when user clicks on records for a particular institution.
-      // changes state to search.results, which will trigger search operation.
-
-    $scope.contribSearch = function(opts) {
-      SearchService.resetOpts();
-
-      // convention is to always pass SearchService.opts
-      SearchService.updateOpts(opts);
-      $state.go('searchResults', SearchService.opts);
+    // for when user clicks on records for a particular institution.
+    $scope.contribSearch = function(contributor) {
+      ss.resetOpts();
+      ss.activateFacet( ss.buildFacet('grp_contributor', contributor) );
+      ss.transitionStateAndSearch();
     };
 
   }

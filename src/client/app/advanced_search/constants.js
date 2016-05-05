@@ -3,33 +3,29 @@
   
   angular.module('app.advanced-search')
     .constant('ADVANCED_SEARCH', {
-      contributor: {
-        display: 'Contributed by',
-        searchKey: '_grp_contributor'
+      title: {
+        display: 'Title',
+        searchKey: 'dublin_core.title'
       },
       creator: {
         display: 'Creator',
-        searchKey: '_creator_facet'
+        searchKey: 'dublin_core.creator'
       },
       date: {
         display: 'Date',
-        searchKey: '_date_display'
+        searchKey: 'dublin_core.date'
       },
       language: {
         display: 'Language',
-        searchKey: '_language.advanced'
+        searchKey: 'dublin_core.language'
       },
       subject: {
         display: 'Subject',
-        searchKey: '_subject_facets'
+        searchKey: 'dublin_core.subject'
       },
-      title: {
-        display: 'Title',
-        searchKey: '_title_display'
+      contributor: {
+        display: 'From',
+        searchKey: '_grp_contributor'
       },
-      type: {
-        display: 'Type',
-        searchKey: '_grp_type.advanced'
-      }
     });
 })();
