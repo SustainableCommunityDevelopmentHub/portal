@@ -21,7 +21,8 @@ describe('Home Page', function() {
 		resultsPage.addFacetOption('subject', 'France');
 		resultsPage.addFacetOption('creator', 'Plon-Nourrit');
 		expect(resultsPage.numTotalHits).toEqual(6);
-		var homePage2 = new HomePage();
+		var homeButton = element(by.linkText('Portal Home'));
+		homeButton.click();
 		var totalTitles = element(by.binding('totalTitles'));
 		expect(totalTitles.getText()).toEqual('452');
 	});
