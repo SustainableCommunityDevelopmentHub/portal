@@ -16,7 +16,7 @@
         controller: 'HomePageCtrl',
         resolve: {
           searchResults: function(SearchService) {
-            SearchService.updateOpts({q: ""});
+            SearchService.resetOpts();
             return SearchService.executeSearch().then(function(data) {
               return SearchService.setResultsData(data);
             });
