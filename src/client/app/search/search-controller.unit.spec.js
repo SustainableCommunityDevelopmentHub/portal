@@ -198,7 +198,7 @@ describe("Search Controller", function(){
     });
 
     it("should clear advanced field facets correctly", function(){
-      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      var gettyField = {field: ADVANCED_SEARCH.grp_contributor, term: "getty"};
       var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
       scope.advancedFields = [gettyField, dateField];
       scope.clearAdvancedField(gettyField);
@@ -286,7 +286,7 @@ describe("Search Controller", function(){
       SearchService.resetOpts();
       scope.activeFacets = SearchService.opts.facets;
 
-      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      var gettyField = {field: ADVANCED_SEARCH.grp_contributor, term: "getty"};
       SearchService.opts.advancedFields = [gettyField];
 
       scope.clearSearchOpts();
