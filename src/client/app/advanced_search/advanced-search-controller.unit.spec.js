@@ -33,7 +33,7 @@ describe("Advanced Search", function(){
           ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.type
         ];
-    scope.filters = [{field: {}, text: "", lastFilter: ""}];
+    scope.filters = [{field: {}, term: "", lastFilter: ""}];
   }));
 
   it("should add a new filter object when you call addFilter()", function(){
@@ -81,11 +81,11 @@ describe("Advanced Search", function(){
     scope.queryTerm = "art";
     var filter = scope.filters[0];
     filter.field = scope.fields[0];
-    filter.text = "getty";
+    filter.term = "getty";
     scope.search();
     var opts = {
       q: scope.queryTerm,
-      advancedFields: [{field: filter.field, term: filter.text}]
+      advancedFields: [{field: filter.field, term: filter.term}]
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
   });
@@ -103,10 +103,10 @@ describe("Advanced Search", function(){
 
     var filter = scope.filters[0];
     filter.field = scope.fields[0];
-    filter.text = "getty";
+    filter.term = "getty";
 
     var correctOps = searchService.getDefaultOptsObj();
-    correctOps.advancedFields = [{field: filter.field, term: filter.text}];
+    correctOps.advancedFields = [{field: filter.field, term: filter.term}];
 
     scope.search();
     expect(searchService.opts).toEqual(correctOps);

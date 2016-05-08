@@ -19,7 +19,7 @@
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // selected adv filters plus initial empty filter
-      $scope.filters = [{field: initialField, text: "", lastFilter: true}];
+      $scope.filters = [{field: initialField, term: "", lastFilter: true}];
 
       // objs w/settings for each available adv field
       $scope.fields = [
@@ -38,13 +38,13 @@
      * for the new field.
      *
      * newFilter.field - object with info on the adv field to be filtered
-     * newFilter.text - string to filter by
+     * newFilter.term - string to filter by
      * newFilter.lastFilter - bool, only used in controller/view
      */
     function addFilter() {
       var newFilter = {
         field: initialField,
-        text: "",
+        term: "",
         lastFilter: true
       };
       $scope.filters[$scope.filters.length - 1].lastFilter = false;
@@ -73,8 +73,8 @@
       };
 
       $scope.filters.forEach(function(filter){
-        if(filter.text && filter.field !== initialField){
-          var f = {field: filter.field, term: filter.text};
+        if(filter.term && filter.field !== initialField){
+          var f = {field: filter.field, term: filter.term};
           opts.advancedFields.push(f);
         }
       });

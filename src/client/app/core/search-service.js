@@ -110,7 +110,6 @@
       });
 
       this.opts.advancedFields.forEach(function(field){
-        //TODO : Doublecheck field.field.id is correct
         if(!queryParams[field.field.name]){
           // TODO: doublecheck field.value is correct
           queryParams[field.field.name] = [field.value];
