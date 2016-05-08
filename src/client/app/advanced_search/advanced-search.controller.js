@@ -28,7 +28,7 @@
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.contributor,
+          ADVANCED_SEARCH.grp_contributor,
         ];
     });
 

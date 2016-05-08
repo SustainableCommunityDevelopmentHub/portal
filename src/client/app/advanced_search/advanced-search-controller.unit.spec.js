@@ -25,13 +25,12 @@ describe("Advanced Search", function(){
         'SearchService': searchService
      });
     scope.fields = [
-          ADVANCED_SEARCH.contributor,
+          ADVANCED_SEARCH.grp_contributor,
           ADVANCED_SEARCH.creator,
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.title,
-          ADVANCED_SEARCH.type
+          ADVANCED_SEARCH.title
         ];
     scope.filters = [{field: {}, term: "", lastFilter: ""}];
   }));

@@ -28,7 +28,7 @@
         display: 'Subject',
         searchKey: 'dublin_core.subject'
       },
-      contributor: {
+      grp_contributor: {
         name: 'grp_contributor',
         display: 'From',
         searchKey: '_grp_contributor'
