@@ -16,6 +16,9 @@ AdvancedPage.prototype = Object.create(ResultsPage.prototype, {
     submitWithEnterBtn: { value: function() {
         element(by.css('.search-btn')).sendKeys(protractor.Key.ENTER);
     }},
+    submitFiltersWithEnter: { value: function() {
+        element(by.model('filter.text')).sendKeys(protractor.Key.ENTER);
+    }},
     openFieldSelector: { value: function(position) {
         element.all(by.css('.filter-dropdown')).get(position).click();
     }},
