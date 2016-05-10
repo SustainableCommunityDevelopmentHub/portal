@@ -58,7 +58,6 @@
     if(ss.opts.facets){
       $scope.activeFacets = ss.opts.facets;
     }
-
     $scope.savedRecords = SavedRecordsService.getRecords();
 
     $scope.bookMarkText = "";
