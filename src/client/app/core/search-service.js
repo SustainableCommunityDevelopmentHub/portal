@@ -276,10 +276,13 @@
 
       var facet= {
         category: category,
-        value: value
+        value: value,
+        count: count
       };
-      if(count){ facet.count = count; }
-      if(active !== undefined){ facet.active = active; }
+      
+      if(active !== undefined) { 
+        facet.active = active; 
+      }
 
       return facet;
     }
