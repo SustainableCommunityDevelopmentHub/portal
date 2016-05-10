@@ -274,16 +274,16 @@
         return false;
       }
 
-      var facet= {
+      var facet = {
         category: category,
-        value: value,
-        count: count
+        value: value
       };
-      
+      if(count !== undefined) { 
+        facet.count = count; 
+      }
       if(active !== undefined) { 
         facet.active = active; 
       }
-
       return facet;
     }
 
