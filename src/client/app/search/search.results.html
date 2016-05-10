@@ -122,7 +122,7 @@
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
-                  <div class="facet-chip">
+                  <div class="facet-chip" ng-class="{'facet-chip-no-results': !activeFacet.count}">
                     <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.value}} <i>({{categories[activeFacet.category].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>
