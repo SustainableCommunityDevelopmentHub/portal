@@ -90,6 +90,7 @@ describe("Advanced Search", function(){
   });
 
   it("should clear existing search options before executing search", function(){
+    spyOn(searchService, 'transitionStateAndSearch');
 
     searchService.opts = {
       from: 25,
@@ -105,9 +106,11 @@ describe("Advanced Search", function(){
     filter.term = "getty";
 
     var correctOps = searchService.getDefaultOptsObj();
-    correctOps.advancedFields = [{field: filter.field, term: filter.term}];
+    var advField =searchService.buildAdvancedField(filter.field, filter.term);
+    correctOps.advancedFields = [advField];
 
     scope.search();
     expect(searchService.opts).toEqual(correctOps);
+    expect(searchService.transitionStateAndSearch).toHaveBeenCalled();
   });
 });

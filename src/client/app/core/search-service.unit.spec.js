@@ -113,6 +113,16 @@ describe('SearchService Unit Tests', function(){
       expect(SearchService.facetCategoriesList.indexOf('creator')).toBeGreaterThan(-1);
     });
 
+    it('should expose correct advanced fields list array', function(){
+      expect(SearchService.advFieldsList.length).toEqual(6);
+      expect(SearchService.advFieldsList.indexOf('language')).toBeGreaterThan(-1);
+      expect(SearchService.advFieldsList.indexOf('subject')).toBeGreaterThan(-1);
+      expect(SearchService.advFieldsList.indexOf('grp_contributor')).toBeGreaterThan(-1);
+      expect(SearchService.advFieldsList.indexOf('creator')).toBeGreaterThan(-1);
+      expect(SearchService.advFieldsList.indexOf('date')).toBeGreaterThan(-1);
+      expect(SearchService.advFieldsList.indexOf('title')).toBeGreaterThan(-1);
+    });
+
     describe('buildFacet', function(){
       it('should return false if buildFacet is passed an invalid category', function(){
         expect( SearchService.buildFacet('foobar', 'English') )

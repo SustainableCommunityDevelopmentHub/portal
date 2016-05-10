@@ -25,31 +25,44 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_grp_contributor&adv_language&adv_subject&adv_date&adv_title',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
+          // facet options
           creator: { array: true },
           grp_contributor: { array: true },
           language: { array: true },
-          subject: { array: true }
+          subject: { array: true },
+          // advanced fields
+          adv_creator: { array: true },
+          adv_grp_contributor: { array: true },
+          adv_language: { array: true },
+          adv_subject: { array: true },
+          adv_date: { array: true },
+          adv_title: { array: true }
         },
         resolve: {
           searchResults: function($stateParams, SearchService, SORT_MODES){
+            console.log('Router - SearchResults - in Resolve');
             var ss = SearchService;
+            console.log('Router - SearchResults - from URL, SearchService.opts: ' + JSON.stringify(ss.opts));
+            ss.resetOpts();
+            console.log('Router - SearchResults - just reset opts, SearchService.opts: ' + JSON.stringify(ss.opts));
 
             var searchOpts = {
               q: $stateParams.q,
               size: parseInt($stateParams.size),
               from: parseInt($stateParams.from),
               sort: SORT_MODES[$stateParams.sort],
+              advancedFields: [],
               date: {
                 gte: $stateParams.date_gte || null,
                 lte: $stateParams.date_lte || null
               }
             };
 
-            ss.clearFacetsIn('all');
+            // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
               if($stateParams[category] && $stateParams[category].length){
                 $stateParams[category].forEach(function(facetVal){
@@ -61,7 +74,22 @@
               }
             });
 
+            // build opts for advanced fields
+            ss.advFieldsList.forEach(function(field){
+              var paramName = 'adv_' + field;
+              if($stateParams[paramName]){
+                $stateParams[paramName].forEach(function(value){
+                  var advField = ss.buildAdvancedField(field, value);
+                  if(advField){
+                    // TODO: Eventually replace this line with SearchService.addAdvancedField(advField);
+                    searchOpts.advancedFields.push(advField);
+                  }
+                });
+              }
+            });
+
             ss.updateOpts(searchOpts);
+
             return ss.executeSearch().then(function(data) {
               return ss.setResultsData(data);
             });
