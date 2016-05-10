@@ -20,5 +20,5 @@ from api.views import Book
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/book', Book.as_view()),
+    url(r'^api/', include('api.urls')),
 ]

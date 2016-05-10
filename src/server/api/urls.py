@@ -1,6 +1,10 @@
 from django.conf.urls import url
-from api.views import MyView
+from rest_framework.urlpatterns import format_suffix_patterns
+from api.views import Book
 
 urlpatterns = [
-    url(r'^book/', Book.as_view()),
+    url(r'^book/(?P<id>\w+)[/]?$', Book.as_view(), name='book'),
+    #url(r'^book/', Book.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
