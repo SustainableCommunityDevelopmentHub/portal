@@ -11,25 +11,28 @@ from rest_framework import renderers
 
 import json
 
-class DublinCoreRenderer(renderers.BaseRenderer):
-    media_type = 'text/plain'
-    format = 'dc'
-    charset = 'iso-8859-1'
-
-    def render(self, data, media_type=None, renderer_context=None):
-       return data
-
 class Book(APIView):
-    renderer_classes = (DublinCoreRenderer, )
     def get(self, request, id, format=None):
-      es = Elasticsearch(['local.portal.dev:9200'])
-      book_id = id
-      response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
-      j = json.loads(json.dumps(response))
-      print(j)
+        es = Elasticsearch(['local.portal.dev:9200'])
+        book_id = id
+        response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
+        j = json.loads(json.dumps(response))
 
-      r = Response(j['_source'], status=status.HTTP_200_OK)
+        return Response(j, status=status.HTTP_200_OK)
 
-
-      return r
-
+class Contributors(APIView):
+    def get(self, request, format=None):
+        es = Elasticsearch(['local.portal.dev:9200'])
+        query = {"aggregations": {
+                  "grp_contributor": {
+                    "terms": {
+                      "field": "_grp_contributor.raw",
+                      "size": 1000,
+                      "order": { "_count": "desc" }
+                    }
+                  }
+                }
+              }
+        response = es.search(index='portal', doc_type='book', body=query)
+        j = json.loads(json.dumps(response))
+        return Response(j['aggregations']['grp_contributor']['buckets'], status=status.HTTP_200_OK)
