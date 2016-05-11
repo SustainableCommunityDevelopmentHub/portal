@@ -17,19 +17,23 @@ describe('Facet Sidebar Functionality', function() {
     
     describe('At least 1 facet option should exist for each category', function(){
       it('subject', function(){
-        expect(resultsPage.getFacetOption('subject', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('subject', 0);
+        expect(option).toBeTruthy();
       });
 
       it('creator', function(){
-        expect(resultsPage.getFacetOption('creator', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('creator', 0);
+        expect(option).toBeTruthy();
       });
 
       it('language', function(){
-        expect(resultsPage.getFacetOption('language', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('language', 0);
+        expect(option).toBeTruthy();
       });
 
       it('contributing institution', function(){
-        expect(resultsPage.getFacetOption('grp_contributor', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('grp_contributor', 0);
+        expect(option).toBeTruthy();
       });
       
     });
