@@ -224,14 +224,11 @@
      * @param field {object} field to remove
      */
     $scope.clearAdvancedField = function(field) {
-      //var index = $scope.advancedFields.indexOf(field);
-      //$scope.advancedFields.splice(index, 1);
-
       var index = ss.opts.advancedFields.indexOf(field);
       ss.opts.advancedFields.splice(index, 1);
 
       //reset pagination and update search
-      ss.updateOpts({advancedFields: ss.advancedFields, from: 0});
+      ss.updateOpts({advancedFields: ss.opts.advancedFields, from: 0});
       ss.transitionStateAndSearch();
     };
 

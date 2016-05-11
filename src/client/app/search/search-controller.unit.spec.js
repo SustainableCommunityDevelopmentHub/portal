@@ -198,11 +198,16 @@ describe("Search Controller", function(){
     });
 
     it("should clear advanced field facets correctly", function(){
+      SearchService.resetOpts();
+      scope.advancedFields = SearchService.opts.advancedFields;
+
       var gettyField = {field: ADVANCED_SEARCH.grp_contributor, term: "getty"};
       var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
-      scope.advancedFields = [gettyField, dateField];
+      SearchService.opts.advancedFields = [gettyField, dateField];
+      expect(SearchService.opts.advancedFields.length).toEqual(2);
+
       scope.clearAdvancedField(gettyField);
-      expect(scope.advancedFields).toEqual([dateField]);
+      expect(SearchService.opts.advancedFields).toEqual([dateField]);
     });
 
     it("should toggle between active and non-active facets correctly", function(){

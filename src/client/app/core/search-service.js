@@ -115,14 +115,12 @@
       });
 
       // advanced fields
+       this.advFieldsList.forEach(function(fieldName){
+         queryParams['adv_' + fieldName] = [];
+       });
       this.opts.advancedFields.forEach(function(field){
         var paramName = 'adv_' + field.field.name;
-        if(!queryParams[paramName]){
-          queryParams[paramName] = [field.term];
-        }
-        else{
-          queryParams[paramName].push(field.term);
-        }
+        queryParams[paramName].push(field.term);
       });
 
       console.log('SearchService::buildQueryParams - queryParams: ' + JSON.stringify(queryParams));
@@ -428,7 +426,7 @@
      */
     function transitionStateAndSearch(){
       console.log('SearchService::transitionStateAndSearch()');
-      $state.go('searchResults', this.buildQueryParams(), {reload: true});
+      $state.go('searchResults', this.buildQueryParams(), {reload: true, inherit: false});
     }
 
     ///////////////////////////////////

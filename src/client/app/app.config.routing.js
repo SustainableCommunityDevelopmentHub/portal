@@ -25,7 +25,7 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_grp_contributor&adv_language&adv_subject&adv_date&adv_title',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
@@ -44,11 +44,9 @@
         },
         resolve: {
           searchResults: function($stateParams, SearchService, SORT_MODES){
-            console.log('Router - SearchResults - in Resolve');
+            console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
-            console.log('Router - SearchResults - from URL, SearchService.opts: ' + JSON.stringify(ss.opts));
             ss.resetOpts();
-            console.log('Router - SearchResults - just reset opts, SearchService.opts: ' + JSON.stringify(ss.opts));
 
             var searchOpts = {
               q: $stateParams.q,
@@ -81,7 +79,6 @@
                 $stateParams[paramName].forEach(function(value){
                   var advField = ss.buildAdvancedField(field, value);
                   if(advField){
-                    // TODO: Eventually replace this line with SearchService.addAdvancedField(advField);
                     searchOpts.advancedFields.push(advField);
                   }
                 });
