@@ -4,32 +4,32 @@
   angular.module('app.advanced-search')
     .constant('ADVANCED_SEARCH', {
       title: {
-        name: 'title',
+        paramName: 'adv_title',
         display: 'Title',
         searchKey: 'dublin_core.title'
       },
       creator: {
-        name: 'creator',
+        paramName: 'adv_creator',
         display: 'Creator',
         searchKey: 'dublin_core.creator'
       },
       date: {
-        name: 'date',
+        paramName: 'adv_date',
         display: 'Date',
         searchKey: 'dublin_core.date'
       },
       language: {
-        name: 'language',
+        paramName: 'adv_language',
         display: 'Language',
         searchKey: 'dublin_core.language'
       },
       subject: {
-        name: 'subject',
+        paramName: 'adv_subject',
         display: 'Subject',
         searchKey: 'dublin_core.subject'
       },
       grp_contributor: {
-        name: 'grp_contributor',
+        paramName: 'adv_grp_contributor',
         display: 'From',
         searchKey: '_grp_contributor'
       },

@@ -43,7 +43,7 @@
           adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, SORT_MODES){
+          searchResults: function($stateParams, SearchService, SORT_MODES, ADVANCED_SEARCH){
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             ss.resetOpts();
@@ -73,20 +73,20 @@
             });
 
             // build opts for advanced fields
-            ss.advFieldsList.forEach(function(field){
-              var paramName = 'adv_' + field;
-              if($stateParams[paramName]){
-                $stateParams[paramName].forEach(function(value){
-                  var advField = ss.buildAdvancedField(field, value);
-                  if(advField){
-                    searchOpts.advancedFields.push(advField);
+            ss.advancedFieldsList.forEach(function(name){
+              var props = ADVANCED_SEARCH[name];
+              var paramValues = $stateParams[props.paramName];
+              if(paramValues){
+                paramValues.forEach(function(paramVal){
+                  var newAdvField = ss.buildAdvancedField(props, paramVal);
+                  if(newAdvField){
+                    searchOpts.advancedFields.push(newAdvField);
                   }
                 });
               }
             });
 
             ss.updateOpts(searchOpts);
-
             return ss.executeSearch().then(function(data) {
               return ss.setResultsData(data);
             });

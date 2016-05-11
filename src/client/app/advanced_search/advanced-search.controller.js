@@ -74,8 +74,9 @@
 
       $scope.filters.forEach(function(filter){
         if(filter.term && filter.field !== initialField){
-          var f = searchService.buildAdvancedField(filter.field.name, filter.term);
-          opts.advancedFields.push(f);
+          opts.advancedFields.push(
+            searchService.buildAdvancedField(filter.field, filter.term)
+          );
         }
       });
 

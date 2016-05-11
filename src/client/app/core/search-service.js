@@ -30,7 +30,7 @@
       },
       opts: getDefaultOptsObj(),
       facetCategoriesList: ['creator', 'grp_contributor', 'language', 'subject'],
-      advFieldsList: ['creator', 'grp_contributor', 'language', 'subject', 'title', 'date'],
+      advancedFieldsList: Object.keys(ADVANCED_SEARCH),
 
       /* functions */
       // general opts update
@@ -106,21 +106,25 @@
       queryParams.date_gte = this.opts.date.gte || '';
       queryParams.date_lte = this.opts.date.lte || '';
 
-      // facet options
+      // facet options and advanced fields
+      // for state transitions this needed if inherit = true to prevent zombie query params.
+      // keep as check against regression or change.
       this.facetCategoriesList.forEach(function(category){
         queryParams[category] = [];
       });
+
       this.opts.facets.forEach(function(facet){
         queryParams[facet.category].push(facet.value);
       });
 
-      // advanced fields
-       this.advFieldsList.forEach(function(fieldName){
-         queryParams['adv_' + fieldName] = [];
-       });
-      this.opts.advancedFields.forEach(function(field){
-        var paramName = 'adv_' + field.field.name;
-        queryParams[paramName].push(field.term);
+      // for state transitions this needed if inherit = true to prevent zombie query params.
+      // keep as check against regression or change.
+      this.advancedFieldsList.forEach(function(name){
+        queryParams[ ADVANCED_SEARCH[name].paramName ]  = [];
+      });
+
+      this.opts.advancedFields.forEach(function(advField){
+        queryParams[advField.field.paramName].push(advField.term);
       });
 
       console.log('SearchService::buildQueryParams - queryParams: ' + JSON.stringify(queryParams));
@@ -287,14 +291,13 @@
       if(!isValidCategory(category) || !value){
         return false;
       }
-
       var facet= {
         category: category,
         value: value
       };
+
       if(count){ facet.count = count; }
       if(active !== undefined){ facet.active = active; }
-
       return facet;
     }
 
@@ -313,7 +316,7 @@
           return false;
         }
       }
-
+      console.log('SearchService::buildAdvancedField - field, term: ' + JSON.stringify(field) + ' ' + term);
       return {field: field, term: term};
     }
 
@@ -425,7 +428,6 @@
      * based on query params and an Elasticsearch query executed.
      */
     function transitionStateAndSearch(){
-      console.log('SearchService::transitionStateAndSearch()');
       $state.go('searchResults', this.buildQueryParams(), {reload: true, inherit: false});
     }
 

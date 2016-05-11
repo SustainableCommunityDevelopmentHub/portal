@@ -63,8 +63,8 @@ describe("Advanced Search", function(){
     );
     advancedPage.submitFiltersWithEnter();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
-    expect(advancedPage.facetChips.get(1).getText()).toEqual('Getty (Keyword: From)');
-    expect(advancedPage.facetChips.get(2).getText()).toEqual('1907 (Keyword: Date)');
+    expect(advancedPage.facetChips.get(1).getText()).toEqual('1907 (Keyword: Date)');
+    expect(advancedPage.facetChips.get(2).getText()).toEqual('Getty (Keyword: From)');
     advancedPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&adv_date=1907&adv_grp_contributor=Getty');
     });
