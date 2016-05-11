@@ -23,16 +23,8 @@ class Book(APIView):
 class Contributors(APIView):
     def get(self, request, format=None):
         es = Elasticsearch(['local.portal.dev:9200'])
-        query = {"aggregations": {
-                  "grp_contributor": {
-                    "terms": {
-                      "field": "_grp_contributor.raw",
-                      "size": 1000,
-                      "order": { "_count": "desc" }
-                    }
-                  }
-                }
-              }
-        response = es.search(index='portal', doc_type='book', body=query)
-        j = json.loads(json.dumps(response))
-        return Response(j['aggregations']['grp_contributor']['buckets'], status=status.HTTP_200_OK)
+        s = Search(using=es, index='portal')
+        s.aggs.bucket('grp_contributor', 'terms', field='_grp_contributor.raw', size=1000, order={ "_count": "desc" })
+        response = s.execute()
+        response_json = json.loads(json.dumps(response.to_dict()))
+        return Response(response_json['aggregations']['grp_contributor']['buckets'], status=status.HTTP_200_OK)
