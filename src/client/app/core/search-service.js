@@ -79,8 +79,8 @@
         facets: [],
         advancedFields: [],
         date: {
-          gte: '',
-          lte: ''
+          gte: null,
+          lte: null
         }
       };
     }
@@ -93,18 +93,18 @@
     function buildQueryParams(){
       // default settings
       var queryParams = {};
-      queryParams.q = this.opts.q || '';
+      queryParams.q = this.opts.q;
       queryParams.from = this.opts.from || FROM_DEFAULT;
       queryParams.size = this.opts.size || SIZE_DEFAULT;
-      queryParams.sort = this.opts.sort || SORT_DEFAULT;
-      if(!this.opts.date){
-        queryParams.date_gte = '';
-        queryParams.date_lte = '';
-      }
+      queryParams.sort = this.opts.sort;
 
       // date range
-      queryParams.date_gte = this.opts.date.gte || '';
-      queryParams.date_lte = this.opts.date.lte || '';
+      if(this.opts.date.gte){
+        queryParams.date_gte = this.opts.date.gte;
+      }
+      if(this.opts.date.lte){
+        queryParams.date_lte = this.opts.date.lte;
+      }
 
       // facet options and advanced fields
       // for state transitions this needed if inherit = true to prevent zombie query params.
@@ -196,19 +196,6 @@
 
       _.merge(this.opts, newOpts);
 
-      // hack to handle correctly deleting all facets and advanced fields
-      if(newOpts.facets && !newOpts.facets.length){
-        this.opts.facets = [];
-      }
-
-      if(newOpts.date && !(newOpts.date.gte || newOpts.date.lte)){
-        this.opts.date = {};
-      }
-
-      if(newOpts.advancedFields && !newOpts.advancedFields.length){
-        this.opts.advancedFields = [];
-      }
-
       console.log('SearchService::updateOpts -- opts now: ' + JSON.stringify(this.opts));
       return this.opts;
     }
@@ -220,15 +207,8 @@
      * @return {bool} returns true on successful update
      */
     function updateDate(gte, lte){
-      if(!this.opts.date){
-        this.opts.date = { gte: '', lte: '' };
-      }
-      if(gte){
-        this.opts.date.gte = gte;
-      }
-      if(lte){
-        this.opts.date.gte = lte;
-      }
+      if(gte){ this.opts.date.gte = gte; }
+      if(lte){ this.opts.date.gte = lte; }
       return true;
     }
 
@@ -452,20 +432,16 @@
         this.opts.sort = SORT_DEFAULT;
       }
       this.opts.sort.toLowerCase();
-      if(!this.opts.date){
+
+      if(!this.opts.date) {
         this.opts.date = {
-          gte: '',
-          lte: ''
+          gte: null,
+          lte: null
         };
       }
-      if(this.opts.date && !(this.opts.date.gte || this.opts.date.lte)){
-        this.opts.date = {
-          gte: '',
-          lte: ''
-        };
-      }
-      if(this.opts.advancedFields && !this.opts.advancedFields.length){
-        this.opts.advancedFields = [];
+      else {
+        if(!this.opts.date.gte) { this.opts.date.gte = null; }
+        if(!this.opts.date.lte) { this.opts.date.lte = null; }
       }
 
       console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));

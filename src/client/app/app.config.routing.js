@@ -46,19 +46,14 @@
           searchResults: function($stateParams, SearchService, SORT_MODES, ADVANCED_SEARCH){
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
-            ss.resetOpts();
+            var opts = ss.getDefaultOptsObj();
 
-            var searchOpts = {
-              q: $stateParams.q,
-              size: parseInt($stateParams.size),
-              from: parseInt($stateParams.from),
-              sort: SORT_MODES[$stateParams.sort],
-              advancedFields: [],
-              date: {
-                gte: $stateParams.date_gte || null,
-                lte: $stateParams.date_lte || null
-              }
-            };
+            opts.q = $stateParams.q;
+            opts.size = parseInt($stateParams.size);
+            opts.from = parseInt($stateParams.from);
+            opts.sort = $stateParams.sort;
+            opts.date.gte = $stateParams.date_gte;
+            opts.date.lte = $stateParams.date_lte;
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
@@ -66,7 +61,7 @@
                 $stateParams[category].forEach(function(facetVal){
                   var newFacet = ss.buildFacet(category, facetVal, null, true);
                   if(newFacet){
-                    ss.activateFacet(newFacet);
+                    opts.facets.push(newFacet);
                   }
                 });
               }
@@ -80,13 +75,15 @@
                 paramValues.forEach(function(paramVal){
                   var newAdvField = ss.buildAdvancedField(props, paramVal);
                   if(newAdvField){
-                    searchOpts.advancedFields.push(newAdvField);
+                    opts.advancedFields.push(newAdvField);
                   }
                 });
               }
             });
 
-            ss.updateOpts(searchOpts);
+
+            console.log('Router - SearchResults - in Resolve - opts: ' + JSON.stringify(opts));
+            ss.opts = opts;
             return ss.executeSearch().then(function(data) {
               return ss.setResultsData(data);
             });

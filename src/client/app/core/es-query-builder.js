@@ -162,7 +162,7 @@
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
-      if (opts.advancedFields) {
+      if (opts.advancedFields && opts.advancedFields.length) {
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
 

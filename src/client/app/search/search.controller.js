@@ -251,9 +251,8 @@
      * Removes date range filter, then runs search again
      */
     $scope.clearDateRange = function() {
-      $scope.fromDate = "";
-      $scope.toDate = "";
-      updateSearch({date: {}, from: 0});
+      ss.opts.date = {};
+      updateSearch({from: 0});
     };
   }
 })();
