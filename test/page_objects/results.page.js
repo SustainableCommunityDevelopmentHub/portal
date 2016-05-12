@@ -189,7 +189,7 @@ ResultsPage.prototype = Object.create({}, {
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
   }},
   getFacetOptionText: { value: function(facet, position) {
-    return element.all(by.repeater('facet in facets.'+facet)).get(position).getText();
+    return this.getFacetOption(facet, position).getText();
   }},
   getFacetOptionByLabel: { value: function(facet, label) {
     return element(by.id(label+"-sidebar"));

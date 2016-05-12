@@ -20,22 +20,18 @@ describe('Facet Sidebar Functionality', function() {
         var option = resultsPage.getFacetOptionText('subject', 0);
         expect(option).toBeTruthy();
       });
-
       it('creator', function(){
         var option = resultsPage.getFacetOptionText('creator', 0);
         expect(option).toBeTruthy();
       });
-
       it('language', function(){
         var option = resultsPage.getFacetOptionText('language', 0);
         expect(option).toBeTruthy();
       });
-
       it('contributing institution', function(){
         var option = resultsPage.getFacetOptionText('grp_contributor', 0);
         expect(option).toBeTruthy();
       });
-      
     });
     
     describe('Should be able to apply a facet to filter results for each category', function(){

@@ -40,7 +40,7 @@
             </uib-accordion-heading>
             <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} {{facet.index}} ({{ facet.count}})</label>
+              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
             </div>
             <div ng-controller="FacetModalCtrl">
               <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
