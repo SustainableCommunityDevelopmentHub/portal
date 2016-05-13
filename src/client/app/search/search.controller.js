@@ -12,6 +12,11 @@
 
     var ss = SearchService;
 
+    $scope.isOpenCreator = true;
+    $scope.isOpenSubject = true;
+    $scope.isOpenLanguage = true;
+    $scope.isOpenFrom = true;
+
     $scope.hits = searchResults.hits;
     $scope.numTotalHits = searchResults.numTotalHits;
     $scope.facets = searchResults.facets;
