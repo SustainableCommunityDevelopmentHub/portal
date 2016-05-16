@@ -68,7 +68,7 @@ class Books(APIView):
                     if other_category != category:
                         body['aggregations'][other_category]['filter']['bool']['must'].append(facet_filters)
 
-        query = self.create_multisearch(body, search_options.get('start'), search_options.get('size'), filters)
+        query = self.create_multisearch(body, search_options.get('from'), search_options.get('size'), filters)
         response = es.msearch(body=query)
         j = json.loads(json.dumps(response))
         return Response(j['responses'], status=status.HTTP_200_OK)
@@ -108,25 +108,15 @@ class Books(APIView):
         return {'bool': {'should': filters}}
 
     def create_advanced_filters(self, field, terms):
-        fields_term = []
-        if field == 'adv_contributor':
-            fields_term = ['_grp_contributor', '_grp_contributor.folded']
-        elif field == 'adv_date':
-            fields_term = ['_date_facet.folded', 'dublin_core.date.value', 'dublin_core.date.value.folded']
-        elif field == 'adv_creator':
-            fields_term = ['dublin_core.creator.value', 'dublin_core.creator.value.folded']
-        elif field == 'adv_subject':
-            fields_term = ['dublin_core.subject.value', 'dublin_core.subject.value.folded']
-        elif field == 'adv_language':
-            fields_term = ['dublin_core.language.value', 'dublin_core.language.value.folded']
-        elif field == 'adv_title':
-            fields_term = ['dublin_core.title.value', 'dublin_core.title.value.folded']
+        fields = {'adv_contributor': ['_grp_contributor', '_grp_contributor.folded'],
+                  'adv_date': ['_date_facet.folded', 'dublin_core.date.value', 'dublin_core.date.value.folded']}
+        field_term = fields.get(field, ['dublin_core.' + field + '.value', 'dublin_core.' + field + '.value.folded'])
 
         filters = []
         for term in terms:
             filter = {'query_string': {'query': term,
                                        'minimum_should_match': '2<-1 5<75%',
-                                       'fields': fields_term}}
+                                       'fields': field_term}}
             filters.append(filter)
         return filters
 
