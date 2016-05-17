@@ -124,7 +124,7 @@
       .state('faq', {
         url: '/faq',
         templateUrl: config.app.root + '/partials/faqs.html',
-        controller: 'FaqsCtrl'
+        //controller: 'FaqsCtrl'
       })
       .state('savedRecords', {
         url: '/saved',
