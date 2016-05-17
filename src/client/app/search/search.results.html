@@ -26,10 +26,6 @@
           <uib-accordion-group ng-init="isOpenCreator = true" is-open="isOpenCreator">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenCreator, 'glyphicon-plus': !isOpenCreator}"></i>Creator/Contributor
             </uib-accordion-heading>
-            <div ng-repeat="facet in facets.creator | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-            </div>
             <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
               <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -42,10 +38,6 @@
           <uib-accordion-group ng-init="isOpenSubject = true" is-open="isOpenSubject">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenSubject, 'glyphicon-plus': !isOpenSubject}"></i>Subject
             </uib-accordion-heading>
-            <div ng-repeat="facet in facets.subject | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-            </div>
             <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
               <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -58,10 +50,6 @@
           <uib-accordion-group ng-init="isOpenLanguage = true" is-open="isOpenLanguage">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenLanguage, 'glyphicon-plus': !isOpenLanguage}"></i>Language
             </uib-accordion-heading>
-            <div ng-repeat="facet in facets.language | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-            </div>
             <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
               <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -74,10 +62,6 @@
           <uib-accordion-group ng-init="isOpenFrom = true" is-open="isOpenFrom">
             <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenFrom, 'glyphicon-plus': !isOpenFrom}"></i>From
             </uib-accordion-heading>
-            <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
-              <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-              <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-            </div>
             <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
               <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
               <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -122,7 +106,7 @@
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
-                  <div class="facet-chip">
+                  <div class="facet-chip" ng-class="{'facet-chip-no-results': !activeFacet.count}">
                     <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.value}} <i>({{categories[activeFacet.category].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>

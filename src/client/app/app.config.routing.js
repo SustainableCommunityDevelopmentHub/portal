@@ -59,7 +59,7 @@
             ss.facetCategoriesList.forEach(function(category){
               if($stateParams[category] && $stateParams[category].length){
                 $stateParams[category].forEach(function(facetVal){
-                  var newFacet = ss.buildFacet(category, facetVal, null, true);
+                  var newFacet = ss.buildFacet(category, facetVal, 0, true);
                   if(newFacet){
                     opts.facets.push(newFacet);
                   }
