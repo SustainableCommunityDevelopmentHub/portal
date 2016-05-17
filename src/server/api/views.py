@@ -8,7 +8,6 @@ from rest_framework import status
 
 import json
 import urllib
-from urllib.parse import urlparse
 
 
 class Book(APIView):
@@ -47,7 +46,6 @@ class Books(APIView):
 
         if search_options.get('date_gte') or search_options.get('date_lte'):
             date_query = self.create_date_query(search_options.get('date_gte'), search_options.get('date_lte'))
-            print(date_query)
             body['query']['bool']['filter']['bool']['filter'].append(date_query)
             filters.append(date_query)
 
