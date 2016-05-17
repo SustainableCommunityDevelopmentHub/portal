@@ -179,6 +179,16 @@ describe('Search Results', function() {
     expect(homePage.searchBar.getAttribute("class")).toEqual(resultsPage.getFocusedElement.getAttribute("class"));
   });
 
+  it('should gray out facet chips with zero limiting results', function() {
+    resultsPage.toggleFacetOption('language', 'French');
+    resultsPage.toggleFacetOption('language', 'German');
+    resultsPage.toggleFacetOption('from', 'Gallica-BibliothèquenationaledeFrance');
+
+    var facets = resultsPage.getFacetChipsNoResults();
+    expect(facets.count()).toBe(1);
+    expect(facets.get(0).getText()).toEqual("German (Language)");
+  });
+
 
   describe('Pagination', function(){
     var query = '';
