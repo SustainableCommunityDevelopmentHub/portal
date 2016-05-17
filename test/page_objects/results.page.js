@@ -49,6 +49,9 @@ ResultsPage.prototype = Object.create({}, {
   facetChips: { get: function() {
     return element.all(by.css(".facet-chip a"));
   }},
+  getFacetChip: { value: function(position) {
+    return this.facetChips.get(position);
+  }},
   advancedFacetChips: { get: function() {
     return element.all(by.repeater("advancedField in advancedFields"));
   }},
@@ -187,6 +190,9 @@ ResultsPage.prototype = Object.create({}, {
   */
   getFacetOption: { value: function(facet, position) {
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
+  }},
+  getFacetOptionText: { value: function(facet, position) {
+    return this.getFacetOption(facet, position).getText();
   }},
   getFacetOptionByLabel: { value: function(facet, label) {
     return element(by.id(label+"-sidebar"));
