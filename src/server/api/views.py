@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 import json
+import urllib
 from urllib.parse import urlparse
 
 
@@ -64,7 +65,7 @@ class Books(APIView):
             if search_options.get(category):
                 facet_filters = self.create_facet_filters(category, search_options.get(category))
                 body['query']['bool']['filter']['bool']['must'].append(facet_filters)
-                for other_category in facet_categories:
+                for other_category in self.facet_categories:
                     if other_category != category:
                         body['aggregations'][other_category]['filter']['bool']['must'].append(facet_filters)
 
