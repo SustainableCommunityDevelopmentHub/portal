@@ -2,16 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import View
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search, Q
-from django.core import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import renderers
 
 import json
-import urllib
 from urllib.parse import urlparse
+
 
 class Book(APIView):
     def get(self, request, id, format=None):
@@ -22,16 +19,22 @@ class Book(APIView):
 
         return Response(j, status=status.HTTP_200_OK)
 
+
 class Contributors(APIView):
     def get(self, request, format=None):
         es = Elasticsearch(['local.portal.dev:9200'])
-        s = Search(using=es, index='portal')
-        s.aggs.bucket('grp_contributor', 'terms', field='_grp_contributor.raw', size=1000, order={ "_count": "desc" })
-        response = s.execute()
-        response_json = json.loads(json.dumps(response.to_dict()))
+        query = {'aggregations': {'grp_contributor': {'terms': {'field': '_grp_contributor.raw',
+                                                                'size': 1000,
+                                                                'order': {'_count': 'desc'}}}}}
+        response = es.search(index='portal', doc_type='book', body=query)
+        response_json = json.loads(json.dumps(response))
         return Response(response_json['aggregations']['grp_contributor']['buckets'], status=status.HTTP_200_OK)
 
+
 class Books(APIView):
+    advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_contributor', 'adv_language']
+    facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
+
     def get(self, request, params, format=None):
         search_options = urllib.parse.parse_qs(params)
         es = Elasticsearch(['local.portal.dev:9200'])
@@ -39,7 +42,6 @@ class Books(APIView):
         filters = []
         advanced_filters = []
         body['query']['bool']['must'] = self.create_query_string(search_options.get('q'))
-
         body['sort'] = self.create_sort_query(search_options.get('sort'))
 
         if search_options.get('date_gte') or search_options.get('date_lte'):
@@ -48,8 +50,7 @@ class Books(APIView):
             body['query']['bool']['filter']['bool']['filter'].append(date_query)
             filters.append(date_query)
 
-        advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_contributor', 'adv_language']
-        for field in advanced_fields:
+        for field in self.advanced_fields:
             if search_options.get(field):
                 adv_filters = self.create_advanced_filters(field, search_options.get(field))
                 for filter in adv_filters:
@@ -59,8 +60,7 @@ class Books(APIView):
         if len(advanced_filters):
             filters.append(advanced_filters)
 
-        facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
-        for category in facet_categories:
+        for category in self.facet_categories:
             if search_options.get(category):
                 facet_filters = self.create_facet_filters(category, search_options.get(category))
                 body['query']['bool']['filter']['bool']['must'].append(facet_filters)
@@ -74,11 +74,11 @@ class Books(APIView):
         return Response(j['responses'], status=status.HTTP_200_OK)
 
     def create_sort_query(self, sort):
-        valid_sorts = {'date_added': {"_ingest_date": {"order": "desc"}},
-                       'title_asc': "_title_display.sort",
-                       "title_desc": {"_title_display.sort": {"order": "desc"}},
-                       "date_asc": "_date_facet",
-                       "date_desc": {"_date_facet": {"order": "desc"}}}
+        valid_sorts = {'date_added': {'_ingest_date': {'order': 'desc'}},
+                       'title_asc': '_title_display.sort',
+                       'title_desc': {'_title_display.sort': {'order': 'desc'}},
+                       'date_asc': '_date_facet',
+                       'date_desc': {'_date_facet': {'order': 'desc'}}}
         if sort:
             return valid_sorts.get(sort[0], [])
         else:
@@ -93,8 +93,8 @@ class Books(APIView):
             date_lte = to_date[0]
         else:
             date_lte = None
-        return {"range": {"_date_facet": {"gte": date_gte,
-                                          "lte": date_lte}}}
+        return {'range': {'_date_facet': {'gte': date_gte,
+                                          'lte': date_lte}}}
 
     def create_facet_filters(self, category, facets):
         filters = []
@@ -121,21 +121,21 @@ class Books(APIView):
         return filters
 
     def create_base_query(self):
-        query = {"query": {"bool": {"must": {},
-                                    "filter": {"bool": {"must": [],
-                                                        "filter": []}}}},
-                 "aggregations": {"creator": {"filter": {'bool': {'must': []}},
-                                              "aggs": {"creator":
-                                                        {"terms": {"field": "_creator_facet.raw", "size": 1000}}}},
-                                  "language": {"filter": {'bool': {'must': []}},
-                                               "aggs": {"language":
-                                                        {"terms": {"field": "_language", "size": 1000}}}},
-                                  "grp_contributor": {"filter": {'bool': {'must': []}},
-                                                      "aggs": {"grp_contributor":
-                                                                {"terms": {"field": "_grp_contributor.raw", "size": 1000}}}},
-                                  "subject": {"filter": {'bool': {'must': []}},
-                                              "aggs": {"subject":
-                                                        {"terms": {"field": "_subject_facets.raw", "size": 1000}}}}}}
+        query = {'query': {'bool': {'must': {},
+                                    'filter': {'bool': {'must': [],
+                                                        'filter': []}}}},
+                 'aggregations': {'creator': {'filter': {'bool': {'must': []}},
+                                              'aggs': {'creator':
+                                                        {'terms': {'field': '_creator_facet.raw', 'size': 1000}}}},
+                                  'language': {'filter': {'bool': {'must': []}},
+                                               'aggs': {'language':
+                                                        {'terms': {'field': '_language', 'size': 1000}}}},
+                                  'grp_contributor': {'filter': {'bool': {'must': []}},
+                                                      'aggs': {'grp_contributor':
+                                                                {'terms': {'field': '_grp_contributor.raw', 'size': 1000}}}},
+                                  'subject': {'filter': {'bool': {'must': []}},
+                                              'aggs': {'subject':
+                                                        {'terms': {'field': '_subject_facets.raw', 'size': 1000}}}}}}
         return query
 
     def create_query_string(self, q):
