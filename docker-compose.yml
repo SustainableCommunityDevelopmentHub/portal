@@ -1,19 +1,9 @@
 webserver:
-  build: ./docker_files/node
+  image: httpd:2.4
   ports:
-    - "8000:8000"
-  # working_dir must match dir we mount host volume to
+    - "80:80"
   volumes:
-    - ./:/usr/src/app
-  working_dir: /usr/src/app
-
-  # install bower, node packages, and starts server
-  # --unsafe-perm option needed on npm to install bower correctly w/docker
-  # --allow-root needed when using bower w/docker
-  # Note: Currently, portal_init.sh only sets basic environment vars for dev environment.
-  #       It will only run if PORTAL_ROOT environment var does not exist.
-  #       It should only be run once, when project first installed.
-  command: bash -c "bash portal_init.sh && npm install -g bower --unsafe-perm && npm update --unsafe-perm && bower --allow-root install && npm start"
+    - ./src/client:/usr/local/apache2/htdocs
 
 elasticsearch:
   image: elasticsearch:2.1
