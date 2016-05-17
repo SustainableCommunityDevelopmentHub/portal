@@ -53,8 +53,6 @@
       buildQueryParams: buildQueryParams,
       transitionStateAndSearch: transitionStateAndSearch,
       executeSearch: executeSearch,
-      updateSearch: updateSearch,
-      newSearch: newSearch,
       setResultsData: setResultsData,
     };
 
@@ -130,35 +128,6 @@
 
       console.log('SearchService::parseFacetsToObj - facets obj: ' + JSON.stringify(obj));
       return obj;
-    }
-
-    /**
-     * Executes new search. Overwrites existing opts,except defaults.
-     * @param {Object} opts - search options
-     * @returns {Promise} - search results
-     */
-    // TODO: Naive implementation.
-    // Update w/promises to make sure things work successfully and handle errs.
-    function newSearch(opts){
-      console.log('SearchService.newSearch() -- opts: ' + JSON.stringify(opts));
-      this.opts = opts;
-      this.returnedPromise = this.executeSearch();
-      return this.returnedPromise;
-    }
-
-    /**
-     * Updates opts (changed object properties are overwritten) and executes search.
-     * @param {Object} opts - changed search options
-     * @returns {Promise} - search results
-     */
-    function updateSearch(opts){
-      console.log('SearchService.updateSearch() -- new opts: ' + JSON.stringify(opts));
-      // allow for no opts to be passed
-      opts = opts || {};
-      this.updateOpts(opts);
-      console.log('SearchService.updateSearch() -- merged opts: ' + JSON.stringify(opts));
-      this.returnedPromise = this.executeSearch();
-      return this.returnedPromise;
     }
 
     /**
@@ -274,13 +243,16 @@
         return false;
       }
 
-      var facet= {
+      var facet = {
         category: category,
         value: value
       };
-      if(count){ facet.count = count; }
-      if(active !== undefined){ facet.active = active; }
-
+      if(count !== undefined) { 
+        facet.count = count; 
+      }
+      if(active !== undefined) { 
+        facet.active = active; 
+      }
       return facet;
     }
 

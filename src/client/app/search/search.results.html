@@ -7,10 +7,10 @@
   </div>
 </div>
 
-<div class="container"> <!--Faceted Search sidebar-->
+<div class="container"> 
   <div class="row">
     <div class="col-xs-12 col-sm-4">
-      <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container"> 
+      <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container">
         <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a><button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
       </div>
 
@@ -20,16 +20,12 @@
           <button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
         </div>
 
-
-        <div class="search-facet-group">
+        <div class="search-facet-group"><!-- faceted search sidebar -->
           <uib-accordion close-others="false">
+
             <uib-accordion-group is-open="isOpenCreator">
               <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenCreator, 'glyphicon-plus': !isOpenCreator}"></i>Creator/Contributor
               </uib-accordion-heading>
-              <div ng-repeat="facet in facets.creator | filter:{active:true}" >
-                <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-                <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-              </div>
               <div ng-repeat="facet in facets.creator | filter:{active:false} | limitTo: 5" >
                 <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -42,10 +38,6 @@
             <uib-accordion-group is-open="isOpenSubject">
               <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenSubject, 'glyphicon-plus': !isOpenSubject}"></i>Subject
               </uib-accordion-heading>
-              <div ng-repeat="facet in facets.subject | filter:{active:true}" >
-                <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-                <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-              </div>
               <div ng-repeat="facet in facets.subject | filter:{active:false} | limitTo: 5" >
                 <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -58,10 +50,6 @@
             <uib-accordion-group is-open="isOpenLanguage">
               <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenLanguage, 'glyphicon-plus': !isOpenLanguage}"></i>Language
               </uib-accordion-heading>
-              <div ng-repeat="facet in facets.language | filter:{active:true}" >
-                <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-                <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-              </div>
               <div ng-repeat="facet in facets.language | filter:{active:false} | limitTo: 5" >
                 <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -74,10 +62,6 @@
             <uib-accordion-group is-open="isOpenFrom">
               <uib-accordion-heading><i class="glyphicon-plus glyphicon" ng-class="{'glyphicon-minus': isOpenFrom, 'glyphicon-plus': !isOpenFrom}"></i>From
               </uib-accordion-heading>
-              <div ng-repeat="facet in facets.grp_contributor | filter:{active:true}" >
-                <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
-                <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
-              </div>
               <div ng-repeat="facet in facets.grp_contributor | filter:{active:false} | limitTo: 5" >
                 <input type="checkbox" id="{{ facet.value | stripspaces }}-sidebar" ng-click="toggleFacet(facet)" ng-checked="{{ facet.active }}">
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
@@ -87,28 +71,23 @@
               </div>
             </uib-accordion-group><!-- /accordion-group -->
           </uib-accordion>
-        </div>
 
+          <h5>Date range</h5>
+          <div class="date-range-container">
+            <form ng-submit="setDateRange(fromDate, toDate)">
+              <div class="date-range">
+                <p>From:</p>
+                <input ng-model="fromDate" maxlength="4" type="number">
+              </div>
+              <div class="date-range">
+                <p>To:</p>
+                <input ng-model="toDate" maxlength="4" type="number">
+              </div>
+              <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
+            </form>
+          </div>
 
-
-          
-
-        <h5>Date range</h5>
-        <div class="date-range-container">
-          <form ng-submit="setDateRange(fromDate, toDate)">
-            <div class="date-range">
-              <p>From:</p>
-              <input ng-model="fromDate" maxlength="4" type="number">
-            </div>
-            <div class="date-range">
-              <p>To:</p>
-              <input ng-model="toDate" maxlength="4" type="number">
-            </div>
-            <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
-          </form>
-
- 
-      </div>
+        </div><!-- /faceted search sidebar -->
       </div>
     </div>
 
@@ -127,7 +106,7 @@
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
-                  <div class="facet-chip">
+                  <div class="facet-chip" ng-class="{'facet-chip-no-results': !activeFacet.count}">
                     <a class="facet-search" ng-click="updateFacet(activeFacet, false)">{{activeFacet.value}} <i>({{categories[activeFacet.category].display}})</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>
