@@ -1,5 +1,7 @@
 // saved-records.e2e.spec.js
 'use strict';
+/* jshint node: true */
+/* jshint jasmine: true */
 
 var ResultsPage = require('../page_objects/results.page.js');
 var SavedRecordsPage = require('../page_objects/saved-records.page.js');

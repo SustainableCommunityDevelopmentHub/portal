@@ -17,42 +17,54 @@ describe('Facet Sidebar Functionality', function() {
     
     describe('At least 1 facet option should exist for each category', function(){
       it('subject', function(){
-        expect(resultsPage.getFacetOption('subject', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('subject', 0);
+        expect(option).toBeTruthy();
       });
-
       it('creator', function(){
-        expect(resultsPage.getFacetOption('creator', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('creator', 0);
+        expect(option).toBeTruthy();
       });
-
       it('language', function(){
-        expect(resultsPage.getFacetOption('language', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('language', 0);
+        expect(option).toBeTruthy();
       });
-
       it('contributing institution', function(){
-        expect(resultsPage.getFacetOption('grp_contributor', 0).getText()).toBeTruthy();
+        var option = resultsPage.getFacetOptionText('grp_contributor', 0);
+        expect(option).toBeTruthy();
       });
-      
     });
     
     describe('Should be able to apply a facet to filter results for each category', function(){
       it('subject', function(){
         resultsPage.addFacetOption('subject', 'Art');
         expect(resultsPage.numTotalHits).toEqual(35);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&subject='+encodeURI('Art'));
+        });
       });
 
       it('creator', function(){
         resultsPage.addFacetOption('creator', 'Bem, Eliz');
         expect(resultsPage.numTotalHits).toEqual(6);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&creator='+encodeURI('Bem, Eliz'));
+        });
       });
 
       it('language', function(){
         resultsPage.addFacetOption('language', 'French');
         expect(resultsPage.numTotalHits).toEqual(205);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&language='+encodeURI('French'));
+        });
       });
 
       it('contributing institution', function(){
         resultsPage.addFacetOption('grp_contributor', 'Heidelberg University Library');
         expect(resultsPage.numTotalHits).toEqual(100);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&grp_contributor='+encodeURI('Heidelberg University Library'));
+        });
       });
 
     });
@@ -64,6 +76,9 @@ describe('Facet Sidebar Functionality', function() {
         resultsPage.addFacetOption('creator', 'Bem, Eliz');
         resultsPage.addFacetOption('creator', 'A. Colin');
         expect(resultsPage.numTotalHits).toEqual(24);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&creator='+encodeURI('Bem, Eliz')+'&creator='+encodeURI('A. Colin'));
+        });
       });
       
       it('should behave with logical AND between 2 facets in different categories, and' +
@@ -72,53 +87,10 @@ describe('Facet Sidebar Functionality', function() {
         resultsPage.addFacetOption('subject', 'Russia');
         resultsPage.addFacetOption('creator', 'Bem, Eliz');
         expect(resultsPage.numTotalHits).toEqual(5);
-      });
-
-      /**********
-       * The application behaves correctly when tested manually but there is an error in the final
-       * portion of this test which I have been unable to debug. 2/24/16
-       *
-      it('Facets should behave with Image AND (CreatorA OR CreatorB) logic, facet options outside chosen category should update', function(){
-        getFacetSideBarTab(testVals.typeFacet.sideBarPos).click();
-        var typeFacet = element.all(by.repeater('facet in facets.type')).get(0);
-
-        getFacetSideBarTab(testVals.creatorFacet.sideBarPos).click();
-        var creatorFacet = $("[id='" + testVals.creatorFacet.cssId + "']");
-
-        typeFacet.click()
-        .then(function(){
-          return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
-        })
-        .then(function(numTotalHits) {
-          expect(numTotalHits).toBe(testVals.typeFacet.numRecords);
-        })
-        .then(function(){
-          return creatorFacet.click();
-        })
-        .then(function(){
-          return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
-        })
-        .then(function(numTotalHits) {
-          expect(numTotalHits).toBe(testVals.creatorFacet.numRecords);
-        })
-        .then(function(){
-          // for some reason protractor does not like using the other way of getting facets here
-          var alternateCreatorFacet = element.all(by.repeater('facet in facets.creator')).get(1);
-          return alternateCreatorFacet.click();
-        })
-        .then(function(){
-          return $('.dropdown.results-top', '.showing').evaluate('numTotalHits');
-        })
-        .then(function(numTotalHits){
-          // if logical text AND (CreatorA OR CreatorB) behavior is correct,
-          // numTotalHits will be the sum of the 2 creators
-          // since they add up to less than the type (text) facet and also bound it.
-          // again, we also know facet options have updated.
-          expect(numTotalHits).toBe(testVals.creatorFacet.altNumRecords + testVals.alternateCreatorFacet.numRecords);
+        resultsPage.getQueryString().then(function(queryString){
+          expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&creator='+encodeURI('Bem, Eliz')+'&subject='+encodeURI('Russia'));
         });
       });
-      */
-
     });
   });
 });

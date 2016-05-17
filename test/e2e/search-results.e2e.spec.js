@@ -40,16 +40,19 @@ describe('Search Results', function() {
     browser.ignoreSynchronization = false;
   });
 
-  it('should display active facets in sidebar', function(){
+  it('should not display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
-    var option = resultsPage.getFacetOptionByLabel('subject', 'Catalogs');
-    expect(option).toBeDefined();
-    expect(option.getAttribute('value')).toEqual('on');
+
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
+    });
+    var option = resultsPage.getFacetOptionText('subject', 1);
+    expect(option).toEqual('20th century (1)');
   });
 
-  it('should clear facets when you uncheck them in sidebar', function(){
+  it('should redisplay facets in sidebar when you remove them from search bar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(7);
     browser.wait(function () {
@@ -57,20 +60,48 @@ describe('Search Results', function() {
     }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
-    resultsPage.toggleFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(7);
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
+    });
+
+    var catalogsChip = resultsPage.getFacetChip(1);
+    catalogsChip.click();
+    browser.wait(function () {
+      return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
+    }, 3000); 
+    var option = resultsPage.getFacetOptionText('subject', 1);
+    expect(option).toEqual('Catalogs (2)');
   });
 
   it('should filter results by date when you use date range filter', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.submitDateRange('1905', '1910');
     expect(resultsPage.numTotalHits).toEqual(4);
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1905&date_lte=1910');
+    });
 
     resultsPage.getHits().then(function(hits) {
        for(var i = 0; i < hits.length; i++){
          var date = hits[i]._date_facet;
          expect(parseInt(date)).toBeGreaterThan(1904);
          expect(parseInt(date)).toBeLessThan(1911);
+       }
+     });
+  });
+
+  it('should filter results by date when you use date range filter with a single parameter', function(){
+    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.submitDateRange('1800', '');
+    expect(resultsPage.numTotalHits).toEqual(7);
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1800');
+    });
+
+    resultsPage.getHits().then(function(hits) {
+       for(var i = 0; i < hits.length; i++){
+         var date = hits[i]._date_facet;
+         expect(parseInt(date)).toBeGreaterThan(1799);
        }
      });
   });
@@ -131,7 +162,7 @@ describe('Search Results', function() {
   it('should have the search bar focused after each action', function(){
     browser.waitForAngular();
     expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
-    
+
     resultsPage.submitNewSearchTerm("art");
     browser.waitForAngular();
     expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
@@ -146,6 +177,16 @@ describe('Search Results', function() {
     var homePage = new HomePage();
     browser.waitForAngular();
     expect(homePage.searchBar.getAttribute("class")).toEqual(resultsPage.getFocusedElement.getAttribute("class"));
+  });
+
+  it('should gray out facet chips with zero limiting results', function() {
+    resultsPage.toggleFacetOption('language', 'French');
+    resultsPage.toggleFacetOption('language', 'German');
+    resultsPage.toggleFacetOption('from', 'Gallica-BibliothèquenationaledeFrance');
+
+    var facets = resultsPage.getFacetChipsNoResults();
+    expect(facets.count()).toBe(1);
+    expect(facets.get(0).getText()).toEqual("German (Language)");
   });
 
 
@@ -189,11 +230,25 @@ describe('Search Results', function() {
       });
 
       resultsPage.pagingTopNextPage();
+
       expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+      resultsPage.getQueryString().then(function(queryString){
+        expect(queryString).toEqual('from=25&size=25&sort=relevance');
+      });
 
       resultsPage.getHits().then(function(pageTwoHits){
         expect(pageTwoHits.length).toEqual(25);
         checkPageDifference(pageOneHits, pageTwoHits);
+      });
+    });
+    it("should display \'sort\' pagination value in URL query params", function(){
+      var pageOneHits;
+      resultsPage.loadPage(1);
+      resultsPage.pagingTopNextPage();
+
+      expect(resultsPage.showingResultsDialogue).toEqual(showingResultsPageTwo);
+      resultsPage.getQueryString().then(function(queryString){
+        expect(queryString).toEqual('from=25&size=25&sort=relevance');
       });
     });
     it("should navigate to next page clicking on 'next' button, \'showing dialogue\' - pagination bottom ", function(){
@@ -370,14 +425,40 @@ describe('Search Results', function() {
       return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
     }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
+    });
+
     var home = new HomePage();
     home.submitHomePageQuery('paintings');
+
+    resultsPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance');
+    });
+
     var activeFacets = resultsPage.activeFacets;
     expect(activeFacets.count()).toBe(0);
     var activeAdvancedFields = resultsPage.advancedFacetChips;
     expect(activeAdvancedFields.count()).toBe(0);
   });
 
-  
+  describe('Routing, copying and pasting URL with query params into browser', function(){
+    it('should apply query term, size, from, and sort when in URL', function(){
+      browser.get('/search?q=art&from=10&size=10&sort=title_asc');
+      expect(resultsPage.numTotalHits).toEqual(310);
+      expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 310 results');
+      expect(resultsPage.getSortButtonText()).toEqual('Sort by: Title: A-Z');
+    });
+
+    it('should apply facets when in URL', function(){
+      browser.get('/search?from=0&size=25&sort=relevance&subject=Catalogs&language=French');
+      expect(resultsPage.numTotalHits).toEqual(4);
+    });
+
+    it('should apply date range when in URL', function(){
+      browser.get('/search?from=0&size=25&date_gte=1800&date_lte=1900&sort=relevance');
+      expect(resultsPage.numTotalHits).toEqual(280);
+    });
+  });
 
 });

@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', '_', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, _){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -17,15 +17,21 @@
     $scope.facets = searchResults.facets;
 
     // bind search opts to scope
-    $scope.activeFacets = ss.opts.facets || [];
-    $scope.advancedFields = ss.opts.advancedFields || [];
+    $scope.activeFacets = ss.opts.facets;
+    $scope.advancedFields = ss.opts.advancedFields;
 
-    $scope.fromDate = "";
-    $scope.toDate = "";
+    $scope.fromDate = null;
+    $scope.toDate = null;
     if (ss.opts.date) {
       $scope.dateRange = ss.opts.date;
-      $scope.fromDate = ss.opts.date.gte;
-      $scope.toDate = ss.opts.date.lte;
+      if(ss.opts.date.gte){
+        ss.opts.date.gte = parseInt(ss.opts.date.gte);
+        $scope.fromDate = ss.opts.date.gte;
+      }
+      if(ss.opts.date.lte){
+        ss.opts.date.lte = parseInt(ss.opts.date.lte);
+        $scope.toDate = ss.opts.date.lte;
+      }
     }
 
     $scope.queryTerm = ss.opts.q;
@@ -92,7 +98,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
       console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
-      $state.go('searchResults', ss.opts, {reload: true});
+      ss.transitionStateAndSearch();
     }
 
     /**
@@ -187,48 +193,27 @@
     };
 
     /**
-     * Used to activate or deactivate a facet.Updates $scope / state
-     * @param facetOption {object} Facet option object
+     * Activate or deactivate a facet. Triggers search update.
+     * @param facetOption {object} Facet object
      * @param active {boolean} Set true to activate facet, false to deactivate
      */
     $scope.updateFacet = function(facetOption, active){
-      console.log('SearchCtrl.updateFacet.....facetOption: ' + JSON.stringify(facetOption));
       if(active){
-        console.log('.....facet has been set');
-        facetOption.active = true;
-        console.log($scope.activeFacets);
-        _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.option === facetOption.option;
-        });
-        $scope.activeFacets.push(facetOption);
-
-
-
-        // remove facet option from facets sidebar once selected
-        // we are using the $$hashkey id prop which angular adds...
-        // ...to arr elements when ng-repeat is applied.
-        //_.remove($scope.facets[facetOption.facet], function(f){
-        //if(f.$$hashkey === facetOption.$$hashkey){
-        //console.log('Remove facet, hashkeys match. Facet to remove: ' + JSON.stringify(facetOption));
-        //return true;
-        //}
-        //});
+        ss.activateFacet(facetOption);
       }
       else{
-        facetOption.active = false;
-        _.remove($scope.activeFacets, function(aFacet){
-          return aFacet.option === facetOption.option;
-        });
+        ss.deActivateFacet(facetOption);
       }
+
       //reset pagination when applying facet
-      updateSearch({facets: $scope.activeFacets, from: 0});
+      ss.updateOpts({from: 0});
+      ss.transitionStateAndSearch();
     };
 
     /**
-     * Toggles facet.active status by calling updateFacet
-     * @param facet {object} Facet option object
+     * Toggles facet.active status
+     * @param facet {object} Facet object
      */
-
     $scope.toggleFacet = function(facet){
       $scope.updateFacet(facet, !facet.active);
     };
@@ -244,10 +229,12 @@
       updateSearch({advancedFields: $scope.advancedFields, from: 0});
     };
 
-    // clear all, not just facets. TODO: Change name when will not cause conflicts
-    $scope.clearFacetsAndUpdate = function(){
-      clearActiveFacets();
-      updateSearch(_.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]}));
+    /**
+     * Clear Search Options
+     */
+    $scope.clearSearchOpts = function(){
+      ss.resetOpts();
+      ss.transitionStateAndSearch();
     };
 
     /**

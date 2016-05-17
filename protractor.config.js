@@ -1,3 +1,6 @@
+/* jshint node: true */
+/* globals protractor */
+
 exports.config = {
   allScriptsTimeout: 11000,
 

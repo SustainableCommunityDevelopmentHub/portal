@@ -7,7 +7,8 @@
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
   function($scope, SearchService, $state, searchResults) {
 
-    $scope.numTotalHits = searchResults.numTotalHits;
+    $scope.totalTitles = searchResults.numTotalHits;
+    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
 
     // for when user inits new search.
     // changes state to search.results, which will trigger search operation.
@@ -139,24 +140,24 @@
           }
         }
       });
-      modalInstance.result.then(function (facetsToApply) {
-        if(facetsToApply){
-          for(var i = 0; i < facetsToApply.length; i++){
-            var facet = facetsToApply[i];
-            //updateFacet from SearchCtrl. Might have to change if that controller is refactored.
-            $scope.updateFacet(facet, facet.active);
-          }
+      modalInstance.result.then(function (facets) {
+        if (facets){
+          var activatedFacets = facets[0];
+          var deactivatedFacets = facets[1];
+          activatedFacets.forEach(function(facet) {
+            $scope.updateFacet(facet, true);
+          });
+          deactivatedFacets.forEach(function(facet) {
+            $scope.updateFacet(facet, false);
+          });
         }
       });
     };
-
-
-
   }])
   .controller('FacetModalInstanceCtrl', ['$scope', '$uibModalInstance', 'facets', 'category', function ($scope, $uibModalInstance, facets, category) {
     $scope.text = "";
     $scope.filterCount = 0;
-    $scope.currentFacets;
+    $scope.currentFacets = [];
     $scope.selectedFacets = [];
     $scope.facetCategories = [];
 
@@ -175,6 +176,7 @@
     var activeCategory = category;
     var allFacets = [];
     var categoryCounts = {};
+    var facetsToApply = {};
 
     initialize();
 
@@ -200,7 +202,11 @@
       $scope.currentFacets = facets[category];
       $scope.categoryFacets = facets[category];
       setFacetsChecked();
-    };
+    }
+
+    function getFacetKey(facet) {
+      return facet.category + facet.value;
+    }
 
     function setFacetsChecked(){
       for(var prop in allFacets){
@@ -214,8 +220,13 @@
             } else {
               categoryCounts[prop] = 1;
             }
+            var key = getFacetKey(facet);
+            facetsToApply[key] = {
+              facetObj: facet,
+              checked: true
+            };
           }
-          $scope.selectedFacets[facet.option] = facet.active;
+          $scope.selectedFacets[facet.value] = facet.active;
         }
       }
     }
@@ -227,15 +238,15 @@
       $scope.text = "";
       seeOnlyChecked = false;
       $scope.filterViewText = seeOnlyCheckedText[0];
-    };
+    }
 
     function isActive(cat){
       return (activeCategory === cat);
-    };
+    }
 
     function checkFacet(facet){
-      var facetCategory = facet.facet;
-      var facetText = facet.option;
+      var facetCategory = facet.category;
+      var facetText = facet.value;
 
       if($scope.selectedFacets[facetText]){
         if(categoryCounts[facetCategory]){
@@ -248,7 +259,16 @@
         $scope.filterCount--;
         categoryCounts[facetCategory]--;
       }
-    };
+      var key = getFacetKey(facet);
+      if (facetsToApply[key]) {
+        facetsToApply[key].checked = !facetsToApply[key].checked;
+      } else {
+        facetsToApply[key] = {
+          facetObj: facet,
+          checked: true
+        };
+      }
+    }
 
     function isCategorySelected(category){
       return categoryCounts[category];
@@ -261,12 +281,11 @@
         var checkedFilters = [];
         for (var i = 0; i < $scope.currentFacets.length; i++){
           var currentFacet = $scope.currentFacets[i];
-          if($scope.selectedFacets[currentFacet.option]){
+          if($scope.selectedFacets[currentFacet.value]){
             checkedFilters.push(currentFacet);
           }
         }
         $scope.currentFacets = checkedFilters;
-        //$scope.categoryFacets = this.currentFacets;
       } else {
         $scope.filterViewText = seeOnlyCheckedText[0];
         $scope.currentFacets = allFacets[activeCategory];
@@ -274,20 +293,19 @@
     }
 
     function apply(){
-      var applyFacets = [];
-      for(var prop in allFacets){
-        var facetsByCategory = allFacets[prop];
-
-        for(var i = 0; i < facetsByCategory.length; i++){
-          var facet = facetsByCategory[i];
-          if($scope.selectedFacets[facet.option]){
-            facet.active = true;
-            applyFacets.push(facet);
-          }
+      var activated = [];
+      var deactivated = [];
+      for (var facetKey in facetsToApply) {
+        var facet = facetsToApply[facetKey].facetObj;
+        if (facetsToApply[facetKey].checked) {
+          activated.push(facet);
+        } else {
+          deactivated.push(facet);
         }
       }
-      $uibModalInstance.close(applyFacets);
-    };
+      var facetsToUpdate = [activated, deactivated];
+      $uibModalInstance.close(facetsToUpdate);
+    }
 
     function close() {
       $uibModalInstance.close();
@@ -298,11 +316,11 @@
 
       for(var i = 0; i < $scope.categoryFacets.length; i++){
         var facet = $scope.categoryFacets[i];
-        if(facet.option.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
+        if(facet.value.toLowerCase().indexOf($scope.text.toLowerCase()) > -1){
           filteredFacets.push(facet);
         }
       }
       $scope.currentFacets = filteredFacets;
-    };
+    }
 }]);
 })();

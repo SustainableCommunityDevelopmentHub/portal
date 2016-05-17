@@ -1,4 +1,6 @@
 'use strict';
+/* jshint node: true */
+/* globals by */
 
 var ResultsPage = function() {
   browser.get('/search');
@@ -29,6 +31,9 @@ ResultsPage.prototype = Object.create({}, {
     element(by.model('newQueryTerm')).sendKeys(term);
     this.searchButton.click();
   }},
+  clickAdvancedSearchLink: { value: function() {
+    element(by.css('.adv-drawer')).click();
+  }},
   viewDigitalItem: {value: function() {
     element(by.id('view-digital-item')).click();
   }},
@@ -44,6 +49,9 @@ ResultsPage.prototype = Object.create({}, {
   facetChips: { get: function() {
     return element.all(by.css(".facet-chip a"));
   }},
+  getFacetChip: { value: function(position) {
+    return this.facetChips.get(position);
+  }},
   advancedFacetChips: { get: function() {
     return element.all(by.repeater("advancedField in advancedFields"));
   }},
@@ -52,6 +60,9 @@ ResultsPage.prototype = Object.create({}, {
   }},
   searchResultsInput: { get: function() {
     return element(by.id("facet-chip-input"));
+  }},
+  getFacetChipsNoResults: { value: function() {
+    return element.all(by.css(".facet-chip-no-results"));
   }},
 
   // Sorting
@@ -179,6 +190,9 @@ ResultsPage.prototype = Object.create({}, {
   */
   getFacetOption: { value: function(facet, position) {
     return element.all(by.repeater('facet in facets.'+facet)).get(position);
+  }},
+  getFacetOptionText: { value: function(facet, position) {
+    return this.getFacetOption(facet, position).getText();
   }},
   getFacetOptionByLabel: { value: function(facet, label) {
     return element(by.id(label+"-sidebar"));

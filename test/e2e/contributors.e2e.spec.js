@@ -1,4 +1,5 @@
 //contributors.e2e.spec.js
+/* global by */
 
 describe('Contributors Page', function() {
 

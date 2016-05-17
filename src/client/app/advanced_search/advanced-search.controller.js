@@ -3,7 +3,7 @@
 
   angular
   .module('app.advanced-search')
-  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService',  'ADVANCED_SEARCH', AdvancedSearchCtrl]);
+  .controller('AdvancedSearchCtrl', ['$scope', '$state', 'SearchService', 'ADVANCED_SEARCH', AdvancedSearchCtrl]);
 
   function AdvancedSearchCtrl($scope, $state, SearchService, ADVANCED_SEARCH){
     $scope.filters = [];
@@ -67,11 +67,12 @@
         if(filter.text && filter.field !== initialField){
           var f = {field: filter.field, term: filter.text};
           opts.advancedFields.push(f);
-        };
+        }
       });
       opts.q = $scope.queryTerm;
+      searchService.resetOpts();
       searchService.updateOpts(opts);
       $state.go('searchResults', searchService.opts);
-    };
-  };
+    }
+  }
 })();
