@@ -16,7 +16,7 @@
 
       <div id="left_sidebar_accordion__container" class="navbar-collapse collapse">
         <div class="facet-header-desktop">
-          <h6>Filter Your Results</h6>
+          <h4>Filter Your Results</h4>
           <button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
         </div>
 
@@ -130,8 +130,8 @@
         </div>
 
         <div class="paging">
-          <div class="results-pagination-top">
-            <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
+          <div class="results-pagination-top" >
+            <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5" auto-hide="true" template-url="app/partials/dirPagination.tpl.html"></dir-pagination-controls>
           </div>
         </div>
 
