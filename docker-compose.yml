@@ -1,9 +1,10 @@
 webserver:
-  image: httpd:2.4
+  # apache with python
+  build: ./docker_files/webserver
   ports:
-    - "80:80"
+    - "8000:80"
   volumes:
-    - ./src/client:/usr/local/apache2/htdocs
+    - ./src:/var/www/portal
 
 elasticsearch:
   image: elasticsearch:2.1
