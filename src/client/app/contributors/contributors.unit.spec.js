@@ -57,10 +57,10 @@ describe('Contributors page tests', function() {
 			expect(searchService.resetOpts).toHaveBeenCalled();
 		});
 
-		it("should call Search Service's update opts when calling contribSearch", function(){
-      spyOn(searchService, 'updateOpts');
+		it("should call Search Service's executeSearch() when calling contribSearch", function(){
+      spyOn(searchService, 'executeSearch');
 	    scope.contribSearch(mockInstitutions[0].key);
-      expect(searchService.updateOpts).toHaveBeenCalled();
+      expect(searchService.executeSearch).toHaveBeenCalled();
 	  });
 
 		it("should correctly update Search Service's opts.facets when calling contribSearch", function(){

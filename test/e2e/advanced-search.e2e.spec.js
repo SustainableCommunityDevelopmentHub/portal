@@ -63,8 +63,11 @@ describe("Advanced Search", function(){
     );
     advancedPage.submitFiltersWithEnter();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
-    expect(advancedPage.facetChips.get(1).getText()).toEqual('Getty (Keyword: From)');
-    expect(advancedPage.facetChips.get(2).getText()).toEqual('1907 (Keyword: Date)');
+    expect(advancedPage.facetChips.get(1).getText()).toEqual('1907 (Keyword: Date)');
+    expect(advancedPage.facetChips.get(2).getText()).toEqual('Getty (Keyword: From)');
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&adv_date=1907&adv_grp_contributor=Getty');
+    });
   });
 
   it("should, going to advanced search from search results, clear any pre-existing Search Options before searching", function(){
@@ -95,6 +98,9 @@ describe("Advanced Search", function(){
     advancedPage.submitAdvancedSearch();
     expect(advancedPage.numTotalHits).toEqual(45);
     expect(advancedPage.facetChips.count()).toEqual(1);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance&adv_language=English');
+    });
   });
 
   it("should be able to apply facets after searching", function(){
@@ -110,12 +116,18 @@ describe("Advanced Search", function(){
     advancedPage.addFilterSearches([['From', 'Getty']]);
     advancedPage.submitAdvancedSearch();
     expect(advancedPage.facetChips.count()).toEqual(2);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&adv_grp_contributor=Getty');
+    });
 
     var chip = advancedPage.advancedFacetChips.get(0);
     expect(chip.getText()).toEqual('Getty (Keyword: From)');
 
     chip.click();
     expect(advancedPage.numTotalHits).toEqual(310);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance');
+    });
   });
 
   it('should clear out previous advanced fields completely', function() {
@@ -129,6 +141,9 @@ describe("Advanced Search", function(){
     advancedPage.submitNewSearchTerm('art');
     expect(advancedPage.advancedFacetChips.count()).toEqual(0);
     expect(advancedPage.facetChips.count()).toEqual(1);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance');
+    });
   });
 
 
