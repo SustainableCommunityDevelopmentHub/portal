@@ -29,13 +29,6 @@ RUN apt-get update \
     && apt-get autoremove \
     && apt-get clean
 
-RUN apt-get install -y apache2 \
-    &&  apt-get clean
-RUN apt-get install -y libapache2-mod-wsgi \
-    &&  apt-get clean
-
-# lynx is required for `apache2ctl status`
-RUN apt-get install -y lynx
 
 # Apache requires these
 ENV APACHE_RUN_USER www-data
@@ -45,6 +38,14 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
+
+RUN apt-get install -y apache2 \
+    &&  apt-get clean
+RUN apt-get install -y libapache2-mod-wsgi-py3 \
+    &&  apt-get clean
+
+# lynx is required for `apache2ctl status`
+RUN apt-get install -y lynx
 
 # Apache virtual host file
 RUN mkdir /var/www/portal
@@ -70,5 +71,4 @@ RUN pip install requirements
 
 EXPOSE 80
 
-ENTRYPOINT [ "/usr/sbin/apache2" ]
-CMD ["-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
