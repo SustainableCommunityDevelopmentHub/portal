@@ -68,11 +68,11 @@
             if(facet.category && facet.value && parsedOption.category && parsedOption.value){
               if(facet.category === parsedOption.category && facet.value === parsedOption.value){
                 parsedOption.active = true;
+                facet.count = parsedOption.count;
               }
             }
           });
         }
-
         return parsedOption;
       });
     }

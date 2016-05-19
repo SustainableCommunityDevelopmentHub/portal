@@ -12,6 +12,11 @@
 
     var ss = SearchService;
 
+    $scope.isOpenCreator = true;
+    $scope.isOpenSubject = true;
+    $scope.isOpenLanguage = true;
+    $scope.isOpenFrom = true;
+
     $scope.hits = searchResults.hits;
     $scope.numTotalHits = searchResults.numTotalHits;
     $scope.facets = searchResults.facets;
@@ -224,9 +229,12 @@
      * @param field {object} field to remove
      */
     $scope.clearAdvancedField = function(field) {
-      var index = $scope.advancedFields.indexOf(field);
-      $scope.advancedFields.splice(index, 1);
-      updateSearch({advancedFields: $scope.advancedFields, from: 0});
+      var index = ss.opts.advancedFields.indexOf(field);
+      ss.opts.advancedFields.splice(index, 1);
+
+      //reset pagination and update search
+      ss.updateOpts({advancedFields: ss.opts.advancedFields, from: 0});
+      ss.transitionStateAndSearch();
     };
 
     /**
@@ -248,9 +256,8 @@
      * Removes date range filter, then runs search again
      */
     $scope.clearDateRange = function() {
-      $scope.fromDate = "";
-      $scope.toDate = "";
-      updateSearch({date: {}, from: 0});
+      ss.opts.date = {};
+      updateSearch({from: 0});
     };
   }
 })();

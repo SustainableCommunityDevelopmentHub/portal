@@ -40,7 +40,7 @@ describe('Search Results', function() {
     browser.ignoreSynchronization = false;
   });
 
-  it('should display active facets in sidebar', function(){
+  it('should not display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
     expect(resultsPage.numTotalHits).toEqual(2);
@@ -48,13 +48,11 @@ describe('Search Results', function() {
     resultsPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
     });
-
-    var option = resultsPage.getFacetOptionByLabel('subject', 'Catalogs');
-    expect(option).toBeDefined();
-    expect(option.getAttribute('value')).toEqual('on');
+    var option = resultsPage.getFacetOptionText('subject', 1);
+    expect(option).toEqual('20th century (1)');
   });
 
-  it('should clear facets when you uncheck them in sidebar', function(){
+  it('should redisplay facets in sidebar when you remove them from search bar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(7);
     browser.wait(function () {
@@ -66,11 +64,13 @@ describe('Search Results', function() {
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
     });
 
-    resultsPage.toggleFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(7);
-    resultsPage.getQueryString().then(function(queryString){
-      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance');
-    });
+    var catalogsChip = resultsPage.getFacetChip(1);
+    catalogsChip.click();
+    browser.wait(function () {
+      return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
+    }, 3000); 
+    var option = resultsPage.getFacetOptionText('subject', 1);
+    expect(option).toEqual('Catalogs (2)');
   });
 
   it('should filter results by date when you use date range filter', function(){
@@ -177,6 +177,16 @@ describe('Search Results', function() {
     var homePage = new HomePage();
     browser.waitForAngular();
     expect(homePage.searchBar.getAttribute("class")).toEqual(resultsPage.getFocusedElement.getAttribute("class"));
+  });
+
+  it('should gray out facet chips with zero limiting results', function() {
+    resultsPage.toggleFacetOption('language', 'French');
+    resultsPage.toggleFacetOption('language', 'German');
+    resultsPage.toggleFacetOption('from', 'Gallica-BibliothèquenationaledeFrance');
+
+    var facets = resultsPage.getFacetChipsNoResults();
+    expect(facets.count()).toBe(1);
+    expect(facets.get(0).getText()).toEqual("German (Language)");
   });
 
 
@@ -438,6 +448,9 @@ describe('Search Results', function() {
       expect(resultsPage.numTotalHits).toEqual(310);
       expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 310 results');
       expect(resultsPage.getSortButtonText()).toEqual('Sort by: Title: A-Z');
+      resultsPage.getHitsTitles().then(function(titles){
+        expect(titles).toEqual(titles.sort());
+      });
     });
 
     it('should apply facets when in URL', function(){

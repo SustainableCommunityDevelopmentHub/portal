@@ -93,37 +93,6 @@
       ];
       $scope.myFeedbackField = $scope.feedbackFields[0];
     }])
-
-  .controller('FaqsCtrl', ['$scope', '$rootScope', 'config', function ($scope, $rootScope, config) {
-      // sync with the rootScope var so open tabs persist across state changes
-      $scope.activeTabs = $rootScope.$activeTabs;
-      $scope.faqs = {name: "faqs.html", url: config.app.root + "/partials/faqs.html"};
-
-      // check if the tab is active
-      $scope.isOpenTab = function (tab) {
-        // check if this tab is already in the activeTabs array
-        if ($scope.activeTabs.indexOf(tab) > -1) {
-          // if so, return true
-          return true;
-        } else {
-          // if not, return false
-          return false;
-        }
-      };
-
-      // function to 'open' a tab
-      $scope.openTab = function (tab) {
-        // check if tab is already open
-        if ($scope.isOpenTab(tab)) {
-          //if it is, remove it from the activeTabs array
-          $scope.activeTabs.splice($scope.activeTabs.indexOf(tab), 1);
-
-        } else {
-          // if it's not, add it!
-          $scope.activeTabs.push(tab);
-        }
-      };
-    }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
       var modalInstance = $uibModal.open({

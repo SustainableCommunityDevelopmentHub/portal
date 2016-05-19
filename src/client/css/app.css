@@ -507,6 +507,11 @@ a.adv:hover, a.adv:focus {
   top: 2px;
 }
 
+.facet-chip-no-results {
+  background-color: #ccc;
+  text-decoration: line-through;
+}
+
 .results-list {
   display: block;
   background-color: #eee;

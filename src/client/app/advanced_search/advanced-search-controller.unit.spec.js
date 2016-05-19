@@ -25,15 +25,14 @@ describe("Advanced Search", function(){
         'SearchService': searchService
      });
     scope.fields = [
-          ADVANCED_SEARCH.contributor,
+          ADVANCED_SEARCH.grp_contributor,
           ADVANCED_SEARCH.creator,
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.title,
-          ADVANCED_SEARCH.type
+          ADVANCED_SEARCH.title
         ];
-    scope.filters = [{field: {}, text: "", lastFilter: ""}];
+    scope.filters = [{field: {}, term: "", lastFilter: ""}];
   }));
 
   it("should add a new filter object when you call addFilter()", function(){
@@ -81,16 +80,17 @@ describe("Advanced Search", function(){
     scope.queryTerm = "art";
     var filter = scope.filters[0];
     filter.field = scope.fields[0];
-    filter.text = "getty";
+    filter.term = "getty";
     scope.search();
     var opts = {
       q: scope.queryTerm,
-      advancedFields: [{field: filter.field, term: filter.text}]
+      advancedFields: [{field: filter.field, term: filter.term}]
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
   });
 
   it("should clear existing search options before executing search", function(){
+    spyOn(searchService, 'transitionStateAndSearch');
 
     searchService.opts = {
       from: 25,
@@ -103,12 +103,14 @@ describe("Advanced Search", function(){
 
     var filter = scope.filters[0];
     filter.field = scope.fields[0];
-    filter.text = "getty";
+    filter.term = "getty";
 
     var correctOps = searchService.getDefaultOptsObj();
-    correctOps.advancedFields = [{field: filter.field, term: filter.text}];
+    var advField =searchService.buildAdvancedField(filter.field, filter.term);
+    correctOps.advancedFields = [advField];
 
     scope.search();
     expect(searchService.opts).toEqual(correctOps);
+    expect(searchService.transitionStateAndSearch).toHaveBeenCalled();
   });
 });

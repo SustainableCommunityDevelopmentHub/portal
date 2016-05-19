@@ -162,11 +162,11 @@
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
-      if (opts.advancedFields) {
+      if (opts.advancedFields && opts.advancedFields.length) {
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
 
-          if (item.field.searchKey.substr(0, 11) == "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
+          if (item.field.searchKey.substr(0, 11) === "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
             var query = {
               query_string: {
                 query: item.term,

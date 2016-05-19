@@ -14,7 +14,8 @@
     'app.controller',
     'app.contributors',
     'AngularPrint',
-    'smoothScroll'
+    'smoothScroll',
+    'ngAnimate'
   ])
 
   // make lodash injectable
