@@ -31,6 +31,9 @@ RUN apt-get update \
 
 RUN apt-get install -y apache2 \
     &&  apt-get clean
+RUN apt-get install -y libapache2-mod-wsgi \
+    &&  apt-get clean
+
 # lynx is required for `apache2ctl status`
 RUN apt-get install -y lynx
 
@@ -55,6 +58,15 @@ RUN python3.4 /root/get-pip.py
 RUN pip3.4 install -U "setuptools==18.4"
 RUN pip3.4 install -U "pip==8.1.2"
 RUN pip3.4 install -U "virtualenv==13.1.2"
+
+# Django required modules
+COPY requirements.txt /var/www/portal/requirements.txt
+
+RUN cd /var/www/portal \
+    virtualenv ENV \
+    source ENV/bin/activate
+
+RUN pip install requirements
 
 EXPOSE 80
 
