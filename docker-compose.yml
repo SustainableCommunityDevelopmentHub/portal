@@ -13,7 +13,7 @@ webserver:
   # Note: Currently, portal_init.sh only sets basic environment vars for dev environment.
   #       It will only run if PORTAL_ROOT environment var does not exist.
   #       It should only be run once, when project first installed.
-  command: bash -c "bash portal_init.sh && npm install -g bower --unsafe-perm && npm update --unsafe-perm && bower --allow-root install && npm start"
+  command: bash -c "bash portal_init.sh && npm update --unsafe-perm && npm start"
 
 elasticsearch:
   image: elasticsearch:2.1
