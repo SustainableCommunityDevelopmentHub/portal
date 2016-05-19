@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <ul id="mobile-facet-tabs" class="facet-tabs navbar-collapse collapse" ng-controller="FaqsCtrl">
+        <ul id="mobile-facet-tabs" class="facet-tabs navbar-collapse collapse">
           <li ng-class="{'active-facet-tab': isActive(category.name)}"ng-repeat="category in facetCategories" ng-click="switchFacetCategory(category.name)">
             <div class="borderBottom"><a ng-class="{'selected-facet-tabs': isCategorySelected(category.name)}">{{ category.display }}</a></div>
           </li>
