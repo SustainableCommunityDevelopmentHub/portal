@@ -448,6 +448,9 @@ describe('Search Results', function() {
       expect(resultsPage.numTotalHits).toEqual(310);
       expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 310 results');
       expect(resultsPage.getSortButtonText()).toEqual('Sort by: Title: A-Z');
+      resultsPage.getHitsTitles().then(function(titles){
+        expect(titles).toEqual(titles.sort());
+      });
     });
 
     it('should apply facets when in URL', function(){

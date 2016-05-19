@@ -1,8 +1,10 @@
 /* jshint node: true */
-/* global inject */
+/* global inject, spyOn */
 
 describe('SearchService Unit Tests', function(){
-  var SearchService;
+  var SearchService,
+      ADVANCED_SEARCH,
+      DataService;
 
   beforeEach(function(){
     module('ui.router');
@@ -13,8 +15,10 @@ describe('SearchService Unit Tests', function(){
     module('app.search');
   });
 
-  beforeEach(inject(function(_SearchService_ ){
+  beforeEach(inject(function(_SearchService_ , _ADVANCED_SEARCH_, _DataService_){
     SearchService = _SearchService_;
+    ADVANCED_SEARCH = _ADVANCED_SEARCH_;
+    DataService = _DataService_;
   }));
 
   describe('calculatePage()', function(){
@@ -84,7 +88,7 @@ describe('SearchService Unit Tests', function(){
       expect(opts.sort).toEqual('relevance');
       expect(opts.facets).toEqual([]);
       expect(opts.advancedFields).toEqual([]);
-      expect(opts.date).toEqual({gte: '', lte: ''});
+      expect(opts.date).toEqual({gte: null, lte: null});
     });
 
     it('should clear all search options and reset default vals when resetOpts() is called', function(){
@@ -299,32 +303,133 @@ describe('SearchService Unit Tests', function(){
         });
       });
     });
+  });
 
-    describe('buildQueryParams', function(){
-      it('should build query params obj from Search Options, with all correct properties and values', function(){
-        SearchService.resetOpts();
-        SearchService.opts.q = 'painting';
-        SearchService.opts.from = 50;
-        SearchService.opts.size = 50;
-        SearchService.opts.date = {gte: 1900, lte: 1920};
+  describe('Advanced Search Functions', function() {
+    it('should populate and expose advancedFieldsList array', function(){
+      expect(SearchService.advancedFieldsList).toBeTruthy();
+      expect(SearchService.advancedFieldsList.length).toEqual(6);
+      expect(SearchService.advancedFieldsList.indexOf('language')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('subject')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('grp_contributor')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('creator')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('title')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('date')).toBeGreaterThan(-1);
+    });
+    it('should build advanced search field object', function(){
+      var advDateFieldProps = {
+        paramName: 'adv_date',
+        display: 'Date',
+        searchKey: 'dublin_core.date'
+      };
 
-        var catFacetVals = ['facetA', 'facetB', 'facetC', 'facetD'];
-        SearchService.facetCategoriesList.forEach(function(category, i){
-          SearchService.activateFacet( SearchService.buildFacet(category, catFacetVals[i], 10, false) );
-        });
+      var advField = SearchService.buildAdvancedField(ADVANCED_SEARCH.date, 1900);
+      expect(advField.field).toEqual(advDateFieldProps);
+      expect(advField.term).toEqual(1900);
+      // test that passing string instead of object works
+      advField = SearchService.buildAdvancedField('date', 1900);
+      expect(advField.field).toEqual(advDateFieldProps);
+      expect(advField.term).toEqual(1900);
+    });
+  });
 
-        var qParams = SearchService.buildQueryParams();
-        expect(qParams.q).toEqual('painting');
-        expect(qParams.from).toEqual(50);
-        expect(qParams.size).toEqual(50);
-        expect(qParams.date_gte).toEqual(1900);
-        expect(qParams.date_lte).toEqual(1920);
-        SearchService.facetCategoriesList.forEach(function(category, i){
-          expect(qParams[category].length).toEqual(1);
-          expect(qParams[category][0]).toEqual(catFacetVals[i]);
-        });
+  describe('buildQueryParams', function(){
+    it('should build query params obj from SearchService.opts with correct q, from, and size params', function(){
+      SearchService.resetOpts();
+      SearchService.opts.q = 'painting';
+      SearchService.opts.from = 50;
+      SearchService.opts.size = 50;
+      var qParams = SearchService.buildQueryParams();
+      expect(qParams.q).toEqual('painting');
+      expect(qParams.from).toEqual(50);
+      expect(qParams.size).toEqual(50);
+    });
+    it('should build query params obj from SearchService.opts with correct date params', function(){
+      SearchService.resetOpts();
+      SearchService.opts.date = {gte: 1900, lte: 1920};
+      var qParams = SearchService.buildQueryParams();
+      expect(qParams.date_gte).toEqual(1900);
+      expect(qParams.date_lte).toEqual(1920);
+    });
+    it('should build query params obj from SearchService.opts with correct facet option params', function(){
+      SearchService.resetOpts();
+      var catFacetVals = ['facetA', 'facetB', 'facetC', 'facetD'];
+      SearchService.facetCategoriesList.forEach(function(category, i){
+        SearchService.activateFacet( SearchService.buildFacet(category, catFacetVals[i], 10, false) );
+      });
+
+      var qParams = SearchService.buildQueryParams();
+      SearchService.facetCategoriesList.forEach(function(category, i){
+        expect(qParams[category].length).toEqual(1);
+        expect(qParams[category][0]).toEqual(catFacetVals[i]);
       });
     });
+    it('should build query params obj from SearchService.opts with advanced search fields option params', function(){
+      SearchService.resetOpts();
+      var advFieldVals = ['one', 'two', 'three', 'four', 'five', 'six'];
+      SearchService.advancedFieldsList.forEach(function(props, i){
+        SearchService.opts.advancedFields.push(
+          SearchService.buildAdvancedField(props, advFieldVals[i])
+        );
+      });
+
+      var qParams = SearchService.buildQueryParams();
+      SearchService.advancedFieldsList.forEach(function(name, i){
+        var paramVals = qParams[ ADVANCED_SEARCH[name].paramName ];
+        expect(paramVals.length).toEqual(1);
+        expect(paramVals[0]).toEqual(advFieldVals[i]);
+      });
+    });
+  });
+
+  describe('executeSearch', function(){
+    beforeEach(function(){
+      SearchService.resetOpts();
+      spyOn(DataService, 'search');
+    });
+    it('should lowercase the q query term', function(){
+      var opts = SearchService.getDefaultOptsObj();
+      SearchService.opts.q = 'FOOBAR';
+      opts.q = 'foobar';
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(opts);
+    });
+    it('should set q to empty string if missing', function(){
+      var defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.q;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+    });
+    it('should set size and from params to defaults if missing', function(){
+      var defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.size;
+      delete SearchService.opts.from;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+    });
+    it('should set sort to default param if missing', function(){
+      var defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.sort;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+    });
+    it('should apply defaults for date if missing', function(){
+      var defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.date;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+
+      defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.date.gte;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+
+      defaults = SearchService.getDefaultOptsObj();
+      delete SearchService.opts.date.lte;
+      SearchService.executeSearch();
+      expect(DataService.search).toHaveBeenCalledWith(defaults);
+    });
+
   });
 
 });

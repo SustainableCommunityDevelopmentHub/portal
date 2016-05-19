@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['$state', 'DataService', 'SearchResParser', '_', 'FACETS', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['$state', 'DataService', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService($state, DataService, SearchResParser, _, FACETS, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService($state, DataService, SearchResParser, _, FACETS, ADVANCED_SEARCH, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
@@ -30,6 +30,7 @@
       },
       opts: getDefaultOptsObj(),
       facetCategoriesList: ['creator', 'grp_contributor', 'language', 'subject'],
+      advancedFieldsList: Object.keys(ADVANCED_SEARCH),
 
       /* functions */
       // general opts update
@@ -37,7 +38,7 @@
       resetOpts: resetOpts,
       // specific opts update
       updateDate: updateDate,
-      // facets
+      // facets and advanced fields
       isValidCategory: isValidCategory,
       isValidFacet: isValidFacet,
       isSameFacet: isSameFacet,
@@ -45,6 +46,7 @@
       activateFacet: activateFacet,
       deActivateFacet: deActivateFacet,
       clearFacetsIn: clearFacetsIn,
+      buildAdvancedField: buildAdvancedField,
       // utility
       calculatePage: calculatePage,
       parseFacetsToObj: parseFacetsToObj,
@@ -75,8 +77,8 @@
         facets: [],
         advancedFields: [],
         date: {
-          gte: '',
-          lte: ''
+          gte: null,
+          lte: null
         }
       };
     }
@@ -87,24 +89,40 @@
      * @returns {Object} Search opts in query params form
      */
     function buildQueryParams(){
+      // default settings
       var queryParams = {};
-      queryParams.q = this.opts.q || '';
+      queryParams.q = this.opts.q;
       queryParams.from = this.opts.from || FROM_DEFAULT;
       queryParams.size = this.opts.size || SIZE_DEFAULT;
-      queryParams.sort = this.opts.sort || SORT_DEFAULT;
-      if(!this.opts.date){
-        queryParams.date_gte = '';
-        queryParams.date_lte = '';
+      queryParams.sort = this.opts.sort;
+
+      // date range
+      if(this.opts.date.gte){
+        queryParams.date_gte = this.opts.date.gte;
+      }
+      if(this.opts.date.lte){
+        queryParams.date_lte = this.opts.date.lte;
       }
 
-      queryParams.date_gte = this.opts.date.gte || '';
-      queryParams.date_lte = this.opts.date.lte || '';
-
+      // facet options and advanced fields
+      // for state transitions this needed if inherit = true to prevent zombie query params.
+      // keep as check against regression or change.
       this.facetCategoriesList.forEach(function(category){
         queryParams[category] = [];
       });
+
       this.opts.facets.forEach(function(facet){
         queryParams[facet.category].push(facet.value);
+      });
+
+      // for state transitions this needed if inherit = true to prevent zombie query params.
+      // keep as check against regression or change.
+      this.advancedFieldsList.forEach(function(name){
+        queryParams[ ADVANCED_SEARCH[name].paramName ]  = [];
+      });
+
+      this.opts.advancedFields.forEach(function(advField){
+        queryParams[advField.field.paramName].push(advField.term);
       });
 
       console.log('SearchService::buildQueryParams - queryParams: ' + JSON.stringify(queryParams));
@@ -147,19 +165,6 @@
 
       _.merge(this.opts, newOpts);
 
-      // hack to handle correctly deleting all facets and advanced fields
-      if(newOpts.facets && !newOpts.facets.length){
-        this.opts.facets = [];
-      }
-
-      if(newOpts.date && !(newOpts.date.gte || newOpts.date.lte)){
-        this.opts.date = {};
-      }
-
-      if(newOpts.advancedFields && !newOpts.advancedFields.length){
-        this.opts.advancedFields = [];
-      }
-
       console.log('SearchService::updateOpts -- opts now: ' + JSON.stringify(this.opts));
       return this.opts;
     }
@@ -171,15 +176,8 @@
      * @return {bool} returns true on successful update
      */
     function updateDate(gte, lte){
-      if(!this.opts.date){
-        this.opts.date = { gte: '', lte: '' };
-      }
-      if(gte){
-        this.opts.date.gte = gte;
-      }
-      if(lte){
-        this.opts.date.gte = lte;
-      }
+      if(gte){ this.opts.date.gte = gte; }
+      if(lte){ this.opts.date.gte = lte; }
       return true;
     }
 
@@ -242,18 +240,33 @@
       if(!isValidCategory(category) || !value){
         return false;
       }
-
-      var facet = {
+      var facet= {
         category: category,
         value: value
       };
-      if(count !== undefined) { 
-        facet.count = count; 
-      }
-      if(active !== undefined) { 
-        facet.active = active; 
-      }
+
+      if(count){ facet.count = count; }
+      if(active !== undefined){ facet.active = active; }
       return facet;
+    }
+
+    /*
+     * Construct an advanced field object
+     *
+     * @param {object[]|string} field - object from ADVANCED_SEARCH constant prop
+     * with info on advanced field to filter within.
+     * Or, string with name of the advanced field.
+     * @param {string} term - value to filter for within the advanced field
+     */
+    function buildAdvancedField(field, term){
+      if(!field.searchKey){
+        field = ADVANCED_SEARCH[field];
+        if(!field.searchKey){
+          return false;
+        }
+      }
+      console.log('SearchService::buildAdvancedField - field, term: ' + JSON.stringify(field) + ' ' + term);
+      return {field: field, term: term};
     }
 
     /**
@@ -364,7 +377,7 @@
      * based on query params and an Elasticsearch query executed.
      */
     function transitionStateAndSearch(){
-      $state.go('searchResults', this.buildQueryParams(), {reload: true});
+      $state.go('searchResults', this.buildQueryParams(), {reload: true, inherit: false});
     }
 
     ///////////////////////////////////
@@ -388,20 +401,16 @@
         this.opts.sort = SORT_DEFAULT;
       }
       this.opts.sort.toLowerCase();
-      if(!this.opts.date){
+
+      if(!this.opts.date) {
         this.opts.date = {
-          gte: '',
-          lte: ''
+          gte: null,
+          lte: null
         };
       }
-      if(this.opts.date && !(this.opts.date.gte || this.opts.date.lte)){
-        this.opts.date = {
-          gte: '',
-          lte: ''
-        };
-      }
-      if(this.opts.advancedFields && !this.opts.advancedFields.length){
-        this.opts.advancedFields = [];
+      else {
+        if(!this.opts.date.gte) { this.opts.date.gte = null; }
+        if(!this.opts.date.lte) { this.opts.date.lte = null; }
       }
 
       console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
