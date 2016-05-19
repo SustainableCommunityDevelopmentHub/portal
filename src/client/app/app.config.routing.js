@@ -29,6 +29,7 @@
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
+          q: { array: true},
           // facet options
           creator: { array: true },
           grp_contributor: { array: true },

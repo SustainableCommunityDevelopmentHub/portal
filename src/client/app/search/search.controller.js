@@ -39,7 +39,7 @@
       }
     }
 
-    $scope.queryTerm = ss.opts.q;
+    $scope.queryTerms = ss.opts.q;
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
@@ -143,25 +143,14 @@
     $scope.newQuerySearch = function(query){
       var newQuery;
       if (query) {
-        newQuery = query.trim();
-        if ($scope.queryTerm) {
-          newQuery = $scope.queryTerm + " " + newQuery;
-        }
-        $scope.queryTerm = newQuery;
-      } else {
-        newQuery = $scope.queryTerm;
+        query = query.trim();
+        $scope.queryTerms.push(query);
       }
-      console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
-        q: newQuery
+        q: $scope.queryTerms,
+        from: 0,
+        sort: SORT_MODES[SORT_DEFAULT]
       };
-
-      // if new query term or empty string query term, need to reset pagination
-      if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.from = 0;
-        opts.sort = SORT_MODES[SORT_DEFAULT];
-      }
-
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
@@ -248,9 +237,11 @@
     /**
      * Removes query term, then runs search on empty query term string
      */
-    $scope.clearQueryTerm = function() {
-      $scope.queryTerm = "";
-      updateSearch({q:"", from: 0});
+    $scope.clearQueryTerm = function(queryTerm) {
+      $scope.queryTerms = $scope.queryTerms.filter(function(query) {
+        return query !== queryTerm;
+      });
+      updateSearch({q:$scope.queryTerms, from: 0});
     };
     /**
      * Removes date range filter, then runs search again

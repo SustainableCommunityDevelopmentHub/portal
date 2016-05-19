@@ -100,9 +100,9 @@
           <form ng-submit="newQuerySearch(newQueryTerm)">
             <div class="facet-chip-search-bar facet-search" focus-search-input>
               <ul class="facet-chip-list facet-search">
-                <li class="facet-search" ng-if="queryTerm">
+                <li class="facet-search" ng-repeat="queryTerm in queryTerms">
                   <div class="facet-chip">
-                    <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+                    <a class="facet-search" ng-click="clearQueryTerm(queryTerm)">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
