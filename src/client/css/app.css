@@ -1242,7 +1242,8 @@ li.book-field-val {
 }
 
 .footer li a:hover {
-  color: #478ba3;
+  color: #333;
+  text-decoration: underline;
 }
 
 
