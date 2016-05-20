@@ -57,7 +57,7 @@ describe("Advanced Search", function(){
     filter.field = scope.fields[0];
     scope.search();
     var opts = {
-      q: "",
+      q: [],
       advancedFields: []
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
@@ -69,7 +69,7 @@ describe("Advanced Search", function(){
     
     scope.search();
     var opts = {
-      q: scope.queryTerm,
+      q: [scope.queryTerm],
       advancedFields: []
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
@@ -83,7 +83,7 @@ describe("Advanced Search", function(){
     filter.term = "getty";
     scope.search();
     var opts = {
-      q: scope.queryTerm,
+      q: [scope.queryTerm],
       advancedFields: [{field: filter.field, term: filter.term}]
     };
     expect(searchService.updateOpts).toHaveBeenCalledWith(opts);
@@ -93,6 +93,7 @@ describe("Advanced Search", function(){
     spyOn(searchService, 'transitionStateAndSearch');
 
     searchService.opts = {
+      q: ["art"],
       from: 25,
       size: 10,
       date: {
@@ -106,7 +107,7 @@ describe("Advanced Search", function(){
     filter.term = "getty";
 
     var correctOps = searchService.getDefaultOptsObj();
-    var advField =searchService.buildAdvancedField(filter.field, filter.term);
+    var advField = searchService.buildAdvancedField(filter.field, filter.term);
     correctOps.advancedFields = [advField];
 
     scope.search();

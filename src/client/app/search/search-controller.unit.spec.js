@@ -241,39 +241,42 @@ describe("Search Controller", function(){
   });
 
   describe("Search Queries", function() {
-    beforeEach(function(){
-      //initializing vars to mimic a search
-      scope.queryTerm = "art";
-      SearchService.opts.q = scope.queryTerm;
+    afterEach(function() {
+      scope.clearSearchOpts();
     });
 
     it("should add new query term to previous query terms", function(){
       //adding new search term
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
       scope.newQuerySearch("painting");
-      var newQuery = "art painting";
-      expect(scope.queryTerm).toEqual(newQuery);
+      var newQuery = ["art", "painting"];
+      expect(scope.queryTerms).toEqual(newQuery);
       expect(SearchService.opts.q).toEqual(newQuery);
     });
 
     it("should clear query terms correctly", function(){
-      scope.clearQueryTerm();
-      expect(scope.queryTerm).toEqual("");
-      expect(SearchService.opts.q).toEqual("");
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
+      scope.clearQueryTerm("art");
+      expect(scope.queryTerms).toEqual([]);
+      expect(SearchService.opts.q).toEqual([]);
     });
 
     it("should reset page to 1 in when changing query string", function(){
-      scope.clearQueryTerm();
       scope.newQuerySearch("painting");
       scope.setPageNum(2);
-      expect(scope.queryTerm).toEqual("painting");
+      expect(scope.queryTerms).toEqual(["painting"]);
       expect(SearchService.calculatePage()).toEqual(2);
 
       scope.newQuerySearch("art");
-      expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
+      expect(scope.queryTerms).toEqual(["painting", "art"]);
       expect(SearchService.calculatePage()).toEqual(1);
     });
 
   });
+
+
 
   describe("Clear All functionality", function(){
     it("should clear applied facets", function(){

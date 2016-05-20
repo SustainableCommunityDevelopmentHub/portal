@@ -389,7 +389,7 @@
       if(!this.opts.q){
         this.opts.q = [];
       }
-      this.opts.q.map(function (query) {
+      this.opts.q = this.opts.q.map(function (query) {
         return query.toLowerCase();
       });
 
