@@ -189,6 +189,21 @@ describe('Search Results', function() {
     expect(facets.get(0).getText()).toEqual("German (Language)");
   });
 
+  it('should display a separate chip for each keyword search', function() {
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('painting');
+    resultsPage.submitNewSearchTerm('art history')
+    expect(resultsPage.facetChips.count()).toBe(3);
+  });
+
+  it('should clear individual keywords separately', function() {
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('painting');
+    expect(resultsPage.facetChips.count()).toBe(2);
+    resultsPage.getFacetChip(1).click();
+    expect(resultsPage.facetChips.count()).toBe(1);
+  });
+
 
   describe('Pagination', function(){
     var query = '';
