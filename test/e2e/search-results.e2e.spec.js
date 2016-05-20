@@ -193,15 +193,15 @@ describe('Search Results', function() {
     resultsPage.submitNewSearchTerm('art');
     resultsPage.submitNewSearchTerm('painting');
     resultsPage.submitNewSearchTerm('art history')
-    expect(resultsPage.facetChips.count()).toBe(3);
+    expect(resultsPage.getQueryTerms().count()).toBe(3);
   });
 
   it('should clear individual keywords separately', function() {
     resultsPage.submitNewSearchTerm('art');
     resultsPage.submitNewSearchTerm('painting');
-    expect(resultsPage.facetChips.count()).toBe(2);
+    expect(resultsPage.getQueryTerms().count()).toBe(2);
     resultsPage.getFacetChip(1).click();
-    expect(resultsPage.facetChips.count()).toBe(1);
+    expect(resultsPage.getQueryTerms().count()).toBe(1);
   });
 
 
