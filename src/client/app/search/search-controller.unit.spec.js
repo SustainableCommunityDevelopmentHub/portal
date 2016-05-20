@@ -276,8 +276,6 @@ describe("Search Controller", function(){
 
   });
 
-
-
   describe("Clear All functionality", function(){
     it("should clear applied facets", function(){
       SearchService.resetOpts();
