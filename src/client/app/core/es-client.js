@@ -13,6 +13,6 @@
       apiVersion: config.elastic.apiVersion,
       log: 'trace'
     });
-  };
+  }
 
 })();

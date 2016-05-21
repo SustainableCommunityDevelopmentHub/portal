@@ -1,6 +1,14 @@
 /* App Module */
-(function() { 
+(function() {
   'use strict';
+
+  // import app config settings for api hostname, etc
+  // we set these as an angular constant below
+  var __env = {};
+  if(window){
+    Object.assign(__env, window.__env);
+  }
+  console.log('~~~app.module.js - __env is: ' + JSON.stringify(__env));
 
   angular.module('app', [
     'ui.router',
@@ -18,10 +26,15 @@
     'ngAnimate'
   ])
 
+  .constant('config', __env)
+
+
   // make lodash injectable
   .constant('_', window._)
 
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
+    // Get app config/env settings from __env variable
+
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
