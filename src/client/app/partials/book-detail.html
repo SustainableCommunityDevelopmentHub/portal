@@ -8,7 +8,7 @@
             <button class="btn btn-primary"><a href="{{book._record_link}}" ng-click="">View Digital Item</a></button>
             <div class="btn-group" uib-dropdown>
               <button class="btn btn-primary" uib-dropdown-toggle><a href="#" id="exportBtn">Export<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></a></button>
-              <ul class="uib-dropdown-menu" role="menu">
+              <ul uib-dropdown-menu role="menu" class="dropdown-menu">
                 <li><a href="#">RIS</a></li>
                 <li><a class="saveJson" ng-click="saveAsJson(book.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
               </ul>

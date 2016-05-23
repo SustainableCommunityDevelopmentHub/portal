@@ -325,7 +325,12 @@ hr {
 a.adv:hover, a.adv:focus {
   color: #333;
 }
-
+#see-all-btn {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 50px;
+  font-size: 18px;
+}
   /* Stat Boxes */
 
     .stats {
