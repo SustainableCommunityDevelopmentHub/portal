@@ -49,12 +49,18 @@
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
 
-            opts.q = $stateParams.q;
             opts.size = parseInt($stateParams.size);
             opts.from = parseInt($stateParams.from);
             opts.sort = $stateParams.sort;
             opts.date.gte = $stateParams.date_gte;
             opts.date.lte = $stateParams.date_lte;
+
+            opts.q = [];
+            $stateParams.q.forEach(function(query){
+              if (opts.q.indexOf(query) === -1) {
+                opts.q.push(query);
+              }
+            })
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
