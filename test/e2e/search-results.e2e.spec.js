@@ -10,6 +10,7 @@ describe('Search Results', function() {
 
   beforeEach(function() {
     resultsPage = new ResultsPage();
+
   });
 
   it('should have correct default settings in URL', function() {
@@ -201,7 +202,7 @@ describe('Search Results', function() {
     resultsPage.submitNewSearchTerm('art');
     resultsPage.submitNewSearchTerm('art');
     expect(resultsPage.getQueryTerms().count()).toBe(1);
-    expect(resultsPage.getQueryTerms().getText()).toEqual('art');
+    expect(resultsPage.getQueryTerms().get(0).getText()).toEqual('art (Keyword)');
   });
 
   it('should clear individual keywords separately', function() {

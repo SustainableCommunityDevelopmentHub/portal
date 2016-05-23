@@ -55,12 +55,20 @@
             opts.date.gte = $stateParams.date_gte;
             opts.date.lte = $stateParams.date_lte;
 
+
             opts.q = [];
-            $stateParams.q.forEach(function(query){
-              if (opts.q.indexOf(query) === -1) {
-                opts.q.push(query);
-              }
-            });
+            if ($stateParams.q) {
+              var seen = {};
+              opts.q = $stateParams.q.filter(function(query){
+                if (seen[query]) {
+                  return false;
+                } else {
+                  seen[query] = true;
+                  return true;
+                }
+              });
+            }
+
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
