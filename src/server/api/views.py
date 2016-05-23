@@ -220,3 +220,10 @@ class Books(APIView):
 
         request = [json.dumps(item) for item in query]
         return ' \n'.join(request)
+
+
+class MyTest(APIView):
+    def get(self, request):
+        print('view is working!');
+        message = {"message": "hi"}
+        return Response(json.loads(json.dumps(message)), status=status.HTTP_200_OK)

@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['esClient', 'esQueryBuilder', DataService]);
+  .factory('DataService', ['esClient', 'esQueryBuilder', '$q', '$http', DataService]);
 
   /* DataService - get all data through this service */
-  function DataService(esClient, esQueryBuilder) {
+  function DataService(esClient, esQueryBuilder, $q, $http) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -58,12 +58,21 @@
 
     /**
      * Gets data from elasticsearch client for particular book record
-     * @param book {object} record to get
+     * @param bookID {string} id of record to get
      * @returns response from elasticsearch
      */
-    function getBookData(book){
-      var response = esClient.get(book);
-      return response;
+    function getBookData(bookID){
+      console.log('getting book data');
+      var bookPromise = $http.get('http://127.0.0.1:8000/api/book/' + bookID);
+      var deferred = $q.defer();
+      bookPromise.success(function (data) {
+        var bookData = data._source;
+        bookData._id = data._id;
+        deferred.resolve(bookData);
+      }).error(function () {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
     }
   }
 })();

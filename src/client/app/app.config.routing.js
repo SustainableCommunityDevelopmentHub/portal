@@ -23,6 +23,17 @@
           }
         }
       })
+      .state('test', {
+        url: '/test',
+        templateUrl: config.app.root + '/search/search.home.html',
+        resolve: {
+          data: function($http) {
+            return $http.get('http://127.0.0.1:8000/api/test').then(function(stuff) {
+              console.log(stuff);
+            });
+          }
+        }
+      })
 
       .state('searchResults', {
         url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
@@ -102,11 +113,15 @@
               type: 'book',
               id: $stateParams.bookID
             };
-            return DataService.getBookData(book).then(function(response) {
+            var bookID = $stateParams.bookID;
+            console.log('hi');
+            return DataService.getBookData(bookID);
+            /*return DataService.getBookData(bookID).then(function(response) {
+              console.log('hi');
               var bookData = response._source;
               bookData._id = response._id;
               return bookData;
-            });
+            })*/;
           }
         }
       })
