@@ -274,6 +274,15 @@ describe("Search Controller", function(){
       expect(SearchService.calculatePage()).toEqual(1);
     });
 
+    it("should not submit search queries with duplicate terms", function() {
+      scope.queryTerms = ["art"];
+      scope.newQuerySearch("painting");
+      scope.newQuerySearch("art");
+      scope.newQuerySearch("painting");
+      expect(scope.queryTerms.length).toBe(2);
+      expect(scope.queryTerms).toEqual(["art", "painting"]);
+    });
+
   });
 
   describe("Clear All functionality", function(){

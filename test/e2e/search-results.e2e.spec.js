@@ -196,6 +196,14 @@ describe('Search Results', function() {
     expect(resultsPage.getQueryTerms().count()).toBe(3);
   });
 
+  it('should not allow for duplicate query terms', function(){
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('art');
+    expect(resultsPage.getQueryTerms().count()).toBe(1);
+    expect(resultsPage.getQueryTerms().getText()).toEqual('art');
+  });
+
   it('should clear individual keywords separately', function() {
     resultsPage.submitNewSearchTerm('art');
     resultsPage.submitNewSearchTerm('painting');
