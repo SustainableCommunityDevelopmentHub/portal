@@ -144,7 +144,9 @@
       var newQuery;
       if (query) {
         query = query.trim();
-        $scope.queryTerms.push(query);
+        if ($scope.queryTerms.indexOf(query) == -1){
+          $scope.queryTerms.push(query);
+        }
       }
       var opts = {
         q: $scope.queryTerms,
