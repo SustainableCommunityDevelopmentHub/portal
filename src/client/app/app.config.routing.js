@@ -55,7 +55,6 @@
             opts.date.gte = $stateParams.date_gte;
             opts.date.lte = $stateParams.date_lte;
 
-
             opts.q = [];
             if ($stateParams.q) {
               var seen = {};
@@ -68,7 +67,6 @@
                 }
               });
             }
-
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){

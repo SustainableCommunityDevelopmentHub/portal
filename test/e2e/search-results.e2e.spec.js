@@ -10,7 +10,6 @@ describe('Search Results', function() {
 
   beforeEach(function() {
     resultsPage = new ResultsPage();
-
   });
 
   it('should have correct default settings in URL', function() {
