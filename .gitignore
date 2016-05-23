@@ -2,6 +2,10 @@
 node_modules/
 bower_components/
 
+config/develop
+config/prod
+src/client/app/app.env.config.js
+
 .DS_Store
 
 tmp/
