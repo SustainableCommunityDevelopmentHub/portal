@@ -84,7 +84,7 @@
       var opts = {
         q: query,
         advancedFields: advFields
-      }
+      };
 
       searchService.resetOpts();
       searchService.updateOpts(opts);

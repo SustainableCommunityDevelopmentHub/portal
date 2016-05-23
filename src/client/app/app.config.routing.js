@@ -60,7 +60,7 @@
               if (opts.q.indexOf(query) === -1) {
                 opts.q.push(query);
               }
-            })
+            });
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
