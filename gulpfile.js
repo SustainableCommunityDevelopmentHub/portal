@@ -7,32 +7,31 @@ var del = require('del');
  * NOTE: config filename matches name of .json file it is generated from
  */
 
-var config_dest = 'src/client/app/';
+var module_name = 'app.env.config';
+var file_name = 'app.env.config.json';
+var config_destination = 'src/client/app/';
 
 // delete config file if exists.
 gulp.task('clean:config', function(){
   // modify if you change .json filename
-  var file_path = config_dest + 'app.env.config.js';
-  return del([ file_path ]);
+  var config_file_path = config_destination + 'app.env.config.js';
+  return del([ config_file_path ]);
 });
 
-// local
 gulp.task('config:local', function() {
-  gulp.src('config/local/app.env.config.json')
-    .pipe(gulpNgConfig('app.config'))
-    .pipe(gulp.dest('src/client/app'));
+  gulp.src('config/local/' + file_name )
+    .pipe(gulpNgConfig( module_name, {wrap: true} ))
+    .pipe(gulp.dest( config_destination ));
 });
 
-// develop
-gulp.task('config:dev', function() {
-  gulp.src('config/develop/app.env.config.json')
-    .pipe(gulpNgConfig('app.config'))
-    .pipe(gulp.dest('src/client/app'));
+gulp.task('config:develop', function() {
+  gulp.src('config/develop/' + file_name )
+    .pipe(gulpNgConfig( module_name, {wrap: true} ))
+    .pipe(gulp.dest( config_destination ));
 });
 
-// production
 gulp.task('config:prod', function() {
-  gulp.src('config/prod/app.env.config.json')
-    .pipe(gulpNgConfig('app.config'))
-    .pipe(gulp.dest('src/client/app'));
+  gulp.src('config/prod/' + file_name )
+    .pipe(gulpNgConfig( module_name, { wrap: true } ))
+    .pipe(gulp.dest( config_destination ));
 });
