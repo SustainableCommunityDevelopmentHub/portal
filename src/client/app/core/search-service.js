@@ -384,6 +384,7 @@
     //Private Functions
     ///////////////////////////////////
 
+
     function executeSearch(){
       // if no value set default vals
       if(!this.opts.q){

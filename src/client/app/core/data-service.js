@@ -32,19 +32,32 @@
      *                    Is arr of 2 objs, 1st one query, 2nd aggs.
      */
     function search(opts){
-      var mSearchQueryObj = esQueryBuilder.transformToMultiSearchQuery(
-        esQueryBuilder.buildSearchQuery(opts)
-      );
+      var query = ["from=" + opts.from, "size=" + opts.size, "sort=" + opts.sort];
+      if (opts.q) {
+        query.push("q=" + opts.q);
+      }
 
-      //console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
-      return esClient.msearch(mSearchQueryObj).then(function(response){
-        var resultsObj = response.responses[0];
-        resultsObj.aggregations = response.responses[1].aggregations;
-        return resultsObj;
-      })
-      .catch(function(response){
+      opts.facets.forEach(function(facet){
+        query.push(facet.category + "=" + facet.value);
+      });
+
+      opts.advancedFields.forEach(function(advanced) {
+        query.push(advanced.field.paramName + "=" + advanced.term);
+      });
+
+      var queryPath = query.join("&");
+      console.log(queryPath);
+      var searchPromise = $http.get('http://127.0.0.1:8000/api/books/' + queryPath);
+      var deferred = $q.defer();
+      searchPromise.success(function(data) {
+        var results = data[0];
+        results.aggregations = data[1].aggregations;
+        deferred.resolve(results);
+      }).error(function(response) {
+        deferred.reject(arguments);
         console.log('DataService::search -- error: ' + JSON.stringify(response));
       });
+      return deferred.promise;
     }
 
     function getContributors(){

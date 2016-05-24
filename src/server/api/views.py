@@ -32,7 +32,7 @@ class Contributors(APIView):
 
 
 class Books(APIView):
-    advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_contributor', 'adv_language']
+    advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_grp_contributor', 'adv_language']
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
     def get(self, request, params, format=None):
@@ -107,9 +107,13 @@ class Books(APIView):
         return {'bool': {'should': filters}}
 
     def create_advanced_filters(self, field, terms):
-        fields = {'adv_contributor': ['_grp_contributor', '_grp_contributor.folded'],
-                  'adv_date': ['_date_facet.folded', 'dublin_core.date.value', 'dublin_core.date.value.folded']}
-        field_term = fields.get(field, ['dublin_core.' + field + '.value', 'dublin_core.' + field + '.value.folded'])
+        fields = {'adv_grp_contributor': ['_grp_contributor', '_grp_contributor.folded'],
+                  'adv_date': ['_date_facet.folded', 'dublin_core.date.value', 'dublin_core.date.value.folded'],
+                  'adv_language': ['dublin_core.language.value', 'dublin_core.language.value.folded'],
+                  'adv_title': ['dublin_core.title.value', 'dublin_core.title.value.folded'],
+                  'adv_suject': ['dublin_core.subject.value', 'dublin_core.subject.value.folded'],
+                  'adv_creator': ['dublin_core.creator.value', 'dublin_core.creator.value.folded']}
+        field_term = fields.get(field)
 
         filters = []
         for term in terms:
