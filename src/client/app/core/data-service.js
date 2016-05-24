@@ -48,12 +48,14 @@
     }
 
     function getContributors(){
-      var response = esClient.search(
-        esQueryBuilder.buildContributorsQuery()
-      );
-
-      //console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
-      return response;
+      var contributorsPromise = $http.get('http://127.0.0.1:8000/api/contributors');
+      var deferred = $q.defer();
+      contributorsPromise.success(function(data) {
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
     }
 
     /**

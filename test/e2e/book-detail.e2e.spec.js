@@ -5,7 +5,7 @@ describe('Book Detail', function() {
   var searchBtn = element(by.id('go-btn'));
   var firstResult = element(by.css('.book-title'));
   var exportBtn = element(by.id('exportBtn'));
-  var testData = JSON.stringify(require('../../mocks/book.json'));
+  var testData = require('../../mocks/book.json');
   var testQuery = 'bpt6k63442281';
     
   
@@ -37,7 +37,9 @@ describe('Book Detail', function() {
   it('should download record in JSON format on click', function() {
     exportBtn.click();
     $('.saveJson').click();
-    var fileContents = $('.saveJson').evaluate('fileContents');
+    var fileContents = $('.saveJson').evaluate('fileContents').then(function(data){
+      return JSON.parse(data);
+    });
     expect(fileContents).toEqual(testData);
   });
 

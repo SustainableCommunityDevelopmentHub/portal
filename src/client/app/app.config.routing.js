@@ -108,20 +108,7 @@
         controller: 'BookDetailCtrl',
         resolve: {
           bookData: function($stateParams, DataService) {
-            var book = {
-              index: 'portal',
-              type: 'book',
-              id: $stateParams.bookID
-            };
-            var bookID = $stateParams.bookID;
-            console.log('hi');
-            return DataService.getBookData(bookID);
-            /*return DataService.getBookData(bookID).then(function(response) {
-              console.log('hi');
-              var bookData = response._source;
-              bookData._id = response._id;
-              return bookData;
-            })*/;
+            return DataService.getBookData($stateParams.bookID);
           }
         }
       })
@@ -137,11 +124,8 @@
         templateUrl: config.app.root + '/contributors/contributors.html',
         controller: 'ContributorsCtrl',
         resolve: {
-
-          contributors: function($stateParams, DataService){
-            console.log('Router....in state contributors resolve. $stateParams: ' + JSON.stringify($stateParams));
+          contributors: function(DataService){
             return DataService.getContributors();
-
           }
         }
       })

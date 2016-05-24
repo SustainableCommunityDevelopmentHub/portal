@@ -4,7 +4,7 @@
 
 describe('Contributors page tests', function() {
 
-	var scope, controller, $state, searchService, dataService, es, esqb, mockInstitutions;
+	var scope, controller, searchService, mockInstitutions;
 
 	var contribESQuery = {"index":"portal","type":"book","body":{"aggregations":{"grp_contributor":{"terms":{"field":"_grp_contributor.raw","size":1000,"order":{"_count": "desc"}}}}}};
 
@@ -21,39 +21,23 @@ describe('Contributors page tests', function() {
 	});
 
 
-	beforeEach(inject(function($rootScope, $controller, _$state_, SearchService, DataService, esClient, esQueryBuilder){
-		dataService = DataService;
-		es = esClient;
-		$state = _$state_;
+	beforeEach(inject(function($rootScope, $controller, SearchService, $q){
 		scope = $rootScope.$new();
 		searchService = SearchService;
-		esqb = esQueryBuilder;
 
 		controller = $controller('ContributorsCtrl', {
 			'$scope': scope,
-			'$state': $state,
-			'DataService': dataService,
-			'SearchService': searchService
+			'SearchService': searchService,
+			'contributors': {}
 		});
-
+		mockInstitutions = contribResponse.aggregations.grp_contributor.buckets;
 	}));
-
-	it('builds correct elasticsearch query for contributors', function(){
-  	spyOn(esqb, 'buildContributorsQuery');
-    dataService.getContributors();
-    expect(esqb.buildContributorsQuery).toHaveBeenCalled();
-    
-  	});
 
 	describe('Tests for building individual contributor queries', function() {
 
-		beforeEach(function(){
-			mockInstitutions = contribResponse.aggregations.grp_contributor.buckets;
-		});
-
 		it("should call Search Service's reset opts when calling contribSearch", function(){
 			spyOn(searchService, 'resetOpts');
-			scope.contribSearch({facets: [{category: 'grp_contributor', value: mockInstitutions[0].key}]});
+			scope.contribSearch(mockInstitutions[0].key);
 			expect(searchService.resetOpts).toHaveBeenCalled();
 		});
 
