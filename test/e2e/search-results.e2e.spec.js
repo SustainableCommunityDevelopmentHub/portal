@@ -127,7 +127,7 @@ describe('Search Results', function() {
   });
 
   it('should update bookmarks for records saved in other tabs', function() {
-    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.submitNewSearchTerm('bpt6k63442281');
     resultsPage.toggleSavingRecord(0);
     resultsPage.getBookMark(0).getAttribute('class').then(function(classes){
       var classNames = classes.split(' ');

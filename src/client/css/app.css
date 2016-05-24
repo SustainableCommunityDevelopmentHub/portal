@@ -1148,8 +1148,26 @@ li.book-field-val {
 
 
 @media print {
-  .header-complete {
+
+  .printSection {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .record-detail {
     display: none;
+  }
+
+  .question {
+    display: none;
+  }
+
+  header {
+    display: none;
+  }
+
+  .navbar-default {
+    margin-bottom: 0;
   }
 
   .book-detail-title {
@@ -1158,12 +1176,18 @@ li.book-field-val {
     font-size: 16px;
   }
 
-  .sr-top {
-    display: none;
+  .cat-group {
+    padding: 15px;
   }
 
   .rec-options {
     display: none;
+  }
+
+  .record-summary {
+    min-height: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .book-field-key {
