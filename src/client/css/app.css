@@ -1594,6 +1594,32 @@ a.well.well-sm:hover, a.well.well-sm:focus {
         DESKTOP DISPLAY 
 --------------------------- **/
 
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    /* Search Results */
+
+    #left_sidebar_accordion__container {
+      padding: 15px 5px 15px 15px;
+    }
+
+    .facet-header-desktop {
+    margin-bottom: 35px;
+  }
+
+    .facet-header-desktop h6 {
+      margin-bottom: 10px;
+    }
+
+    #clear-all {
+      float: left;
+    }
+
+    .date-range-container {
+      padding-right: 10px;
+    }
+
+  }
+
   @media (min-width: 992px) {
 
     /* Homepage */
