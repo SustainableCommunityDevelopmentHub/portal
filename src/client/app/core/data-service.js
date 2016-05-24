@@ -37,6 +37,14 @@
         query.push("q=" + opts.q);
       }
 
+      if (opts.date.gte) {
+        query.push("date_gte=" + opts.date.gte);
+      }
+
+      if (opts.date.lte) {
+        query.push("date_lte=" + opts.date.lte);
+      }
+
       opts.facets.forEach(function(facet){
         query.push(facet.category + "=" + facet.value);
       });
@@ -44,6 +52,7 @@
       opts.advancedFields.forEach(function(advanced) {
         query.push(advanced.field.paramName + "=" + advanced.term);
       });
+
 
       var queryPath = query.join("&");
       console.log(queryPath);

@@ -36,7 +36,9 @@ class Books(APIView):
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
     def get(self, request, params, format=None):
+        print(params)
         search_options = urllib.parse.parse_qs(params)
+        print(search_options)
         es = Elasticsearch(['local.portal.dev:9200'])
         body = self.create_base_query()
         filters = []
@@ -104,6 +106,7 @@ class Books(APIView):
         key = keys.get(category)
         if key:
             filters = [{'term': {key: facet}} for facet in facets]
+        print(filters)
         return {'bool': {'should': filters}}
 
     def create_advanced_filters(self, field, terms):
