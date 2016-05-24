@@ -67,18 +67,24 @@
      * Then transitions to Search Results state.
      */
     function search() {
-      var opts = {
-        q: $scope.queryTerm || "",
-        advancedFields: []
-      };
+      var advFields = [];
+      var query = [];
+      if ($scope.queryTerm) {
+        query.push($scope.queryTerm);
+      }
 
       $scope.filters.forEach(function(filter){
         if(filter.term && filter.field !== initialField){
-          opts.advancedFields.push(
+          advFields.push(
             searchService.buildAdvancedField(filter.field, filter.term)
           );
         }
       });
+
+      var opts = {
+        q: query,
+        advancedFields: advFields
+      };
 
       searchService.resetOpts();
       searchService.updateOpts(opts);
