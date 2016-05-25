@@ -113,6 +113,37 @@ hr {
   border-color: #5998c9;
 }
 
+  /* Animations */
+
+   @-webkit-keyframes fadeIn {
+
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadeIn{
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
 
 /* Site Nav */
 
@@ -596,6 +627,11 @@ a.adv:hover, a.adv:focus {
 
 .book-info b {
   line-height: 1.5;
+}
+
+.book-listing {
+  -webkit-animation: fadeIn 0.75s;
+  animation: fadeIn 0.75s;
 }
 
 li.book-listing {
@@ -1474,9 +1510,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   /* Recent Searches */
 
+  
   .saved-searches-list {
     padding-left: 0;
   }
+
 
   li.records-items {
     list-style: none;
@@ -1898,7 +1936,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     /* Recent Searches */
 
-    .search-info {
+
+    #searches .search-info {
       border-right: none;
       border-bottom: 1px solid #eee;
       margin: 15px 0;
