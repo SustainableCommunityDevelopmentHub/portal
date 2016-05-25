@@ -715,11 +715,7 @@ li.book-listing {
   }
 
   .search-facet-group .panel-body {
-    padding: 0 45px 15px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
+    padding: 0 43px 15px;
   }
 
   .search-facet-group .panel-collapse.in.collapse {
