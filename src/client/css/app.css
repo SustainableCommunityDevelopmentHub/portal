@@ -144,7 +144,6 @@ hr {
   }
 
 
-
 /* Site Nav */
 
 .site-nav {
@@ -356,12 +355,14 @@ hr {
 a.adv:hover, a.adv:focus {
   color: #333;
 }
+
 #see-all-btn {
   height: 60px;
   width: 100%;
   margin-bottom: 50px;
   font-size: 18px;
 }
+
   /* Stat Boxes */
 
     .stats {
@@ -446,11 +447,11 @@ a.adv:hover, a.adv:focus {
 }
 
 .add-field-glyph {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-    color: white;
-    background: #909090;
-    border-radius: 15px;
+  padding: 3px 3px 3px 3px;
+  margin-right: 10px;
+  color: white;
+  background: #909090;
+  border-radius: 15px;
 }
 
 .search-btn {
@@ -1532,13 +1533,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-bottom: 30px;
   }
 
-  /* Recent Searches */
 
+  /* Recent Searches */
   
   .saved-searches-list {
     padding-left: 0;
   }
-
 
   li.records-items {
     list-style: none;
@@ -1987,7 +1987,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     /* Recent Searches */
 
 
-    #searches .search-info {
+    .search-info {
       border-right: none;
       border-bottom: 1px solid #eee;
       margin: 15px 0;
