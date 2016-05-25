@@ -111,7 +111,6 @@
      * @param search {object}
      */
     $scope.runSearch = function(search) {
-      SearchService.resetOpts();
       SearchService.updateOpts(search.opts);
       SearchService.transitionStateAndSearch();
     };

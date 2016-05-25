@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['$state', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['$state', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService($state, SearchResParser, _, FACETS, ADVANCED_SEARCH, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService($state, SearchResParser, _, FACETS, ADVANCED_SEARCH, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
@@ -22,7 +22,6 @@
 
     var service = {
       /* variables */
-      returnedPromise: null,
       results: {
         hits: null,
         numTotalHits: null,
