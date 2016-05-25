@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', '_', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, _){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -97,7 +97,6 @@
       var timestamp = Date.now();
       SavedRecordsService.saveSearch(searchOpts, results, timestamp);
     }
-
 
     function getValidPageSizeOptions(numTotalHits){
       var passedThreshold = false;

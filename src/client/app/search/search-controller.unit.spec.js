@@ -10,7 +10,6 @@ describe("Search Controller", function(){
       DEFAULTS,
       SORT_MODES,
       SAVED_ITEMS,
-      defaultSearchObj,
       SavedRecordsService,
       testFacet,
       secondFacet;
@@ -24,7 +23,7 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _SavedRecordsService_, _DEFAULTS_, _SORT_MODES_, _SAVED_ITEMS_, ___){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _SavedRecordsService_, _DEFAULTS_, _SORT_MODES_, _SAVED_ITEMS_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
@@ -33,12 +32,9 @@ describe("Search Controller", function(){
     SORT_MODES = _SORT_MODES_;
     SAVED_ITEMS = _SAVED_ITEMS_;
     SavedRecordsService = _SavedRecordsService_;
-    var _ = ___;
 
     testFacet = SearchService.buildFacet('language', 'French', 270, true);
     secondFacet = SearchService.buildFacet('language', 'German', 65, true);
-
-    defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,

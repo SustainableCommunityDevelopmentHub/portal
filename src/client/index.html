@@ -16,7 +16,6 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/lodash/lodash.min.js"></script>
-    <script src="bower_components/elasticsearch/elasticsearch.angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
@@ -33,12 +32,11 @@
     <!--Core: DataService, constants, etc -->
     <script src="app/core/core.module.js"></script>
     <script src="app/core/constants.js"></script>
-    <!--Must include in order of dependence: esClient, DataService, SearchService-->
-    <script src="app/core/es-client.js"></script>
-    <script src="app/core/es-query-builder.js"></script>
-    <script src="app/core/data-service.js"></script>
+
+    <!--Must include in order of dependence: SearchService, DataService-->
     <script src="app/core/search-res-parser.js"></script>
     <script src="app/core/search-service.js"></script>
+    <script src="app/core/data-service.js"></script>
     <script src="app/core/saved-records-service.js"></script>
     <script src="app/core/storage-service.js"></script>
 

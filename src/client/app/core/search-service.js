@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['$state', 'DataService', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['$state', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService($state, DataService, SearchResParser, _, FACETS, ADVANCED_SEARCH, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService($state, SearchResParser, _, FACETS, ADVANCED_SEARCH, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
@@ -54,7 +54,6 @@
       // search execution
       buildQueryParams: buildQueryParams,
       transitionStateAndSearch: transitionStateAndSearch,
-      executeSearch: executeSearch,
       setResultsData: setResultsData,
     };
 
@@ -381,11 +380,5 @@
     ///////////////////////////////////
 
 
-    function executeSearch(){
-      // if no value set default vals
-
-      console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
-      return DataService.search(this.opts);
-    }
   }
 })();

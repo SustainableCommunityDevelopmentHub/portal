@@ -18,7 +18,7 @@
       // convention is to always pass SearchService.opts
       SearchService.updateOpts(opts);
       console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
-      $state.go('searchResults', SearchService.opts);
+      SearchService.transitionStateAndSearch();
     };
   }])
   .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 

@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['$q', '$http', DataService]);
+  .factory('DataService', ['$q', '$http', 'SearchService', DataService]);
 
   /* DataService - get all data through this service */
-  function DataService($q, $http) {
+  function DataService($q, $http, SearchService) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -55,8 +55,9 @@
       var searchPromise = $http.get('http://127.0.0.1:8000/api/books/' + queryPath);
       var deferred = $q.defer();
       searchPromise.success(function(data) {
-        var results = data[0];
-        results.aggregations = data[1].aggregations;
+        var parsedData = data[0];
+        parsedData.aggregations = data[1].aggregations;
+        var results = SearchService.setResultsData(parsedData);
         deferred.resolve(results);
       }).error(function(response) {
         deferred.reject(arguments);

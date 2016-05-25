@@ -15,11 +15,9 @@
         templateUrl: config.app.root + '/search/search.home.html',
         controller: 'HomePageCtrl',
         resolve: {
-          searchResults: function(SearchService) {
+          searchResults: function(SearchService, DataService) {
             SearchService.resetOpts();
-            return SearchService.executeSearch().then(function(data) {
-              return SearchService.setResultsData(data);
-            });
+            return DataService.search(SearchService.opts);
           }
         }
       })
@@ -106,9 +104,7 @@
 
             console.log('Router - SearchResults - in Resolve - opts: ' + JSON.stringify(opts));
             ss.opts = opts;
-            return DataService.search(ss.opts).then(function(data) {
-              return ss.setResultsData(data);
-            });
+            return DataService.search(ss.opts);
           }
         }
       })
