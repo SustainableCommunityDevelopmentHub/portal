@@ -29,6 +29,7 @@
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
+          q: { array: true},
           // facet options
           creator: { array: true },
           grp_contributor: { array: true },
@@ -48,12 +49,24 @@
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
 
-            opts.q = $stateParams.q;
             opts.size = parseInt($stateParams.size);
             opts.from = parseInt($stateParams.from);
             opts.sort = $stateParams.sort;
             opts.date.gte = $stateParams.date_gte;
             opts.date.lte = $stateParams.date_lte;
+
+            opts.q = [];
+            if ($stateParams.q) {
+              var seen = {};
+              opts.q = $stateParams.q.filter(function(query){
+                if (seen[query]) {
+                  return false;
+                } else {
+                  seen[query] = true;
+                  return true;
+                }
+              });
+            }
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
