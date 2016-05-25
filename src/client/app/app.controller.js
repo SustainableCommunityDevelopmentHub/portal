@@ -4,24 +4,27 @@
 
   angular.module('app.controller', ['ui.bootstrap'])
 
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
-  function($scope, SearchService, $state, searchResults) {
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults', 'SORT_MODES',
+  function($scope, SearchService, $state, searchResults, SORT_MODES) {
 
     $scope.totalTitles = searchResults.numTotalHits;
-    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
 
-    // for when user inits new search.
-    // changes state to search.results, which will trigger search operation.
-    $scope.newSearch = function(opts) {
+    $scope.newSearch =  newSearch;
+    $scope.mostRecentSearch = mostRecentSearch;
+
+    function newSearch(opts) {
       SearchService.resetOpts();
-
-      // convention is to always pass SearchService.opts
       SearchService.updateOpts(opts);
-      console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
-      $state.go('searchResults', SearchService.opts);
-    };
+      SearchService.transitionStateAndSearch();
+    }
+
+    function mostRecentSearch(){
+      SearchService.resetOpts();
+      SearchService.updateOpts({sort: SORT_MODES['date_added'], from: 0});
+      SearchService.transitionStateAndSearch();
+    }
   }])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData',
     function($scope, $stateParams, $window, bookData) {
 
       $scope.book = bookData;
@@ -82,7 +85,7 @@
         {msg: 'Please enter a valid email address.'},
         {msg: 'Email addresses do not match.'}
       ];
-      
+
     }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {
