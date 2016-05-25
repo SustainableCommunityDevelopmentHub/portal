@@ -34,5 +34,19 @@ describe('Home Page', function() {
     });
   });
 
+  it('Should display all records sorted by most recent when use clicks See New Records link', function() {
+		homePage.seeNewRecords();
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(25);
+      expect(homePage.showingResultsDialogue).toEqual('Showing 1 - 25 of 452 results');
+
+      // should reflect sort by date added
+      expect(homePage.getSortButtonText()).toEqual('Sort by: Newly Added First');
+      homePage.getQueryString().then(function(queryString){
+        expect(queryString).toEqual('from=0&size=25&sort=date_added');
+      });
+    });
+  });
+
 });
 

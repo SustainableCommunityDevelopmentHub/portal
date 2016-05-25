@@ -19,7 +19,7 @@
 
     function mostRecentSearch(){
       SearchService.resetOpts();
-      SearchService.updateOpts({sort: SORT_MODES['date_added'], from: 0});
+      SearchService.updateOpts({sort: SORT_MODES.date_added, from: 0});
       SearchService.transitionStateAndSearch();
     }
   }
