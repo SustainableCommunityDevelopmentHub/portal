@@ -33,10 +33,11 @@
      */
     function search(opts){
       var query = ["from=" + opts.from, "size=" + opts.size, "sort=" + opts.sort];
-      if (opts.q) {
-        query.push("q=" + opts.q);
+      if (opts.q.length) {
+        opts.q.forEach(function(queryTerm){
+          query.push("q=" + queryTerm);
+        });
       }
-
       if (opts.date.gte) {
         query.push("date_gte=" + opts.date.gte);
       }

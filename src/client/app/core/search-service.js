@@ -70,7 +70,7 @@
       return {
         from: FROM_DEFAULT,
         size: SIZE_DEFAULT,
-        q: '',
+        q: [],
         sort: SORT_DEFAULT,
         facets: [],
         advancedFields: [],
@@ -149,9 +149,8 @@
     function updateOpts(newOpts){
       newOpts = newOpts || {};
       console.log('SearchService::updateOpts -- newOpts: ' + JSON.stringify(newOpts));
-
-      if(newOpts.q){
-        newOpts.q = newOpts.q.toLowerCase();
+      if (newOpts.q) {
+        this.opts.q = newOpts.q;
       }
       if(newOpts.sort && (typeof newOpts.sort === 'object') && newOpts.sort.mode){
         newOpts.sort = newOpts.sort.mode;

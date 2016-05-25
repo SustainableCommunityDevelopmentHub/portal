@@ -21,23 +21,12 @@
           }
         }
       })
-      .state('test', {
-        url: '/test',
-        templateUrl: config.app.root + '/search/search.home.html',
-        resolve: {
-          data: function($http) {
-            return $http.get('http://127.0.0.1:8000/api/test').then(function(stuff) {
-              console.log(stuff);
-            });
-          }
-        }
-      })
-
       .state('searchResults', {
         url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
+          q: { array: true},
           // facet options
           creator: { array: true },
           grp_contributor: { array: true },
@@ -56,10 +45,7 @@
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
-
-            if ($stateParams.q) {
-              opts.q = $stateParams.q.toLowerCase();
-            }
+            
             if ($stateParams.size) {
               opts.size = parseInt($stateParams.size);
             }
@@ -74,6 +60,21 @@
             }
             if ($stateParams.date_lte) {
               opts.date.lte = parseInt($stateParams.date_lte);
+            }
+            
+            if ($stateParams.q) {
+              var seen = {};
+              opts.q = $stateParams.q.filter(function(term){
+                if (seen[term]) {
+                  return false;
+                } else {
+                  seen[term] = true;
+                  return true;
+                }
+              });
+              opts.q = opts.q.map(function(term) {
+                return term.toLowerCase();
+              });
             }
 
             // build opts for facet options

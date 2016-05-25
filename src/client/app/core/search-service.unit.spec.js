@@ -83,7 +83,7 @@ describe('SearchService Unit Tests', function(){
       var opts = SearchService.getDefaultOptsObj();
       expect(opts.from).toEqual(0);
       expect(opts.size).toEqual(25);
-      expect(opts.q).toEqual('');
+      expect(opts.q).toEqual([]);
       expect(opts.sort).toEqual('relevance');
       expect(opts.facets).toEqual([]);
       expect(opts.advancedFields).toEqual([]);
@@ -93,7 +93,7 @@ describe('SearchService Unit Tests', function(){
     it('should clear all search options and reset default vals when resetOpts() is called', function(){
       // create some opts
       SearchService.opts = SearchService.getDefaultOptsObj();
-      SearchService.opts.q = 'painting';
+      SearchService.opts.q = ['painting'];
       SearchService.opts.size = 100;
       SearchService.opts.from = 100;
       SearchService.opts.sort = 'date_added';
@@ -380,20 +380,4 @@ describe('SearchService Unit Tests', function(){
       });
     });
   });
-
-  describe('executeSearch', function(){
-    beforeEach(function(){
-      SearchService.resetOpts();
-      spyOn(DataService, 'search');
-    });
-    it('should lowercase the q query term', function(){
-      var opts = SearchService.getDefaultOptsObj();
-      SearchService.opts.q = 'FOOBAR';
-      opts.q = 'foobar';
-      SearchService.transitionStateAndSearch();
-      expect(DataService.search).toHaveBeenCalledWith(opts);
-    });
-
-  });
-
 });

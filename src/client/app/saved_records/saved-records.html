@@ -65,8 +65,8 @@
               <div class="search-info">
                 <div class="saved-search-title"><p>Search Terms:</p></div>
                 <div class="saved-search-terms">
-                  <a ng-show="search.opts.q" ng-click="runSearch(search)">{{ search.opts.q }}</a>
-                  <a ng-show="!search.opts.q" ng-click="runSearch(search)">No search term</a>
+                  <a ng-show="search.opts.q.length" ng-click="runSearch(search)">{{ search.opts.q.join(", ") }}</a>
+                  <a ng-show="!search.opts.q.length" ng-click="runSearch(search)">No search term</a>
                 </div>
                 <div class="saved-search-title search-filters-heading" ng-show="search.opts.facets.length"><p>Filters:</p></div>
                 <div>
