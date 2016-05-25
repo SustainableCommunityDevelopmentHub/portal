@@ -3,27 +3,6 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults', 'SORT_MODES',
-  function($scope, SearchService, $state, searchResults, SORT_MODES) {
-
-    $scope.totalTitles = searchResults.numTotalHits;
-
-    $scope.newSearch =  newSearch;
-    $scope.mostRecentSearch = mostRecentSearch;
-
-    function newSearch(opts) {
-      SearchService.resetOpts();
-      SearchService.updateOpts(opts);
-      SearchService.transitionStateAndSearch();
-    }
-
-    function mostRecentSearch(){
-      SearchService.resetOpts();
-      SearchService.updateOpts({sort: SORT_MODES['date_added'], from: 0});
-      SearchService.transitionStateAndSearch();
-    }
-  }])
   .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData',
     function($scope, $stateParams, $window, bookData) {
 
