@@ -4,7 +4,7 @@
 
 describe('Contributors page tests', function() {
 
-	var scope, controller, searchService, mockInstitutions;
+	var scope, controller, searchService, mockInstitutions, dataService;
 
 	var contribESQuery = {"index":"portal","type":"book","body":{"aggregations":{"grp_contributor":{"terms":{"field":"_grp_contributor.raw","size":1000,"order":{"_count": "desc"}}}}}};
 
@@ -21,9 +21,10 @@ describe('Contributors page tests', function() {
 	});
 
 
-	beforeEach(inject(function($rootScope, $controller, SearchService, $q){
+	beforeEach(inject(function($rootScope, $controller, SearchService, DataService){
 		scope = $rootScope.$new();
 		searchService = SearchService;
+		dataService = DataService;
 
 		controller = $controller('ContributorsCtrl', {
 			'$scope': scope,
@@ -41,10 +42,10 @@ describe('Contributors page tests', function() {
 			expect(searchService.resetOpts).toHaveBeenCalled();
 		});
 
-		it("should call Search Service's executeSearch() when calling contribSearch", function(){
-      spyOn(searchService, 'executeSearch');
+		it("should call Data Service's search() when calling contribSearch", function(){
+      spyOn(dataService, 'search');
 	    scope.contribSearch(mockInstitutions[0].key);
-      expect(searchService.executeSearch).toHaveBeenCalled();
+      expect(dataService.search).toHaveBeenCalled();
 	  });
 
 		it("should correctly update Search Service's opts.facets when calling contribSearch", function(){

@@ -391,43 +391,8 @@ describe('SearchService Unit Tests', function(){
       var opts = SearchService.getDefaultOptsObj();
       SearchService.opts.q = 'FOOBAR';
       opts.q = 'foobar';
-      SearchService.executeSearch();
+      SearchService.transitionStateAndSearch();
       expect(DataService.search).toHaveBeenCalledWith(opts);
-    });
-    it('should set q to empty string if missing', function(){
-      var defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.q;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
-    });
-    it('should set size and from params to defaults if missing', function(){
-      var defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.size;
-      delete SearchService.opts.from;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
-    });
-    it('should set sort to default param if missing', function(){
-      var defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.sort;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
-    });
-    it('should apply defaults for date if missing', function(){
-      var defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.date;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
-
-      defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.date.gte;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
-
-      defaults = SearchService.getDefaultOptsObj();
-      delete SearchService.opts.date.lte;
-      SearchService.executeSearch();
-      expect(DataService.search).toHaveBeenCalledWith(defaults);
     });
 
   });

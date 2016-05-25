@@ -92,17 +92,13 @@
       // default settings
       var queryParams = {};
       queryParams.q = this.opts.q;
-      queryParams.from = this.opts.from || FROM_DEFAULT;
-      queryParams.size = this.opts.size || SIZE_DEFAULT;
+      queryParams.from = this.opts.from;
+      queryParams.size = this.opts.size;
       queryParams.sort = this.opts.sort;
 
       // date range
-      if(this.opts.date.gte){
-        queryParams.date_gte = this.opts.date.gte;
-      }
-      if(this.opts.date.lte){
-        queryParams.date_lte = this.opts.date.lte;
-      }
+      queryParams.date_gte = this.opts.date.gte;
+      queryParams.date_lte = this.opts.date.lte;
 
       // facet options and advanced fields
       // for state transitions this needed if inherit = true to prevent zombie query params.
@@ -387,32 +383,6 @@
 
     function executeSearch(){
       // if no value set default vals
-      if(!this.opts.q){
-        this.opts.q = '';
-      }
-      this.opts.q = this.opts.q.toLowerCase();
-
-      if(!this.opts.from){
-        this.opts.from = FROM_DEFAULT;
-      }
-      if(!this.opts.size){
-        this.opts.size = SIZE_DEFAULT;
-      }
-      if(!this.opts.sort){
-        this.opts.sort = SORT_DEFAULT;
-      }
-      this.opts.sort.toLowerCase();
-
-      if(!this.opts.date) {
-        this.opts.date = {
-          gte: null,
-          lte: null
-        };
-      }
-      else {
-        if(!this.opts.date.gte) { this.opts.date.gte = null; }
-        if(!this.opts.date.lte) { this.opts.date.lte = null; }
-      }
 
       console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
       return DataService.search(this.opts);

@@ -44,18 +44,14 @@
       if (opts.date.lte) {
         query.push("date_lte=" + opts.date.lte);
       }
-
       opts.facets.forEach(function(facet){
         query.push(facet.category + "=" + facet.value);
       });
-
       opts.advancedFields.forEach(function(advanced) {
         query.push(advanced.field.paramName + "=" + advanced.term);
       });
 
-
       var queryPath = query.join("&");
-      console.log(queryPath);
       var searchPromise = $http.get('http://127.0.0.1:8000/api/books/' + queryPath);
       var deferred = $q.defer();
       searchPromise.success(function(data) {

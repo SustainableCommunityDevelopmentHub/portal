@@ -129,3 +129,28 @@ class APITests(TestCase):
             "Illustrated catalogue : paintings in the Metropolitan Museum of Art, New York."], "_id": "gri_9921999570001551"}]
 
         self.assertEqual(response.data[0]['hits']['hits'], search_data)
+
+    def test_sort_relevance(self):
+        books = Books.as_view()
+        sortQuery = books.create_sort_query('relevance')
+        assertEqual(sortQuery, [])
+
+    def test_pub_date_sort(self):
+        books = Books.as_view()
+        sortQuery = books.create_sort_query('date_asc')
+        assertEqual(sortQuery, '_date_facet')
+        sortQuery = books.create_sort_query('date_desc')
+        assertEqual(sortQuery, {'_date_facet': {'order': 'desc'}})
+
+    def test_date_added_sort(self):
+        books = Books.as_view()
+        sortQuery = books.create_sort_query('date_added')
+        assertEqual(sortQuery, {'_ingest_date': {'order': 'desc'}})
+
+    def test_title_sort(self):
+        books = Books.as_view()
+        sortQuery = books.create_sort_query('title_asc')
+        assertEqual(sortQuery, '_title_display.sort')
+
+        sortQuery = books.create_sort_query('title_desc')
+        assertEqual(sortQuery, {'_title_display.sort': {'order': 'desc'}})

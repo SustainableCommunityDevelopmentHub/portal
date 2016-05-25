@@ -54,17 +54,29 @@
           adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, SORT_MODES, ADVANCED_SEARCH){
+          searchResults: function($stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
 
-            opts.q = $stateParams.q;
-            opts.size = parseInt($stateParams.size);
-            opts.from = parseInt($stateParams.from);
-            opts.sort = $stateParams.sort;
-            opts.date.gte = $stateParams.date_gte;
-            opts.date.lte = $stateParams.date_lte;
+            if ($stateParams.q) {
+              opts.q = $stateParams.q.toLowerCase();
+            }
+            if ($stateParams.size) {
+              opts.size = parseInt($stateParams.size);
+            }
+            if ($stateParams.from) {
+              opts.from = parseInt($stateParams.from);
+            }
+            if ($stateParams.sort) {
+              opts.sort = $stateParams.sort.toLowerCase();
+            }
+            if ($stateParams.date_gte) {
+              opts.date.gte = parseInt($stateParams.date_gte);
+            }
+            if ($stateParams.date_lte) {
+              opts.date.lte = parseInt($stateParams.date_lte);
+            }
 
             // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
@@ -92,10 +104,9 @@
               }
             });
 
-
             console.log('Router - SearchResults - in Resolve - opts: ' + JSON.stringify(opts));
             ss.opts = opts;
-            return ss.executeSearch().then(function(data) {
+            return DataService.search(ss.opts).then(function(data) {
               return ss.setResultsData(data);
             });
           }

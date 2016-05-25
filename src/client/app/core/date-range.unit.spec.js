@@ -116,8 +116,8 @@ describe("Date Range Filter", function() {
   describe("Tests for building elasticsearch date range query", function(){
     beforeEach(function(){
       opts = {"facets":[],"page":1,"from":'0', size: 25};
-      scope.fromDate = "1900";
-      scope.toDate = "1905";
+      scope.fromDate = 1900;
+      scope.toDate = 1905;
     });
 
     afterEach(function(){

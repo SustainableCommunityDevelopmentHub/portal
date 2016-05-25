@@ -29,11 +29,12 @@ describe("Save Record Button Directive", function() {
     };
   });
 
-  beforeEach(function(){
+  beforeEach(inject(function($httpBackend) {
+    $httpBackend.whenGET("http://127.0.0.1:8000/api/books/from=0&size=25&sort=relevance").respond({});
     elem = angular.element('<save-record-button></save-record-button>');
     $compile(elem)(scope);
     scope.$digest();
-  });
+  }));
 
   afterEach(function(){
     localStorage.removeItem(SAVED_ITEMS.recordKey);
