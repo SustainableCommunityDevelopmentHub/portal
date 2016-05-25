@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['esClient', 'esQueryBuilder', '$q', '$http', DataService]);
+  .factory('DataService', ['$q', '$http', DataService]);
 
   /* DataService - get all data through this service */
-  function DataService(esClient, esQueryBuilder, $q, $http) {
+  function DataService($q, $http) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////

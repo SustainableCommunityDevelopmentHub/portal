@@ -3,13 +3,10 @@ describe("Sorting tests", function() {
       controller,
       $state,
       data,
-      es,
       opts,
       SearchService,
       SavedRecordsService,
-      queryBuilder,
-      sortModes,
-      baseESQuery;
+      sortModes;
 
   beforeEach(function(){
     module('ui.router');
@@ -20,19 +17,14 @@ describe("Sorting tests", function() {
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_,  _SearchService_, _SavedRecordsService_, _DataService_, esClient, esQueryBuilder, SORT_MODES, ___){
+  beforeEach(inject(function($rootScope, $controller, _$state_,  _SearchService_, _SavedRecordsService_, _DataService_, SORT_MODES, ___){
     data = _DataService_;
-    es = esClient;
-    queryBuilder = esQueryBuilder;
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
     SavedRecordsService = _SavedRecordsService_;
     sortModes = SORT_MODES;
     _ = ___;
-
-    // reset baseESQuery
-    baseESQuery = queryBuilder.buildSearchQuery({});
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,

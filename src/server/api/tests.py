@@ -154,3 +154,10 @@ class APITests(TestCase):
 
         sortQuery = books.create_sort_query('title_desc')
         assertEqual(sortQuery, {'_title_display.sort': {'order': 'desc'}})
+
+    def test_date_query(self):
+        books = Books.as_view()
+        dateQuery = books.create_date_query(['1900'], ['1905'])
+        correctDateQuery = {'range': {'_date_facet': {'gte': '1900',
+                                                      'lte': '1905'}}}
+        assertEqual(dateQuery, correctDateQuery)

@@ -28,7 +28,6 @@ describe("Search Controller", function(){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
-    //scope.activeFacets = [];
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
     DEFAULTS = _DEFAULTS_;
     SORT_MODES = _SORT_MODES_;

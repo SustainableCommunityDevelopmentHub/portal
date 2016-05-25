@@ -4,7 +4,6 @@ describe("Save Record Button Directive", function() {
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
     module('app');
   });
