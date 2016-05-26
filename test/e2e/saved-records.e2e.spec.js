@@ -120,7 +120,22 @@ describe('Saved Records Page', function() {
 
     resultsPage.getHits().then(function(hits) {
       expect(hits.length).toEqual(20);
+      });
     });
+
+  it('should run a clean search when clicking search term (no filters from previous searches)', function() {
+    //saves a search with no search term
+    resultsPage.toggleFacetOption('subject', 'Art');
+    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.submitNewSearchTerm('painting');
+    browser.waitForAngular();
+    savedRecordsPage = new SavedRecordsPage();
+    savedRecordsPage.clickRecentSearches();
+    //click on the search with no search term and no facets
+    savedRecordsPage.clickSearchByText('No search term');
+    browser.waitForAngular();
+    expect(resultsPage.getQueryTerms().count()).toBe(0);
+    expect(resultsPage.facetChips.count()).toBe(0);
   });
 
   it('should remove searches when clicking the remove button', function () {
