@@ -464,7 +464,6 @@ a.adv:hover, a.adv:focus {
 .facet-chip-list li {
   display: inline-block;
   list-style: none;
-  height: 90%;
   padding-left: 1px;
   padding-right: 1px;
 }
@@ -796,7 +795,7 @@ li.book-listing {
 
   #date-btn-results {
     height: 30px;
-    width: 33px;
+    width: 30px;
     margin: 0;
     padding: 0 0 0 3px;
   }
