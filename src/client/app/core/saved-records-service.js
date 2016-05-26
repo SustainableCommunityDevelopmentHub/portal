@@ -169,7 +169,7 @@
             if(type === SAVED_ITEMS.recordKey) {
               return record._id !== item._id;
             } else {
-              return !_.isEqual(item, record);
+              return item.time !== record.time;
             }
           });
           items[type] = newRecords;
