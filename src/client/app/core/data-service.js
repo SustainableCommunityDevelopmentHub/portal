@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['$q', '$http', 'SearchService', DataService]);
+  .factory('DataService', ['$q', '$http', 'config', 'SearchService', DataService]);
 
   /* DataService - get all data through this service */
-  function DataService($q, $http, SearchService) {
+  function DataService($q, $http, config, SearchService) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -25,11 +25,9 @@
     //////////////////////////////////
 
     /**
-     * Call ES for general search query. Use multi search call
-     * so search query scope (filters) are not applied to aggs. See ES docs.
+     * Call django api for general search query. Use multi search call
      * @param {object} opts search opts - see SearchService for more details.
-     * @returns {promise} ES response object wrapped in a promise.
-     *                    Is arr of 2 objs, 1st one query, 2nd aggs.
+     * @returns {promise} results data wrapped in a promise.
      */
     function search(opts){
       var query = ["from=" + opts.from, "size=" + opts.size, "sort=" + opts.sort];
@@ -53,7 +51,7 @@
       });
 
       var queryPath = query.join("&");
-      var searchPromise = $http.get('http://127.0.0.1:8000/api/books/' + queryPath);
+      var searchPromise = $http.get(config.django.host + ':' + config.django.port + '/api/books/' + queryPath);
       var deferred = $q.defer();
       searchPromise.success(function(data) {
         var parsedData = data[0];
@@ -67,8 +65,12 @@
       return deferred.promise;
     }
 
+    /**
+     * Gets data from django api for contributors
+     * @returns promise with data from django api
+     */
     function getContributors(){
-      var contributorsPromise = $http.get('http://127.0.0.1:8000/api/contributors');
+      var contributorsPromise = $http.get(config.django.host + ':' + config.django.port + '/api/contributors');
       var deferred = $q.defer();
       contributorsPromise.success(function(data) {
         deferred.resolve(data);
@@ -79,13 +81,13 @@
     }
 
     /**
-     * Gets data from elasticsearch client for particular book record
+     * Gets data from django api for particular book record
      * @param bookID {string} id of record to get
-     * @returns response from elasticsearch
+     * @returns promise with data from django api
      */
     function getBookData(bookID){
       console.log('getting book data');
-      var bookPromise = $http.get('http://127.0.0.1:8000/api/book/' + bookID);
+      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
       var deferred = $q.defer();
       bookPromise.success(function (data) {
         var bookData = data._source;

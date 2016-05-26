@@ -10,6 +10,10 @@
         },
         app: {
           root: 'app'
+        },
+        django: {
+          host: 'http://127.0.0.1',
+          port: '8000'
         }
     })
     .constant('FACETS', {
