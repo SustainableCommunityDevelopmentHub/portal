@@ -123,7 +123,7 @@ describe('Saved Records Page', function() {
     });
   });
 
-  fit('should remove searches when clicking the remove button', function () {
+  it('should remove searches when clicking the remove button', function () {
     resultsPage.submitNewSearchTerm('painting');
     browser.waitForAngular();
     resultsPage.submitNewSearchTerm('history');
