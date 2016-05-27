@@ -444,7 +444,7 @@ a.adv:hover, a.adv:focus {
 .facet-chip-search-bar {
   display: inline-block;
   min-height: 40px;
-  width: 93%;
+  width: 100%;
   margin-bottom: 10px;
   padding: 0px 4px;
   float: left;
@@ -523,11 +523,14 @@ a.adv:hover, a.adv:focus {
   border-bottom: 1px solid #ddd;
 }
 
+.go-btn-results-col {
+  padding-left: 0;
+}
+
 #go-btn-results, #date-btn-results {
-  margin-left: 10px;
+  padding: 0 15px;
   border-radius: 2px;
   height: 40px;
-  width: 40px;
 }
 
 .paging {
@@ -714,7 +717,7 @@ li.book-listing {
   }
 
   .search-facet-group .panel-body {
-    padding: 0 43px 15px;
+    padding: 0 40px 15px;
   }
 
   .search-facet-group .panel-collapse.in.collapse {
@@ -1614,8 +1617,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     .facet-header-desktop {
-    margin-bottom: 35px;
-  }
+      margin-bottom: 35px;
+    }
 
     .facet-header-desktop h6 {
       margin-bottom: 10px;
@@ -1671,7 +1674,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       display: none;
     }
 
-
     /* Search Results */
 
     #facets-mobile {
@@ -1694,8 +1696,20 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       float: left;
     }
 
+    .search-bar-results-container-col {
+      padding-right: 0;
+    }
+
+    .go-btn-results-col {
+      padding-left: 10px;
+    }
+
+    #go-btn-results {
+      float: right;
+    }
+
     .results-list {
-      padding: 10px 10px 80px;
+      padding-bottom: 80px;
     }
 
     #sorting {
@@ -1824,8 +1838,27 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     #clear-all {
       height: 30px;
       margin: 10px;
-      padding: 0 15px;
-      font-size: 14px;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    .row .search-bar-container {
+      margin-right: -10px;
+      margin-left: -10px;
+    }
+
+    .search-bar-results-container-col {
+      padding-right: 0;
+    }
+
+    .go-btn-results-col {
+      padding-right: 10px;
+      padding-left: 10px
+    }
+
+    #go-btn-results {
+      float: right;
+      width: 100%
     }
 
     .results-list {
