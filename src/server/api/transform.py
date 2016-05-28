@@ -4,62 +4,114 @@ def dc_export(response):
 	source = response['_source']
 	metadata_rec = source['dublin_core']
 
-	for key, values in metadata_rec.items():
-		if key == 'title':
-			title(values, dublin_core)
-		elif key == 'creator':
-			creator(values, dublin_core)
-		elif key == 'contributor':
-			contributor(values, dublin_core)
+	unqualified_fields = [
+		'creator',
+		'contributor',
+		'publisher',
+		'language',
+		'accrualMethod',
+		'accrualPeriodicity',
+		'audience',
+		'provenance',
+		'source',
+		'subject',
+		'type'
+	]
 
+	complex_fields = [
+		'title',
+		'description',
+		'identifier',
+		'coverage',
+		'format',
+		'relation',
+		'rights'
+	]
+
+	for key, values in metadata_rec.items():
+		if key in unqualified_fields:
+			unqualified_field(key, values, dublin_core)
+		elif key in complex_fields:
+			complex_field(key, values, dublin_core)
+		elif key == 'date':
+			date(values, dublin_core)
 
 	return dublin_core
 
-def title(values, dublin_core):
-	titles = []
-	alternatives = []
+def unqualified_field(field, values, dublin_core):
+	fields = []
+	for item in values:
+		value = item['value']
+		fields.append(value)
+
+	if len(fields) == 1:
+		dublin_core[field] = fields[0]
+	elif len(fields) > 1:
+		dublin_core[field] = fields
+
+	return dublin_core
+
+def complex_field(field, values, dublin_core):
+	fields = []
 	for item in values:
 		if 'qualifier' in item:
-			value = item['value']
-			alternatives.append(value)
+			qualifier = item['qualifier']
+			qualified_field(qualifier, item, dublin_core)
 		else:
 			value = item['value']
-			titles.append(value)
-	
-	if len(titles) == 1:
-		dublin_core['title'] = titles[0]
-	elif len(titles) > 1:
-		dublin_core['title'] = titles
-	if len(alternatives) == 1:
-		dublin_core['alternative'] = alternatives[0]
-	elif len(alternatives) > 1:
-		dublin_core['alternative'] = alternatives
+			fields.append(value)
+
+	if len(fields) == 1:
+		dublin_core[field] = fields[0]
+	elif len(fields) > 1:
+		dublin_core[field] = fields
 
 	return dublin_core
 
-def creator(values, dublin_core):
-	creators = []
-	for item in values:
-		value = item['value']
-		creators.append(value)
+def qualified_field(qualifier, item, dublin_core):
+	qualified_fields = []
+	value = item['value']
+	qualified_fields.append(value)
 
-	if len(creators) == 1:
-		dublin_core['creator'] = creators[0]
-	elif len(creators) > 1:
-		dublin_core['creator'] = creators
+	if len(qualified_fields) == 1:
+		dublin_core[qualifier] = qualified_fields[0]
+	elif len(qualified_fields) > 1:
+		dublin_core[qualifier] = qualified_fields
 
 	return dublin_core
 
-def contributor(values, dublin_core):
-	contributors = []
+def date(values, dublin_core):
+	dates = []
+	datesCopyrighted = []
 	for item in values:
-		value = item['value']
-		contributors.append(value)
+		if 'qualifier' in item:
+			if item['qualifier'] == 'issued':
+				qualified_field('issued', item, dublin_core)
+			elif item['qualifier'] == 'created':
+				qualified_field('created', item, dublin_core)
+			elif item['qualifier'] == 'copyrighted':
+				value = item['value']
+				datesCopyrighted.append(value)
+			elif item['qualifier'] == 'valid':
+				qualified_field('valid', item, dublin_core)
+			elif item['qualifier'] == 'modified':
+				qualified_field('modified', item, dublin_core)
+			else:
+				value = item['value']
+				dates.append(value)
+		else:
+			value = item['value']
+			dates.append(value)
 
-	if len(contributors) == 1:
-		dublin_core['contributor'] = contributors[0]
-	elif len(contributors) > 1:
-		dublin_core['contributor'] = contributors
+	if len(datesCopyrighted) == 1:
+		dublin_core['dateCopyrighted'] = datesCopyrighted[0]
+	elif len(datesCopyrighted) > 1:
+		dublin_core['dateCopyrighted'] = datesCopyrighted
+
+	if len(dates) == 1:
+		dublin_core['date'] = dates[0]
+	elif len(dates) > 1:
+		dublin_core['date'] = dates
 
 	return dublin_core
 
