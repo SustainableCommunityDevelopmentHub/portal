@@ -109,5 +109,6 @@ REST_FRAMEWORK = {
     'rest_framework.renderers.JSONRenderer',
     'rest_framework_xml.renderers.XMLRenderer',
     'rest_framework.renderers.BrowsableAPIRenderer',
+    'api.renderers.RISRenderer',
   )
 }
