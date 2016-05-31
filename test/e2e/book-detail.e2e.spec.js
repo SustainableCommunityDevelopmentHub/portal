@@ -1,27 +1,15 @@
 // book-detail.spec.js
+'use strict';
+
+var BookDetailPage = require('../page_objects/book-detail.page.js');
+var ResultsPage = require('../page_objects/results.page.js');
+
 describe('Book Detail', function() {
 
-  
-  var searchBtn = element(by.id('go-btn'));
-  var firstResult = element(by.css('.book-title'));
-  var exportBtn = element(by.id('exportBtn'));
-  var testData = JSON.stringify(require('../../mocks/book.json'));
-  var testQuery = 'bpt6k63442281';
-    
-  
+  var bookDetailPage;
+
   beforeEach(function() {
-    browser.get('');
-    element(by.model('queryTerm')).sendKeys(testQuery);
-    searchBtn.click();
-    browser.wait(function() {
-      return firstResult.isPresent();
-    }, 1000);
-    var bookId;
-    firstResult.evaluate('book._id').then(function(value) {
-      bookId = value;
-      var itemUrl = 'books/' + bookId;
-      browser.get(itemUrl);
-    });
+    bookDetailPage = new BookDetailPage();
   });
 
   it('should return an item page with 2 entries in Type field', function() {
@@ -35,10 +23,29 @@ describe('Book Detail', function() {
   });
 
   it('should download record in JSON format on click', function() {
-    exportBtn.click();
+    var testData = JSON.stringify(require('../../mocks/book.json'));
+    bookDetailPage.clickExport();
     $('.saveJson').click();
     var fileContents = $('.saveJson').evaluate('fileContents');
     expect(fileContents).toEqual(testData);
+  });
+
+  it('should send user to digital item on click of view digital item', function() {
+    bookDetailPage.clickViewDigitalItem();
+    browser.ignoreSynchronization = true;
+    expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
+    browser.ignoreSynchronization = false;
+  });
+
+  it('should open print dialog on click of print', function() {
+    var result = browser.executeAsyncScript(function (elm, callback) {
+      function listener() {
+        callback(true);
+      }
+      window.print = listener;
+      elm.click();
+    }, bookDetailPage.getPrintButton().getWebElement());
+    expect(result).toBe(true);
   });
 
   

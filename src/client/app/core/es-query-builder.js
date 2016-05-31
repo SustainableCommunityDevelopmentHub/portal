@@ -65,10 +65,11 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         //console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
+        console.log(opts.q.join(" "));
         fullQuery.body.query.bool.must =
           {
             query_string: {
-              query: opts.q,
+              query: opts.q.join(" "),
               minimum_should_match: '2<-1 5<75%',
               fields: [
                 '_record_link',

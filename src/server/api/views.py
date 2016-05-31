@@ -138,8 +138,9 @@ class Books(APIView):
         return query
 
     def create_query_string(self, q):
-        if q:
-            return {'query_string': {'query': q[0],
+        if q and len(q):
+            query = " ".join(q)
+            return {'query_string': {'query': query,
                                      'minimum_should_match': '2<-1 5<75%',
                                      'fields': ['_record_link',
                                                 '_language',

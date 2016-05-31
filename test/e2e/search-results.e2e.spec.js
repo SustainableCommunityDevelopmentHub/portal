@@ -127,7 +127,7 @@ describe('Search Results', function() {
   });
 
   it('should update bookmarks for records saved in other tabs', function() {
-    resultsPage.submitNewSearchTerm('paintings');
+    resultsPage.submitNewSearchTerm('bpt6k63442281');
     resultsPage.toggleSavingRecord(0);
     resultsPage.getBookMark(0).getAttribute('class').then(function(classes){
       var classNames = classes.split(' ');
@@ -187,6 +187,29 @@ describe('Search Results', function() {
     var facets = resultsPage.getFacetChipsNoResults();
     expect(facets.count()).toBe(1);
     expect(facets.get(0).getText()).toEqual("German (Language)");
+  });
+
+  it('should display a separate chip for each keyword search', function() {
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('painting');
+    resultsPage.submitNewSearchTerm('art history')
+    expect(resultsPage.getQueryTerms().count()).toBe(3);
+  });
+
+  it('should not allow for duplicate query terms', function(){
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('art');
+    expect(resultsPage.getQueryTerms().count()).toBe(1);
+    expect(resultsPage.getQueryTerms().get(0).getText()).toEqual('art (Keyword)');
+  });
+
+  it('should clear individual keywords separately', function() {
+    resultsPage.submitNewSearchTerm('art');
+    resultsPage.submitNewSearchTerm('painting');
+    expect(resultsPage.getQueryTerms().count()).toBe(2);
+    resultsPage.getFacetChip(1).click();
+    expect(resultsPage.getQueryTerms().count()).toBe(1);
   });
 
 
