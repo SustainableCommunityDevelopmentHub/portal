@@ -12,7 +12,7 @@
     // abstract state used to load other search states
       .state('home', {
         url: '/',
-        templateUrl: config.app.root + '/search/search.home.html',
+        templateUrl: config.app.root + '/home/home.html',
         controller: 'HomePageCtrl',
         resolve: {
           searchResults: function(SearchService) {

@@ -1,13 +1,15 @@
 /* App Module */
-(function() { 
+(function() {
   'use strict';
 
   angular.module('app', [
     'ui.router',
     'ui.bootstrap',
+    'app.env.config',
     'app.core',
     'app.widgets',
     'angularUtils.directives.dirPagination',
+    'app.home',
     'app.search',
     'app.saved-records',
     'app.advanced-search',
