@@ -52,6 +52,20 @@
     "angularConfigDevelop": "./config/develop/app.env.config.json",
     "angularConfigProd": "./config/prod/app.env.config.json",
     "angularConfigFilePath": "./src/client/app/app.env.config.js",
-    "angularSource": "./src/client/app"
+    "angularSource": "./src/client/app",
+
+    "vendorjs": [
+      "./src/client/bower_components/angular.min.js",
+      "./src/client/bower_components/lodash/lodash.min.js",
+      "./src/client/bower_components/elasticsearch/elasticsearch.angular.min.js",
+      "./src/client/bower_components/angular-animate/angular-animate.min.js",
+      "./src/client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
+      "./src/client/bower_components/angular-resource/angular-resource.min.js",
+      "./src/client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+      "./src/client/bower_components/angularUtils-pagination/dirPagination.js",
+      "./src/client/bower_components/angular-print/angularPrint.js",
+      "./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js",
+      "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js"
+    ]
   }
 }
