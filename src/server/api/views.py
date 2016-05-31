@@ -13,7 +13,7 @@ from api.transform import dc_export
 
 
 class Book(APIView):
-    def get(self, request, id, raw=False, format=None):
+    def get(self, request, id, raw=True, format=None):
         es = Elasticsearch(['local.portal.dev:9200'])
         book_id = id
         response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
