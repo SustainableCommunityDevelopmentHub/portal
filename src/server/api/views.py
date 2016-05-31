@@ -16,7 +16,7 @@ from api.transform import dc_export
 ELASTICSEARCH_ADDRESS = settings.ELASTICSEARCH_HOST + ":" + settings.ELASTICSEARCH_PORT
 
 class Book(APIView):
-    def get(self, request, id, raw=False, format=None):
+    def get(self, request, id, raw=True, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
         response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)

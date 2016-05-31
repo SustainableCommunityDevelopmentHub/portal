@@ -90,3 +90,4 @@ class TestESHelperFunctions(TestCase):
                                    'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded']}}]
         advanced_filter = es_functions.create_advanced_filters('adv_language', ['English'])
         self.assertEqual(advanced_filter, correct_filter)
+
