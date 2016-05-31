@@ -126,16 +126,24 @@ describe('Saved Records Page', function() {
   it('should remove searches when clicking the remove button', function () {
     resultsPage.submitNewSearchTerm('painting');
     browser.waitForAngular();
+    resultsPage.submitNewSearchTerm('history');
+    resultsPage.submitNewSearchTerm('England');
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.getQueryTerms().get(0).click();
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
     browser.waitForAngular();
-    savedRecordsPage.getAllSearches().then(function(searches) {
-      expect(searches.length).toBe(3);
-    });
+    expect(savedRecordsPage.getAllSearches().count()).toBe(7);
     savedRecordsPage.removeSearch(0);
-    savedRecordsPage.getAllSearches().then(function(searches) {
-      expect(searches.length).toBe(2);
-    });
+    expect(savedRecordsPage.getAllSearches().count()).toBe(6);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(0);
+    expect(savedRecordsPage.getAllSearches().count()).toBe(0);
   });
 
 });

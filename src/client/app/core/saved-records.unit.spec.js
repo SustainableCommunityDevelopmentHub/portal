@@ -123,10 +123,14 @@ describe("Saved Records Service", function() {
     it('should remove searches', function() {
       var timestamp = Date.now();
       SavedRecordsService.saveSearch(opts, numResults, timestamp);
+      opts.q = "new term";
+      SavedRecordsService.saveSearch(opts, numResults, Date.now() + 10);
+      opts.q = "another new term";
+      SavedRecordsService.saveSearch(opts, numResults, Date.now() + 20);
       var searches = SavedRecordsService.getSearches();
       SavedRecordsService.removeSearch(searches[0]);
       var remainingSearches = SavedRecordsService.getSearches();
-      expect(remainingSearches.length).toEqual(0);
+      expect(remainingSearches.length).toEqual(2);
     });
 
     it('should save searches when previous searches are not in correct format', function() {
