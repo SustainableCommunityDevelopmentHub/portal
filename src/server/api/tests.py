@@ -1,6 +1,7 @@
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory
 from api.views import Book, Books, Contributors
+from api.renderers import RISRenderer
 
 import json
 
@@ -21,13 +22,32 @@ class APITests(TestCase):
         response = contributors.get(request)
         self.assertEqual(response.data, contributors_data)
 
-    def test_book(self):
+    def test_raw(self):
         book = Book.as_view()
         book_data = {"_type":"book","_index":"portal","_id":"gri_9921975010001551","_source":{"_record_link":"https://www.archive.org/details/murrayshandbooke00john","_grp_id":"gri_9921975010001551","_title_display":"Murray's hand-book eastern counties.","_date_display":"19--]","dublin_core":{"date":[{"value":"19--]","qualifier":"issued"},{"value":"1900","qualifier":"issued"}],"title":[{"value":"Murray's hand-book eastern counties."},{"value":"Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.","qualifier":"alternative"}],"creator":[{"value":"John Murray (Firm)"}],"language":[{"value":"English","encoding":"ISO369-2"}],"identifier":[{"value":"https://www.archive.org/details/murrayshandbooke00john","volume":"Getty Research Institute digitized version (Internet Archive)","encoding":"URI"}],"type":[{"value":"Text","encoding":"DCMI Type Vocabulary"}],"description":[{"value":"Cover title."},{"value":"Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."}],"relation":[{"value":"Murray's English handbooks","qualifier":"isPartOf"}],"publisher":[{"value":"J. Murray"}]},"_ingest_date":"2015-10-19","_edition":"3rd ed.","_creator_display":["John Murray (Firm)"],"_language":["English"],"_creator_facet":["John Murray (Firm)"],"_date_facet":"1900","_grp_contributor":"Getty Research Institute"},"_version":1,"found":True}
 
-        request = self.factory.get('/api/book/gri_9921975010001551')
-        response = book(request, 'gri_9921975010001551')
+        request = self.factory.get('/api/book/gri_9921975010001551.raw')
+        response = book(request, 'gri_9921975010001551', raw=True)
         self.assertEqual(response.data, book_data)
+
+    def test_book(self):
+        book = Book.as_view()
+        book_data = {"language":"English","creator":"John Murray (Firm)","isPartOf":"Murray's English handbooks","publisher":"J. Murray","alternative":"Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.","title":"Murray's hand-book eastern counties.","description":["Cover title.","Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."],"issued":"1900","type":"Text","identifier":"https://www.archive.org/details/murrayshandbooke00john"}
+
+        request = self.factory.get('/api/book/gri_9921975010001551')
+        response = book(request, 'gri_9921975010001551', raw=False)
+        self.assertEqual(response.data, book_data)
+
+    def test_ris(self):
+        book = Book.as_view()
+        ris_data = "TY  - BOOK\r\nLA  - English\r\nET  - 3rd ed.\r\nPB  - J. Murray\r\nPY  - 19--]///\r\nN1  - Cover title.; Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.\r\nUR  - https://www.archive.org/details/murrayshandbooke00john\r\nTI  - Murray's hand-book eastern counties.\r\nAU  - John Murray (Firm)\r\nER  - \r\n"
+
+        request = self.factory.get('/api/book/gri_9921975010001551.ris')
+        response = book(request, 'gri_9921975010001551', raw=True, format='ris')
+        response.render()
+        self.assertIn("TY  - BOOK\r\n", (response.content).decode())
+        self.assertIn("UR  - https://www.archive.org/details/murrayshandbooke00john\r\n", (response.content).decode())
+        self.assertIn("TI  - Murray's hand-book eastern counties.\r\n", (response.content).decode())
 
     def test_search_all(self):
         books = Books.as_view()
