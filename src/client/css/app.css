@@ -1671,6 +1671,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       padding-right: 10px;
     }
 
+    #sorting .btn-group {
+      margin-left: 0;
+    }
+
   }
 
   @media (min-width: 992px) {
