@@ -22,6 +22,15 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     seeNewRecords: { value: function(term) {
       element(by.css('[ng-click="mostRecentSearch()"]')).click();
     }},
+    contactUs: { value: function() {
+        element(by.id('contact-us')).click();
+    }},
+    privacyPolicy: { value: function() {
+        element(by.id('privacy-policy')).click();
+    }},
+    termsOfUse: { value: function() {
+        element(by.id('terms-of-use')).click();
+    }}
 });
 
 module.exports = HomePage;
