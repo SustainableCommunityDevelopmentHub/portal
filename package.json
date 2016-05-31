@@ -46,5 +46,12 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor test/protractor.config.js"
+  },
+  "paths": {
+    "angularConfigLocal": "./config/local/app.env.config.json",
+    "angularConfigDevelop": "./config/develop/app.env.config.json",
+    "angularConfigProd": "./config/prod/app.env.config.json",
+    "angularConfigFilePath": "./src/client/app/app.env.config.js",
+    "angularSource": "./src/client/app"
   }
 }
