@@ -817,7 +817,7 @@ li.book-listing {
 
   .date-range {
     display: inline-block;
-    width: 48%;
+    width: 45%;
     margin-right: 5px;
   }
 
@@ -1733,6 +1733,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     #clear-all {
       float: left;
+    }
+
+    .date-range {
+      width: 40%;
+      margin-right: 0;
     }
 
     .search-bar-results-container-col {
