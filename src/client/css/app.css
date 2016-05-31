@@ -113,6 +113,36 @@ hr {
   border-color: #5998c9;
 }
 
+  /* Animations */
+
+   @-webkit-keyframes fadeIn {
+
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadeIn{
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
 
 /* Site Nav */
 
@@ -325,12 +355,14 @@ hr {
 a.adv:hover, a.adv:focus {
   color: #333;
 }
+
 #see-all-btn {
   height: 60px;
   width: 100%;
   margin-bottom: 50px;
   font-size: 18px;
 }
+
   /* Stat Boxes */
 
     .stats {
@@ -415,11 +447,11 @@ a.adv:hover, a.adv:focus {
 }
 
 .add-field-glyph {
-    padding: 3px 3px 3px 3px;
-    margin-right: 10px;
-    color: white;
-    background: #909090;
-    border-radius: 15px;
+  padding: 3px 3px 3px 3px;
+  margin-right: 10px;
+  color: white;
+  background: #909090;
+  border-radius: 15px;
 }
 
 .search-btn {
@@ -598,6 +630,11 @@ a.adv:hover, a.adv:focus {
 
 .book-info b {
   line-height: 1.5;
+}
+
+.book-listing {
+  -webkit-animation: fadeIn 0.75s;
+  animation: fadeIn 0.75s;
 }
 
 li.book-listing {
@@ -1262,6 +1299,7 @@ li.book-field-val {
 
 .footer li a:hover {
   color: #478ba3;
+  text-decoration: none;
 }
 
 
@@ -1486,8 +1524,9 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-bottom: 30px;
   }
 
-  /* Recent Searches */
 
+  /* Recent Searches */
+  
   .saved-searches-list {
     padding-left: 0;
   }
@@ -1967,6 +2006,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     /* Recent Searches */
+
 
     .search-info {
       border-right: none;
