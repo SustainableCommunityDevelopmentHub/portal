@@ -2,20 +2,6 @@
   'use strict';
 
   angular.module('app.core')
-    .constant('config', {
-        elastic: {
-          host: 'local.portal.dev',
-          port: '9200',
-          apiVersion: '2.0'
-        },
-        app: {
-          root: 'app'
-        },
-        django: {
-          host: 'http://127.0.0.1',
-          port: '8000'
-        }
-    })
     .constant('FACETS', {
         language: {
           name: 'language',

@@ -2,9 +2,9 @@
   'use strict';
 
   angular .module('app.saved-records')
-    .controller('SavedRecordsCtrl', ['$scope', '$state', 'records', 'searches', 'SavedRecordsService', 'SearchService', 'SAVED_RECORDS_SORT', SavedRecordsCtrl]);
+    .controller('SavedRecordsCtrl', ['$scope', '$state', 'records', 'searches', 'SavedRecordsService', 'SearchService', 'SAVED_RECORDS_SORT', '_', SavedRecordsCtrl]);
 
-  function SavedRecordsCtrl($scope, $state, records, searches, SavedRecordsService, SearchService, SAVED_RECORDS_SORT) {
+  function SavedRecordsCtrl($scope, $state, records, searches, SavedRecordsService, SearchService, SAVED_RECORDS_SORT, _) {
     $scope.savedRecords = records;
     $scope.savedSearches = searches;
 
@@ -111,6 +111,7 @@
      * @param search {object}
      */
     $scope.runSearch = function(search) {
+      SearchService.resetOpts();
       SearchService.updateOpts(search.opts);
       SearchService.transitionStateAndSearch();
     };

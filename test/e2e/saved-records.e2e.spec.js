@@ -120,22 +120,45 @@ describe('Saved Records Page', function() {
 
     resultsPage.getHits().then(function(hits) {
       expect(hits.length).toEqual(20);
+      });
     });
+
+  it('should run a clean search when clicking search term (no filters from previous searches)', function() {
+    //saves a search with no search term
+    resultsPage.toggleFacetOption('subject', 'Art');
+    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.submitNewSearchTerm('painting');
+    browser.waitForAngular();
+    savedRecordsPage = new SavedRecordsPage();
+    savedRecordsPage.clickRecentSearches();
+    //click on the search with no search term and no facets
+    savedRecordsPage.clickSearchByText('No search term');
+    browser.waitForAngular();
+    expect(resultsPage.getQueryTerms().count()).toBe(0);
+    expect(resultsPage.facetChips.count()).toBe(0);
   });
 
   it('should remove searches when clicking the remove button', function () {
     resultsPage.submitNewSearchTerm('painting');
     browser.waitForAngular();
+    resultsPage.submitNewSearchTerm('history');
+    resultsPage.submitNewSearchTerm('England');
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.getQueryTerms().get(0).click();
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
     browser.waitForAngular();
-    savedRecordsPage.getAllSearches().then(function(searches) {
-      expect(searches.length).toBe(3);
-    });
+    expect(savedRecordsPage.getAllSearches().count()).toBe(7);
     savedRecordsPage.removeSearch(0);
-    savedRecordsPage.getAllSearches().then(function(searches) {
-      expect(searches.length).toBe(2);
-    });
+    expect(savedRecordsPage.getAllSearches().count()).toBe(6);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(0);
+    expect(savedRecordsPage.getAllSearches().count()).toBe(0);
   });
 
 });
