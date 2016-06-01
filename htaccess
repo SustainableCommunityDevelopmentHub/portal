@@ -1,0 +1,15 @@
+# this ensures support for pretty links even after page refresh (F5)
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  RewriteEngine On
+# Don't rewrite files or directories
+  RewriteCond %{REQUEST_FILENAME} -s [OR]
+  RewriteCond %{REQUEST_FILENAME} -l [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^.*$ - [NC,L]
+
+# Rewrite everything else to index.html to allow html5 state links
+  RewriteRule ^.(*$) /index.html [NC,L]
+</IfModule>
+#via http://stackoverflow.com/questions/22739455/htaccess-redirect-for-angular-routes
+
