@@ -3,25 +3,7 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
-  function($scope, SearchService, $state, searchResults) {
-
-    $scope.totalTitles = searchResults.numTotalHits;
-    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
-
-    // for when user inits new search.
-    // changes state to search.results, which will trigger search operation.
-    $scope.newSearch = function(opts) {
-      SearchService.resetOpts();
-
-      // convention is to always pass SearchService.opts
-      SearchService.updateOpts(opts);
-      console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
-      $state.go('searchResults', SearchService.opts);
-    };
-  }])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData',
     function($scope, $stateParams, $window, bookData) {
 
       $scope.book = bookData;
@@ -82,7 +64,7 @@
         {msg: 'Please enter a valid email address.'},
         {msg: 'Email addresses do not match.'}
       ];
-      
+
     }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {
@@ -92,37 +74,6 @@
         {name:'Comment'}
       ];
       $scope.myFeedbackField = $scope.feedbackFields[0];
-    }])
-
-  .controller('FaqsCtrl', ['$scope', '$rootScope', 'config', function ($scope, $rootScope, config) {
-      // sync with the rootScope var so open tabs persist across state changes
-      $scope.activeTabs = $rootScope.$activeTabs;
-      $scope.faqs = {name: "faqs.html", url: config.app.root + "/partials/faqs.html"};
-
-      // check if the tab is active
-      $scope.isOpenTab = function (tab) {
-        // check if this tab is already in the activeTabs array
-        if ($scope.activeTabs.indexOf(tab) > -1) {
-          // if so, return true
-          return true;
-        } else {
-          // if not, return false
-          return false;
-        }
-      };
-
-      // function to 'open' a tab
-      $scope.openTab = function (tab) {
-        // check if tab is already open
-        if ($scope.isOpenTab(tab)) {
-          //if it is, remove it from the activeTabs array
-          $scope.activeTabs.splice($scope.activeTabs.indexOf(tab), 1);
-
-        } else {
-          // if it's not, add it!
-          $scope.activeTabs.push(tab);
-        }
-      };
     }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {

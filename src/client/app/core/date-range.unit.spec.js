@@ -103,10 +103,10 @@ describe("Date Range Filter", function() {
   });
 
   it("should reset page to 1 in when date range filter applied", function(){
-    scope.clearQueryTerm();
+    scope.queryTerms = [];
     scope.newQuerySearch("painting");
     scope.setPageNum(2);
-    expect(scope.queryTerm).toEqual("painting");
+    expect(scope.queryTerms).toEqual(["painting"]);
     expect(SearchService.calculatePage()).toEqual(2);
 
     scope.setDateRange(scope.fromDate, scope.toDate);

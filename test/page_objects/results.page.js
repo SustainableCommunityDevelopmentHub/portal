@@ -64,6 +64,9 @@ ResultsPage.prototype = Object.create({}, {
   getFacetChipsNoResults: { value: function() {
     return element.all(by.css(".facet-chip-no-results"));
   }},
+  getQueryTerms: { value: function() {
+    return element.all(by.repeater("queryTerm in queryTerms"));
+  }},
 
   // Sorting
   sortOptions: { get: function() {

@@ -18,25 +18,33 @@
     var initialField = {display: "- Select Field -", searchKey: ""};
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-      $scope.filters = [{field: initialField, text: "", lastFilter: true}];
+      // selected adv filters plus initial empty filter
+      $scope.filters = [{field: initialField, term: "", lastFilter: true}];
+
+      // objs w/settings for each available adv field
       $scope.fields = [
           ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.creator,
           ADVANCED_SEARCH.date,
           ADVANCED_SEARCH.language,
           ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.contributor,
+          ADVANCED_SEARCH.grp_contributor,
         ];
     });
 
     /**
-     * Adds new filter object to the filters array, which angular will use to render out
-     * another input box and dropdown menu for the new field
+     * Adds new filter object to the filters array, which angular
+     * will use to render out another input box and dropdown menu
+     * for the new field.
+     *
+     * newFilter.field - object with info on the adv field to be filtered
+     * newFilter.term - string to filter by
+     * newFilter.lastFilter - bool, only used in controller/view
      */
     function addFilter() {
       var newFilter = {
         field: initialField,
-        text: "",
+        term: "",
         lastFilter: true
       };
       $scope.filters[$scope.filters.length - 1].lastFilter = false;
@@ -55,24 +63,32 @@
     /**
      * Runs search with keywords and filters as provided by user.
      * First processes filters to include only those with field selected and keywords.
-     * Adds those items to an opts object and calls SearchService with those opts.
+     * Adds those items to an opts object and updates SearchService opts.
      * Then transitions to Search Results state.
      */
     function search() {
-      var opts = {
-        q: "",
-        advancedFields: []
-      };
+      var advFields = [];
+      var query = [];
+      if ($scope.queryTerm) {
+        query.push($scope.queryTerm);
+      }
+
       $scope.filters.forEach(function(filter){
-        if(filter.text && filter.field !== initialField){
-          var f = {field: filter.field, term: filter.text};
-          opts.advancedFields.push(f);
+        if(filter.term && filter.field !== initialField){
+          advFields.push(
+            searchService.buildAdvancedField(filter.field, filter.term)
+          );
         }
       });
-      opts.q = $scope.queryTerm;
+
+      var opts = {
+        q: query,
+        advancedFields: advFields
+      };
+
       searchService.resetOpts();
       searchService.updateOpts(opts);
-      $state.go('searchResults', searchService.opts);
+      searchService.transitionStateAndSearch();
     }
   }
 })();

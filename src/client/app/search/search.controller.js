@@ -12,6 +12,11 @@
 
     var ss = SearchService;
 
+    $scope.isOpenCreator = true;
+    $scope.isOpenSubject = true;
+    $scope.isOpenLanguage = true;
+    $scope.isOpenFrom = true;
+
     $scope.hits = searchResults.hits;
     $scope.numTotalHits = searchResults.numTotalHits;
     $scope.facets = searchResults.facets;
@@ -34,7 +39,7 @@
       }
     }
 
-    $scope.queryTerm = ss.opts.q;
+    $scope.queryTerms = ss.opts.q;
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
@@ -138,25 +143,16 @@
     $scope.newQuerySearch = function(query){
       var newQuery;
       if (query) {
-        newQuery = query.trim();
-        if ($scope.queryTerm) {
-          newQuery = $scope.queryTerm + " " + newQuery;
+        query = query.trim();
+        if ($scope.queryTerms.indexOf(query) === -1){
+          $scope.queryTerms.push(query);
         }
-        $scope.queryTerm = newQuery;
-      } else {
-        newQuery = $scope.queryTerm;
       }
-      console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
-        q: newQuery
+        q: $scope.queryTerms,
+        from: 0,
+        sort: SORT_MODES[SORT_DEFAULT]
       };
-
-      // if new query term or empty string query term, need to reset pagination
-      if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.from = 0;
-        opts.sort = SORT_MODES[SORT_DEFAULT];
-      }
-
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
@@ -224,9 +220,12 @@
      * @param field {object} field to remove
      */
     $scope.clearAdvancedField = function(field) {
-      var index = $scope.advancedFields.indexOf(field);
-      $scope.advancedFields.splice(index, 1);
-      updateSearch({advancedFields: $scope.advancedFields, from: 0});
+      var index = ss.opts.advancedFields.indexOf(field);
+      ss.opts.advancedFields.splice(index, 1);
+
+      //reset pagination and update search
+      ss.updateOpts({advancedFields: ss.opts.advancedFields, from: 0});
+      ss.transitionStateAndSearch();
     };
 
     /**
@@ -240,17 +239,18 @@
     /**
      * Removes query term, then runs search on empty query term string
      */
-    $scope.clearQueryTerm = function() {
-      $scope.queryTerm = "";
-      updateSearch({q:"", from: 0});
+    $scope.clearQueryTerm = function(queryTerm) {
+      $scope.queryTerms = $scope.queryTerms.filter(function(query) {
+        return query !== queryTerm;
+      });
+      updateSearch({q:$scope.queryTerms, from: 0});
     };
     /**
      * Removes date range filter, then runs search again
      */
     $scope.clearDateRange = function() {
-      $scope.fromDate = "";
-      $scope.toDate = "";
-      updateSearch({date: {}, from: 0});
+      ss.opts.date = {};
+      updateSearch({from: 0});
     };
   }
 })();

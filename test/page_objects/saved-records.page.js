@@ -58,6 +58,9 @@ SavedRecordsPage.prototype = Object.create({}, {
   clickSearch: {value: function(position) {
     element.all(by.css('.search-info a')).get(position).click();
   }},
+  clickSearchByText: {value: function(text) {
+    element(by.linkText(text)).click();
+  }},
   removeSearch: {value: function(position) {
     element.all(by.css('.remove-search-btn')).get(position).click();
   }}

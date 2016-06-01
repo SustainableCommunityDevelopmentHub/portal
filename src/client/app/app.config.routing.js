@@ -12,7 +12,7 @@
     // abstract state used to load other search states
       .state('home', {
         url: '/',
-        templateUrl: config.app.root + '/search/search.home.html',
+        templateUrl: config.app.root + '/home/home.html',
         controller: 'HomePageCtrl',
         resolve: {
           searchResults: function(SearchService) {
@@ -25,43 +25,78 @@
       })
 
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
+          q: { array: true},
+          // facet options
           creator: { array: true },
           grp_contributor: { array: true },
           language: { array: true },
-          subject: { array: true }
+          subject: { array: true },
+          // advanced fields
+          adv_creator: { array: true },
+          adv_grp_contributor: { array: true },
+          adv_language: { array: true },
+          adv_subject: { array: true },
+          adv_date: { array: true },
+          adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, SORT_MODES){
+          searchResults: function($stateParams, SearchService, SORT_MODES, ADVANCED_SEARCH){
+            console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
+            var opts = ss.getDefaultOptsObj();
 
-            var searchOpts = {
-              q: $stateParams.q,
-              size: parseInt($stateParams.size),
-              from: parseInt($stateParams.from),
-              sort: SORT_MODES[$stateParams.sort],
-              date: {
-                gte: $stateParams.date_gte || null,
-                lte: $stateParams.date_lte || null
-              }
-            };
+            opts.size = parseInt($stateParams.size);
+            opts.from = parseInt($stateParams.from);
+            opts.sort = $stateParams.sort;
+            opts.date.gte = $stateParams.date_gte;
+            opts.date.lte = $stateParams.date_lte;
 
-            ss.clearFacetsIn('all');
+            opts.q = [];
+            if ($stateParams.q) {
+              var seen = {};
+              opts.q = $stateParams.q.filter(function(query){
+                if (seen[query]) {
+                  return false;
+                } else {
+                  seen[query] = true;
+                  return true;
+                }
+              });
+            }
+
+            // build opts for facet options
             ss.facetCategoriesList.forEach(function(category){
               if($stateParams[category] && $stateParams[category].length){
                 $stateParams[category].forEach(function(facetVal){
                   var newFacet = ss.buildFacet(category, facetVal, 0, true);
                   if(newFacet){
-                    ss.activateFacet(newFacet);
+                    opts.facets.push(newFacet);
                   }
                 });
               }
             });
 
-            ss.updateOpts(searchOpts);
+            // build opts for advanced fields
+            ss.advancedFieldsList.forEach(function(name){
+              var props = ADVANCED_SEARCH[name];
+              var paramValues = $stateParams[props.paramName];
+              if(paramValues){
+                paramValues.forEach(function(paramVal){
+                  var newAdvField = ss.buildAdvancedField(props, paramVal);
+                  if(newAdvField){
+                    opts.advancedFields.push(newAdvField);
+                  }
+                });
+              }
+            });
+
+
+            console.log('Router - SearchResults - in Resolve - opts: ' + JSON.stringify(opts));
+            ss.opts = opts;
             return ss.executeSearch().then(function(data) {
               return ss.setResultsData(data);
             });
@@ -124,7 +159,7 @@
       .state('faq', {
         url: '/faq',
         templateUrl: config.app.root + '/partials/faqs.html',
-        controller: 'FaqsCtrl'
+        //controller: 'FaqsCtrl'
       })
       .state('savedRecords', {
         url: '/saved',

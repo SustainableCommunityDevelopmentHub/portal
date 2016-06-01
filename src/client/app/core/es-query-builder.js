@@ -65,10 +65,11 @@
       // add search term if not empty string. else return all records.
       if(opts.q && opts.q.length){
         //console.log('esQueryBuilder.buildSearchQuery -- opts.q: ' + opts.q);
+        console.log(opts.q.join(" "));
         fullQuery.body.query.bool.must =
           {
             query_string: {
-              query: opts.q,
+              query: opts.q.join(" "),
               minimum_should_match: '2<-1 5<75%',
               fields: [
                 '_record_link',
@@ -162,11 +163,11 @@
        * If there are filters from advanced search in opts, create filter objects.
        * Then add them to the query object
        */
-      if (opts.advancedFields) {
+      if (opts.advancedFields && opts.advancedFields.length) {
         var allAdvancedFilters = [];
         opts.advancedFields.forEach(function(item){
 
-          if (item.field.searchKey.substr(0, 11) == "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
+          if (item.field.searchKey.substr(0, 11) === "dublin_core" && item.field.searchKey !== 'dublin_core.date') {
             var query = {
               query_string: {
                 query: item.term,

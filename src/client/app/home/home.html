@@ -1,4 +1,4 @@
-<!--search.home.html Home page / Splash page of site-->
+<!--home.html Home page / Splash page of site-->
 <div ng-app="app" class="app">
   <div class="container">
     <div class="row row-centered">
@@ -18,18 +18,23 @@
 
         <button ng-click="newSearch({q: queryTerm})" class="btn-primary" type="button" id="go-btn"><p>Search</p>
           <span class="glyphicon glyphicon-search"></span></button>
-          
+
         </form>
         <a ui-sref="advanced" class="adv">Advanced Search</a>
-      </div>
-    </div><!-- /row -->
         </div>
       </div>
+    </div><!-- /row -->
 
+    <!-- See All Records Button -->
+     <div class="row row-centered">
+       <div class ="col-xs-12 col-sm-6 col-md-3 col-centered">
+         <button ng-click="newSearch({q: ''})" class="btn-primary" id="see-all-btn" type="button">See All Records</button>
+       </div>
+     </div><!-- /row -->
 
   </div><!-- /container -->
 
-  <!--Stats for: Total Titles, Lastu Updated, Recent Contributors-->
+  <!--Stats for: Total Titles, Lastu Updated, New Contributors-->
   <div class="container">
     <div class="row">
       <div class="stats">
@@ -44,13 +49,13 @@
           <div class="box">
             <hr class="tlc-hr">
             <h4>Last Updated</h4>
-            <p>January 1, 2016</p><a class="tlc-orange" ui-sref="newrecords">See New Records</a>
+            <p>January 1, 2016</p><a class="tlc-orange" ng-click="mostRecentSearch()">See New Records</a>
           </div>
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="box">
             <hr class="tlc-hr">
-            <h4>Recent Contributors</h4>
+            <h4>New Contributors</h4>
             <p>The Menil Collection
               <br>The Warburg Institute University of London
               <br>Getty Research Institute

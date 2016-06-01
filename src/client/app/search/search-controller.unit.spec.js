@@ -198,11 +198,16 @@ describe("Search Controller", function(){
     });
 
     it("should clear advanced field facets correctly", function(){
-      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      SearchService.resetOpts();
+      scope.advancedFields = SearchService.opts.advancedFields;
+
+      var gettyField = {field: ADVANCED_SEARCH.grp_contributor, term: "getty"};
       var dateField = {field: ADVANCED_SEARCH.date, term: "1907"};
-      scope.advancedFields = [gettyField, dateField];
+      SearchService.opts.advancedFields = [gettyField, dateField];
+      expect(SearchService.opts.advancedFields.length).toEqual(2);
+
       scope.clearAdvancedField(gettyField);
-      expect(scope.advancedFields).toEqual([dateField]);
+      expect(SearchService.opts.advancedFields).toEqual([dateField]);
     });
 
     it("should toggle between active and non-active facets correctly", function(){
@@ -236,36 +241,46 @@ describe("Search Controller", function(){
   });
 
   describe("Search Queries", function() {
-    beforeEach(function(){
-      //initializing vars to mimic a search
-      scope.queryTerm = "art";
-      SearchService.opts.q = scope.queryTerm;
+    afterEach(function() {
+      scope.clearSearchOpts();
     });
 
     it("should add new query term to previous query terms", function(){
       //adding new search term
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
       scope.newQuerySearch("painting");
-      var newQuery = "art painting";
-      expect(scope.queryTerm).toEqual(newQuery);
+      var newQuery = ["art", "painting"];
+      expect(scope.queryTerms).toEqual(newQuery);
       expect(SearchService.opts.q).toEqual(newQuery);
     });
 
     it("should clear query terms correctly", function(){
-      scope.clearQueryTerm();
-      expect(scope.queryTerm).toEqual("");
-      expect(SearchService.opts.q).toEqual("");
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
+      scope.clearQueryTerm("art");
+      expect(scope.queryTerms).toEqual([]);
+      expect(SearchService.opts.q).toEqual([]);
     });
 
     it("should reset page to 1 in when changing query string", function(){
-      scope.clearQueryTerm();
       scope.newQuerySearch("painting");
       scope.setPageNum(2);
-      expect(scope.queryTerm).toEqual("painting");
+      expect(scope.queryTerms).toEqual(["painting"]);
       expect(SearchService.calculatePage()).toEqual(2);
 
       scope.newQuerySearch("art");
-      expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
+      expect(scope.queryTerms).toEqual(["painting", "art"]);
       expect(SearchService.calculatePage()).toEqual(1);
+    });
+
+    it("should not submit search queries with duplicate terms", function() {
+      scope.queryTerms = ["art"];
+      scope.newQuerySearch("painting");
+      scope.newQuerySearch("art");
+      scope.newQuerySearch("painting");
+      expect(scope.queryTerms.length).toBe(2);
+      expect(scope.queryTerms).toEqual(["art", "painting"]);
     });
 
   });
@@ -286,7 +301,7 @@ describe("Search Controller", function(){
       SearchService.resetOpts();
       scope.activeFacets = SearchService.opts.facets;
 
-      var gettyField = {field: ADVANCED_SEARCH.contributor, term: "getty"};
+      var gettyField = {field: ADVANCED_SEARCH.grp_contributor, term: "getty"};
       SearchService.opts.advancedFields = [gettyField];
 
       scope.clearSearchOpts();
