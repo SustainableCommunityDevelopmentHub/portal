@@ -22,8 +22,8 @@ RUN apt-get update \
     make \
     mercurial \
     pkg-config \
-    python3.4 \
-    python3.4-dev \
+    python3.5 \
+    python3.5-dev \
     ssh \
     vim \
     && apt-get autoremove \
@@ -54,11 +54,11 @@ RUN a2ensite portal
 
 #OLD
 #ADD https://raw.githubusercontent.com/pypa/pip/5d927de5cdc7c05b1afbdd78ae0d1b127c04d9d0/contrib/get-pip.py /root/get-pip.py
-ADD https://bootstrap.pypa.io/get-pip.py
-RUN python3.4 /root/get-pip.py
-RUN pip3.4 install -U "setuptools==18.4"
-RUN pip3.4 install -U "pip==8.1.2"
-RUN pip3.4 install -U "virtualenv==13.1.2"
+ADD https://bootstrap.pypa.io/get-pip.py /root/get-pip.py
+RUN python3.5 /root/get-pip.py
+RUN pip3.5 install -U "setuptools==18.4"
+RUN pip3.5 install -U "pip==8.1.2"
+RUN pip3.5 install -U "virtualenv==13.1.2"
 
 # Django required modules
 COPY requirements.txt /var/www/portal/requirements.txt

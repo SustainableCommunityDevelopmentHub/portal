@@ -1,0 +1,3 @@
+mod_wsgi.so-3.5
+AddHandler wsgi-script .py
+AddHandler wsgi-script .conf

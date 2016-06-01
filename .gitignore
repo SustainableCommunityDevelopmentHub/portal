@@ -11,6 +11,10 @@ tmp/
 logs/*
 .log
 
+src/server/api/__pycache__/
+src/server/api/migrations/__pycache__/
+src/server/server/__pycache__/
+
 npm-debug.log
 
 ENV
