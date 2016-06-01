@@ -1,5 +1,5 @@
-# Elasticsearch 2.x
 elasticsearch==2.1.0
 django==1.8
 djangorestframework
 djangorestframework-xml
+django-cors-headers
