@@ -4,9 +4,8 @@ var del = require('del');
 var pkg = require('./package.json');
 
 /**
- * Create angular/frontend config files for client app
- *
- * NOTE: angular.js config filename matches name of .json file it is generated from
+ * Build files for angular app
+ * NOTE: angular.js config filename must match name of .json file it is generated from.
  * If you change name of app.env.config.json files, update the module_name var.
  */
 var module_name = 'app.env.config';
@@ -33,3 +32,8 @@ gulp.task('config:prod', function() {
     .pipe(gulpNgConfig( module_name, { wrap: true } ))
     .pipe(gulp.dest( pkg.paths.angularSource ));
 });
+
+/**
+ * Minify javascript
+ */
+
