@@ -1,7 +1,12 @@
+/* jshint node: true */
 var gulp = require('gulp');
-var gulpNgConfig = require('gulp-ng-config');
+var common = require('./gulp/common.js');
 var del = require('del');
+var gulpNgConfig = require('gulp-ng-config');
 var pkg = require('./package.json');
+var plug = require('gulp-load-plugins')();
+
+var log = plug.util.log;
 
 /**
  * Build files for angular app
@@ -37,3 +42,12 @@ gulp.task('config:prod', function() {
  * Minify javascript
  */
 
+gulp.task('vendorjs', function() {
+  log('Bundling, minifying, and copying vendor js');
+  return gulp.src(pkg.paths.vendorjs)
+    .pipe(plug.concat('vendor.min.js'))
+    .pipe(plug.bytediff.start())
+    .pipe(plug.uglify())
+    .pipe(plug.bytediff.stop(common.bytediffFormattter))
+    .pipe(gulp.dest(pkg.paths.stage)); // + 'vendor'));
+});
