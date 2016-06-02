@@ -87,6 +87,20 @@
           }
         }
       },
+      "_contributor_display": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
+          }
+        }
+      },
       "_date_facet": {
         "type": "date",
         "fields": {
