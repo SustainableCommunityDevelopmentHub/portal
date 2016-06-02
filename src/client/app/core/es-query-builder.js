@@ -75,63 +75,92 @@
                 '_record_link',
                 '_language',
                 '_language.folded',
+                '_language.stemmed',
                 '_grp_type',
                 '_title_display^18',
                 '_title_display.folded^18',
+                '_title_display.stemmed^18',
                 '_subject_facets^15',
                 '_subject_facets.folded^15',
+                '_subject_facets.stemmed^15',
                 '_creator_display',
                 '_creator_display.folded',
+                '_creator_display.stemmed',
                 '_creator_facet^12',
                 '_creator_facet.folded^12',
+                '_creator_facet.stemmed^12',
                 '_date_facet.folded',
+                '_date_facet.stemmed',
                 '_date_display',
                 '_date_display.folded',
+                '_date_display.stemmed',
                 '_grp_contributor',
                 '_grp_contributor.folded',
+                '_grp_contributor.stemmed',
                 '_grp_id',
                 '_edition',
                 '_edition.folded',
+                '_edition.stemmed',
                 '_series',
                 '_series.folded',
+                '_series.stemmed',
                 'dublin_core.identifier.value',
                 'dublin_core.identifier.value.folded',
+                'dublin_core.identifier.value.stemmed',
                 'dublin_core.creator.value',
                 'dublin_core.creator.value.folded',
+                'dublin_core.creator.value.stemmed',
                 'dublin_core.date.value',
                 'dublin_core.date.value.folded',
+                'dublin_core.date.value.stemmed',
                 'dublin_core.publisher.value',
                 'dublin_core.publisher.value.folded',
+                'dublin_core.publisher.value.stemmed',
                 'dublin_core.format.value',
                 'dublin_core.format.value.folded',
+                'dublin_core.format.value.stemmed',
                 'dublin_core.type.value',
                 'dublin_core.type.value.folded',
+                'dublin_core.type.value.stemmed',
                 'dublin_core.description.value',
                 'dublin_core.description.value.folded',
+                'dublin_core.description.value.stemmed',
                 'dublin_core.provenance.value',
                 'dublin_core.provenance.value.folded',
+                'dublin_core.provenance.value.stemmed',
                 'dublin_core.language.value',
                 'dublin_core.language.value.folded',
+                'dublin_core.language.value.stemmed',
                 'dublin_core.subject.value',
                 'dublin_core.subject.value.folded',
+                'dublin_core.subject.value.stemmed',
                 'dublin_core.coverage.value',
                 'dublin_core.coverage.value.folded',
+                'dublin_core.coverage.value.stemmed',
                 'dublin_core.title.value',
                 'dublin_core.title.value.folded',
+                'dublin_core.title.value.stemmed',
                 'dublin_core.contributor.value',
                 'dublin_core.contributor.value.folded',
+                'dublin_core.contributor.value.stemmed',
                 'dublin_core.relation.value',
                 'dublin_core.relation.value.folded',
+                'dublin_core.relation.value.stemmed',
                 'dublin_core.source.value',
                 'dublin_core.source.value.folded',
+                'dublin_core.source.value.stemmed',
                 'dublin_core.rights.value',
                 'dublin_core.rights.value.folded',
+                'dublin_core.rights.value.stemmed',
                 'dublin_core.accrualMethod.value',
                 'dublin_core.accrualMethod.value.folded',
+                'dublin_core.accrualMethod.value.stemmed',
                 'dublin_core.accrualPeriodicity.value',
                 'dublin_core.accrualPeriodicity.value.folded',
+                'dublin_core.accrualPeriodicity.value.stemmed',
                 'dublin_core.audience.value',
-                'dublin_core.audience.value.folded'
+                'dublin_core.audience.value.folded',
+                'dublin_core.audience.value.stemmed'
               ]
             }
           };
@@ -172,7 +201,7 @@
               query_string: {
                 query: item.term,
                 minimum_should_match: '2<-1 5<75%',
-                fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+                fields: [item.field.searchKey + '.value', item.field.searchKey + '.value.folded', item.field.searchKey + '.value.stemmed']
               }
             };
             fullQuery.body.query.bool.filter.bool.filter.push(query);
@@ -183,7 +212,7 @@
               query_string: {
                 query: item.term,
                 minimum_should_match: '2<-1 5<75%',
-                fields: ['_date_facet.folded', item.field.searchKey + '.value', item.field.searchKey + '.value.folded']
+                fields: ['_date_facet.folded', '_date_facet.stemmed', item.field.searchKey + '.value', item.field.searchKey + '.value.folded', item.field.searchKey + '.value.stemmed']
               }
             };
             fullQuery.body.query.bool.filter.bool.filter.push(query);
@@ -194,7 +223,7 @@
               query_string: {
                 query: item.term,
                 minimum_should_match: '2<-1 5<75%',
-                fields: [item.field.searchKey, item.field.searchKey + '.folded']
+                fields: [item.field.searchKey, item.field.searchKey + '.folded', item.field.searchKey + '.stemmed']
               }
             };
             fullQuery.body.query.bool.filter.bool.filter.push(query);
