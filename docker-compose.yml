@@ -1,10 +1,14 @@
 webserver:
   #apache with python
-  build: ./docker_files/webserver
+  # To build image, run from project root: docker build -t webserver docker_files/webserver
+  image: webserver:latest
   ports:
     - "8000:80"
+  links:
+    - elasticsearch:elasticsearch
   volumes:
     - ./src:/var/www/portal
+  command: /usr/sbin/apache2ctl -D FOREGROUND
 
 elasticsearch:
   image: elasticsearch:2.1

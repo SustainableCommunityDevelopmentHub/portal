@@ -1,3 +1,4 @@
-mod_wsgi.so-3.5
+LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so-3.5
+
 AddHandler wsgi-script .py
-AddHandler wsgi-script .conf
+AddHandler wsgi-script .wsgi

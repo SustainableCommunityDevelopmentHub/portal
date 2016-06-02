@@ -1,13 +1,15 @@
-# Base python 3.4 and apache build, inspired by
+# Base python 3.5 and apache build, inspired by
 # https://github.com/micktwomey/docker-python3.4/blob/master/Dockerfile
-FROM ubuntu:14.04
-MAINTAINER Adam Cahan, acahan@getty.edu
+FROM ubuntu:16.04
+MAINTAINER Josh Gomez, jgomez@getty.edu
 
-#Suppress inaccurate errs when building image from Dockerfile
+CMD set -e
+
+# Suppress inaccurate errs when building image
 ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
 
-# What exactly is this doing???
+# Keep for posterity
 #RUN echo "deb http://ppa.launchpad.net/fkrull/deadsnakes/ubuntu trusty main" > /etc/apt/sources.list.d/deadsnakes.list \
 #&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DB82666C
 
@@ -26,11 +28,14 @@ RUN apt-get update \
     python3-dev \
     ssh \
     vim \
+    net-tools \
+    iputils-ping \
+    curl \
     && apt-get autoremove \
     && apt-get clean
 
 
-# Apache requires these
+# Apache fails if these vars are not set.
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
@@ -44,31 +49,44 @@ RUN apt-get install -y apache2 \
 RUN apt-get install -y libapache2-mod-wsgi-py3 \
     &&  apt-get clean
 
-# lynx is required for `apache2ctl status`
+# lynx is required for `apache2ctl status` to work
 RUN apt-get install -y lynx
 
-# Apache virtual host file
+# Directory for apache to serve app from
 RUN mkdir /var/www/portal
+
+# Disable default apache config which conflicts with portal on port 80
+RUN a2dissite 000-default
+
+# Enable apache virtual host file and mod_wsgi config stuff
+# These files tell apache to serve up application in correct manner for a single-page-app
+# and where to find correction version of python, python modules, etc,
+# for wsgi to work with Django.
 COPY portal.conf /etc/apache2/sites-available/portal.conf
 RUN a2ensite portal
 
-#OLD
-#ADD https://raw.githubusercontent.com/pypa/pip/5d927de5cdc7c05b1afbdd78ae0d1b127c04d9d0/contrib/get-pip.py /root/get-pip.py
+
+#NOTE: need to find where equivalent of mod_wsgi.so-3.5 is located ...
+#....could this have to do with installing mod-wsgi-py3 here when josh had mod-wsgi?
+COPY wsgi.load /etc/apache2/mods-available/wsgi.load
+
+# Install pip
 ADD https://bootstrap.pypa.io/get-pip.py /root/get-pip.py
 RUN python3 /root/get-pip.py
 RUN pip3 install -U "setuptools==18.4"
 RUN pip3 install -U "pip==8.1.2"
-RUN pip3 install -U "virtualenv==13.1.2"
 
-# Django required modules
-COPY requirements.txt /var/www/portal/requirements.txt
 
+
+# Create python virtual environment for Django app
 RUN cd /var/www/portal \
-    virtualenv ENV \
+    pyvenv-3.5 ENV \
     source ENV/bin/activate
 
+# Install Django requirements
+COPY requirements.txt /var/www/portal/requirements.txt
 RUN pip install requirements
 
 EXPOSE 80
 
-#CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND" ]

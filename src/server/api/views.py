@@ -11,9 +11,13 @@ from rest_framework import status
 
 from . import es_functions
 
+# For local development environment docker sets elasticsearch IP to hostname 'portal_elastic'
+elastic_address = 'elasticsearch:9200'
+
 class Book(APIView):
     def get(self, request, id, format=None):
-        es = Elasticsearch(['local.portal.dev:9200'])
+        #es = Elasticsearch(['local.portal.dev:9200'])
+        es = Elasticsearch([elastic_address])
         book_id = id
         response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
         j = json.loads(json.dumps(response))
@@ -23,7 +27,8 @@ class Book(APIView):
 
 class Contributors(APIView):
     def get(self, request, format=None):
-        es = Elasticsearch(['local.portal.dev:9200'])
+        #es = Elasticsearch(['local.portal.dev:9200'])
+        es = Elasticsearch([elastic_address])
         query = {'aggregations': {'grp_contributor': {'terms': {'field': '_grp_contributor.raw',
                                                                 'size': 1000,
                                                                 'order': {'_count': 'desc'}}}}}
@@ -40,7 +45,8 @@ class Books(APIView):
         print(params)
         search_options = urllib.parse.parse_qs(params)
         print(search_options)
-        es = Elasticsearch(['local.portal.dev:9200'])
+        #es = Elasticsearch(['local.portal.dev:9200'])
+        es = Elasticsearch([elastic_address])
         body = es_functions.create_base_query()
         filters = []
         advanced_filters = []
