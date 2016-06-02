@@ -16,14 +16,14 @@ describe("Advanced Search", function(){
     advancedPage.addKeywordTerm('art');
     advancedPage.submitAdvancedSearch();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
-    expect(advancedPage.numTotalHits).toEqual(310);
+    expect(advancedPage.numTotalHits).toEqual(343);
   });
 
   it("should submit search with enter button", function() {
     advancedPage.addKeywordTerm('art');
     advancedPage.submitWithEnterBtn();
     expect(advancedPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
-    expect(advancedPage.numTotalHits).toEqual(310);
+    expect(advancedPage.numTotalHits).toEqual(343);
   });
 
   it("should search by fields", function(){
@@ -106,7 +106,7 @@ describe("Advanced Search", function(){
   it("should be able to apply facets after searching", function(){
     advancedPage.addKeywordTerm('art');
     advancedPage.submitAdvancedSearch();
-    expect(advancedPage.numTotalHits).toEqual(310);
+    expect(advancedPage.numTotalHits).toEqual(343);
     advancedPage.addFacetOption('subject', 'Art');
     expect(advancedPage.numTotalHits).toEqual(35);
   });
@@ -124,7 +124,7 @@ describe("Advanced Search", function(){
     expect(chip.getText()).toEqual('Getty (Keyword: From)');
 
     chip.click();
-    expect(advancedPage.numTotalHits).toEqual(310);
+    expect(advancedPage.numTotalHits).toEqual(343);
     advancedPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance');
     });

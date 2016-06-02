@@ -24,7 +24,7 @@ describe('Search Results', function() {
   });
   it('should return correct search results', function() {
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(7);
+    expect(resultsPage.numTotalHits).toEqual(28);
   });
 
   it('should show decoded urls in search bar', function() {
@@ -43,23 +43,23 @@ describe('Search Results', function() {
   it('should not display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(2);
+    expect(resultsPage.numTotalHits).toEqual(3);
 
     resultsPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
     });
     var option = resultsPage.getFacetOptionText('subject', 1);
-    expect(option).toEqual('20th century (1)');
+    expect(option).toEqual('Art collections (4)');
   });
 
   it('should redisplay facets in sidebar when you remove them from search bar', function(){
     resultsPage.submitNewSearchTerm('paintings');
-    expect(resultsPage.numTotalHits).toEqual(7);
+    expect(resultsPage.numTotalHits).toEqual(28);
     browser.wait(function () {
       return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
     }, 3000);
     resultsPage.toggleFacetOption('subject', 'Catalogs');
-    expect(resultsPage.numTotalHits).toEqual(2);
+    expect(resultsPage.numTotalHits).toEqual(3);
     resultsPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&subject=Catalogs');
     });
@@ -70,13 +70,13 @@ describe('Search Results', function() {
       return (resultsPage.getFacetOptionByLabel('subject', 'Catalogs')).isDisplayed();
     }, 3000); 
     var option = resultsPage.getFacetOptionText('subject', 1);
-    expect(option).toEqual('Catalogs (2)');
+    expect(option).toEqual('Art collections (4)');
   });
 
   it('should filter results by date when you use date range filter', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.submitDateRange('1905', '1910');
-    expect(resultsPage.numTotalHits).toEqual(4);
+    expect(resultsPage.numTotalHits).toEqual(9);
     resultsPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1905&date_lte=1910');
     });
@@ -93,7 +93,7 @@ describe('Search Results', function() {
   it('should filter results by date when you use date range filter with a single parameter', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.submitDateRange('1800', '');
-    expect(resultsPage.numTotalHits).toEqual(7);
+    expect(resultsPage.numTotalHits).toEqual(26);
     resultsPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1800');
     });
@@ -468,8 +468,8 @@ describe('Search Results', function() {
   describe('Routing, copying and pasting URL with query params into browser', function(){
     it('should apply query term, size, from, and sort when in URL', function(){
       browser.get('/search?q=art&from=10&size=10&sort=title_asc');
-      expect(resultsPage.numTotalHits).toEqual(310);
-      expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 310 results');
+      expect(resultsPage.numTotalHits).toEqual(343);
+      expect(resultsPage.showingResultsDialogue).toEqual('Showing 11 - 20 of 343 results');
       expect(resultsPage.getSortButtonText()).toEqual('Sort by: Title: A-Z');
       resultsPage.getHitsTitles().then(function(titles){
         expect(titles).toEqual(titles.sort());
