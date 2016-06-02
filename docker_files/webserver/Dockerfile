@@ -8,8 +8,8 @@ ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
 
 # What exactly is this doing???
-RUN echo "deb http://ppa.launchpad.net/fkrull/deadsnakes/ubuntu trusty main" > /etc/apt/sources.list.d/deadsnakes.list \
-&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DB82666C
+#RUN echo "deb http://ppa.launchpad.net/fkrull/deadsnakes/ubuntu trusty main" > /etc/apt/sources.list.d/deadsnakes.list \
+#&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DB82666C
 
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -22,8 +22,8 @@ RUN apt-get update \
     make \
     mercurial \
     pkg-config \
-    python3.5 \
-    python3.5-dev \
+    python3 \
+    python3-dev \
     ssh \
     vim \
     && apt-get autoremove \
@@ -55,10 +55,10 @@ RUN a2ensite portal
 #OLD
 #ADD https://raw.githubusercontent.com/pypa/pip/5d927de5cdc7c05b1afbdd78ae0d1b127c04d9d0/contrib/get-pip.py /root/get-pip.py
 ADD https://bootstrap.pypa.io/get-pip.py /root/get-pip.py
-RUN python3.5 /root/get-pip.py
-RUN pip3.5 install -U "setuptools==18.4"
-RUN pip3.5 install -U "pip==8.1.2"
-RUN pip3.5 install -U "virtualenv==13.1.2"
+RUN python3 /root/get-pip.py
+RUN pip3 install -U "setuptools==18.4"
+RUN pip3 install -U "pip==8.1.2"
+RUN pip3 install -U "virtualenv==13.1.2"
 
 # Django required modules
 COPY requirements.txt /var/www/portal/requirements.txt
@@ -71,4 +71,4 @@ RUN pip install requirements
 
 EXPOSE 80
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+#CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
