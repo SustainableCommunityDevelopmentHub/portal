@@ -1255,9 +1255,24 @@ li.book-field-val {
 
 /* Footer */
 
-.footer-hr {
+.container.message {
+  margin: 30px auto 10px !important;
+}
+
+p.footer-message {
+  font-size: 11px !important;
+  text-align: center;
+}
+
+p.footer-message a {
+  text-decoration: underline;
+}
+
+hr.footer-hr {
   height: 3px;
   background: black;
+  border-top: none;
+  margin-top: 0px;
 }
 
 .footer .container {
@@ -1271,9 +1286,28 @@ li.book-field-val {
   clear:both;
 }
 
+.footer .getty-logo{
+  width: 35px;
+  margin-right: 10px;
+}
+
+.footer-logo {
+  display: inline-block;
+  color: #333;
+}
+
 .footer p {
   font-size: 12px;
   margin: 0;
+}
+
+.footer a {
+  color: #333;
+}
+
+.footer a:hover {
+  color: #333;
+  text-decoration: underline;
 }
 
 .footer ul {
@@ -1295,25 +1329,7 @@ li.book-field-val {
   padding: 0 0 0 10px;
 }
 
-.footer li a {
-  color: #333;
-}
 
-.footer li a:hover {
-  color: #478ba3;
-  text-decoration: none;
-}
-
-
-.footer .getty-logo{
-  width: 35px;
-  margin-right: 10px;
-}
-
-.footer-logo {
-  display: inline-block;
-  color: black;
-}
 
 
 /* Contributors */
