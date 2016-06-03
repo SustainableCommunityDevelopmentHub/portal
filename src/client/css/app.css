@@ -606,6 +606,10 @@ a.adv:hover, a.adv:focus {
   color: #555;
 }
 
+.results-data-val {
+  display: inline;
+}
+
 .adv-drawer {
   display: inline-block;
   float: right;
@@ -620,12 +624,51 @@ a.adv:hover, a.adv:focus {
   justify-content: center;
 }
 
-.book-info {
+.bookmark {
   display: inline-block;
+  float: left;
+  cursor: pointer;
+  min-width: 55px;
+  width: 9%;
 }
 
-.results-data-val {
-  display: inline;
+.glyphicon-bookmark {
+  display: block;
+  font-size: 46px;
+  color: #f68c20;
+  clear:both;
+}
+
+.glyphicon-bookmark.inside {
+  position:absolute;
+  font-size: 43px;
+  color: white;
+  color: white;
+  left: 1.5px;
+  top: .1px;
+}
+
+.glyphicon-bookmark.inside.saved {
+  position:absolute;
+  font-size: 42px;
+  color: #f68c20;
+  left: 1.5px;
+  top: -0.5px;
+}
+
+.bookmark-text {
+  float: left;
+  display: block;
+  font-size: 12px;
+  color: #f68c20;
+  max-width: 50px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.book-info {
+  display: inline-block;
+  width: 91%;
 }
 
 .book-info b {
@@ -666,47 +709,6 @@ li.book-listing {
   margin-bottom: 20px;
 }
 
-.bookmark {
-  display: inline-block;
-  float: left;
-  cursor: pointer;
-  min-width: 50px;
-  margin-right: 20px;
-}
-
-.glyphicon-bookmark {
-  display: block;
-  font-size: 46px;
-  color: #f68c20;
-  clear:both;
-}
-
-.glyphicon-bookmark.inside {
-  position:absolute;
-  font-size: 43px;
-  color: white;
-  color: white;
-  left: 1.5px;
-  top: .1px;
-}
-
-.glyphicon-bookmark.inside.saved {
-  position:absolute;
-  font-size: 42px;
-  color: #f68c20;
-  left: 1.5px;
-  top: -0.5px;
-}
-
-.bookmark-text {
-  float: left;
-  display: block;
-  font-size: 12px;
-  color: #f68c20;
-  max-width: 50px;
-  text-align: center;
-  margin-top: 10px;
-}
 
 
   /* Left Sidebar */
@@ -1516,6 +1518,14 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     padding-left: 0;
   }
 
+  ul.saved-records-list .bookmark {
+    width: 6%;
+  }
+
+  ul.saved-records-list .book-info {
+    width: 94%;
+  }
+
   .saved-records-list li.book-listing {
     margin-bottom: 30px;
   }
@@ -1671,8 +1681,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       padding-right: 10px;
     }
 
+    .date-range {
+      width: 39%;
+      margin-right: 0;
+    }
+
     #sorting .btn-group {
       margin-left: 0;
+    }
+
+    /* Saved Records */
+
+    ul.saved-records-list .bookmark {
+      width: 7%;
+    }
+
+    ul.saved-records-list .book-info {
+      width: 93%;
     }
 
   }
@@ -1779,6 +1804,14 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-top: 0;
     }
 
+    .bookmark {
+    width: 13%;
+  }
+
+  .book-info {
+    width: 87%;
+  }
+
     /* Facets Modal */
 
     #facets-mobile-modal {
@@ -1803,6 +1836,16 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .footer p {
       display: block;
       text-align: center;
+    }
+
+    /* Saved Records */
+
+    ul.saved-records-list .bookmark {
+      width: 9%;
+    }
+
+    ul.saved-records-list .book-info {
+      width: 91%;
     }
 
   }
@@ -1928,6 +1971,14 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-top: 0;
     }
 
+    .bookmark {
+      width: 10%;
+    }
+
+    .book-info {
+      width: 85%;
+    }
+
     /* Filter Modal */
 
     .modal-header {
@@ -2014,8 +2065,17 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       width: 22%;
     }
 
-    /* Recent Searches */
+    /* Saved Records */
 
+    ul.saved-records-list .bookmark {
+      width: 10%;
+    }
+
+    ul.saved-records-list .book-info {
+      width: 85%;
+    }
+
+    /* Recent Searches */
 
     .search-info {
       border-right: none;
