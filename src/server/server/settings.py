@@ -117,3 +117,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
         'local.portal.dev:8000'
     )
+
+# Elasticsearch host and port
+ELASTICSEARCH_HOST = 'local.portal.dev'
+ELASTICSEARCH_PORT = '9200'
