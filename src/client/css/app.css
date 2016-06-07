@@ -318,7 +318,7 @@ hr {
   width: 100%;
   background-color: #eee;
   padding: 30px 30px 25px 30px;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .search-input {
@@ -354,6 +354,27 @@ hr {
 
 a.adv:hover, a.adv:focus {
   color: #333;
+}
+
+hr.thin {
+  border-top: 1px solid #aaa;
+  margin: 0;
+  width: 21%;
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle;
+}
+
+#announcement-wrapper {
+  margin-bottom: 30px;
+}
+
+#announcement {
+  font-size: 24px;
+  font-family: Georgia, Times, 'Times New Roman', serif;
+  width: 40%;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 #see-all-btn {
@@ -1675,6 +1696,16 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 @media (min-width: 992px) and (max-width: 1199px) {
 
+    /* Homepage */
+
+    hr.thin {
+      width: 15%;
+    }
+
+    #announcement {
+      width: 50%
+    }
+
     /* Search Results */
 
     #left_sidebar_accordion__container {
@@ -1756,6 +1787,14 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     #go-btn span {
       display: none;
+    }
+
+    hr.thin {
+      width: 17%;
+    }
+
+    #announcement {
+      width: 60%
     }
 
     /* Search Results */
@@ -1920,6 +1959,14 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     #go-btn p {
       display: none;
+    }
+
+    hr.thin {
+      width: 17%;
+    }
+
+    #announcement {
+      width: 60%
     }
 
     .stats .box { 
@@ -2134,8 +2181,22 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       text-align: center;
     }
 
+  }
+
+
+  @media (max-width: 568px) {
+
+      hr.thin {
+      width: 20%;
+    }
+
+    #announcement {
+      width: 50%;
+      font-size: 18px;
+    }
 
   }
+
 
   @media (max-width: 380px) {
 
@@ -2149,4 +2210,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       display: block;
       float: none;
     }
+
+  }
 
