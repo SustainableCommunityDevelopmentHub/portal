@@ -1,5 +1,4 @@
 import json
-import re
 
 def create_sort_query(sort):
     valid_sorts = {'date_added': {'_ingest_date': {'order': 'desc'}},
