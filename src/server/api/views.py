@@ -38,7 +38,7 @@ class Books(APIView):
     advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_grp_contributor', 'adv_language']
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
-    def get(self, request, params, format=None):
+    def get(self, request, params):
         search_options = urllib.parse.parse_qs(params)
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         body = es_functions.create_base_query()

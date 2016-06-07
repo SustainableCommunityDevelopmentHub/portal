@@ -1,4 +1,5 @@
 import json
+import re
 
 def create_sort_query(sort):
     valid_sorts = {'date_added': {'_ingest_date': {'order': 'desc'}},
@@ -70,7 +71,34 @@ def create_base_query():
 
 def create_query_string(q):
     if q and len(q):
-        query = " ".join(q)
+        queries = []
+        escape_table = str.maketrans({'+': r'\+',
+                                      '-': r'\-',
+                                      '=': r'\=',
+                                      '&': r'\&',
+                                      '|': r'\|',
+                                      '>': r'\>',
+                                      '<': r'\<',
+                                      '!': r'\!',
+                                      '(': r'(',
+                                      ')': r')',
+                                      '{': r'\{',
+                                      '}': r'\}',
+                                      '[': r'\[',
+                                      ']': r'\]',
+                                      '^': r'\^',
+                                      '"': r'\"',
+                                      '~': r'\~',
+                                      '*': r'\*',
+                                      ':': r'\:',
+                                      '\\': r'\\',
+                                      '/': r'\/'
+                                      })
+        for query in q:
+            escaped = query.translate(escape_table)
+            queries.append(escaped)
+        query = " ".join(queries)
+
         return {'query_string': {'query': query,
                                  'minimum_should_match': '2<-1 5<75%',
                                  'fields': ['_record_link',
