@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory, APITestCase
-from api.views import Book, Books, Contributors
+from api.views import Book, Raw, Books, Contributors
 from . import es_functions
 from api.renderers import RISRenderer
 
@@ -24,10 +24,10 @@ class APITests(APITestCase):
         self.assertEqual(response.data, contributors_data)
 
     def test_raw(self):
-        book = Book.as_view()
+        book = Raw.as_view()
         test_id = 'gri_9921975010001551'
-        request = self.factory.get('/api/book/gri_9921975010001551')
-        response = book(request, 'gri_9921975010001551', raw=True)
+        request = self.factory.get('/api/book/raw/gri_9921975010001551')
+        response = book(request, 'gri_9921975010001551')
         self.assertEqual(response.data['_id'], test_id)
 
     def test_book(self):
@@ -35,16 +35,15 @@ class APITests(APITestCase):
         test_id = 'gri_9921975010001551'
         book_data = {"language":"English","creator":"John Murray (Firm)","isPartOf":"Murray's English handbooks","publisher":"J. Murray","alternative":"Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.","title":"Murray's hand-book eastern counties.","description":["Cover title.","Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."],"issued":"1900","type":"Text","identifier":"https://www.archive.org/details/murrayshandbooke00john"}
         request = self.factory.get('/api/book/gri_9921975010001551')
-        response = book(request, 'gri_9921975010001551', raw=False)
+        response = book(request, 'gri_9921975010001551')
         self.assertEqual(response.data, book_data)
-        self.assertIsNone(response.data['_id'])
 
     def test_ris(self):
-        book = Book.as_view()
+        book = Raw.as_view()
         ris_data = "TY  - BOOK\r\nLA  - English\r\nET  - 3rd ed.\r\nPB  - J. Murray\r\nPY  - 19--]///\r\nN1  - Cover title.; Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.\r\nUR  - https://www.archive.org/details/murrayshandbooke00john\r\nTI  - Murray's hand-book eastern counties.\r\nAU  - John Murray (Firm)\r\nER  - \r\n"
 
-        request = self.factory.get('/api/book/gri_9921975010001551.ris')
-        response = book(request, 'gri_9921975010001551', raw=True, format='ris')
+        request = self.factory.get('/api/book/raw/gri_9921975010001551.ris')
+        response = book(request, 'gri_9921975010001551', format='ris')
         response.render()
         self.assertIn("TY  - BOOK\r\n", (response.content).decode())
         self.assertIn("UR  - https://www.archive.org/details/murrayshandbooke00john\r\n", (response.content).decode())
