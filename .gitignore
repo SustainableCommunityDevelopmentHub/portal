@@ -14,3 +14,6 @@ logs/*
 npm-debug.log
 
 ENV
+
+# Python cache directories
+__pycache__/

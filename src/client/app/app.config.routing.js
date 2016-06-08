@@ -117,6 +117,9 @@
         resolve: {
           bookData: function($stateParams, DataService) {
             return DataService.getBookData($stateParams.bookID);
+          },
+          dcRec: function($stateParams, DataService) {
+            return DataService.getDcRec($stateParams.bookID);
           }
         }
       })
