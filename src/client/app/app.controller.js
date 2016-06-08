@@ -59,6 +59,17 @@
         };
       };
       $scope.reset();
+      $scope.sendMail = function () {
+        var data = JSON.stringify($scope.user);
+        $http.post('/send-email', data).then(successCallback, errorCallback); 
+        function successCallback(response) {
+          console.log(data);
+          console.log("message successfully sent");
+        };
+        function errorCallback(response) {
+          console.log("message failed");
+        };
+      };
       $scope.feedbackErrors =[
         {msg: 'This field is required.'},
         {msg: 'Please enter a valid email address.'},
