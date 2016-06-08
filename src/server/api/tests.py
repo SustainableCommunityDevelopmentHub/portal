@@ -87,6 +87,6 @@ class TestESHelperFunctions(TestCase):
     def test_advanced_filters(self):
         correct_filter = [{'query_string': {'query': 'English',
                                    'minimum_should_match': '2<-1 5<75%',
-                                   'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded']}}]
+                                   'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded', 'dublin_core.language.value.stemmed']}}]
         advanced_filter = es_functions.create_advanced_filters('adv_language', ['English'])
         self.assertEqual(advanced_filter, correct_filter)
