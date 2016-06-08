@@ -20,6 +20,7 @@ class Raw(APIView):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
         response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
+
         j = json.loads(json.dumps(response))
 
         return Response(j, status=status.HTTP_200_OK)
