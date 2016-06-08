@@ -1,11 +1,12 @@
 from django.test import TestCase, RequestFactory
-from rest_framework.test import APIRequestFactory
+from rest_framework.test import APIRequestFactory, APITestCase
 from api.views import Book, Books, Contributors
+from . import es_functions
 
 import json
 
 
-class APITests(TestCase):
+class APITests(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
 
@@ -23,11 +24,10 @@ class APITests(TestCase):
 
     def test_book(self):
         book = Book.as_view()
-        book_data = {'_version': 1, 'found': True, '_index': 'portal', '_id': 'gri_9921975010001551', '_source': {'_grp_contributor': 'Getty Research Institute', '_date_display': '19--]', '_language': ['English'], '_edition': '3rd ed.', '_creator_facet': ['John Murray (Firm)'], '_title_display': "Murray's hand-book eastern counties.", '_ingest_date': '2015-10-19', '_grp_id': 'gri_9921975010001551', '_record_link': 'https://www.archive.org/details/murrayshandbooke00john', '_creator_display': ['John Murray (Firm)'], 'dublin_core': {'relation': [{'value': "Murray's English handbooks", 'qualifier': 'isPartOf'}], 'description': [{'value': 'Cover title.'}, {'value': 'Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.'}], 'title': [{'value': "Murray's hand-book eastern counties."}, {'value': 'Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.', 'qualifier': 'alternative'}], 'publisher': [{'value': 'J. Murray'}], 'creator': [{'value': 'John Murray (Firm)'}], 'type': [{'value': 'Text', 'encoding': 'DCMI Type Vocabulary'}], 'date': [{'value': '19--]', 'qualifier': 'issued'}, {'value': '1900', 'qualifier': 'issued'}], 'identifier': [{'value': 'https://www.archive.org/details/murrayshandbooke00john', 'volume': 'Getty Research Institute digitized version (Internet Archive)', 'encoding': 'URI'}], 'language': [{'value': 'English', 'encoding': 'ISO369-2'}]}, '_date_facet': '1900'}, '_type': 'book'}
-
+        test_id = 'gri_9921975010001551'
         request = self.factory.get('/api/book/gri_9921975010001551')
         response = book(request, 'gri_9921975010001551')
-        self.assertEqual(response.data, book_data)
+        self.assertEqual(response.data['_id'], test_id)
 
     def test_search_all(self):
         books = Books.as_view()
@@ -43,6 +43,50 @@ class APITests(TestCase):
                          'q=art&from=0&size=2&sort=title_desc&date_gte=1900&date_lte=1905&language=English&adv_contributor=getty')
         self.assertEqual(response.data[0]['hits']['total'], 2)
 
-        search_data = [{'_index': 'portal', '_id': 'gri_9922088190001551', 'sort': ['Practical masonry : a guide to the art of stone cutting : comprising the construction, setting-out, and working of stairs, circular work, arches, niches, domes, pendentives, vaults, tracery windows, etc. : to which are added supplements relating to masonry estimating and quantity surveying, and to building stones and marbles, and a glossary of terms for the use of students, masons, and craftsmen / by William R. Purchase.'], '_source': {'_grp_contributor': 'Getty Research Institute', '_creator_display': ['Purchase, William R.'], '_creator_facet': ['Purchase, William R'], '_ingest_date': '2015-10-19', '_date_facet': '1904', '_language': ['English'], 'dublin_core': {'title': [{'value': 'Practical masonry : a guide to the art of stone cutting : comprising the construction, setting-out, and working of stairs, circular work, arches, niches, domes, pendentives, vaults, tracery windows, etc. : to which are added supplements relating to masonry estimating and quantity surveying, and to building stones and marbles, and a glossary of terms for the use of students, masons, and craftsmen / by William R. Purchase.'}], 'creator': [{'value': 'Purchase, William R.'}], 'date': [{'qualifier': 'issued', 'value': '1904'}], 'subject': [{'value': 'Masonry.', 'encoding': 'LCSH'}, {'value': 'Stone-cutting.', 'encoding': 'LCSH'}, {'value': 'TH5401 .P97', 'encoding': 'LCC'}], 'language': [{'value': 'English', 'encoding': 'ISO369-2'}], 'type': [{'value': 'Text', 'encoding': 'DCMI Type Vocabulary'}], 'identifier': [{'value': 'https://www.archive.org/details/gri_33125000664686', 'encoding': 'URI', 'volume': 'Getty Research Institute digitized version (Internet Archive)'}], 'publisher': [{'value': 'C. Lockwood and Son'}], 'format': [{'qualifier': 'extent', 'value': 'viii, 218 p. :'}]}, '_grp_id': 'gri_9922088190001551', '_date_display': '1904', '_record_link': 'https://www.archive.org/details/gri_33125000664686', '_subject_facets': ['Masonry', 'Stone-cutting'], '_title_display': 'Practical masonry : a guide to the art of stone cutting : comprising the construction, setting-out, and working of stairs, circular work, arches, niches, domes, pendentives, vaults, tracery windows, etc. : to which are added supplements relating to masonry estimating and quantity surveying, and to building stones and marbles, and a glossary of terms for the use of students, masons, and craftsmen / by William R. Purchase.', '_edition': '5th ed., enl.'}, '_type': 'book', '_score': None}, {'_index': 'portal', '_id': 'gri_9921999570001551', 'sort': ['Illustrated catalogue : paintings in the Metropolitan Museum of Art, New York.'], '_source': {'_grp_contributor': 'Getty Research Institute', '_creator_display': ['Metropolitan Museum of Art (New York, N.Y.)'], '_creator_facet': ['Metropolitan Museum of Art (New York, N.Y.)', 'Metropolitan Museum of Art (New York, N.Y.)'], '_ingest_date': '2015-10-19', '_date_facet': '1905', '_language': ['English'], 'dublin_core': {'title': [{'value': 'Illustrated catalogue : paintings in the Metropolitan Museum of Art, New York.'}, {'qualifier': 'alternative', 'value': 'Paintings in the Metropolitan Museum of Art.'}], 'creator': [{'value': 'Metropolitan Museum of Art (New York, N.Y.)'}], 'date': [{'qualifier': 'issued', 'value': '1905'}], 'subject': [{'value': 'Metropolitan Museum of Art (New York, N.Y.) -- Catalogs.', 'encoding': 'LCSH'}], 'description': [{'value': '"(From forth issue)" ; (with addenda to January, 1907, inclusive)"'}, {'value': 'Includes bibliographical references.'}], 'language': [{'value': 'English', 'encoding': 'ISO369-2'}], 'type': [{'value': 'Text', 'encoding': 'DCMI Type Vocabulary'}], 'identifier': [{'value': 'https://www.archive.org/details/illustratedcatal00metr', 'encoding': 'URI', 'volume': 'Getty Research Institute digitized version (Internet Archive)'}], 'publisher': [{'value': 'The Museum'}], 'contributor': [{'value': 'Metropolitan Museum of Art (New York, N.Y.)'}], 'format': [{'qualifier': 'extent', 'value': 'xlii, 246 p., [91] leaves of plates :'}]}, '_grp_id': 'gri_9921999570001551', '_date_display': '1905', '_contributor_display': ['Metropolitan Museum of Art (New York, N.Y.)'], '_record_link': 'https://www.archive.org/details/illustratedcatal00metr', '_subject_facets': ['Metropolitan Museum of Art (New York, N.Y.)', 'Catalogs'], '_title_display': 'Illustrated catalogue : paintings in the Metropolitan Museum of Art, New York.'}, '_type': 'book', '_score': None}]
 
-        self.assertEqual(response.data[0]['hits']['hits'], search_data)
+class TestESHelperFunctions(TestCase):
+
+    def test_sort_relevance(self):
+        sortQuery = es_functions.create_sort_query(['relevance'])
+        self.assertEqual(sortQuery, [])
+
+    def test_pub_date_sort(self):
+        sortQuery = es_functions.create_sort_query(['date_asc'])
+        self.assertEqual(sortQuery, '_date_facet')
+        sortQuery = es_functions.create_sort_query(['date_desc'])
+        self.assertEqual(sortQuery, {'_date_facet': {'order': 'desc'}})
+
+    def test_date_added_sort(self):
+        sortQuery = es_functions.create_sort_query(['date_added'])
+        self.assertEqual(sortQuery, {'_ingest_date': {'order': 'desc'}})
+
+    def test_title_sort(self):
+        sortQuery = es_functions.create_sort_query(['title_asc'])
+        self.assertEqual(sortQuery, '_title_display.sort')
+
+        sortQuery = es_functions.create_sort_query(['title_desc'])
+        self.assertEqual(sortQuery, {'_title_display.sort': {'order': 'desc'}})
+
+    def test_date_query(self):
+        dateQuery = es_functions.create_date_query(['1900'], ['1905'])
+        correctDateQuery = {'range': {'_date_facet': {'gte': '1900',
+                                                      'lte': '1905'}}}
+        self.assertEqual(dateQuery, correctDateQuery)
+
+    def test_facet_filters(self):
+        facets = ['Art', 'Exhibitions']
+        filters = es_functions.create_facet_filters('subject', facets)
+        correct_filters = [{'term': {'_subject_facets.raw': 'Art'}}, {'term': {'_subject_facets.raw': 'Exhibitions'}}]
+        self.assertEqual(filters, {'bool': {'should': correct_filters}})
+
+    def test_multiple_query_strings(self):
+        query_terms = ['painting', 'art']
+        query = es_functions.create_query_string(query_terms)
+        self.assertEqual(query['query_string']['query'], 'painting art')
+
+    def test_advanced_filters(self):
+        correct_filter = [{'query_string': {'query': 'English',
+                                   'minimum_should_match': '2<-1 5<75%',
+                                   'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded']}}]
+        advanced_filter = es_functions.create_advanced_filters('adv_language', ['English'])
+        self.assertEqual(advanced_filter, correct_filter)

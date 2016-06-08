@@ -15,15 +15,12 @@
         templateUrl: config.app.root + '/home/home.html',
         controller: 'HomePageCtrl',
         resolve: {
-          searchResults: function(SearchService) {
+          searchResults: function(SearchService, DataService) {
             SearchService.resetOpts();
-            return SearchService.executeSearch().then(function(data) {
-              return SearchService.setResultsData(data);
-            });
+            return DataService.search(SearchService.opts);
           }
         }
       })
-
       .state('searchResults', {
         url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
         controller: 'SearchCtrl',
@@ -44,27 +41,39 @@
           adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, SORT_MODES, ADVANCED_SEARCH){
+          searchResults: function($stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
-
-            opts.size = parseInt($stateParams.size);
-            opts.from = parseInt($stateParams.from);
-            opts.sort = $stateParams.sort;
-            opts.date.gte = $stateParams.date_gte;
-            opts.date.lte = $stateParams.date_lte;
-
-            opts.q = [];
+            
+            if ($stateParams.size) {
+              opts.size = parseInt($stateParams.size);
+            }
+            if ($stateParams.from) {
+              opts.from = parseInt($stateParams.from);
+            }
+            if ($stateParams.sort) {
+              opts.sort = $stateParams.sort.toLowerCase();
+            }
+            if ($stateParams.date_gte) {
+              opts.date.gte = parseInt($stateParams.date_gte);
+            }
+            if ($stateParams.date_lte) {
+              opts.date.lte = parseInt($stateParams.date_lte);
+            }
+            
             if ($stateParams.q) {
               var seen = {};
-              opts.q = $stateParams.q.filter(function(query){
-                if (seen[query]) {
+              opts.q = $stateParams.q.filter(function(term){
+                if (seen[term]) {
                   return false;
                 } else {
-                  seen[query] = true;
+                  seen[term] = true;
                   return true;
                 }
+              });
+              opts.q = opts.q.map(function(term) {
+                return term.toLowerCase();
               });
             }
 
@@ -94,12 +103,9 @@
               }
             });
 
-
             console.log('Router - SearchResults - in Resolve - opts: ' + JSON.stringify(opts));
             ss.opts = opts;
-            return ss.executeSearch().then(function(data) {
-              return ss.setResultsData(data);
-            });
+            return DataService.search(ss.opts);
           }
         }
       })
@@ -110,16 +116,7 @@
         controller: 'BookDetailCtrl',
         resolve: {
           bookData: function($stateParams, DataService) {
-            var book = {
-              index: 'portal',
-              type: 'book',
-              id: $stateParams.bookID
-            };
-            return DataService.getBookData(book).then(function(response) {
-              var bookData = response._source;
-              bookData._id = response._id;
-              return bookData;
-            });
+            return DataService.getBookData($stateParams.bookID);
           }
         }
       })
@@ -135,11 +132,8 @@
         templateUrl: config.app.root + '/contributors/contributors.html',
         controller: 'ContributorsCtrl',
         resolve: {
-
-          contributors: function($stateParams, DataService){
-            console.log('Router....in state contributors resolve. $stateParams: ' + JSON.stringify($stateParams));
+          contributors: function(DataService){
             return DataService.getContributors();
-
           }
         }
       })
