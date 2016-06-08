@@ -93,9 +93,9 @@ def create_query_string(q):
                                       '\\': r'\\',
                                       '/': r'\/'
                                       })
-        for query in q:
-            escaped = query.translate(escape_table)
-            queries.append(escaped)
+        for query_term in q:
+            escaped_term = query_term.translate(escape_table)
+            queries.append(escaped_term)
         query = " ".join(queries)
 
         return {'query_string': {'query': query,
