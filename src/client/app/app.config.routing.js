@@ -155,6 +155,7 @@
         templateUrl: config.app.root + '/partials/faqs.html',
         //controller: 'FaqsCtrl'
       })
+
       .state('savedRecords', {
         url: '/saved',
         templateUrl: config.app.root + '/saved_records/saved-records.html',
@@ -171,6 +172,12 @@
             });
           }
         }
+      })
+
+      .state('error', {
+        url: '/error',
+        templateUrl: config.app.root + '/error/error.html',
+        controller: 'ErrorCtrl'
       });
 
     // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode

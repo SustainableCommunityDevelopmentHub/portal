@@ -15,6 +15,7 @@
     'app.advanced-search',
     'app.controller',
     'app.contributors',
+    'app.error',
     'AngularPrint',
     'smoothScroll',
     'ngAnimate'
