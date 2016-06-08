@@ -111,3 +111,7 @@ class TestESHelperFunctions(TestCase):
         advanced_filter = es_functions.create_advanced_filters('adv_language', ['English'])
         self.assertEqual(advanced_filter, correct_filter)
 
+    def test_query_string_special_chars(self):
+        query_term = ['[2^&|art!]painting+=-']
+        query = es_functions.create_query_string(query_term)
+        self.assertEqual(query['query_string']['query'], '\[2\^\&\|art\!\]painting\+\=\-')

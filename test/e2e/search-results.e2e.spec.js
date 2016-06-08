@@ -212,6 +212,18 @@ describe('Search Results', function() {
     expect(resultsPage.getQueryTerms().count()).toBe(1);
   });
 
+  it('should return results with queries containing special chars', function() {
+    resultsPage.submitNewSearchTerm('[art]');
+    resultsPage.numTotalHits.then(function(hits){
+      expect(hits).toEqual(310);
+    });
+    resultsPage.getFacetChip(0).click();
+    resultsPage.submitNewSearchTerm('skin-nay!');
+    expect(resultsPage.getFacetChip(0).getText()).toEqual('skin-nay! (Keyword)');
+    resultsPage.getHits().then(function(hits) {
+      expect(hits.length).toBe(1);
+    });
+  });
 
   describe('Pagination', function(){
     var query = '';
