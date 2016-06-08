@@ -75,6 +75,7 @@
       contributorsPromise.success(function(data) {
         deferred.resolve(data);
       }).error(function() {
+        console.log('~~~~~~~~FOOOOOO');
         deferred.reject(arguments);
       });
       return deferred.promise;

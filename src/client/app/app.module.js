@@ -24,13 +24,26 @@
   // make lodash injectable
   .constant('_', window._)
 
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
+  // app initialization
+  .run(runBlock);
+
+  runBlock.$inject = ['$rootScope', '$state', '$stateParams'];
+  function runBlock($rootScope, $state, $stateParams){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-
     // assign this here to persist open tabs across stage changes
     $rootScope.$activeTabs = [];
-  }]);
+
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+      var errorObj = {
+        error: 'NONEXISTENT_STATE',
+        data: {}
+      };
+
+      event.preventDefault();
+      $state.go('error', {error: errorObj});
+    });
+  }
 
 })();
