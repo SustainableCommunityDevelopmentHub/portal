@@ -1,0 +1,39 @@
+<div ng-app="app" class="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Portal Feedback</h3>
+        <hr class="sr-top">
+          <h4>We value your feedback!</h4>
+          <p>Please let us know how we can improve the Portal.</p>
+          <p><i>*Indicates a required field</i></p>
+      </div>
+    </div><!-- row -->
+
+    <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
+      <form ng-model="user" name="send-email" action="/api/send-email/" method="post" >
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="fb-field">
+                <label for="first_name">First name:</label>
+                <input ng-model="user.firstName" id="first_name" type="text" name="first_name">
+                <label for="last_name">Last name: </label>
+                <input ng-model="user.lastName" id="last_name" type="text" name="last_name">
+                <label for="email">Email: </label>
+                <input id="email" type="email" name="email">
+                <label for="confirmation_email">Confirm email: </label>
+                <input id="confirmation_email" type="email" name="confirmation_email">
+                <label for="organization">Organization: </label>
+                <input id="organization" type="text" name="organization">
+                <label for="user_feedback">Feedback: </label>
+                <input id="user_feedback" type="text" name="user_feedback">
+                
+
+          <div class="row">
+            <div class="col-xs-12">
+              <input id="feedback-submit" type="submit" ng-click="sendMail()" value="Submit" />
+            </div>
+        </form>
+      </div><!-- row -->
+  </div><!-- /container -->
+</div>

@@ -74,3 +74,36 @@ class Books(APIView):
         response = es.msearch(body=query)
         data = json.loads(json.dumps(response))
         return Response(data['responses'], status=status.HTTP_200_OK)
+
+
+def get_feedback_form(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ContactForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            send_mail(
+                'Feedback from: '+ form.cleaned_data.get('first_name') + ' ' +
+                form.cleaned_data.get('last_name'), 
+                'Organization: ' + form.cleaned_data.get('organization') + '\n\n' + 
+                'Email: ' + form.cleaned_data.get('email') + '\n\n' + 
+                'Type: ' + form.cleaned_data.get('type_of_feedback') + '\n\n' + 
+                'Feedback: ' + form.cleaned_data.get('user_feedback'),
+                form.cleaned_data.get('email'),
+                ['sley@getty.edu'], fail_silently=False)
+            send_mail(
+                form,
+                form.cleaned_data.get('email'),
+                ['sley@getty.edu'], fail_silently=False)
+            print(request.body)
+            return render(request, '/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ContactForm()
+
+    return render(request, 'email.html', {'form': form})
