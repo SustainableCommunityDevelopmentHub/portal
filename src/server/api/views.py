@@ -83,31 +83,20 @@ class Books(APIView):
 def get_feedback_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        
+        # create a form instance and populate it with data from the request:        
         print(request.body)
         info_dict = json.loads(request.body.decode('utf-8'))
-        form = ContactForm(info_dict)
         print(info_dict)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            send_mail(
-                'Feedback from: '+ form.cleaned_data.get('first_name') + ' ' +
-                form.cleaned_data.get('last_name'), 
-                'Organization: ' + form.cleaned_data.get('organization') + '\n\n' + 
-                'Email: ' + form.cleaned_data.get('email') + '\n\n' + 
-                'Type: ' + form.cleaned_data.get('type_of_feedback') + '\n\n' + 
-                'Feedback: ' + form.cleaned_data.get('user_feedback'),
-                form.cleaned_data.get('email'),
-                ['sley@getty.edu'], fail_silently=False)
-            # redirect to a new URL:
-            return render(request, '/thanks/')
-        else:
-            print("Form not valid")
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ContactForm()
+        send_mail(
+            'Feedback from: '+ info_dict.get('first_name') + ' ' +
+            info_dict.get('last_name'), 
+            'Organization: ' + info_dict.get('organization') + '\n\n' + 
+            'Email: ' + info_dict.get('email') + '\n\n' + 
+            'Type: ' + info_dict.get('type_of_feedback') + '\n\n' + 
+            'Feedback: ' + info_dict.get('user_feedback'),
+            info_dict.get('email'),
+            ['sley@getty.edu'], fail_silently=False)
+        # redirect to a new URL:
+        return render(request, '/thanks/')
 
     return render(request, 'email.html', {'form': form})
