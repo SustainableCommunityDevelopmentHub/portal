@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^book/raw/(?P<id>(?:(?!.json|.xml|.api|.ris).)*)$', Raw.as_view(), name='raw'),
     # this matches urls with &,.='_- spaces and characters.
     # Param group will match up until but not including .json, .api, or .xml
-    url(r'^books/(?P<params>(?:(?!.json|.api|.xml)[\w+\s+=:/&\._\'\-,])*)$', Books.as_view(), name='books'),
+    url(r'^books/(?P<params>(?:(?!.json|.api|.xml).)*?)[/]?$', Books.as_view(), name='books'),
     url(r'^contributors[/]?$', Contributors.as_view(), name='contributors'),
 ]
 

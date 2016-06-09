@@ -88,7 +88,6 @@
      * @returns promise with data from django api
      */
     function getBookData(bookID){
-      console.log('getting book data');
       var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
       var deferred = $q.defer();
       bookPromise.success(function (data) {
