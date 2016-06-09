@@ -3,7 +3,9 @@
 
   angular
   .module('app')
-  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', function($stateProvider, $urlRouterProvider, $locationProvider, config){
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', Router]);
+
+  function Router($stateProvider, $urlRouterProvider, $locationProvider, config){
     // redirect to home by default
     $urlRouterProvider.otherwise('/');
 
@@ -45,7 +47,7 @@
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
-            
+
             if ($stateParams.size) {
               opts.size = parseInt($stateParams.size);
             }
@@ -61,7 +63,7 @@
             if ($stateParams.date_lte) {
               opts.date.lte = parseInt($stateParams.date_lte);
             }
-            
+
             if ($stateParams.q) {
               var seen = {};
               opts.q = $stateParams.q.filter(function(term){
@@ -158,6 +160,7 @@
         templateUrl: config.app.root + '/partials/faqs.html',
         //controller: 'FaqsCtrl'
       })
+
       .state('savedRecords', {
         url: '/saved',
         templateUrl: config.app.root + '/saved_records/saved-records.html',
@@ -174,9 +177,23 @@
             });
           }
         }
+      })
+
+      .state('error', {
+        url: '/error',
+        templateUrl: config.app.root + '/error/error.html',
+        controller: 'ErrorCtrl',
+        params: {
+          error: {
+            error: 'GENERIC',
+            data: {}
+          }
+        }
+
       });
 
     // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
     $locationProvider.html5Mode(true);
-  }]);
+  }
+
 })();
