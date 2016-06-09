@@ -43,17 +43,18 @@ describe('Book Detail', function() {
     $('.saveRis').click();
 
     // Get ris record data we put in the code for testing.
-    // The return value is different in unexpected from normal JS strings. 
-    // Had to handle w/this approach inside callback for things to work.
-    var fileContentsRisUrl = $('.saveRis').evaluate('fileContentsRis').then(function(data){
+    // The return object from fs.readFile does not have expected String funcs like .slice()
+    // ...and newLines are not in the string.
+    // Had to handle inside callback like this for things to work.
+    var fileContentsRis = $('.saveRis').evaluate('fileContentsRis').then(function(data){
       return data.slice(
-        data.indexOf('UR  - ') + 5, data.indexOf('PB')
+        (data.indexOf('UR  - ') + 6), data.indexOf('LA')
       ).trim();
     });
 
-    // check that each record is for the same digital item 
+    // check that each record is for the same digital item
     // by implication informally checks that record is a RIS record
-    expect( fileContentsRisUrl ).toEqual( extractRisUrl(testData) );
+    expect( fileContentsRis ).toEqual( extractRisUrl(testData) );
 
     function extractRisUrl(risRecord){
       var urlLine = risRecord.split('\n').filter(function(line){
@@ -83,5 +84,5 @@ describe('Book Detail', function() {
     expect(result).toBe(true);
   });
 
-  
+
 });
