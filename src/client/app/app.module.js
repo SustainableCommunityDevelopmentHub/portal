@@ -37,7 +37,7 @@
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
       var errorObj = {
-        error: 'NONEXISTENT_STATE',
+        error: 'DEFAULT',
         data: {}
       };
 
