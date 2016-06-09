@@ -1,10 +1,12 @@
+import json
+
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory, APITestCase
-from api.views import Book, Raw, Books, Contributors
-from . import es_functions
-from api.renderers import RISRenderer
+from rest_framework import status
 
-import json
+from api.views import Book, Raw, Books, Contributors
+from api.renderers import RISRenderer
+from . import es_functions
 
 
 class APITests(APITestCase):
@@ -37,6 +39,15 @@ class APITests(APITestCase):
         request = self.factory.get('/api/book/gri_9921975010001551')
         response = book(request, 'gri_9921975010001551')
         self.assertEqual(response.data, book_data)
+
+    def test_bad_book_id(self):
+        book = Book.as_view()
+        test_id = 'bad_book_id'
+        request = self.factory.get('/api/book/' + test_id)
+        response = book(request, test_id)
+        self.assertFalse(response.data['found'])
+        self.assertEqual(response.data['_id'], test_id)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_ris(self):
         book = Raw.as_view()
