@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', '_', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, _){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -25,21 +25,11 @@
     $scope.activeFacets = ss.opts.facets;
     $scope.advancedFields = ss.opts.advancedFields;
 
-    $scope.fromDate = null;
-    $scope.toDate = null;
-    if (ss.opts.date) {
-      $scope.dateRange = ss.opts.date;
-      if(ss.opts.date.gte){
-        ss.opts.date.gte = parseInt(ss.opts.date.gte);
-        $scope.fromDate = ss.opts.date.gte;
-      }
-      if(ss.opts.date.lte){
-        ss.opts.date.lte = parseInt(ss.opts.date.lte);
-        $scope.toDate = ss.opts.date.lte;
-      }
-    }
+    $scope.fromDate = ss.opts.date.gte;
+    $scope.toDate = ss.opts.date.lte;
+    $scope.dateRange = ss.opts.date;
 
-    $scope.queryTerm = ss.opts.q;
+    $scope.queryTerms = ss.opts.q;
     $scope.newQueryTerm = "";
     $scope.pagination = {
       // must parseInt so is treated as int in code
@@ -49,20 +39,12 @@
     };
 
     $scope.categories = FACETS;
-
-    if(ss.opts.sort){
-      $scope.sort = SORT_MODES[ss.opts.sort].display;
-    } else {
-      $scope.sort = SORT_MODES[SORT_DEFAULT].display;
-    }
+    $scope.sort = SORT_MODES[ss.opts.sort].display;
 
     console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
     console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
     console.log('SearchCtrl::$scope.numTotalHits: ' + $scope.numTotalHits);
 
-    if(ss.opts.facets){
-      $scope.activeFacets = ss.opts.facets;
-    }
     $scope.savedRecords = SavedRecordsService.getRecords();
 
     $scope.bookMarkText = "";
@@ -116,7 +98,6 @@
       SavedRecordsService.saveSearch(searchOpts, results, timestamp);
     }
 
-
     function getValidPageSizeOptions(numTotalHits){
       var passedThreshold = false;
       return $scope.allPageSizeOptions
@@ -143,25 +124,16 @@
     $scope.newQuerySearch = function(query){
       var newQuery;
       if (query) {
-        newQuery = query.trim();
-        if ($scope.queryTerm) {
-          newQuery = $scope.queryTerm + " " + newQuery;
+        query = query.trim();
+        if ($scope.queryTerms.indexOf(query) === -1){
+          $scope.queryTerms.push(query.toLowerCase());
         }
-        $scope.queryTerm = newQuery;
-      } else {
-        newQuery = $scope.queryTerm;
       }
-      console.log('SearchCtrl....$scope.newQuerySearch: ' + query);
       var opts = {
-        q: newQuery
+        q: $scope.queryTerms,
+        from: 0,
+        sort: SORT_MODES[SORT_DEFAULT]
       };
-
-      // if new query term or empty string query term, need to reset pagination
-      if(!opts.q || (opts.q !== ss.opts.q) ){
-        opts.from = 0;
-        opts.sort = SORT_MODES[SORT_DEFAULT];
-      }
-
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
@@ -248,9 +220,11 @@
     /**
      * Removes query term, then runs search on empty query term string
      */
-    $scope.clearQueryTerm = function() {
-      $scope.queryTerm = "";
-      updateSearch({q:"", from: 0});
+    $scope.clearQueryTerm = function(queryTerm) {
+      $scope.queryTerms = $scope.queryTerms.filter(function(query) {
+        return query !== queryTerm;
+      });
+      updateSearch({q:$scope.queryTerms, from: 0});
     };
     /**
      * Removes date range filter, then runs search again

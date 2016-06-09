@@ -3,10 +3,10 @@
 
   angular
   .module('app.core')
-  .factory('DataService', ['esClient', 'esQueryBuilder', DataService]);
+  .factory('DataService', ['$q', '$http', 'config', 'SearchService', DataService]);
 
   /* DataService - get all data through this service */
-  function DataService(esClient, esQueryBuilder) {
+  function DataService($q, $http, config, SearchService) {
     /////////////////////////////////
     // Expose Service
     /////////////////////////////////
@@ -14,6 +14,7 @@
     var service = {
       getContributors: getContributors,
       getBookData: getBookData,
+      getDcRec: getDcRec,
       search: search
     };
 
@@ -25,45 +26,91 @@
     //////////////////////////////////
 
     /**
-     * Call ES for general search query. Use multi search call
-     * so search query scope (filters) are not applied to aggs. See ES docs.
+     * Call django api for general search query. Use multi search call
      * @param {object} opts search opts - see SearchService for more details.
-     * @returns {promise} ES response object wrapped in a promise.
-     *                    Is arr of 2 objs, 1st one query, 2nd aggs.
+     * @returns {promise} results data wrapped in a promise.
      */
     function search(opts){
-      var mSearchQueryObj = esQueryBuilder.transformToMultiSearchQuery(
-        esQueryBuilder.buildSearchQuery(opts)
-      );
+      var query = ["from=" + opts.from, "size=" + opts.size, "sort=" + opts.sort];
+      if (opts.q.length) {
+        opts.q.forEach(function(queryTerm){
+          query.push("q=" + queryTerm);
+        });
+      }
+      if (opts.date.gte) {
+        query.push("date_gte=" + opts.date.gte);
+      }
 
-      //console.log('DataService::search -- mSearchQueryObj: ' + JSON.stringify(mSearchQueryObj));
-      return esClient.msearch(mSearchQueryObj).then(function(response){
-        var resultsObj = response.responses[0];
-        resultsObj.aggregations = response.responses[1].aggregations;
-        return resultsObj;
-      })
-      .catch(function(response){
+      if (opts.date.lte) {
+        query.push("date_lte=" + opts.date.lte);
+      }
+      opts.facets.forEach(function(facet){
+        query.push(facet.category + "=" + facet.value);
+      });
+      opts.advancedFields.forEach(function(advanced) {
+        query.push(advanced.field.paramName + "=" + advanced.term);
+      });
+
+      var queryPath = query.join("&");
+      var searchPromise = $http.get(config.django.host + ':' + config.django.port + '/api/books/' + queryPath);
+      var deferred = $q.defer();
+      searchPromise.success(function(data) {
+        var parsedData = data[0];
+        parsedData.aggregations = data[1].aggregations;
+        var results = SearchService.setResultsData(parsedData);
+        deferred.resolve(results);
+      }).error(function(response) {
+        deferred.reject(arguments);
         console.log('DataService::search -- error: ' + JSON.stringify(response));
       });
-    }
-
-    function getContributors(){
-      var response = esClient.search(
-        esQueryBuilder.buildContributorsQuery()
-      );
-
-      //console.log('DataService.getContributors..... executed, promise response: ' + JSON.stringify(response));
-      return response;
+      return deferred.promise;
     }
 
     /**
-     * Gets data from elasticsearch client for particular book record
-     * @param book {object} record to get
-     * @returns response from elasticsearch
+     * Gets data from django api for contributors
+     * @returns promise with data from django api
      */
-    function getBookData(book){
-      var response = esClient.get(book);
-      return response;
+    function getContributors(){
+      var contributorsPromise = $http.get(config.django.host + ':' + config.django.port + '/api/contributors');
+      var deferred = $q.defer();
+      contributorsPromise.success(function(data) {
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
+    }
+
+    /**
+     * Gets data from django api for particular book record
+     * @param bookID {string} id of record to get
+     * @returns promise with data from django api
+     */
+    function getBookData(bookID){
+      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
+      var deferred = $q.defer();
+      bookPromise.success(function (data) {
+        var bookData = data._source;
+        bookData._id = data._id;
+        deferred.resolve(bookData);
+      }).error(function () {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
+    }
+
+
+    function getDcRec(bookID){
+      console.log('getting DC record');
+      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
+      var deferred = $q.defer();
+      bookPromise.success(function (data) {
+        var dcRec = data;
+        deferred.resolve(dcRec);
+      }).error(function () {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
     }
   }
 })();

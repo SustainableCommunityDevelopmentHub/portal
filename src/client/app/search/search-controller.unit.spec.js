@@ -10,7 +10,6 @@ describe("Search Controller", function(){
       DEFAULTS,
       SORT_MODES,
       SAVED_ITEMS,
-      defaultSearchObj,
       SavedRecordsService,
       testFacet,
       secondFacet;
@@ -24,22 +23,18 @@ describe("Search Controller", function(){
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _SavedRecordsService_, _DEFAULTS_, _SORT_MODES_, _SAVED_ITEMS_, ___){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _ADVANCED_SEARCH_, _SearchService_, _SavedRecordsService_, _DEFAULTS_, _SORT_MODES_, _SAVED_ITEMS_){
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
-    //scope.activeFacets = [];
     ADVANCED_SEARCH = _ADVANCED_SEARCH_;
     DEFAULTS = _DEFAULTS_;
     SORT_MODES = _SORT_MODES_;
     SAVED_ITEMS = _SAVED_ITEMS_;
     SavedRecordsService = _SavedRecordsService_;
-    var _ = ___;
 
     testFacet = SearchService.buildFacet('language', 'French', 270, true);
     secondFacet = SearchService.buildFacet('language', 'German', 65, true);
-
-    defaultSearchObj = _.merge(DEFAULTS.searchOpts, {sort: SORT_MODES[DEFAULTS.searchOpts.sort]});
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -241,36 +236,46 @@ describe("Search Controller", function(){
   });
 
   describe("Search Queries", function() {
-    beforeEach(function(){
-      //initializing vars to mimic a search
-      scope.queryTerm = "art";
-      SearchService.opts.q = scope.queryTerm;
+    afterEach(function() {
+      scope.clearSearchOpts();
     });
 
     it("should add new query term to previous query terms", function(){
       //adding new search term
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
       scope.newQuerySearch("painting");
-      var newQuery = "art painting";
-      expect(scope.queryTerm).toEqual(newQuery);
+      var newQuery = ["art", "painting"];
+      expect(scope.queryTerms).toEqual(newQuery);
       expect(SearchService.opts.q).toEqual(newQuery);
     });
 
     it("should clear query terms correctly", function(){
-      scope.clearQueryTerm();
-      expect(scope.queryTerm).toEqual("");
-      expect(SearchService.opts.q).toEqual("");
+      scope.queryTerms = ["art"];
+      SearchService.opts.q = ["art"];
+      scope.clearQueryTerm("art");
+      expect(scope.queryTerms).toEqual([]);
+      expect(SearchService.opts.q).toEqual([]);
     });
 
     it("should reset page to 1 in when changing query string", function(){
-      scope.clearQueryTerm();
       scope.newQuerySearch("painting");
       scope.setPageNum(2);
-      expect(scope.queryTerm).toEqual("painting");
+      expect(scope.queryTerms).toEqual(["painting"]);
       expect(SearchService.calculatePage()).toEqual(2);
 
       scope.newQuerySearch("art");
-      expect(scope.queryTerm).toEqual("painting art"); // currently query string appended to on change
+      expect(scope.queryTerms).toEqual(["painting", "art"]);
       expect(SearchService.calculatePage()).toEqual(1);
+    });
+
+    it("should not submit search queries with duplicate terms", function() {
+      scope.queryTerms = ["art"];
+      scope.newQuerySearch("painting");
+      scope.newQuerySearch("art");
+      scope.newQuerySearch("painting");
+      expect(scope.queryTerms.length).toBe(2);
+      expect(scope.queryTerms).toEqual(["art", "painting"]);
     });
 
   });

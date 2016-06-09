@@ -9,14 +9,14 @@
 
 <div class="container"> 
   <div class="row">
-    <div class="col-xs-12 col-sm-4">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4">
       <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container">
         <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a><button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
       </div>
 
       <div id="left_sidebar_accordion__container" class="navbar-collapse collapse">
         <div class="facet-header-desktop">
-          <h6>Filter Your Results</h6>
+          <h4>Filter Your Results</h4>
           <button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
         </div>
 
@@ -93,16 +93,19 @@
 
   
   <!--Search Box & Options-->
-    <div class="col-xs-12 col-sm-8">
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
       <div class="results-list">
 
-        <div class="search-bar-results">
+        <div class="row search-bar-container">
+
           <form ng-submit="newQuerySearch(newQueryTerm)">
+            <div class="col-xs-9 col-sm-10 col-md-11 search-bar-results-container-col">
+
             <div class="facet-chip-search-bar facet-search" focus-search-input>
               <ul class="facet-chip-list facet-search">
-                <li class="facet-search" ng-if="queryTerm">
+                <li class="facet-search" ng-repeat="queryTerm in queryTerms">
                   <div class="facet-chip">
-                    <a class="facet-search" ng-click="clearQueryTerm()">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+                    <a class="facet-search" ng-click="clearQueryTerm(queryTerm)">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
@@ -125,13 +128,17 @@
                 </li>
               </ul>
             </div>
-            <button  class="btn btn-primary" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+          </div><!--new col-->
+          <div class="col-xs-3 col-sm-2 col-md-1 go-btn-results-col">
+            <button class="btn btn-primary" type="submit" id="go-btn-results"><span class="glyphicon glyphicon-search"></span></button>
+          </div><!--new col-->
           </form>
+
         </div>
 
         <div class="paging">
-          <div class="results-pagination-top">
-            <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5"></dir-pagination-controls>
+          <div class="results-pagination-top" >
+            <dir-pagination-controls on-page-change="setPageNum(newPageNumber)" boundary-links="true" max-size="5" auto-hide="true" template-url="app/partials/dirPagination.tpl.html"></dir-pagination-controls>
           </div>
         </div>
 
@@ -164,12 +171,11 @@
       <span class="showing" ng-show="pagination.from > numTotalHits">No More Results</span>
     </div>
 
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3">
       <a class= "adv-drawer" href="/advanced">Advanced Search</a>
     </div>
 
-    <div class="col-xs-12 col-sm-8">
-
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
     <!--Search Results Data-->
       <storage-event-listener></storage-event-listener>
       <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">

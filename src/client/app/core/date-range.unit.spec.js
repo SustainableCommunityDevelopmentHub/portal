@@ -1,5 +1,5 @@
 describe("Date Range Filter", function() {
-  var scope, controller, $state, SearchService, data, es, opts, queryBuilder, SavedRecordsService;
+  var scope, controller, $state, SearchService, data, opts, SavedRecordsService;
 
   var baseESQuery = {
     "index":"portal",
@@ -68,20 +68,17 @@ describe("Date Range Filter", function() {
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
     module('app');
     module('app.search');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _SearchService_, _SavedRecordsService_, DataService, esClient, esQueryBuilder){
+  beforeEach(inject(function($rootScope, $controller, _$state_, _SearchService_, _SavedRecordsService_, DataService){
     data = DataService;
-    es = esClient;
     $state = _$state_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
     SavedRecordsService = _SavedRecordsService_;
-    queryBuilder = esQueryBuilder;
 
     controller = $controller('SearchCtrl', {
         '$scope': scope,
@@ -103,45 +100,23 @@ describe("Date Range Filter", function() {
   });
 
   it("should reset page to 1 in when date range filter applied", function(){
-    scope.clearQueryTerm();
+    scope.queryTerms = [];
     scope.newQuerySearch("painting");
     scope.setPageNum(2);
-    expect(scope.queryTerm).toEqual("painting");
+    expect(scope.queryTerms).toEqual(["painting"]);
     expect(SearchService.calculatePage()).toEqual(2);
 
     scope.setDateRange(scope.fromDate, scope.toDate);
     expect(SearchService.calculatePage()).toEqual(1);
   });
 
-  describe("Tests for building elasticsearch date range query", function(){
-    beforeEach(function(){
-      opts = {"facets":[],"page":1,"from":'0', size: 25};
-      scope.fromDate = "1900";
-      scope.toDate = "1905";
-    });
-
-    afterEach(function(){
-      /* Tear down properly so state does not persist between tests */
-      delete opts.date;
-      if(baseESQuery.body.date){
-        delete baseESQuery.body.date;
-      }
-    });
-
-    it("builds correct elasticsearch query for date range", function(){
-      opts.date = {"gte": scope.fromDate,"lte": scope.toDate};
-      var dateRange = {"range":{"_date_facet":{"gte": scope.fromDate,"lte": scope.toDate}}};
-      var newQuery = queryBuilder.buildSearchQuery(opts);
-
-      var filter = newQuery.body.query.bool.filter.bool.filter;
-      expect(filter).toContain(dateRange);
-    });
-
-    it("adds date range object to SearchService's options", function(){
-      scope.setDateRange(scope.fromDate, scope.toDate);
-      expect(SearchService.opts.date).toBeDefined();
-      expect(SearchService.opts.date.gte).toEqual(scope.fromDate);
-      expect(SearchService.opts.date.lte).toEqual(scope.toDate);
-    });
+  it("adds date range object to SearchService's options", function(){
+    opts = SearchService.getDefaultOptsObj();
+    scope.fromDate = 1900;
+    scope.toDate = 1905;
+    scope.setDateRange(scope.fromDate, scope.toDate);
+    expect(SearchService.opts.date).toBeDefined();
+    expect(SearchService.opts.date.gte).toEqual(scope.fromDate);
+    expect(SearchService.opts.date.lte).toEqual(scope.toDate);
   });
 });

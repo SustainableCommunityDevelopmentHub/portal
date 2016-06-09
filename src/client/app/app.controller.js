@@ -3,28 +3,11 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults',
-  function($scope, SearchService, $state, searchResults) {
-
-    $scope.totalTitles = searchResults.numTotalHits;
-    console.log('~~~totalTitles: ' + JSON.stringify(searchResults.numTotalHits));
-
-    // for when user inits new search.
-    // changes state to search.results, which will trigger search operation.
-    $scope.newSearch = function(opts) {
-      SearchService.resetOpts();
-
-      // convention is to always pass SearchService.opts
-      SearchService.updateOpts(opts);
-      console.log('~~~newSearch! opts: ' + JSON.stringify(opts));
-      $state.go('searchResults', SearchService.opts);
-    };
-  }])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 
-    function($scope, $stateParams, $window, bookData) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'dcRec',
+    function($scope, $stateParams, $window, bookData, dcRec) {
 
       $scope.book = bookData;
+      $scope.dc = dcRec;
 
       $scope.saveAsJson = function (data, filename) {
 
@@ -82,7 +65,7 @@
         {msg: 'Please enter a valid email address.'},
         {msg: 'Email addresses do not match.'}
       ];
-      
+
     }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {

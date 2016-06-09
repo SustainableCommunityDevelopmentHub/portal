@@ -14,7 +14,6 @@
     $scope.selectField = selectField;
     $scope.search = search;
 
-    var searchService = SearchService;
     var initialField = {display: "- Select Field -", searchKey: ""};
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -67,22 +66,28 @@
      * Then transitions to Search Results state.
      */
     function search() {
-      var opts = {
-        q: $scope.queryTerm || "",
-        advancedFields: []
-      };
+      var advFields = [];
+      var query = [];
+      if ($scope.queryTerm) {
+        query.push($scope.queryTerm);
+      }
 
       $scope.filters.forEach(function(filter){
         if(filter.term && filter.field !== initialField){
-          opts.advancedFields.push(
-            searchService.buildAdvancedField(filter.field, filter.term)
+          advFields.push(
+            SearchService.buildAdvancedField(filter.field, filter.term)
           );
         }
       });
 
-      searchService.resetOpts();
-      searchService.updateOpts(opts);
-      searchService.transitionStateAndSearch();
+      var opts = {
+        q: query,
+        advancedFields: advFields
+      };
+
+      SearchService.resetOpts();
+      SearchService.updateOpts(opts);
+      SearchService.transitionStateAndSearch();
     }
   }
 })();

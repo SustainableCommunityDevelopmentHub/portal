@@ -4,7 +4,7 @@
 
   angular
   .module('app.core')
-  .factory('SearchService', ['$state', 'DataService', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'DEFAULTS', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
+  .factory('SearchService', ['$state', 'SearchResParser', '_', 'FACETS', 'ADVANCED_SEARCH', 'SORT_DEFAULT', 'FROM_DEFAULT', 'SIZE_DEFAULT', SearchService]);
 
   /* SearchService
    *
@@ -13,7 +13,7 @@
    * ..various controllers, etc across application.
    * Handles search variables, overall search state, etc.
    */
-  function SearchService($state, DataService, SearchResParser, _, FACETS, ADVANCED_SEARCH, DEFAULTS, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
+  function SearchService($state, SearchResParser, _, FACETS, ADVANCED_SEARCH, SORT_DEFAULT, FROM_DEFAULT, SIZE_DEFAULT){
     var facetCategoriesList = ['creator', 'grp_contributor', 'language', 'subject'];
 
     /////////////////////////////////
@@ -22,7 +22,6 @@
 
     var service = {
       /* variables */
-      returnedPromise: null,
       results: {
         hits: null,
         numTotalHits: null,
@@ -54,7 +53,6 @@
       // search execution
       buildQueryParams: buildQueryParams,
       transitionStateAndSearch: transitionStateAndSearch,
-      executeSearch: executeSearch,
       setResultsData: setResultsData,
     };
 
@@ -72,7 +70,7 @@
       return {
         from: FROM_DEFAULT,
         size: SIZE_DEFAULT,
-        q: '',
+        q: [],
         sort: SORT_DEFAULT,
         facets: [],
         advancedFields: [],
@@ -92,17 +90,13 @@
       // default settings
       var queryParams = {};
       queryParams.q = this.opts.q;
-      queryParams.from = this.opts.from || FROM_DEFAULT;
-      queryParams.size = this.opts.size || SIZE_DEFAULT;
+      queryParams.from = this.opts.from;
+      queryParams.size = this.opts.size;
       queryParams.sort = this.opts.sort;
 
       // date range
-      if(this.opts.date.gte){
-        queryParams.date_gte = this.opts.date.gte;
-      }
-      if(this.opts.date.lte){
-        queryParams.date_lte = this.opts.date.lte;
-      }
+      queryParams.date_gte = this.opts.date.gte;
+      queryParams.date_lte = this.opts.date.lte;
 
       // facet options and advanced fields
       // for state transitions this needed if inherit = true to prevent zombie query params.
@@ -155,9 +149,8 @@
     function updateOpts(newOpts){
       newOpts = newOpts || {};
       console.log('SearchService::updateOpts -- newOpts: ' + JSON.stringify(newOpts));
-
-      if(newOpts.q){
-        newOpts.q = newOpts.q.toLowerCase();
+      if (newOpts.q) {
+        this.opts.q = newOpts.q;
       }
       if(newOpts.sort && (typeof newOpts.sort === 'object') && newOpts.sort.mode){
         newOpts.sort = newOpts.sort.mode;
@@ -384,37 +377,6 @@
     //Private Functions
     ///////////////////////////////////
 
-    function executeSearch(){
-      // if no value set default vals
-      if(!this.opts.q){
-        this.opts.q = '';
-      }
-      this.opts.q = this.opts.q.toLowerCase();
 
-      if(!this.opts.from){
-        this.opts.from = FROM_DEFAULT;
-      }
-      if(!this.opts.size){
-        this.opts.size = SIZE_DEFAULT;
-      }
-      if(!this.opts.sort){
-        this.opts.sort = SORT_DEFAULT;
-      }
-      this.opts.sort.toLowerCase();
-
-      if(!this.opts.date) {
-        this.opts.date = {
-          gte: null,
-          lte: null
-        };
-      }
-      else {
-        if(!this.opts.date.gte) { this.opts.date.gte = null; }
-        if(!this.opts.date.lte) { this.opts.date.lte = null; }
-      }
-
-      console.log('SearchService::executeSearch() -- executing with opts: ' +JSON.stringify(this.opts));
-      return DataService.search(this.opts);
-    }
   }
 })();
