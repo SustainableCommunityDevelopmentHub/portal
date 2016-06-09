@@ -11,27 +11,27 @@
     </div><!-- row -->
 
     <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
-      <form ng-model="user" name="send-email" action="/api/send-email/" method="post" >
+      <form ng-model="user" ng-submit="sendMail()" name="send-email" action="/api/send-email/" method="post" >
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <label for="first_name">First name:</label>
-                <input ng-model="user.firstName" id="first_name" type="text" name="first_name">
+                <input ng-model="user.first_name" id="first_name" type="text" name="first_name">
                 <label for="last_name">Last name: </label>
-                <input ng-model="user.lastName" id="last_name" type="text" name="last_name">
+                <input ng-model="user.last_name" id="last_name" type="text" name="last_name">
                 <label for="email">Email: </label>
                 <input ng-model="user.email" id="email" type="email" name="email">
                 <label for="confirmation_email">Confirm email: </label>
-                <input ng-model="user.confirmationEmail" id="confirmation_email" type="email" name="confirmation_email">
+                <input ng-model="user.confirmation_email" id="confirmation_email" type="email" name="confirmation_email">
                 <label for="organization">Organization: </label>
-                <input ng-model="user.organizationName" id="organization" type="text" name="organization">
+                <input ng-model="user.organization" id="organization" type="text" name="organization">
                 <label for="user_feedback">Feedback: </label>
-                <input ng-model="user.yourFeedback" id="user_feedback" type="text" name="user_feedback">
+                <input ng-model="user.user_feedback" id="user_feedback" type="text" name="user_feedback">
                 
 
           <div class="row">
             <div class="col-xs-12">
-              <input id="feedback-submit" type="submit" ng-click="sendMail()" value="Submit" />
+              <input id="feedback-submit" type="submit" value="Submit" />
             </div>
         </form>
       </div><!-- row -->

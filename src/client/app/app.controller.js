@@ -48,7 +48,7 @@
     }])
 
     .controller('FeedbackFormCtrl', ['config', '$scope', '$http', '$location', '$window', function (config, $scope, $http, $location, $window) {
-      $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
+      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", user_feedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
@@ -60,8 +60,14 @@
       };
       $scope.reset();
       $scope.sendMail = function () {
-        var data = JSON.stringify($scope.user);
-        $http.post(config.django.host + ':' + config.django.port + '/api/send-email/', data).then(successCallback, errorCallback); 
+        var data = $scope.user;
+        var req = {
+          method: 'POST',
+          url: config.django.host + ':' + config.django.port + '/api/send-email/',
+          headers: { 'Content-Type': 'application/json' },
+          data: data,
+        };
+        $http(req).then(successCallback, errorCallback); 
         function successCallback(response) {
           console.log(data);
           console.log("message successfully sent");

@@ -82,10 +82,13 @@ class Books(APIView):
 @csrf_exempt
 def get_feedback_form(request):
     # if this is a POST request we need to process the form data
-    print(request.body)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = ContactForm(request.POST)
+        
+        print(request.body)
+        info_dict = json.loads(request.body.decode('utf-8'))
+        form = ContactForm(info_dict)
+        print(info_dict)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -100,6 +103,8 @@ def get_feedback_form(request):
                 ['sley@getty.edu'], fail_silently=False)
             # redirect to a new URL:
             return render(request, '/thanks/')
+        else:
+            print("Form not valid")
 
     # if a GET (or any other method) we'll create a blank form
     else:
