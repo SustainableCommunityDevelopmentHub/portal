@@ -10,7 +10,7 @@ describe("Facet Modal", function(){
   beforeEach(function() {
     resultsPage = new ResultsPage();
     resultsPage.submitNewSearchTerm('painting');
-    expect(resultsPage.numTotalHits).toEqual(25);
+    expect(resultsPage.numTotalHits).toEqual(28);
   });
   
   it("should open modal window with previously checked facets checked", function(){

@@ -10,7 +10,7 @@ describe('Facet Sidebar Functionality', function() {
   beforeEach(function() {
     resultsPage = new ResultsPage();
     resultsPage.submitNewSearchTerm('Art');
-    expect(resultsPage.numTotalHits).toEqual(310);
+    expect(resultsPage.numTotalHits).toEqual(343);
   });
   
   describe('Facets should behave correctly', function(){
@@ -53,7 +53,7 @@ describe('Facet Sidebar Functionality', function() {
 
       it('language', function(){
         resultsPage.addFacetOption('language', 'French');
-        expect(resultsPage.numTotalHits).toEqual(205);
+        expect(resultsPage.numTotalHits).toEqual(214);
         resultsPage.getQueryString().then(function(queryString){
           expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance&language='+encodeURI('French'));
         });

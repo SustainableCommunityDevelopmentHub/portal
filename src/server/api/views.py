@@ -89,3 +89,4 @@ class Books(APIView):
         response = es.msearch(body=query)
         data = json.loads(json.dumps(response))
         return Response(data['responses'], status=status.HTTP_200_OK)
+
