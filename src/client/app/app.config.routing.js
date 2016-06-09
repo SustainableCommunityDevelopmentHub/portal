@@ -120,6 +120,9 @@
           },
           dcRec: function($stateParams, DataService) {
             return DataService.getDcRec($stateParams.bookID);
+          },
+          risRec: function($stateParams, DataService) {
+            return DataService.getRisRec($stateParams.bookID);
           }
         }
       })

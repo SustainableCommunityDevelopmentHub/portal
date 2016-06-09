@@ -1,4 +1,5 @@
 // book-detail.spec.js
+/* jshint node: true */
 'use strict';
 
 var BookDetailPage = require('../page_objects/book-detail.page.js');
@@ -30,6 +31,38 @@ describe('Book Detail', function() {
       return JSON.parse(data);
     });
     expect(fileContents).toEqual(testData);
+  });
+
+  it('should download correct RIS record on click', function() {
+    var fs = require('fs');
+    var path = require('path');
+    var appRoot = process.cwd();
+    var testData = fs.readFileSync(appRoot + '/mocks/book.ris', 'utf8');
+
+    bookDetailPage.clickExport();
+    $('.saveRis').click();
+
+    // Get ris record data we put in the code for testing.
+    // The return value is different in unexpected from normal JS strings. 
+    // Had to handle w/this approach inside callback for things to work.
+    var fileContentsRisUrl = $('.saveRis').evaluate('fileContentsRis').then(function(data){
+      return data.slice(
+        data.indexOf('UR  - ') + 5, data.indexOf('PB')
+      ).trim();
+    });
+
+    // check that each record is for the same digital item 
+    // by implication informally checks that record is a RIS record
+    expect( fileContentsRisUrl ).toEqual( extractRisUrl(testData) );
+
+    function extractRisUrl(risRecord){
+      var urlLine = risRecord.split('\n').filter(function(line){
+        if(line.split(' ')[0] === 'UR'){
+          return true;
+        }
+      })[0].trim();
+      return urlLine ? urlLine.split(' ')[3] : false;
+    }
   });
 
   it('should send user to digital item on click of view digital item', function() {
