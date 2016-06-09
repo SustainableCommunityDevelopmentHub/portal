@@ -149,9 +149,10 @@ describe('Saved Records Page', function() {
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
     browser.waitForAngular();
-    expect(savedRecordsPage.getAllSearches().count()).toBe(7);
+    expect(savedRecordsPage.getAllSearches().count()).toBe(8);
     savedRecordsPage.removeSearch(0);
-    expect(savedRecordsPage.getAllSearches().count()).toBe(6);
+    expect(savedRecordsPage.getAllSearches().count()).toBe(7);
+    savedRecordsPage.removeSearch(1);
     savedRecordsPage.removeSearch(1);
     savedRecordsPage.removeSearch(1);
     savedRecordsPage.removeSearch(1);
