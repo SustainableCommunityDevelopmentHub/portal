@@ -60,7 +60,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['static'],
+        'DIRS': ['static', 'src/client/app/partials'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

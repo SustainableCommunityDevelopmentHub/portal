@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from api.forms import ContactForm
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
 
 from . import es_functions
 
@@ -78,16 +79,16 @@ class Books(APIView):
         return Response(data['responses'], status=status.HTTP_200_OK)
 
 
+@csrf_exempt
 def get_feedback_form(request):
     # if this is a POST request we need to process the form data
+    print(request.body)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = ContactForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             send_mail(
                 'Feedback from: '+ form.cleaned_data.get('first_name') + ' ' +
                 form.cleaned_data.get('last_name'), 
@@ -97,11 +98,7 @@ def get_feedback_form(request):
                 'Feedback: ' + form.cleaned_data.get('user_feedback'),
                 form.cleaned_data.get('email'),
                 ['sley@getty.edu'], fail_silently=False)
-            send_mail(
-                form,
-                form.cleaned_data.get('email'),
-                ['sley@getty.edu'], fail_silently=False)
-            print(request.body)
+            # redirect to a new URL:
             return render(request, '/thanks/')
 
     # if a GET (or any other method) we'll create a blank form

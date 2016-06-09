@@ -47,7 +47,7 @@
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
     }])
 
-    .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
+    .controller('FeedbackFormCtrl', ['config', '$scope', '$http', '$location', '$window', function (config, $scope, $http, $location, $window) {
       $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
@@ -61,13 +61,13 @@
       $scope.reset();
       $scope.sendMail = function () {
         var data = JSON.stringify($scope.user);
-        $http.post('/send-email', data).then(successCallback, errorCallback); 
+        $http.post(config.django.host + ':' + config.django.port + '/api/send-email/', data).then(successCallback, errorCallback); 
         function successCallback(response) {
           console.log(data);
           console.log("message successfully sent");
         };
         function errorCallback(response) {
-          console.log("message failed");
+          console.log("message failed"); 
         };
       };
       $scope.feedbackErrors =[

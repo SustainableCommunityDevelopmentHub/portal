@@ -11,7 +11,7 @@
     </div><!-- row -->
 
     <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
-      <form ng-model="user" name="send-email" action="/send-email/" method="post" >
+      <form ng-model="user" name="send-email" action="/api/send-email/" method="post" >
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
@@ -20,13 +20,13 @@
                 <label for="last_name">Last name: </label>
                 <input ng-model="user.lastName" id="last_name" type="text" name="last_name">
                 <label for="email">Email: </label>
-                <input id="email" type="email" name="email">
+                <input ng-model="user.email" id="email" type="email" name="email">
                 <label for="confirmation_email">Confirm email: </label>
-                <input id="confirmation_email" type="email" name="confirmation_email">
+                <input ng-model="user.confirmationEmail" id="confirmation_email" type="email" name="confirmation_email">
                 <label for="organization">Organization: </label>
-                <input id="organization" type="text" name="organization">
+                <input ng-model="user.organizationName" id="organization" type="text" name="organization">
                 <label for="user_feedback">Feedback: </label>
-                <input id="user_feedback" type="text" name="user_feedback">
+                <input ng-model="user.yourFeedback" id="user_feedback" type="text" name="user_feedback">
                 
 
           <div class="row">
