@@ -90,5 +90,5 @@ def get_feedback_form(request):
             'Email: ' + info_dict.get('email') + '\n\n' + 
             'Type: ' + info_dict.get('type_of_feedback') + '\n\n' +
             'Feedback: ' + info_dict.get('user_feedback'), 
-            info_dict.get('email'), ['susieley86@yahoo.com'], fail_silently=False)
+            info_dict.get('email'), [settings.EMAIL_TO], fail_silently=False)
         return Response('Thanks!!!!!!!! :D', status=status.HTTP_200_OK)

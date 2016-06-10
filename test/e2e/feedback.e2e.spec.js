@@ -41,16 +41,5 @@ describe('Feedback', function() {
     feedbackFormPage.clickSubmit();
     expect(feedbackFormPage.errorMismatch()).toEqual('Email addresses do not match.');
   });
-
-  it('should redirect to thank you page upon successful submittal', function() {
-    feedbackFormPage.submitRequiredFields(userName, validEmail);    
-    browser.wait(function() {
-      return feedbackFormPage.thankYou().isPresent();
-    }, 3000);
-    browser.ignoreSynchronization = true;
-    expect(browser.getCurrentUrl()).toContain('thanks');
-    browser.ignoreSynchronization = false;
-  });
-
   
 });
