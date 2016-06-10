@@ -48,11 +48,12 @@
     }])
 
     .controller('FeedbackFormCtrl', ['config', '$scope', '$http', '$location', '$window', function (config, $scope, $http, $location, $window) {
-      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", user_feedback: ""};
+      $scope.feedbackFields = ['Problem','Question','Comment'];
+      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0]['name'], user_feedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
-          if ($scope.user.email === $scope.user.confirmationEmail) {
+          if ($scope.user.email === $scope.user.confirmation_email) {
             return true;
           }
           return false;
@@ -60,23 +61,30 @@
       };
       $scope.reset();
       $scope.sendMail = function () {
-        var data = $scope.user;
-        var req = {
-          method: 'POST',
-          url: config.django.host + ':' + config.django.port + '/api/send-email/',
-          headers: { 'Content-Type': 'application/json' },
-          data: data,
-        };
-        $http(req).then(successCallback, errorCallback); 
-        function successCallback(response) {
-          console.log(data);
-          console.log("message successfully sent");
-          $state.go('thanks');
-        };
-        function errorCallback(response) {
-          console.log("message failed"); 
-        };
+        if ($scope.feedbackForm.$valid) {
+          var data = $scope.user;
+          var req = {
+            method: 'POST',
+            url: config.django.host + ':' + config.django.port + '/api/send-email/',
+            headers: { 'Content-Type': 'application/json' },
+            data: data,
+          };
+          $http(req).then(successCallback, errorCallback); 
+          function successCallback(response) {
+            console.log(data);
+            console.log("message successfully sent");
+            $state.go('thanks');
+          };
+          function errorCallback(response) {
+            console.log("message failed"); 
+          };
+        }
+        else {
+          $scope.feedbackForm.$submitted = true
+        }
       };
+      
+        
       $scope.feedbackErrors =[
         {msg: 'This field is required.'},
         {msg: 'Please enter a valid email address.'},
@@ -86,12 +94,7 @@
     }])
 
     .controller('FeedbackFieldController', ['$scope', function($scope) {
-      $scope.feedbackFields = [
-        {name:'Problem'},
-        {name:'Question'},
-        {name:'Comment'}
-      ];
-      $scope.myFeedbackField = $scope.feedbackFields[0];
+      
     }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
