@@ -11,14 +11,15 @@
     </div><!-- /row -->
 
     <div class="row row-centered">
+      <span us-spinner spinner-on="showSpinner"></span>
       <div class="col-xs-12 col-md-10 col-centered">
         <div class="search-bar">
         <form ng-submit="newSearch({q: queryTerm})" focus-home-search>
         <input ng-model="queryTerm" class="search-input" type="text"  />
 
         <button ng-click="newSearch({q: queryTerm})" class="btn-primary" type="button" id="go-btn"><p>Search</p>
-          <span class="glyphicon glyphicon-search"></span></button>
-
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
         </form>
         <a ui-sref="advanced" class="adv">Advanced Search</a>
         </div>
