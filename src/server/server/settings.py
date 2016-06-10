@@ -121,3 +121,8 @@ CORS_ORIGIN_WHITELIST = (
 # Elasticsearch host and port
 ELASTICSEARCH_HOST = 'local.portal.dev'
 ELASTICSEARCH_PORT = '9200'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.getty.edu'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False

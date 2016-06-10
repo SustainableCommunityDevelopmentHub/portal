@@ -150,6 +150,12 @@
         controller: 'FeedbackFormCtrl'
       })
 
+      .state('thanks', {
+        url: '/thanks',
+        templateUrl: config.app.root + '/partials/thanks.html',
+        controller: 'FeedbackFormCtrl'
+      })
+
       .state('help', {
         url: '/help',
         templateUrl: config.app.root + '/partials/help.html',

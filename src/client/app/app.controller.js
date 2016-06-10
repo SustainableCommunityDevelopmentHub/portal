@@ -71,6 +71,7 @@
         function successCallback(response) {
           console.log(data);
           console.log("message successfully sent");
+          $state.go('thanks');
         };
         function errorCallback(response) {
           console.log("message failed"); 

@@ -87,16 +87,8 @@ def get_feedback_form(request):
         print(request.body)
         info_dict = json.loads(request.body.decode('utf-8'))
         print(info_dict)
-        send_mail(
-            'Feedback from: '+ info_dict.get('first_name') + ' ' +
-            info_dict.get('last_name'), 
-            'Organization: ' + info_dict.get('organization') + '\n\n' + 
-            'Email: ' + info_dict.get('email') + '\n\n' + 
-            'Type: ' + info_dict.get('type_of_feedback') + '\n\n' + 
-            'Feedback: ' + info_dict.get('user_feedback'),
-            info_dict.get('email'),
-            ['sley@getty.edu'], fail_silently=False)
+        send_mail('Hey hey', info_dict.get('user_feedback'), 'dude@gmail.com', ['sley@getty.edu'], fail_silently=False)
         # redirect to a new URL:
-        return render(request, '/thanks/')
+        return Response('Thanks!!!!!!!! :D', status=status.HTTP_200_OK)
 
     return render(request, 'email.html', {'form': form})
