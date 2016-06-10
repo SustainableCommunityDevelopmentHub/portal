@@ -48,7 +48,7 @@ describe('Book Detail', function() {
     // Had to handle inside callback like this for things to work.
     var fileContentsRis = $('.saveRis').evaluate('fileContentsRis').then(function(data){
       return data.slice(
-        (data.indexOf('UR  - ') + 6), data.indexOf('LA')
+        (data.indexOf('UR  - ') + 6), data.indexOf('N1')
       ).trim();
     });
 
