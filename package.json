@@ -16,6 +16,7 @@
     "gulp-bytediff": "^1.0.0",
     "gulp-clean-css": "^2.0.9",
     "gulp-concat": "^2.6.0",
+    "gulp-ignore": "^2.0.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-minify-css": "^1.2.4",
     "gulp-minify-html": "^1.0.6",
@@ -62,15 +63,18 @@
     "angularConfigFilePath": "./src/client/app/app.env.config.js",
     "angularSource": "./src/client/app",
     "vendorjs": [
-      "./src/client/bower_components/angular.min.js",
+      "./src/client/bower_components/angularUtils-pagination/dirPagination.js",
+      "./src/client/bower_components/angular-print/angularPrint.js"
+    ],
+    "minified_vendorjs": [
+      "./src/client/bower_components/angular/angular.min.js",
+      "./src/client/bower_components/jquery/dist/jquery.min.js",
       "./src/client/bower_components/lodash/lodash.min.js",
       "./src/client/bower_components/elasticsearch/elasticsearch.angular.min.js",
       "./src/client/bower_components/angular-animate/angular-animate.min.js",
       "./src/client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
       "./src/client/bower_components/angular-resource/angular-resource.min.js",
       "./src/client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-      "./src/client/bower_components/angularUtils-pagination/dirPagination.js",
-      "./src/client/bower_components/angular-print/angularPrint.js",
       "./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js",
       "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js"
     ],
@@ -83,9 +87,9 @@
       "./src/client/css/animations.css"
     ],
     "js": [
-      "./src/client/app/app.env.config.js",
       "./src/client/app/app.module.js",
       "./src/client/app/app.config.routing.js",
+      "./src/client/app/app.env.config.js",
       "./src/client/app/core/core.module.js",
       "./src/client/app/core/constants.js",
       "./src/client/app/core/es-client.js",
@@ -116,7 +120,7 @@
       "./src/client/app/app.controller.js",
       "./src/client/app/app.directive.js"
     ],
-    "stage": "./build/stage",
-    "build": "./build/"
+    "build": "./src/client/",
+    "stage": "./src/client/stage"
   }
 }
