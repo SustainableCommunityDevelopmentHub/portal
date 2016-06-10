@@ -722,6 +722,8 @@ li.book-listing {
   display: block;
   margin-bottom: 5px;
   color: #5998c9;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .book-title:hover, .book-title:focus, .book-title:active {
