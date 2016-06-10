@@ -43,7 +43,12 @@ gulp.task('config:prod', function() {
  * Minify javascript
  */
 
+gulp.task('minify_js', ['minify_vendorjs', 'concat_vendorjs'], function(){
+  console.log('Vendor javascript should now be minified and you should see in src/client/app the files vendor.min.js and more_vendors.min.js.');
+});
+
 // Minify and concat our javascript
+// IN PROGRESS
 gulp.task('minify_concat_js', function() {
   var src_arr = ['./src/client/app/app.module.js','./src/client/app/app.env.config.js','./src/client/app/app.config.routing.js','./src/client/app/app.directive.js', '.src/client/app/app.controller.js', './src/client/app/*/*.js', '!./src/client/app/*.unit.spec.js', '!./src/client/app/*/*.unit.spec.js'];
   // read in all js files in js path in package.json, ignore if they are spec files
