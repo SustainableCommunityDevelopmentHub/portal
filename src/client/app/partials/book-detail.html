@@ -3,16 +3,16 @@
     <div class="row record-detail">
       <div class="col-xs-12">
         <h3>Record Detail</h3>
-        <div class="view-export-print">
-          <a class="btn btn-primary" href="{{book._record_link}}" id="viewDigitalItem" ng-click="">View Digital Item</a>
-          <div class="btn-group" uib-dropdown>
-            <button class="btn btn-primary" uib-dropdown-toggle><a href="#" id="exportBtn">Export<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></a></button>
-            <ul uib-dropdown-menu role="menu" class="dropdown-menu">
-              <li><a href="#">RIS</a></li>
-              <li><a class="saveJson" ng-click="saveAsJson(book.dublin_core)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
-            </ul>
-          </div>
-          <button class="btn btn-primary" id="printBtn" print-btn>Print</button>
+         <div class="view-export-print">
+            <a class="btn btn-primary" href="{{book._record_link}}" id="viewDigitalItem" ng-click="">View Digital Item</a>
+            <div class="btn-group" uib-dropdown>
+              <button class="btn btn-primary" uib-dropdown-toggle><a href="#" id="exportBtn">Export<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></a></button>
+              <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+                <li><a href="#">RIS</a></li>
+                <li><a class="saveJson" ng-click="saveAsJson(dc)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
+              </ul>
+            </div>
+            <button class="btn btn-primary" id="printBtn" print-btn>Print</button>
         </div>
         <hr class="sr-top">
       </div>
@@ -528,183 +528,184 @@
               </div>
             </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0">
-              <div class="cat-title">Replaces</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0">
+            <div class="cat-title">Replaces</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'replaces'} | filter:{encoding: '!'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">
-              <div class="cat-title">Requires</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-                  <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">
+            <div class="cat-title">Requires</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+                <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">
-              <div class="cat-title">Requires</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-                  <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-                  <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">
+            <div class="cat-title">Requires</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+                <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+                <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0">
-              <div class="cat-title">Requires</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0">
+            <div class="cat-title">Requires</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: 'requires'} | filter:{encoding: '!'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">
-              <div class="cat-title">Relation</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
-                  <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0">
+            <div class="cat-title">Relation</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: 'http'})">
+                <li class="book-field-val"><a ng-href="{{entry.uri}}" target="_blank">{{entry.value}}</a></li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">
-              <div class="cat-title">Relation</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
-                  <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
-                  <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0">
+            <div class="cat-title">Relation</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: 'URI'} | filter:{uri: !'http'})">
+                <li class="book-field-val" ng-show="entry.value!==entry.uri">{{entry.value}}, {{entry.uri}}</li>
+                <li class="book-field-val" ng-show="entry.value===entry.uri">{{entry.uri}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0">
-              <div class="cat-title">Relation</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0">
+            <div class="cat-title">Relation</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.relation | filter:{qualifier: '!'} | filter:{encoding: '!'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0">
-              <div class="cat-title">Source</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'})">
-                  <li class="book-field-val"><a ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0">
+            <div class="cat-title">Source</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: 'http'})">
+                <li class="book-field-val"><a ng-href="{{entry.value}}" target="_blank">{{entry.value}}</a></li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0">
-              <div class="cat-title">Source</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0">
+            <div class="cat-title">Source</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: 'URI'} | filter:{value: !'http'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0">
-              <div class="cat-title">Source</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: '!'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0">
+            <div class="cat-title">Source</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.source | filter:{encoding: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.source | filter:{encoding: '!'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0">
-              <div class="cat-title">Access Rights</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'accessRights'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0">
+            <div class="cat-title">Access Rights</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'accessRights'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'accessRights'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0">
-              <div class="cat-title">Rights Holder</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'rightsHolder'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0">
+            <div class="cat-title">Rights Holder</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: 'rightsHolder'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: 'rightsHolder'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0">
-              <div class="cat-title">Rights</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: '!'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0">
+            <div class="cat-title">Rights</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.rights | filter:{qualifier: '!'}).length > 0" ng-repeat="entry in (book.dublin_core.rights | filter:{qualifier: '!'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0">
-              <div class="cat-title">Bibliographic Citation</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0" ng-repeat="entry in (book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'})">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0">
+            <div class="cat-title">Bibliographic Citation</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="(book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'}).length > 0" ng-repeat="entry in (book.dublin_core.identifier | filter:{qualifier: 'bibliographicCitation'})">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="book.dublin_core.accrualMethod">
-              <div class="cat-title">Accrual Method</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="book.dublin_core.accrualMethod" ng-repeat="entry in book.dublin_core.accrualMethod">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="book.dublin_core.accrualMethod">
+            <div class="cat-title">Accrual Method</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book.dublin_core.accrualMethod" ng-repeat="entry in book.dublin_core.accrualMethod">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="book.dublin_core.accrualPeriodicity">
-              <div class="cat-title">Accrual Periodicity</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="book.dublin_core.accrualPeriodicity" ng-repeat="entry in book.dublin_core.accrualPeriodicity">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="book.dublin_core.accrualPeriodicity">
+            <div class="cat-title">Accrual Periodicity</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book.dublin_core.accrualPeriodicity" ng-repeat="entry in book.dublin_core.accrualPeriodicity">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="book.dublin_core.audience">
-              <div class="cat-title">Audience</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="book.dublin_core.audience" ng-repeat="entry in book.dublin_core.audience">
-                  <li class="book-field-val">{{entry.value}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="book.dublin_core.audience">
+            <div class="cat-title">Audience</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book.dublin_core.audience" ng-repeat="entry in book.dublin_core.audience">
+                <li class="book-field-val">{{entry.value}}</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="cat-group" ng-show="book._grp_contributor">
-              <div class="cat-title">From</div>
-              <div class="cat-value">
-                <ul class="specs" ng-show="book._grp_contributor">
-                  <li class="book-field-val">{{book._grp_contributor}}</li>
-                </ul>
-              </div>
+          <div class="cat-group" ng-show="book._grp_contributor">
+            <div class="cat-title">From</div>
+            <div class="cat-value">
+              <ul class="specs" ng-show="book._grp_contributor">
+                <li class="book-field-val">{{book._grp_contributor}}</li>
+              </ul>
             </div>
+          </div>
 
-          </li>
-        </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /.row -->
+
+  <div class="row row-centered question">
+    <div class="col-xs-12 col-centered">
+      <div id="emailGRI">
+        <h4>Question about this record?</h4>
+        <button class="btn btn-primary"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
       </div>
-    </div><!-- /.row -->
+    </div>
+  </div><!-- /.row -->
 
-    <div class="row row-centered question">
-      <div class="col-xs-12 col-centered">
-        <div id="emailGRI">
-          <h4>Question about this record?</h4>
-          <button class="btn btn-primary"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
-        </div>
-      </div>
-    </div><!-- /.row -->
+</div> <!-- /.container -->
 
-  </div> <!-- /.container -->
-</div>
+<div ng-app="app" class="app">

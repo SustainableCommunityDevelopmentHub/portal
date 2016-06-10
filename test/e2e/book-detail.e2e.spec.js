@@ -23,10 +23,12 @@ describe('Book Detail', function() {
   });
 
   it('should download record in JSON format on click', function() {
-    var testData = JSON.stringify(require('../../mocks/book.json'));
+    var testData = require('../../mocks/book.json');
     bookDetailPage.clickExport();
     $('.saveJson').click();
-    var fileContents = $('.saveJson').evaluate('fileContents');
+    var fileContents = $('.saveJson').evaluate('fileContents').then(function(data){
+      return JSON.parse(data);
+    });
     expect(fileContents).toEqual(testData);
   });
 

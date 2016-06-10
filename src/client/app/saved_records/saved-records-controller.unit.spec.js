@@ -1,5 +1,5 @@
 describe("Saved Records Controller", function(){
-  var scope, state, SearchService, controller, SavedRecordsService, SAVED_RECORDS_SORT;
+  var scope, state, SearchService, controller, SavedRecordsService, SAVED_RECORDS_SORT, DataService;
 
   beforeEach(function(){
     module('ui.router');
@@ -9,11 +9,12 @@ describe("Saved Records Controller", function(){
     module('app.saved-records');
   });
 
-  beforeEach(inject(function($rootScope, $controller, _$state_, _SavedRecordsService_, _SearchService_, _SAVED_RECORDS_SORT_) {
+  beforeEach(inject(function($rootScope, $controller, _$state_, _SavedRecordsService_, _SearchService_, _DataService_, _SAVED_RECORDS_SORT_) {
     state = _$state_;
     SavedRecordsService = _SavedRecordsService_;
     scope = $rootScope.$new();
     SearchService = _SearchService_;
+    DataService = _DataService_;
     SAVED_RECORDS_SORT = _SAVED_RECORDS_SORT_;
     controller = $controller('SavedRecordsCtrl', {
       '$scope': scope,
@@ -42,10 +43,10 @@ describe("Saved Records Controller", function(){
     };
 
     spyOn(SearchService, 'updateOpts');
-    spyOn(SearchService, 'executeSearch');
+    spyOn(DataService, 'search');
     scope.runSearch(search);
     expect(SearchService.updateOpts).toHaveBeenCalled();
-    expect(SearchService.executeSearch).toHaveBeenCalled();
+    expect(DataService.search).toHaveBeenCalled();
   });
 
   it('should remove searches correctly', function() {
