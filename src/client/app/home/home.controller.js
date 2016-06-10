@@ -3,10 +3,10 @@
 
   angular
   .module('app.home')
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'searchResults', 'SORT_MODES', HomePageCtrl]);
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'SORT_MODES', 'config', HomePageCtrl]);
 
-  function HomePageCtrl($scope, SearchService, $state, searchResults, SORT_MODES) {
-    $scope.totalTitles = searchResults.numTotalHits;
+  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, config) {
+    $scope.totalTitles = config.numTotalTitles;
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
