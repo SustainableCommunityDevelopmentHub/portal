@@ -112,7 +112,7 @@
 
       .state('books', {
         url: '/books/:bookID',
-        templateUrl: config.app.root + '/partials/book-detail.html',
+        templateUrl: config.app.root + '/book_detail/book-detail.html',
         controller: 'BookDetailCtrl',
         resolve: {
           bookData: function($stateParams, DataService) {
@@ -120,6 +120,9 @@
           },
           dcRec: function($stateParams, DataService) {
             return DataService.getDcRec($stateParams.bookID);
+          },
+          risRec: function($stateParams, DataService) {
+            return DataService.getRisRec($stateParams.bookID);
           }
         }
       })
