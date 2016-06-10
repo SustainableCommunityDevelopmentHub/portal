@@ -1783,7 +1783,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
         TABLET DISPLAY 
 --------------------------- **/
 
- @media (min-width: 769px) and (max-width: 991px) {
+ @media (min-width: 768px) and (max-width: 991px) {
 
     /* Homepage */
 
@@ -1918,7 +1918,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 --------------------------- **/
 
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
 
     .container {
       padding-right: 10px;
