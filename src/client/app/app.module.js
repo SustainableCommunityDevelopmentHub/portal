@@ -23,6 +23,17 @@
   // make lodash injectable
   .constant('_', window._)
 
+  // turn off angular debug mode for production; improves performance
+  .config(['$compileProvider', 'config', function($compileProvider, config){
+    if(config.env === 'prod'){
+      $compileProvider.debugInfoEnabled(false);
+      console.log('In production. Debug mode disabled');
+    }
+    else{
+      console.log('In ' + config.env + '. Debug mode enabled');
+    }
+  }])
+
   .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
