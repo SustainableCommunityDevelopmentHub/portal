@@ -20,13 +20,10 @@ class Raw(APIView):
     def get(self, request, id, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
-
         try:
             response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
         except NotFoundError as err:
             return Response(err.info, status=status.HTTP_404_NOT_FOUND)
-        except Exception:
-            return Response('Something went wrong with Elasticsearch', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         data = json.loads(json.dumps(response))
         return Response(data, status=status.HTTP_200_OK)
 
@@ -39,8 +36,6 @@ class Book(APIView):
             response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
         except NotFoundError as err:
             return Response(err.info, status=status.HTTP_404_NOT_FOUND)
-        except Exception:
-            return Response('Something went wrong with Elasticsearch', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         dc = dc_export(response)
         data = json.loads(json.dumps(dc))
         return Response(data, status=status.HTTP_200_OK)
@@ -94,10 +89,7 @@ class Books(APIView):
                         body['aggregations'][other_category]['filter']['bool']['must'].append(facet_filters)
 
         query = es_functions.create_multisearch(body, search_options.get('from'), search_options.get('size'), filters)
-        try:
-            response = es.msearch(body=query)
-        except Exception:
-            return Response('Something went wrong with Elasticsearch', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        response = es.msearch(body=query)
         data = json.loads(json.dumps(response))
         return Response(data['responses'], status=status.HTTP_200_OK)
 
