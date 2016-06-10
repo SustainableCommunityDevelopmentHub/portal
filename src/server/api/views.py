@@ -84,7 +84,6 @@ def get_feedback_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:        
-        print(request.body)
         info_dict = json.loads(request.body.decode('utf-8'))
         print(info_dict)
         send_mail('Feedback from ' + info_dict.get('first_name') + ' ' + info_dict.get('last_name'), 
@@ -96,4 +95,4 @@ def get_feedback_form(request):
         # redirect to a new URL:
         return Response('Thanks!!!!!!!! :D', status=status.HTTP_200_OK)
 
-    return render(request, 'email.html', {'form': form})
+    return render(request, 'feedback.html')

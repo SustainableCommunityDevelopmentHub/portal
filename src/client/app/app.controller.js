@@ -47,7 +47,7 @@
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
     }])
 
-    .controller('FeedbackFormCtrl', ['config', '$scope', '$http', '$location', '$window', function (config, $scope, $http, $location, $window) {
+    .controller('FeedbackFormCtrl', ['config', '$scope', '$state', '$http', '$location', '$window', function (config, $scope, $state, $http, $location, $window) {
       $scope.feedbackFields = ['Problem','Question','Comment'];
       $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0]['name'], user_feedback: ""};
       $scope.reset = function() {
@@ -76,7 +76,8 @@
             $state.go('thanks');
           };
           function errorCallback(response) {
-            console.log("message failed"); 
+            console.log("message failed");
+            $state.go('thanks');
           };
         }
         else {

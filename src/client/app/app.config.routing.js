@@ -144,12 +144,6 @@
         controller: 'FeedbackFormCtrl'
       })
 
-      .state('email', {
-        url: '/email',
-        templateUrl: config.app.root + '/partials/email.html',
-        controller: 'FeedbackFormCtrl'
-      })
-
       .state('thanks', {
         url: '/thanks',
         templateUrl: config.app.root + '/partials/thanks.html',
