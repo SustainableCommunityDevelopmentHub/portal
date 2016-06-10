@@ -10,8 +10,12 @@
 <div class="container"> 
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4">
-      <div id="facets-mobile" data-toggle="collapse" data-target="#left_sidebar_accordion__container">
-        <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a><button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
+      <div id="facets-mobile-wrapper">
+        <button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
+        <div id="facets-mobile"> 
+          <div data-toggle="collapse" data-target="#left_sidebar_accordion__container">
+          <a href="#"><h4>Filter Your Results</h4><i class="glyphicon glyphicon-chevron-down"></i><span></span></a></div>
+        </div>
       </div>
 
       <div id="left_sidebar_accordion__container" class="navbar-collapse collapse">
@@ -94,7 +98,7 @@
   
   <!--Search Box & Options-->
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
-      <div class="results-list">
+      <div class="search-container">
 
         <div class="row search-bar-container">
 
@@ -143,7 +147,7 @@
         </div>
 
         <div id="sorting">
-          <div class="btn-group" uib-dropdown>
+          <div class="btn-group" id="sort-by" uib-dropdown>
             <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
             <ul uib-dropdown-menu role="menu" class="dropdown-menu">
               <li ng-repeat="sortMode in validSortModes">
@@ -153,8 +157,8 @@
           </div>
 
           <!--pageSize-related logic to never display more than total number of results. handles edge cases.-->
-          <div class="btn-group" uib-dropdown>
-            <button class="btn btn-primary search-dropdown" type="button" id="show" uib-dropdown-toggle>Show: {{pagination.size}}<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
+          <div class="btn-group" id="show" uib-dropdown>
+            <button class="btn btn-primary search-dropdown" type="button" uib-dropdown-toggle>Show: {{pagination.size}}<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
             <ul uib-dropdown-menu role="menu" class="dropdown-menu">
               <li ng-repeat="pageSizeOption in validPageSizeOptions">
                 <a ng-click="setPageSize(pageSizeOption)">{{pageSizeOption}}</a>

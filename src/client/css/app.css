@@ -66,6 +66,10 @@ hr {
   width: 100%;
 }
 
+input {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
 .noscript {
   padding: 50px;
   text-align: center;
@@ -489,7 +493,7 @@ hr.thin {
 
 /* Search Results */
 
-.search-bar-results {
+/*.search-bar-results {
   width: 100%;
   display: inline-block;
 }
@@ -497,15 +501,13 @@ hr.thin {
 .search-bar-results form {
   display: flex;
   justify-content: center;
-}
+*/
 
 .facet-chip-search-bar {
-  display: inline-block;
   min-height: 40px;
   width: 100%;
   margin-bottom: 10px;
   padding: 0px 4px;
-  float: left;
   overflow: hidden;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -574,11 +576,13 @@ hr.thin {
   text-decoration: line-through;
 }
 
-.results-list {
+.search-container {
   display: block;
   background-color: #eee;
-  padding: 20px 15px 50px;
   border-bottom: 1px solid #ddd;
+  width: 100%;
+  padding: 15px 15px 6px;
+  float: left;
 }
 
 .go-btn-results-col {
@@ -593,7 +597,6 @@ hr.thin {
 
 .paging {
   float: left;
-  margin-bottom: 5px;
 }
 
 .results-pagination-top {
@@ -642,6 +645,7 @@ hr.thin {
   text-decoration: underline;
   background-color: #eee;
   padding: 5px 10px 10px;
+  min-width: 131px;
 }
 
 .results-pagination {
@@ -858,7 +862,6 @@ li.book-listing {
     width: 100%;
     height: 30px;
     font-size: 12px;
-    border: 1px solid #ddd;
   }
 
   #date-btn-results {
@@ -876,12 +879,7 @@ li.book-listing {
   /* Facet Dropdown Mobile */
 
   #facets-mobile {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
     line-height: 1.5;
-    background-color: #eee;
-    border-bottom: 2px solid #ddd;
   }
 
   #facets-mobile h4 {
@@ -984,7 +982,6 @@ li.book-listing {
     .search-filters:placeholder-shown {
       font-style: italic;
       font-size: 12px;
-      border: 1px solid #ddd;
     }
 
     .checked-filters {
@@ -1764,9 +1761,9 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     /* Search Results */
 
-    #facets-mobile {
+    #facets-mobile-wrapper {
       display: none;
-    }
+    } 
 
     /* Facets Modal */
 
@@ -1804,7 +1801,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     /* Search Results */
 
-    #facets-mobile {
+    #facets-mobile-wrapper {
       display: none;
     }
 
@@ -1829,6 +1826,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       margin-right: 0;
     }
 
+    .search-container {
+      padding: 10px 10px 3px;
+    }
+
     .search-bar-results-container-col {
       padding-right: 0;
     }
@@ -1841,8 +1842,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       float: right;
     }
 
-    .results-list {
-      padding-bottom: 80px;
+    .paging {
+      margin-bottom: 5px;
     }
 
     #sorting {
@@ -1865,12 +1866,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     .bookmark {
-    width: 13%;
-  }
+      width: 13%;
+    }
 
-  .book-info {
-    width: 87%;
-  }
+    .book-info {
+      width: 87%;
+    }
 
     /* Facets Modal */
 
@@ -1919,6 +1920,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
   @media (max-width: 768px) {
 
+    .container {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+
     /* Header */
 
     .header .getty-logo {
@@ -1948,18 +1955,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     /* Homepage */
 
     .search-bar {
-      padding: 15px 15px 10px 15px;
+      padding: 10px;
       margin-bottom: 40px;
     }
 
     .search-input {
-      width: 81%;
+      width: 79%;
+      padding: 0 5px;
     }
 
     #go-btn {
-      width: 17%;
+      width: 20%;
       font-size: 22px;
-      padding-top: 7px;
+      padding: 0 10px;
+    }
+
+    #go-btn span {
+      line-height: 2-;
     }
 
     #go-btn p {
@@ -1989,16 +2001,27 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       padding: 10px;
     }
 
+    #facets-mobile-wrapper {
+      padding: 10px;
+      background-color: #eee;
+      border-bottom: 2px solid #ddd;
+      margin-bottom: 10px;
+    }
+
     #facets-mobile h4 {
       font-size: 16px;
-      padding-top: 16px;
+      padding: 6px 0 7px;
     }
 
     #clear-all {
+      display: inline-block;
       height: 30px;
-      margin: 10px;
       padding: 0 10px;
       font-size: 12px;
+    }
+
+    .search-container {
+      padding: 10px;
     }
 
     .row .search-bar-container {
@@ -2020,23 +2043,37 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       width: 100%
     }
 
-    .results-list {
-      padding: 10px 10px 80px;
+    .paging {
+      margin-bottom: 5px;
     }
 
     #sorting {
       width: 100%;
-      margin: 0 0 10px;
     }
 
     #sorting .btn-group {
-      width: 49%;
-      margin-left: 0;
+      margin: 0;
+    }
+
+    #sorting .btn-group .btn {
+      padding: 6px;
+      font-size: 11px;
+      height: 30px;
     }
 
     #sorting .btn {
       width: 100%;
       margin-top: 0;
+    }
+
+    #sort-by {
+      min-width: 65%;
+      float: left;
+    }
+
+    #show {
+      min-width: 30%;
+      float: right;
     }
 
     .bookmark {
@@ -2134,6 +2171,24 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     /* Saved Records */
+
+    .records-tabs li {
+      padding: 0 10px 0 5px;
+    }
+
+    .records-tabs li:last-child {
+      padding-right: 0;
+    }
+
+    .record-sorting {
+      display: block;
+    }
+
+    .num-records {
+      margin-right: 0px;
+      float: none;
+    }
+
 
     ul.saved-records-list .bookmark {
       width: 10%;
