@@ -16,10 +16,10 @@ printf "\n Creating book mapping...\n"
 curl -XPUT http://local.portal.dev:9200/portal/_mapping/book -d @elastic_mapping.json
 sleep 5
 echo "Uploading sample data..."
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/bnf_batch
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/gri_marc21_batch
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/inha_batch
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/malaga_batch
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/met_batch
-curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/uh_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/bnf_00010_2015-03-17_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/gri_00020_2015-10-19_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/inha_00010_2012-05-31_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/malaga_00010_2012-05-31_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/met_00010_2012-05-31_batch
+curl -s -XPOST http://local.portal.dev:9200/_bulk --data-binary @mocks/batch_data/uh_00010_2012-05-31_batch
 

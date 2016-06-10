@@ -8,6 +8,10 @@
       "folding": {
         "tokenizer": "standard",
         "filter": [ "lowercase", "asciifolding" ]
+      }, 
+      "stemming": {
+        "tokenizer": "standard",
+        "filter": [ "lowercase", "asciifolding", "stem" ]
       }
     },
     "filter": {
@@ -20,6 +24,10 @@
         "type": "pattern_replace",
         "pattern": "\\[",
         "replacement": ""
+      },
+      "stem": {
+        "type": "stemmer",
+        "name": "porter2"
       }
     }
   },

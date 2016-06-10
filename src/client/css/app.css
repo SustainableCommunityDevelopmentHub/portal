@@ -70,6 +70,10 @@ input {
   background-color: #fff;
   border: 1px solid #ddd;
 }
+.noscript {
+  padding: 50px;
+  text-align: center;
+}
 
 .sr-top {
   border-top: 3px solid #eee;
