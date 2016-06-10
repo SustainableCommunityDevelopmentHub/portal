@@ -61,7 +61,7 @@
       };
       $scope.reset();
       $scope.sendMail = function () {
-        if ($scope.feedbackForm.$valid) {
+        if ($scope.feedbackForm.$valid && $scope.isMatch()) {
           var data = $scope.user;
           var req = {
             method: 'POST',
@@ -76,7 +76,6 @@
             $state.go('thanks');
           };
           function errorCallback(response) {
-            console.log("message failed");
             $state.go('thanks');
           };
         }
