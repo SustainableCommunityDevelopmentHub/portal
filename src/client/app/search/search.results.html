@@ -148,7 +148,7 @@
 
         <div id="sorting">
           <div class="btn-group" id="sort-by" uib-dropdown>
-            <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button">Sort by: {{ sort }}<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
+            <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button" id="toggle-sort-btn">Sort by: {{ sort }}<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
             <ul uib-dropdown-menu role="menu" class="dropdown-menu">
               <li ng-repeat="sortMode in validSortModes">
                 <a ng-click="setSortMode(sortMode)">{{ sortMode.display }}</a></li>
