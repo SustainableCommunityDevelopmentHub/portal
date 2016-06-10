@@ -185,7 +185,7 @@
         controller: 'ErrorCtrl',
         params: {
           error: {
-            error: 'GENERIC',
+            error: 'DEFAULT',
             data: {}
           }
         }
