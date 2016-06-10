@@ -63,6 +63,14 @@ class APITests(APITestCase):
                          'q=art&from=0&size=2&sort=title_desc&date_gte=1900&date_lte=1905&language=English&adv_contributor=getty')
         self.assertEqual(response.data[0]['hits']['total'], 2)
 
+    def test_ampersands_in_facets(self):
+        books = Books.as_view()
+        query_params = 'from=0&size=2&sort=relevance&creator=Harper & Brothers'
+        request = self.factory.get(query_params)
+        response = books(request, query_params)
+        self.assertEqual(response.data[0]['hits']['total'], 1)
+
+
 
 class TestESHelperFunctions(TestCase):
 
