@@ -93,7 +93,7 @@ describe('Saved Records Page', function() {
 
   it('should show recent searches', function () {
     resultsPage.toggleFacetOption('subject', 'Russia');
-    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.toggleFacetOption('subject', 'Artcollections');
     browser.waitForAngular();
     savedRecordsPage = new SavedRecordsPage();
 
@@ -106,7 +106,7 @@ describe('Saved Records Page', function() {
 
   it('should run search when clicking on search term', function () {
     resultsPage.toggleFacetOption('subject', 'Russia');
-    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.toggleFacetOption('subject', 'Artcollections');
     resultsPage.toggleFacetOption('subject', 'France');
 
     browser.waitForAngular();
@@ -116,17 +116,17 @@ describe('Saved Records Page', function() {
     savedRecordsPage.clickSearch(2);
     expect(resultsPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
     expect(resultsPage.facetChips.get(1).getText()).toEqual('Russia (Subject)');
-    expect(resultsPage.facetChips.get(2).getText()).toEqual('Catalogs (Subject)');
+    expect(resultsPage.facetChips.get(2).getText()).toEqual('Art collections (Subject)');
 
     resultsPage.getHits().then(function(hits) {
-      expect(hits.length).toEqual(20);
+      expect(hits.length).toEqual(24);
       });
     });
 
   it('should run a clean search when clicking search term (no filters from previous searches)', function() {
     //saves a search with no search term
     resultsPage.toggleFacetOption('subject', 'Art');
-    resultsPage.toggleFacetOption('subject', 'Catalogs');
+    resultsPage.toggleFacetOption('subject', 'France');
     resultsPage.submitNewSearchTerm('painting');
     browser.waitForAngular();
     savedRecordsPage = new SavedRecordsPage();

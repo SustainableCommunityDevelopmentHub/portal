@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django.conf import settings
 from elasticsearch import Elasticsearch
+from elasticsearch.exceptions import NotFoundError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,15 +14,32 @@ from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 
 from . import es_functions
+from api.transform import dc_export
 
 ELASTICSEARCH_ADDRESS = settings.ELASTICSEARCH_HOST + ":" + settings.ELASTICSEARCH_PORT
 
-class Book(APIView):
+class Raw(APIView):
     def get(self, request, id, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
-        response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
+        try:
+            response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
+        except NotFoundError as err:
+            return Response(err.info, status=status.HTTP_404_NOT_FOUND)
         data = json.loads(json.dumps(response))
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class Book(APIView):
+    def get(self, request, id,  format=None):
+        es = Elasticsearch([ELASTICSEARCH_ADDRESS])
+        book_id = id
+        try:
+            response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
+        except NotFoundError as err:
+            return Response(err.info, status=status.HTTP_404_NOT_FOUND)
+        dc = dc_export(response)
+        data = json.loads(json.dumps(dc))
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -41,6 +59,7 @@ class Books(APIView):
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
     def get(self, request, params, format=None):
+        params = params.replace(" & ", " %26 ")
         search_options = urllib.parse.parse_qs(params)
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         body = es_functions.create_base_query()
@@ -92,3 +111,4 @@ def get_feedback_form(request):
             'Feedback: ' + info_dict.get('user_feedback'), 
             info_dict.get('email'), [settings.EMAIL_TO], fail_silently=False)
         return Response('Thanks!!!!!!!! :D', status=status.HTTP_200_OK)
+

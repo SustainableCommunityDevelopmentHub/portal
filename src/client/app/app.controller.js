@@ -3,10 +3,11 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData',
-    function($scope, $stateParams, $window, bookData) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'dcRec',
+    function($scope, $stateParams, $window, bookData, dcRec) {
 
       $scope.book = bookData;
+      $scope.dc = dcRec;
 
       $scope.saveAsJson = function (data, filename) {
 

@@ -12,6 +12,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -28,6 +32,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -41,6 +49,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -51,6 +63,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -64,6 +80,24 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
+          }
+        }
+      },
+      "_contributor_display": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -73,6 +107,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -83,6 +121,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -96,6 +138,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -110,6 +156,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -120,6 +170,10 @@
           "folded": {
             "type": "string",
             "analyzer": "folding"
+          },
+          "stemmed": {
+            "type": "string",
+            "analyzer": "stemming"
           }
         }
       },
@@ -135,6 +189,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -149,6 +207,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -163,6 +225,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -177,6 +243,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -191,6 +261,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -205,6 +279,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -219,6 +297,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -233,6 +315,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -247,6 +333,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -261,6 +351,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -275,6 +369,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -289,6 +387,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -303,6 +405,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -317,6 +423,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -331,6 +441,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -345,6 +459,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -359,6 +477,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -373,6 +495,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }
@@ -387,6 +513,10 @@
                   "folded": {
                     "type": "string",
                     "analyzer": "folding"
+                  },
+                  "stemmed": {
+                    "type": "string",
+                    "analyzer": "stemming"
                   }
                 }
               }

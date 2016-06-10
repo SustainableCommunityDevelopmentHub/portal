@@ -1,9 +1,12 @@
+import json
+
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory, APITestCase
-from api.views import Book, Books, Contributors
-from . import es_functions
+from rest_framework import status
 
-import json
+from api.views import Book, Raw, Books, Contributors
+from api.renderers import RISRenderer
+from . import es_functions
 
 
 class APITests(APITestCase):
@@ -22,12 +25,40 @@ class APITests(APITestCase):
         response = contributors.get(request)
         self.assertEqual(response.data, contributors_data)
 
+    def test_raw(self):
+        book = Raw.as_view()
+        test_id = 'gri_9921975010001551'
+        request = self.factory.get('/api/book/raw/gri_9921975010001551')
+        response = book(request, 'gri_9921975010001551')
+        self.assertEqual(response.data['_id'], test_id)
+
     def test_book(self):
         book = Book.as_view()
         test_id = 'gri_9921975010001551'
+        book_data = {"language":"English","creator":"John Murray (Firm)","isPartOf":"Murray's English handbooks","publisher":"J. Murray","alternative":"Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.","title":"Murray's hand-book eastern counties.","description":["Cover title.","Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."],"issued":"1900","type":"Text","identifier":"https://www.archive.org/details/murrayshandbooke00john"}
         request = self.factory.get('/api/book/gri_9921975010001551')
         response = book(request, 'gri_9921975010001551')
+        self.assertEqual(response.data, book_data)
+
+    def test_bad_book_id(self):
+        book = Book.as_view()
+        test_id = 'bad_book_id'
+        request = self.factory.get('/api/book/' + test_id)
+        response = book(request, test_id)
+        self.assertFalse(response.data['found'])
         self.assertEqual(response.data['_id'], test_id)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_ris(self):
+        book = Raw.as_view()
+        ris_data = "TY  - BOOK\r\nLA  - English\r\nET  - 3rd ed.\r\nPB  - J. Murray\r\nPY  - 19--]///\r\nN1  - Cover title.; Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.\r\nUR  - https://www.archive.org/details/murrayshandbooke00john\r\nTI  - Murray's hand-book eastern counties.\r\nAU  - John Murray (Firm)\r\nER  - \r\n"
+
+        request = self.factory.get('/api/book/raw/gri_9921975010001551.ris')
+        response = book(request, 'gri_9921975010001551', format='ris')
+        response.render()
+        self.assertIn("TY  - BOOK\r\n", (response.content).decode())
+        self.assertIn("UR  - https://www.archive.org/details/murrayshandbooke00john\r\n", (response.content).decode())
+        self.assertIn("TI  - Murray's hand-book eastern counties.\r\n", (response.content).decode())
 
     def test_search_all(self):
         books = Books.as_view()
@@ -42,6 +73,14 @@ class APITests(APITestCase):
         response = books(request,
                          'q=art&from=0&size=2&sort=title_desc&date_gte=1900&date_lte=1905&language=English&adv_contributor=getty')
         self.assertEqual(response.data[0]['hits']['total'], 2)
+
+    def test_ampersands_in_facets(self):
+        books = Books.as_view()
+        query_params = 'from=0&size=2&sort=relevance&creator=Harper & Brothers'
+        request = self.factory.get(query_params)
+        response = books(request, query_params)
+        self.assertEqual(response.data[0]['hits']['total'], 1)
+
 
 
 class TestESHelperFunctions(TestCase):
@@ -87,6 +126,12 @@ class TestESHelperFunctions(TestCase):
     def test_advanced_filters(self):
         correct_filter = [{'query_string': {'query': 'English',
                                    'minimum_should_match': '2<-1 5<75%',
-                                   'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded']}}]
+                                   'fields': ['dublin_core.language.value', 'dublin_core.language.value.folded', 'dublin_core.language.value.stemmed']}}]
         advanced_filter = es_functions.create_advanced_filters('adv_language', ['English'])
         self.assertEqual(advanced_filter, correct_filter)
+
+    def test_query_string_special_chars(self):
+        query_term = ['[2^&|art!]painting+=-']
+        query = es_functions.create_query_string(query_term)
+        self.assertEqual(query['query_string']['query'], '\[2\^\&\|art\!\]painting\+\=\-')
+
