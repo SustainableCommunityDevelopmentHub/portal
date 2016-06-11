@@ -1508,6 +1508,10 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   height: 40px;
 }
 
+.thanks {
+  text-align: center;
+}
+
 
 /* Saved Records Page */
 

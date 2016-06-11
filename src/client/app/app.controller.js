@@ -7,18 +7,42 @@
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
     }])
 
-    .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
-      $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
+    .controller('FeedbackFormCtrl', ['config', '$scope', '$state', '$http', '$location', '$window', function (config, $scope, $state, $http, $location, $window) {
+      $scope.feedbackFields = ['Problem','Question','Comment'];
+      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0], user_feedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
-          if ($scope.user.email === $scope.user.confirmationEmail) {
+          if ($scope.user.email === $scope.user.confirmation_email) {
             return true;
           }
           return false;
         };
       };
       $scope.reset();
+      $scope.sendMail = function () {
+        if ($scope.feedbackForm.$valid && $scope.isMatch()) {
+          var data = $scope.user;
+          var req = {
+            method: 'POST',
+            url: config.django.host + ':' + config.django.port + '/api/send-email/',
+            headers: { 'Content-Type': 'application/json' },
+            data: data,
+          };
+          $http(req).then(successCallback, errorCallback); 
+          function successCallback(response) {
+            console.log(data);
+            console.log("message successfully sent");
+            $state.go('thanks');
+          };
+          function errorCallback(response) {
+            $state.go('thanks');
+          };
+        }
+        else {
+          $scope.feedbackForm.$submitted = true
+        }
+      };             
       $scope.feedbackErrors =[
         {msg: 'This field is required.'},
         {msg: 'Please enter a valid email address.'},
@@ -27,14 +51,6 @@
 
     }])
 
-    .controller('FeedbackFieldController', ['$scope', function($scope) {
-      $scope.feedbackFields = [
-        {name:'Problem'},
-        {name:'Question'},
-        {name:'Comment'}
-      ];
-      $scope.myFeedbackField = $scope.feedbackFields[0];
-    }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
       var modalInstance = $uibModal.open({

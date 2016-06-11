@@ -60,7 +60,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['static'],
+        'DIRS': ['static', 'src/client/app/partials'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +122,9 @@ CORS_ORIGIN_WHITELIST = (
 # Elasticsearch host and port
 ELASTICSEARCH_HOST = 'local.portal.dev'
 ELASTICSEARCH_PORT = '9200'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.getty.edu'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+EMAIL_TO = 'susieley86@yahoo.com'
