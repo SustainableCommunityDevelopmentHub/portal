@@ -3,38 +3,43 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'dcRec',
-    function($scope, $stateParams, $window, bookData, dcRec) {
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', '$timeout', 'bookID', 'DataService',
+    function($scope, $stateParams, $window, $timeout, bookID, DataService) {
+      $scope.showSpinner = true;
+      $scope.bookID = bookID;
+      DataService.getBookData(bookID).success(function(data) {
+        var bookData = data._source;
+        bookData._id = data._id;
+        $scope.book = bookData;
+        $scope.showSpinner = false;
+      }).error(function() {
+        $scope.showSpinner = false;
+      });
 
-      $scope.book = bookData;
-      $scope.dc = dcRec;
+      $scope.saveAsJson = function () {
+        var filename = 'book.json';
+        $scope.showSpinner = true;
+        DataService.getDcRec($scope.bookID).success(function(data) {
+          $scope.showSpinner = false;
 
-      $scope.saveAsJson = function (data, filename) {
+          if (typeof data === 'object') {
+            data = angular.toJson(data, undefined, 2);
+            $scope.fileContents = data;
+          }
 
-        if (!data) {
-          console.error('No data');
-          return;
-        }
+          var blob = new Blob([data], {type: 'text/json'}),
+            e = document.createEvent('MouseEvents'),
+            a = document.createElement('a');
 
-        if (!filename) {
-          filename = 'book.json';
-        }
-
-        if (typeof data === 'object') {
-          data = angular.toJson(data, undefined, 2);
-          $scope.fileContents = data;
-        }
-
-        var blob = new Blob([data], {type: 'text/json'}),
-          e = document.createEvent('MouseEvents'),
-          a = document.createElement('a');
-
-        a.download = filename;
-        a.href = window.URL.createObjectURL(blob);
-        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-        e.initMouseEvent('click', true, false, window,
-          0, 0, 0, 0, 0, false, false, false, false, 0, null);
-        a.dispatchEvent(e);
+          a.download = filename;
+          a.href = window.URL.createObjectURL(blob);
+          a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+          e.initMouseEvent('click', true, false, window,
+            0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          a.dispatchEvent(e);
+        }).error(function() {
+          $scope.showSpinner = false;
+        });
       };
 
       $scope.redirect = function(){
@@ -46,9 +51,11 @@
 
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
+      $scope.showSpinner = false;
     }])
 
     .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
+      $scope.showSpinner = false;
       $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);

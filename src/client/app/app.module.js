@@ -31,6 +31,7 @@
 
     // assign this here to persist open tabs across stage changes
     $rootScope.$activeTabs = [];
+    $rootScope.showSpinnner = false;
   }]);
 
 })();

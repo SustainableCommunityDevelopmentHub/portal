@@ -87,30 +87,11 @@
      * @returns promise with data from django api
      */
     function getBookData(bookID){
-      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
-      var deferred = $q.defer();
-      bookPromise.success(function (data) {
-        var bookData = data._source;
-        bookData._id = data._id;
-        deferred.resolve(bookData);
-      }).error(function () {
-        deferred.reject(arguments);
-      });
-      return deferred.promise;
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
     }
 
-
     function getDcRec(bookID){
-      console.log('getting DC record');
-      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
-      var deferred = $q.defer();
-      bookPromise.success(function (data) {
-        var dcRec = data;
-        deferred.resolve(dcRec);
-      }).error(function () {
-        deferred.reject(arguments);
-      });
-      return deferred.promise;
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
     }
   }
 })();

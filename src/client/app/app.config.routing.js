@@ -15,7 +15,8 @@
         templateUrl: config.app.root + '/home/home.html',
         controller: 'HomePageCtrl',
         resolve: {
-          searchResults: function(SearchService, DataService) {
+          searchResults: function($rootScope, SearchService, DataService) {
+            $rootScope.showSpinner = true;
             SearchService.resetOpts();
             return DataService.search(SearchService.opts);
           }
@@ -41,7 +42,8 @@
           adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
+          searchResults: function($rootScope, $stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
+            $rootScope.showSpinner = true;
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
@@ -115,11 +117,8 @@
         templateUrl: config.app.root + '/partials/book-detail.html',
         controller: 'BookDetailCtrl',
         resolve: {
-          bookData: function($stateParams, DataService) {
-            return DataService.getBookData($stateParams.bookID);
-          },
-          dcRec: function($stateParams, DataService) {
-            return DataService.getDcRec($stateParams.bookID);
+          bookID: function($stateParams, DataService) {
+            return $stateParams.bookID;
           }
         }
       })
@@ -135,7 +134,8 @@
         templateUrl: config.app.root + '/contributors/contributors.html',
         controller: 'ContributorsCtrl',
         resolve: {
-          contributors: function(DataService){
+          contributors: function($rootScope, DataService){
+            $rootScope.showSpinner = false;
             return DataService.getContributors();
           }
         }
@@ -150,13 +150,17 @@
       .state('help', {
         url: '/help',
         templateUrl: config.app.root + '/partials/help.html',
-        controller: 'SearchHelpCtrl'
+        controller: 'SearchHelpCtrl',
       })
 
       .state('faq', {
         url: '/faq',
         templateUrl: config.app.root + '/partials/faqs.html',
-        //controller: 'FaqsCtrl'
+        resolve: {
+          spinner: function($rootScope) {
+            $rootScope.showSpinner = false;
+          }
+        }
       })
       .state('savedRecords', {
         url: '/saved',
