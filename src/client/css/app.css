@@ -1582,8 +1582,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     margin-bottom: 30px;
   }
 
-    .saved-records-list #view-digital-item{
-      margin-bottom: 30px;
+  .saved-records-list #view-digital-item{
+    margin-bottom: 30px;
   }
 
 
@@ -1798,6 +1798,13 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
  @media (min-width: 768px) and (max-width: 991px) {
 
+    /* Disabled Hover states */
+    
+    .bookmark-text {
+      display: none !important;
+    }
+
+
     /* Homepage */
 
     #go-btn span {
@@ -1936,6 +1943,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .container {
       padding-right: 10px;
       padding-left: 10px;
+    }
+
+    /* Disabled Hover states */
+    .bookmark-text {
+      display: none !important;
     }
 
 

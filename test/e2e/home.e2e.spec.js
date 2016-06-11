@@ -10,22 +10,6 @@ describe('Home Page', function() {
 		homePage = new HomePage();
 	});
 
-	it('Should display the correct number of Titles', function() {
-		var totalTitles = element(by.binding('totalTitles'));
-		expect(totalTitles.getText()).toEqual('452');
-	});
-
-	it('Should display the correct number of Titles after a search', function() {
-		homePage.submitHomePageQuery('art');
-		homePage.addFacetOption('subject', 'Russia');
-		homePage.addFacetOption('Language', 'French');
-		expect(homePage.numTotalHits).toEqual(1);
-		var homeButton = element(by.linkText('Portal Home'));
-		homeButton.click();
-		var totalTitles = element(by.binding('totalTitles'));
-		expect(totalTitles.getText()).toEqual('452');
-	});
-
   it('Should display all records when user clicks See All button', function() {
 		homePage.seeAll();
     homePage.getHits().then(function(hits) {
