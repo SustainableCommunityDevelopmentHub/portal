@@ -113,10 +113,10 @@
 
       .state('books', {
         url: '/books/:bookID',
-        templateUrl: config.app.root + '/partials/book-detail.html',
+        templateUrl: config.app.root + '/book_detail/book-detail.html',
         controller: 'BookDetailCtrl',
         resolve: {
-          bookID: function($stateParams, DataService) {
+          bookID: function($stateParams) {
             return $stateParams.bookID;
           }
         }
@@ -149,7 +149,7 @@
       .state('help', {
         url: '/help',
         templateUrl: config.app.root + '/partials/help.html',
-        controller: 'SearchHelpCtrl',
+        controller: 'SearchHelpCtrl'
       })
 
       .state('faq', {

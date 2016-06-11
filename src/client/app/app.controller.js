@@ -3,52 +3,6 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', '$timeout', 'bookID', 'DataService',
-    function($scope, $stateParams, $window, $timeout, bookID, DataService) {
-      $scope.showSpinner = true;
-      $scope.bookID = bookID;
-      DataService.getBookData(bookID).success(function(data) {
-        var bookData = data._source;
-        bookData._id = data._id;
-        $scope.book = bookData;
-        $scope.showSpinner = false;
-      }).error(function() {
-        $scope.showSpinner = false;
-      });
-
-      $scope.saveAsJson = function () {
-        var filename = 'book.json';
-        $scope.showSpinner = true;
-        DataService.getDcRec($scope.bookID).success(function(data) {
-          $scope.showSpinner = false;
-
-          if (typeof data === 'object') {
-            data = angular.toJson(data, undefined, 2);
-            $scope.fileContents = data;
-          }
-
-          var blob = new Blob([data], {type: 'text/json'}),
-            e = document.createEvent('MouseEvents'),
-            a = document.createElement('a');
-
-          a.download = filename;
-          a.href = window.URL.createObjectURL(blob);
-          a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-          e.initMouseEvent('click', true, false, window,
-            0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          a.dispatchEvent(e);
-        }).error(function() {
-          $scope.showSpinner = false;
-        });
-      };
-
-      $scope.redirect = function(){
-        $window.location.assign($scope.book._source._record_link);
-        return false;
-      };
-
-    }])
-
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
       $scope.showSpinner = false;
