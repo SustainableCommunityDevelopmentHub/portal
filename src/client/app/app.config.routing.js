@@ -35,7 +35,8 @@
           adv_title: { array: true }
         },
         resolve: {
-          searchResults: function($stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
+          searchResults: function($rootScope, $stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
+            $rootScope.showSpinner = true;
             console.log('Router - SearchResults - in Resolve - $stateParams: ' + JSON.stringify($stateParams));
             var ss = SearchService;
             var opts = ss.getDefaultOptsObj();
@@ -109,14 +110,8 @@
         templateUrl: config.app.root + '/book_detail/book-detail.html',
         controller: 'BookDetailCtrl',
         resolve: {
-          bookData: function($stateParams, DataService) {
-            return DataService.getBookData($stateParams.bookID);
-          },
-          dcRec: function($stateParams, DataService) {
-            return DataService.getDcRec($stateParams.bookID);
-          },
-          risRec: function($stateParams, DataService) {
-            return DataService.getRisRec($stateParams.bookID);
+          bookID: function($stateParams) {
+            return $stateParams.bookID;
           }
         }
       })
@@ -132,7 +127,8 @@
         templateUrl: config.app.root + '/contributors/contributors.html',
         controller: 'ContributorsCtrl',
         resolve: {
-          contributors: function(DataService){
+          contributors: function($rootScope, DataService){
+            $rootScope.showSpinner = false;
             return DataService.getContributors();
           }
         }
@@ -159,7 +155,11 @@
       .state('faq', {
         url: '/faq',
         templateUrl: config.app.root + '/partials/faqs.html',
-        //controller: 'FaqsCtrl'
+        resolve: {
+          spinner: function($rootScope) {
+            $rootScope.showSpinner = false;
+          }
+        }
       })
       .state('savedRecords', {
         url: '/saved',

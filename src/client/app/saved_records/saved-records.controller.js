@@ -17,6 +17,7 @@
     $scope.searchesActive = false;
 
     $scope.validSortModes = SAVED_RECORDS_SORT;
+    $scope.showSpinner = false;
 
     /**
      * Sets which tab is the 'active' tab
@@ -111,6 +112,7 @@
      * @param search {object}
      */
     $scope.runSearch = function(search) {
+      $scope.showSpinner = true;
       SearchService.resetOpts();
       SearchService.updateOpts(search.opts);
       SearchService.transitionStateAndSearch();

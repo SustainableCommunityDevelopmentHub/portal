@@ -40,6 +40,7 @@
 
     $scope.categories = FACETS;
     $scope.sort = SORT_MODES[ss.opts.sort].display;
+    $scope.showSpinner = false;
 
     console.log('SearchCtrl::$scope.sort: ' + JSON.stringify($scope.sort));
     console.log('SearchCtrl::$scope.pagination: ' + JSON.stringify($scope.pagination));
@@ -85,6 +86,7 @@
       ss.updateOpts(opts);
       console.log('SearchCtrl::updateSearch() -- add\'l opts: ' + JSON.stringify(opts));
       console.log('SearchCtrl::updateSearch() -- merged SearchService.opts: ' + JSON.stringify(ss.opts));
+      $scope.showSpinner = true;
       ss.transitionStateAndSearch();
     }
 
@@ -175,6 +177,7 @@
      * @param active {boolean} Set true to activate facet, false to deactivate
      */
     $scope.updateFacet = function(facetOption, active){
+      $scope.showSpinner = true;
       if(active){
         ss.activateFacet(facetOption);
       }
@@ -201,6 +204,7 @@
      * @param field {object} field to remove
      */
     $scope.clearAdvancedField = function(field) {
+      $scope.showSpinner = true;
       var index = ss.opts.advancedFields.indexOf(field);
       ss.opts.advancedFields.splice(index, 1);
 
@@ -213,6 +217,7 @@
      * Clear Search Options
      */
     $scope.clearSearchOpts = function(){
+      $scope.showSpinner = true;
       ss.resetOpts();
       ss.transitionStateAndSearch();
     };
@@ -221,6 +226,7 @@
      * Removes query term, then runs search on empty query term string
      */
     $scope.clearQueryTerm = function(queryTerm) {
+      $scope.showSpinner = true;
       $scope.queryTerms = $scope.queryTerms.filter(function(query) {
         return query !== queryTerm;
       });

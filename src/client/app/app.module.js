@@ -18,7 +18,8 @@
     'app.book-detail',
     'AngularPrint',
     'smoothScroll',
-    'ngAnimate'
+    'ngAnimate',
+    'angularSpinner'
   ])
 
   .config(['$httpProvider', function($httpProvider) {
@@ -49,6 +50,7 @@
 
     // assign this here to persist open tabs across stage changes
     $rootScope.$activeTabs = [];
+    $rootScope.showSpinnner = false;
   }]);
 
 })();

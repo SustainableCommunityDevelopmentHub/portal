@@ -24,6 +24,8 @@
     <script src="bower_components/angular-print/angularPrint.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.js"></script>
+    <script src="bower_components/spin.js/spin.js"></script>
+    <script src="bower_components/angular-spinner/angular-spinner.js"></script>
 
     <!--Environment Config Settings-->
     <script src="app/app.env.config.js"></script>
@@ -125,7 +127,8 @@
         </div><!-- /container -->
         </div>
       </noscript>
-      <div ui-view></div>
+      <div ui-view us-spinner spinner-on="showSpinner">
+      </div>
       <footer>
         <div data-ng-include="'app/partials/footer.html'"></div>
       </footer>

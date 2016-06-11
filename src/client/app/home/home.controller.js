@@ -10,17 +10,20 @@
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
+    $scope.showSpinner = false;
 
     function newSearch(opts) {
       SearchService.resetOpts();
       SearchService.updateOpts(opts);
       SearchService.transitionStateAndSearch();
+      $scope.showSpinner = true;
     }
 
     function mostRecentSearch(){
       SearchService.resetOpts();
       SearchService.updateOpts({sort: SORT_MODES.date_added, from: 0});
       SearchService.transitionStateAndSearch();
+      $scope.showSpinner = true;
     }
   }
 })();

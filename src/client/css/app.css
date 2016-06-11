@@ -393,6 +393,17 @@ hr.thin {
   font-size: 18px;
 }
 
+.spinner:before {
+  background-color: rgba(50, 50, 50, 0.1);
+  border-radius: 6px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  content: " ";
+}
+
   /* Stat Boxes */
 
     .stats {

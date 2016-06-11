@@ -3,46 +3,46 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'dcRec', 'DataService', 'risRec', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookID', 'DataService', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, bookData, dcRec, DataService, risRec) {
-
-    $scope.book = bookData;
-    $scope.dc = dcRec;
-    $scope.ris = risRec;
+  function BookDetailCtrl($scope, $stateParams, $window, bookID, DataService, risRec) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
 
-    function saveAsJson(data, filename) {
-      if (!data) {
-        console.error('No data');
-        return;
-      }
+    $scope.showSpinner = true;
+    $scope.bookID = bookID;
+    DataService.getBookData(bookID).success(function(data) {
+      var bookData = data._source;
+      bookData._id = data._id;
+      $scope.book = bookData;
+    }).finally(function() {
+      $scope.showSpinner = false;
+    });
 
-      if (!filename) {
-        filename = 'book.json';
-      }
+    function saveAsJson() {
+      var filename = 'book.json';
+      $scope.showSpinner = true;
+      DataService.getDcRec($scope.bookID).success(function(data) {
 
-      if (typeof data === 'object') {
-        data = angular.toJson(data, undefined, 2);
-        $scope.fileContents = data;
-      }
+        if (typeof data === 'object') {
+          data = angular.toJson(data, undefined, 2);
+          $scope.fileContents = data;
+        }
+        createBlobAndDownload(data, 'text/json', filename);
+      }).finally(function() {
+        $scope.showSpinner = false;
+      });
+    };
 
-      createBlobAndDownload(data, 'text/json', filename);
-    }
-
-    function saveAsRis(data, filename) {
-      if (!data) {
-        console.error('No data');
-        return;
-      }
-
-      if (!filename) {
-        filename = 'book.ris';
-      }
-
-      $scope.fileContentsRis = data;
-      createBlobAndDownload(data, 'application/x-research-info-systems', filename);
+    function saveAsRis() {
+      var filename = 'book.ris';
+      $scope.showSpinner = true;
+      DataService.getRisRec($scope.bookID).success(function(data) {
+        $scope.fileContentsRis = data;
+        createBlobAndDownload(data, 'application/x-research-info-systems', filename);
+      }).finally(function() {
+        $scope.showSpinner = false;
+      });
     }
 
     function createBlobAndDownload(data, MimeType, filename){

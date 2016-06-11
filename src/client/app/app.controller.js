@@ -5,9 +5,11 @@
   angular.module('app.controller', ['ui.bootstrap'])
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
+      $scope.showSpinner = false;
     }])
 
     .controller('FeedbackFormCtrl', ['config', '$scope', '$state', '$http', '$location', '$window', function (config, $scope, $state, $http, $location, $window) {
+      $scope.showSpinner = false;
       $scope.feedbackFields = ['Problem','Question','Comment'];
       $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0], user_feedback: ""};
       $scope.reset = function() {
