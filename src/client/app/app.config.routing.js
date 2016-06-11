@@ -13,13 +13,7 @@
       .state('home', {
         url: '/',
         templateUrl: config.app.root + '/home/home.html',
-        controller: 'HomePageCtrl',
-        resolve: {
-          searchResults: function(SearchService, DataService) {
-            SearchService.resetOpts();
-            return DataService.search(SearchService.opts);
-          }
-        }
+        controller: 'HomePageCtrl'
       })
       .state('searchResults', {
         url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
