@@ -8,7 +8,7 @@
             <div class="btn-group" uib-dropdown>
               <button class="btn btn-primary" uib-dropdown-toggle><a href="#" id="exportBtn">Export<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></a></button>
               <ul uib-dropdown-menu role="menu" class="dropdown-menu">
-                <li><a href="#">RIS</a></li>
+                <li><a class="saveRis" ng-click="saveAsRis(ris)">RIS</a><p ng-hide="fileContentsRis">{{fileContentsRis}}</p></li>
                 <li><a class="saveJson" ng-click="saveAsJson(dc)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
               </ul>
             </div>
