@@ -15,8 +15,7 @@
         templateUrl: config.app.root + '/home/home.html',
         controller: 'HomePageCtrl',
         resolve: {
-          searchResults: function($rootScope, SearchService, DataService) {
-            $rootScope.showSpinner = true;
+          searchResults: function(SearchService, DataService) {
             SearchService.resetOpts();
             return DataService.search(SearchService.opts);
           }
