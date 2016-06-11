@@ -31,15 +31,13 @@
             headers: { 'Content-Type': 'application/json' },
             data: data,
           };
-          $http(req).then(successCallback, errorCallback); 
-          function successCallback(response) {
+          $http(req).then(function (response) {
             console.log(data);
             console.log("message successfully sent");
             $state.go('thanks');
-          };
-          function errorCallback(response) {
+          }, function (response) {
             $state.go('thanks');
-          };
+          }); 
         }
         else {
           $scope.feedbackForm.$submitted = true
