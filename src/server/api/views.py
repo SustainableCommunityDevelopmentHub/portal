@@ -103,12 +103,17 @@ def get_feedback_form(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:        
         info_dict = json.loads(request.body.decode('utf-8'))
-        print(info_dict)
-        send_mail('Feedback from ' + info_dict.get('first_name') + ' ' + info_dict.get('last_name'), 
-            'Organization: ' + info_dict.get('organization') + '\n\n' + 
-            'Email: ' + info_dict.get('email') + '\n\n' + 
-            'Type: ' + info_dict.get('type_of_feedback') + '\n\n' +
-            'Feedback: ' + info_dict.get('user_feedback'), 
+        subject_string = 'Feedback from {} {}'.format(
+            info_dict.get('first_name'),
+            info_dict.get('last_name')
+        )
+        email_string = 'Organization: {}\n\nEmail: {}\n\nType: {}\n\nFeedback: {}'.format(
+            info_dict.get('organization'),
+            info_dict.get('email'),
+            info_dict.get('type_of_feedback'),
+            info_dict.get('user_feedback')
+        )
+        print(email_string)
+        send_mail(subject_string, email_string, 
             info_dict.get('email'), [settings.EMAIL_TO], fail_silently=False)
-        return Response('Thanks!!!!!!!! :D', status=status.HTTP_200_OK)
-
+        return HttpResponse('Thanks!', status=status.HTTP_200_OK)

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from api.views import Book, Books, Contributors, get_feedback_form
+from api.views import Book, Raw, Books, Contributors, get_feedback_form
 
 
 urlpatterns = [

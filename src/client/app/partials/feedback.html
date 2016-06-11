@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
-              <div ng-controller="FeedbackFieldController" class="fb-field">
+              <div ng-controller="FeedbackFormCtrl" class="fb-field">
                 <p class="fb-field"> I have a:</p>
                 <select class="select-field" ng-init="user.type_of_feedback = feedbackFields[0]" ng-model="user.type_of_feedback" ng-options="feedbackField for feedbackField in feedbackFields"">
                 </select>

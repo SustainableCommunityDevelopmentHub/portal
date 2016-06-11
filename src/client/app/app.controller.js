@@ -50,7 +50,7 @@
 
     .controller('FeedbackFormCtrl', ['config', '$scope', '$state', '$http', '$location', '$window', function (config, $scope, $state, $http, $location, $window) {
       $scope.feedbackFields = ['Problem','Question','Comment'];
-      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0]['name'], user_feedback: ""};
+      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0], user_feedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
@@ -83,9 +83,7 @@
         else {
           $scope.feedbackForm.$submitted = true
         }
-      };
-      
-        
+      };             
       $scope.feedbackErrors =[
         {msg: 'This field is required.'},
         {msg: 'Please enter a valid email address.'},
@@ -94,9 +92,6 @@
 
     }])
 
-    .controller('FeedbackFieldController', ['$scope', function($scope) {
-      
-    }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
       var modalInstance = $uibModal.open({
