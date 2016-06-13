@@ -210,6 +210,13 @@ describe('Search Results', function() {
     });
   });
 
+  it('should work when facets have semicolons in them', function(){
+    resultsPage.addFacetOption('language', 'Spanish; Castilian');
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(24);
+    });
+  });
+
   describe('Pagination', function(){
     var query = '';
 
