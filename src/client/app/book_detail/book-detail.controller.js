@@ -12,7 +12,6 @@
     $scope.showSpinner = true;
     $scope.book = book;
     DataService.getBookData($scope.book._id).success(function(data) {
-      console.log("setting book data");
       var bookData = data._source;
       bookData._id = data._id;
       $scope.book = bookData;
