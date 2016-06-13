@@ -59,7 +59,8 @@ class Books(APIView):
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
     def get(self, request, params, format=None):
-        params = params.replace(" & ", " %26 ")
+        params = params.replace(' & ', ' %26 ')
+        params = params.replace(';', '%3B')
         search_options = urllib.parse.parse_qs(params)
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         body = es_functions.create_base_query()
