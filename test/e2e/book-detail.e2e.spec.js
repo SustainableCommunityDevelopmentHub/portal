@@ -68,9 +68,16 @@ describe('Book Detail', function() {
 
   it('should send user to digital item on click of view digital item', function() {
     bookDetailPage.clickViewDigitalItem();
-    browser.ignoreSynchronization = true;
-    expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
-    browser.ignoreSynchronization = false;
+    browser.getAllWindowHandles().then(function (handles) {
+      var newWindowHandle = handles[1]; // this is your new window
+
+      browser.switchTo().window(newWindowHandle).then(function () {
+        browser.ignoreSynchronization = true;
+        expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
+        browser.ignoreSynchronization = false;
+      });
+    });
+
   });
 
   it('should open print dialog on click of print', function() {
