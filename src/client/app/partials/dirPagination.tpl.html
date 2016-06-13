@@ -8,11 +8,11 @@
 
     <li ui-sref-active="active">
         <a href="" ng-if="pagination.last>maxSize&&pagination.current > maxSize/2+1" ng-click="setCurrent((pagination.last-maxSize/2+1>pagination.current)?(pagination.current-3):(pagination.last+1-maxSize))">
-            {{pagination.last-maxSize/2+1>pagination.current?pagination.current-3:pagination.last+1-maxSize}}</a>
+            {{pagination.last-maxSize/2+1>pagination.current?pagination.current-2:pagination.last+1-maxSize}}</a>
     </li>
     <li ui-sref-active="active">
         <a href="" ng-if="pagination.last>maxSize&&pagination.current > maxSize/2+1" ng-click="setCurrent((pagination.last-maxSize/2+1>pagination.current)?(pagination.current-2):(pagination.last+2-maxSize))">
-            {{pagination.last-maxSize/2+1>pagination.current?pagination.current-2:pagination.last+2-maxSize}}</a>
+            {{pagination.last-maxSize/2+1>pagination.current?pagination.current-1:pagination.last+2-maxSize}}</a>
     </li>
     <li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" 
         ng-class="{ active : pagination.current == pageNumber, hidden : ((pageNumber == '...')||pagination.last>maxSize&&((pageNumber<pagination.current-1&&pagination.current>maxSize/2+1&&pagination.current<pagination.last-maxSize/2)||(pageNumber>pagination.current+1&&pagination.current<pagination.last-maxSize/2&&pagination.current>maxSize/2)||pagination.current<maxSize/2&&pageNumber>=pagination.last-1||pagination.current>maxSize/2+1&&pageNumber<=2))}">
@@ -20,12 +20,12 @@
     </li>
     <li ui-sref-active="active">
         <a href="" ng-if="pagination.last>maxSize&&pagination.current <= (pagination.last-maxSize/2)" ng-click="setCurrent((pagination.current>maxSize/2+1)?(pagination.current+2):(maxSize-1))">
-            {{pagination.current>maxSize/2+1?pagination.current+2:maxSize-1}}</a>
+            {{pagination.current>maxSize/2+1?pagination.current+1:maxSize-1}}</a>
     </li>
     <li ui-sref-active="active">
         <a href="" ng-if="pagination.last>maxSize&&pagination.current <= (pagination.last-maxSize/2)"
            ng-click="setCurrent((pagination.current>maxSize/2+1)?(pagination.current+3):maxSize)">
-            {{pagination.current>maxSize/2+1?pagination.current+3:maxSize}}</a>
+            {{pagination.current>maxSize/2+1?pagination.current+2:maxSize}}</a>
     </li>
 
     <li ng-if="directionLinks" ng-class="{ hidden : pagination.current == pagination.last }">
