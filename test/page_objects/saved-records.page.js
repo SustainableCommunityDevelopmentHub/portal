@@ -40,7 +40,7 @@ SavedRecordsPage.prototype = Object.create({}, {
     element.all(by.css('.book-listing .bookmark')).get(position).click();
   }},
   getBookmark: { value: function(position) {
-    return element.all(by.css('.book-listing .bookmark')).get(position);
+    return element.all(by.css('.bookmark')).get(position);
   }},
   selectSortMode: { value: function(position) {
     element(by.css('.record-sorting div button')).click();
@@ -63,6 +63,9 @@ SavedRecordsPage.prototype = Object.create({}, {
   }},
   removeSearch: {value: function(position) {
     element.all(by.css('.remove-search-btn')).get(position).click();
+  }},
+  clickViewDigitalItem: {value: function() {
+    element.all(by.id('view-digital-item')).first().click();
   }}
 
 });
