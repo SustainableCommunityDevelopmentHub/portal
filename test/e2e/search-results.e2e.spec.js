@@ -225,6 +225,18 @@ describe('Search Results', function() {
     });
   });
 
+  it('should work when facets have ampersands in them', function() {
+    resultsPage.submitNewSearchTerm('Harper & Brothers');
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(1);
+    });
+    resultsPage.addFacetOption('creator', 'Harper & Brothers');
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(1);
+    });
+  });
+
   describe('Pagination', function(){
     var query = '';
 

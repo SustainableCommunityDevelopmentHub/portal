@@ -1,4 +1,5 @@
 // book-detail.spec.js
+/* jshint node: true */
 'use strict';
 
 var BookDetailPage = require('../page_objects/book-detail.page.js');
@@ -32,6 +33,39 @@ describe('Book Detail', function() {
     expect(fileContents).toEqual(testData);
   });
 
+  it('should download correct RIS record on click', function() {
+    var fs = require('fs');
+    var path = require('path');
+    var appRoot = process.cwd();
+    var testData = fs.readFileSync(appRoot + '/mocks/book.ris', 'utf8');
+
+    bookDetailPage.clickExport();
+    $('.saveRis').click();
+
+    // Get ris record data we put in the code for testing.
+    // The return object from fs.readFile does not have expected String funcs like .slice()
+    // ...and newLines are not in the string.
+    // Had to handle inside callback like this for things to work.
+    var fileContentsRis = $('.saveRis').evaluate('fileContentsRis').then(function(data){
+      return data.slice(
+        (data.indexOf('UR  - ') + 6), data.indexOf('N1')
+      ).trim();
+    });
+
+    // check that each record is for the same digital item
+    // by implication informally checks that record is a RIS record
+    expect( fileContentsRis ).toEqual( extractRisUrl(testData) );
+
+    function extractRisUrl(risRecord){
+      var urlLine = risRecord.split('\n').filter(function(line){
+        if(line.split(' ')[0] === 'UR'){
+          return true;
+        }
+      })[0].trim();
+      return urlLine ? urlLine.split(' ')[3] : false;
+    }
+  });
+
   it('should send user to digital item on click of view digital item', function() {
     bookDetailPage.clickViewDigitalItem();
     browser.ignoreSynchronization = true;
@@ -50,5 +84,5 @@ describe('Book Detail', function() {
     expect(result).toBe(true);
   });
 
-  
+
 });

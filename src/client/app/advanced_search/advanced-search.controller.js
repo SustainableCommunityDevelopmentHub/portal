@@ -18,6 +18,7 @@
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // selected adv filters plus initial empty filter
+      $scope.showSpinner = false;
       $scope.filters = [{field: initialField, term: "", lastFilter: true}];
 
       // objs w/settings for each available adv field
@@ -66,6 +67,7 @@
      * Then transitions to Search Results state.
      */
     function search() {
+      $scope.showSpinner = true;
       var advFields = [];
       var query = [];
       if ($scope.queryTerm) {

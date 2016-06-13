@@ -1,10 +1,12 @@
+import json
+
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory, APITestCase
-from api.views import Book, Raw, Books, Contributors
-from . import es_functions
-from api.renderers import RISRenderer
+from rest_framework import status
 
-import json
+from api.views import Book, Raw, Books, Contributors
+from api.renderers import RISRenderer
+from . import es_functions
 
 
 class APITests(APITestCase):
@@ -38,6 +40,15 @@ class APITests(APITestCase):
         response = book(request, 'gri_9921975010001551')
         self.assertEqual(response.data, book_data)
 
+    def test_bad_book_id(self):
+        book = Book.as_view()
+        test_id = 'bad_book_id'
+        request = self.factory.get('/api/book/' + test_id)
+        response = book(request, test_id)
+        self.assertFalse(response.data['found'])
+        self.assertEqual(response.data['_id'], test_id)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_ris(self):
         book = Raw.as_view()
         ris_data = "TY  - BOOK\r\nLA  - English\r\nET  - 3rd ed.\r\nPB  - J. Murray\r\nPY  - 19--]///\r\nN1  - Cover title.; Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.\r\nUR  - https://www.archive.org/details/murrayshandbooke00john\r\nTI  - Murray's hand-book eastern counties.\r\nAU  - John Murray (Firm)\r\nER  - \r\n"
@@ -62,6 +73,14 @@ class APITests(APITestCase):
         response = books(request,
                          'q=art&from=0&size=2&sort=title_desc&date_gte=1900&date_lte=1905&language=English&adv_contributor=getty')
         self.assertEqual(response.data[0]['hits']['total'], 2)
+
+    def test_ampersands_in_facets(self):
+        books = Books.as_view()
+        query_params = 'from=0&size=2&sort=relevance&creator=Harper & Brothers'
+        request = self.factory.get(query_params)
+        response = books(request, query_params)
+        self.assertEqual(response.data[0]['hits']['total'], 1)
+
 
 
 class TestESHelperFunctions(TestCase):

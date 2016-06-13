@@ -1,6 +1,14 @@
-// feedback.e2e.spec.js
+'use strict';
+
+var FeedbackFormPage = require('../page_objects/feedback-form.page.js');
+
 describe('Feedback', function() {
 
+  var feedbackFormPage;
+
+  beforeEach(function() {
+    feedbackFormPage = new FeedbackFormPage();
+  });
 
   var userName = 'Bert';
   var validEmail = 'bert@getty.edu';
@@ -8,53 +16,30 @@ describe('Feedback', function() {
 
 
   it('should return field required errors on submit', function() {
-    browser.get('feedback');
-    element(by.model('user.email')).sendKeys('validEmail');
-    element(by.model('user.confirmationEmail')).sendKeys('validEmail');
-    element(by.id('feedback-submit')).click();
-    var errorReq = $('.req').evaluate('feedbackErrors[0].msg');
-    expect(errorReq).toEqual('This field is required.');
+    feedbackFormPage.inputEmail(validEmail);
+    feedbackFormPage.inputConfirmationEmail(validEmail);
+    feedbackFormPage.clickSubmit();
+    expect(feedbackFormPage.errorRequired()).toEqual('This field is required.');
   });
 
   it('should return invalid email error on submit', function() {
-    browser.get('feedback');
-    element(by.model('user.firstName')).sendKeys(userName);
-    element(by.model('user.lastName')).sendKeys(userName);
-    element(by.model('user.email')).sendKeys(userName);
-    element(by.model('user.confirmationEmail')).sendKeys(userName);
-    element(by.model('user.yourFeedback')).sendKeys(userName);
-    element(by.id('feedback-submit')).click();
-    var errorInvalidEmail = $('.invalid-email').evaluate('feedbackErrors[1].msg');
-    expect(errorInvalidEmail).toEqual('Please enter a valid email address.');
+    feedbackFormPage.inputFirstName(userName);
+    feedbackFormPage.inputLastName(userName);
+    feedbackFormPage.inputEmail(userName);
+    feedbackFormPage.inputConfirmationEmail(userName);
+    feedbackFormPage.inputUserFeedback(userName);
+    feedbackFormPage.clickSubmit();
+    expect(feedbackFormPage.errorInvalidEmail()).toEqual('Please enter a valid email address.');
   });
 
   it('should return email mismatch error on submit', function() {
-    browser.get('feedback');
-    element(by.model('user.firstName')).sendKeys(userName);
-    element(by.model('user.lastName')).sendKeys(userName);
-    element(by.model('user.email')).sendKeys(validEmail);
-    element(by.model('user.confirmationEmail')).sendKeys(diffEmail);
-    element(by.model('user.yourFeedback')).sendKeys(userName);
-    element(by.id('feedback-submit')).click();
-    var errorMismatch = $('.mismatch-email').evaluate('feedbackErrors[2].msg');
-    expect(errorMismatch).toEqual('Email addresses do not match.');
+    feedbackFormPage.inputFirstName(userName);;
+    feedbackFormPage.inputLastName(userName);
+    feedbackFormPage.inputEmail(validEmail);
+    feedbackFormPage.inputConfirmationEmail(diffEmail);
+    feedbackFormPage.inputUserFeedback(userName);
+    feedbackFormPage.clickSubmit();
+    expect(feedbackFormPage.errorMismatch()).toEqual('Email addresses do not match.');
   });
-
-  it('should display no errors if form valid', function() {
-    browser.get('feedback');
-    element(by.model('user.firstName')).sendKeys(userName);
-    element(by.model('user.lastName')).sendKeys(userName);
-    element(by.model('user.email')).sendKeys(validEmail);
-    element(by.model('user.confirmationEmail')).sendKeys(validEmail);
-    element(by.model('user.yourFeedback')).sendKeys(userName);
-    element(by.id('feedback-submit')).click();
-    var errorReq = $('.req').evaluate('feedbackErrors[0].msg');
-    var errorInvalidEmail = $('.invalid-email').evaluate('feedbackErrors[1].msg');
-    var errorMismatch = $('.mismatch-email').evaluate('feedbackErrors[2].msg');
-    expect(errorReq.isDisplayed()).toBeFalsy();
-    expect(errorInvalidEmail.isDisplayed()).toBeFalsy();
-    expect(errorMismatch.isDisplayed()).toBeFalsy();
-  });
-
   
 });

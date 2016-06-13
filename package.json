@@ -50,6 +50,7 @@
     "restart-es": "sudo /etc/init.d/elasticsearch restart",
     "load-es-data": "bash make_elastic_index_load_mock_data.sh",
     "start": "node src/server/server.js",
+    "django": "bash django_init.sh",
     "test": "node node_modules/karma/bin/karma start karma.config.js",
     "test-single-run": "node node_modules/karma/bin/karma start karma.config.js  --single-run",
     "update-webdriver": "webdriver-manager update",
