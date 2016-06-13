@@ -110,8 +110,8 @@
         templateUrl: config.app.root + '/book_detail/book-detail.html',
         controller: 'BookDetailCtrl',
         resolve: {
-          bookID: function($stateParams) {
-            return $stateParams.bookID;
+          book: function($stateParams) {
+            return {_id: $stateParams.bookID}
           }
         }
       })
