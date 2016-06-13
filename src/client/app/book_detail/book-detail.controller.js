@@ -3,15 +3,16 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookID', 'DataService', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'book', 'DataService', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, bookID, DataService, risRec) {
+  function BookDetailCtrl($scope, $stateParams, $window, book, DataService, risRec) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
 
     $scope.showSpinner = true;
-    $scope.bookID = bookID;
-    DataService.getBookData(bookID).success(function(data) {
+    $scope.book = book;
+    DataService.getBookData($scope.book._id).success(function(data) {
+      console.log("setting book data");
       var bookData = data._source;
       bookData._id = data._id;
       $scope.book = bookData;
@@ -22,7 +23,7 @@
     function saveAsJson() {
       var filename = 'book.json';
       $scope.showSpinner = true;
-      DataService.getDcRec($scope.bookID).success(function(data) {
+      DataService.getDcRec($scope.book._id).success(function(data) {
 
         if (typeof data === 'object') {
           data = angular.toJson(data, undefined, 2);
@@ -37,7 +38,7 @@
     function saveAsRis() {
       var filename = 'book.ris';
       $scope.showSpinner = true;
-      DataService.getRisRec($scope.bookID).success(function(data) {
+      DataService.getRisRec($scope.book._id).success(function(data) {
         $scope.fileContentsRis = data;
         createBlobAndDownload(data, 'application/x-research-info-systems', filename);
       }).finally(function() {
