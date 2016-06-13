@@ -71,13 +71,14 @@
       "./src/client/bower_components/angular/angular.min.js",
       "./src/client/bower_components/jquery/dist/jquery.min.js",
       "./src/client/bower_components/lodash/lodash.min.js",
-      "./src/client/bower_components/elasticsearch/elasticsearch.angular.min.js",
       "./src/client/bower_components/angular-animate/angular-animate.min.js",
       "./src/client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
       "./src/client/bower_components/angular-resource/angular-resource.min.js",
       "./src/client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
       "./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js",
-      "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js"
+      "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js",
+      "./src/client/bower_components/spin.js/spin.min.js",
+      "./src/client/bower_components/angular-spinner/angular-spinner.min.js"
     ],
     "vendorcss": [
       "./src/client/bower_components/bootstrap/dist/css/bootstrap.css",
@@ -86,6 +87,10 @@
     "css": [
       "./src/client/css/app.css",
       "./src/client/css/animations.css"
+    ],
+    "js_core": [
+      "./src/client/app/*.js",
+      "./src/client/app/core/*.js"
     ],
     "js": [
       "./src/client/app/app.module.js",

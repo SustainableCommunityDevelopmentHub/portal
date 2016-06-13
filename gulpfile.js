@@ -4,8 +4,10 @@ var gulp = require('gulp');
 var bytediff = require('gulp-bytediff');
 var del = require('del');
 var gulpNgConfig = require('gulp-ng-config');
+var gulpIgnore = require('gulp-ignore');
 var pkg = require('./package.json');
 var plug = require('gulp-load-plugins')();
+var sourcemaps = require('gulp-sourcemaps');
 
 //var log = plug.util.log;
 
@@ -43,32 +45,36 @@ gulp.task('config:prod', function() {
  * Minify javascript
  */
 
-gulp.task('minify_js', ['minify_vendorjs', 'concat_vendorjs'], function(){
+gulp.task('minify_js', ['minify_vendorjs', 'concat_vendorjs', 'minify:app:core'], function(){
   console.log('Vendor javascript should now be minified and you should see in src/client/app the files vendor.min.js and more_vendors.min.js.');
 });
 
-// Minify and concat our javascript
-// IN PROGRESS
-gulp.task('minify_concat_js', function() {
-  var src_arr = ['./src/client/app/app.module.js','./src/client/app/app.env.config.js','./src/client/app/app.config.routing.js','./src/client/app/app.directive.js', '.src/client/app/app.controller.js', './src/client/app/*/*.js', '!./src/client/app/*.unit.spec.js', '!./src/client/app/*/*.unit.spec.js'];
-  // read in all js files in js path in package.json, ignore if they are spec files
-  return gulp.src(['./src/client/app/*.js', './src/client/app/*/*.js', '!./src/client/app/*.unit.spec.js', '!./src/client/app/*/*.unit.spec.js'])
-    .pipe(plug.concat('app.min.js'))
-    .pipe(plug.uglify())
+// Minify and concat js of application core
+// Make sure app start and core are executed in browser before rest of the application
+gulp.task('minify:app:core', function() {
+  return gulp.src(['./src/client/app/app.module.js', './src/client/app/app.env.config.js', '!./src/client/**/*.spec.js'])
+    .pipe(sourcemaps.init())
+      .pipe(plug.concat('app_core.min.js'))
+      .pipe(plug.uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(pkg.paths.build)); // + 'vendor'));
 });
 
 // Minify and concat unminified vendorjs
 gulp.task('minify_vendorjs', function() {
   return gulp.src(pkg.paths.vendorjs)
-    .pipe(plug.concat('more_vendors.min.js'))
-    .pipe(plug.uglify())
+    .pipe(sourcemaps.init())
+      .pipe(plug.concat('more_vendors.min.js'))
+      .pipe(plug.uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(pkg.paths.build)); // + 'vendor'));
 });
 
 // concat the already minified vendors
 gulp.task('concat_vendorjs', function() {
   return gulp.src(pkg.paths.minified_vendorjs)
-    .pipe(plug.concat('vendor.min.js'))
+    .pipe(sourcemaps.init())
+      .pipe(plug.concat('vendor.min.js'))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(pkg.paths.build)); // + 'vendor'));
 });
