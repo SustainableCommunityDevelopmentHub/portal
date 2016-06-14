@@ -43,7 +43,7 @@
               <div class="short-display"><b ng-show="book._edition">Edition: </b>{{book._edition}}</div>
               <div class="short-display"><b>Contributing Institution: </b>{{book._grp_contributor}}</div>
             </div>
-            <button class="btn" type="button" id="view-digital-item" ng-href="{{book._record_link}}" target="_blank">View Digital Item</button>
+            <a ng-href="{{book._record_link}}" target="_blank"><button class="btn" type="button" id="view-digital-item">View Digital Item</button></a>
           </div>
         </li>
       </ul>
