@@ -127,4 +127,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.getty.edu'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
-EMAIL_TO = 'susieley86@yahoo.com'
+EMAIL_TO = 'portal@getty.edu'
