@@ -63,7 +63,7 @@ describe('Book Detail', function() {
         }
       })[0].trim();
       return urlLine ? urlLine.split(' ')[3] : false;
-    }
+    };
   });
 
   it('should send user to digital item on click of view digital item', function() {

@@ -32,7 +32,9 @@
   <div class="row">
     <div class="col-xs-12">
       <ul class="saved-records-list">
+        <storage-event-listener></storage-event-listener>
         <li dir-paginate="book in savedRecords | itemsPerPage: 10" class="book-listing" current-page="currentPage" pagination-id="records">
+          <save-record-button></save-record-button>
           <div class="book-info">
             <a ui-sref="books({bookID: book._id})" target="_blank" class="book-title">{{book._title_display}}</a>
             <div class="display-data">
