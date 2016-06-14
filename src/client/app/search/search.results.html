@@ -21,7 +21,7 @@
       <div id="left_sidebar_accordion__container" class="navbar-collapse collapse">
         <div class="facet-header-desktop">
           <h4>Filter Your Results</h4>
-          <button class="btn" type="button" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
+          <button class="btn" type="button" class="see-all-facets" id="clear-all" ng-click="clearSearchOpts()">Clear All</button>
         </div>
 
         <div class="search-facet-group"><!-- faceted search sidebar -->
@@ -35,7 +35,7 @@
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
               </div>
               <div ng-controller="FacetModalCtrl">
-                <a ng-click="openFacetModal(facets, 'creator')" id="see-all-creator">See All</a>
+                <a ng-click="openFacetModal(facets, 'creator')" class="see-all-facets" id="see-all-creator">See All</a>
               </div>
             </uib-accordion-group><!-- /accordion-group -->
 
@@ -47,7 +47,7 @@
                 <label for="{{ facet.value | stripspaces }}-sidebar" class="facet-labels">{{ facet.value }} ({{ facet.count}})</label>
               </div>
               <div ng-controller="FacetModalCtrl">
-                <a ng-click="openFacetModal(facets, 'subject')" id="see-all-subject">See All</a>
+                <a ng-click="openFacetModal(facets, 'subject')" class="see-all-facets" id="see-all-subject">See All</a>
               </div>
             </uib-accordion-group><!-- /accordion-group -->
 
