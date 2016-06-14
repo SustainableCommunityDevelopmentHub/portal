@@ -128,3 +128,5 @@ EMAIL_HOST = 'smtp.getty.edu'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
 EMAIL_TO = 'portal@getty.edu'
+
+ADMINS = [('Joshua Gomez', 'jgomez@getty.edu')]
