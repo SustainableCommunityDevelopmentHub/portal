@@ -504,15 +504,6 @@ hr.thin {
 
 /* Search Results */
 
-/*.search-bar-results {
-  width: 100%;
-  display: inline-block;
-}
-
-.search-bar-results form {
-  display: flex;
-  justify-content: center;
-*/
 
 .facet-chip-search-bar {
   min-height: 40px;
@@ -547,15 +538,15 @@ hr.thin {
 }
 
 #facet-chip-input:focus {
-  border:none;
+  border: none;
   outline: none;
 }
 
 .input-div-focus {
   outline-color: #5EA1FF;
   outline-style: auto;
-  border:none;
-  box-shadow: 0px 0px 8px  #5EA1FF;;
+  border: none;
+  box-shadow: 0px 0px 8px  #5EA1FF;
 }
 
 .facet-chip {
@@ -636,7 +627,7 @@ hr.thin {
 
 .dropdown-menu > li > a {
   padding: 10px 20px;
-  border-bottom: 1px solid #ddd
+  border-bottom: 1px solid #ddd;
 }
 
 .showing {
@@ -681,7 +672,7 @@ hr.thin {
 }
 
 .glyphicon-bookmark.inside {
-  position:absolute;
+  position: absolute;
   font-size: 43px;
   color: white;
   color: white;
@@ -690,7 +681,7 @@ hr.thin {
 }
 
 .glyphicon-bookmark.inside.saved {
-  position:absolute;
+  position: absolute;
   font-size: 42px;
   color: #f68c20;
   left: 1.5px;
@@ -773,7 +764,7 @@ li.book-listing {
   }
 
   #left_sidebar_accordion__container {
-    float:left;
+    float: left;
     position: relative;
     width: 100%;
     margin-bottom: 10px;
@@ -1192,7 +1183,7 @@ ul.specs {
   clear: both;
   margin: 0;
   padding: 0;
-  list-style: none
+  list-style: none;
 }
 
 li.book-field-val {
@@ -1319,7 +1310,7 @@ hr.footer-hr {
 .footer {
   width: 100%;
   font-size: .9em;
-  clear:both;
+  clear: both;
 }
 
 .footer .getty-logo{
@@ -1722,7 +1713,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     #announcement {
-      width: 50%
+      width: 50%;
     }
 
     /* Search Results */
@@ -2012,11 +2003,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     #announcement {
-      width: 60%
+      width: 60%;
     }
 
     .stats .box { 
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
 
     /* Search Results */
@@ -2064,12 +2055,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     .go-btn-results-col {
       padding-right: 10px;
-      padding-left: 10px
+      padding-left: 10px;
     }
 
     #go-btn-results {
       float: right;
-      width: 100%
+      width: 100%;
     }
 
     .paging {
@@ -2190,7 +2181,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     .view-export-print {
       display: block;
-      float: left;
+      float: none;
       margin: 0 0 10px;
     }
 
