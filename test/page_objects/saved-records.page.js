@@ -63,6 +63,9 @@ SavedRecordsPage.prototype = Object.create({}, {
   }},
   removeSearch: {value: function(position) {
     element.all(by.css('.remove-search-btn')).get(position).click();
+  }},
+  clickViewDigitalItem: {value: function() {
+    element(by.id('view-digital-item')).click();
   }}
 
 });

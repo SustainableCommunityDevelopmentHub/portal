@@ -165,4 +165,20 @@ describe('Saved Records Page', function() {
     expect(savedRecordsPage.getAllSearches().count()).toBe(0);
   });
 
+  it('should send user to digital item on click of view digital item', function() {
+    resultsPage.submitNewSearchTerm('bpt6k63442281');
+    browser.waitForAngular();
+    resultsPage.toggleSavingRecord(0);
+    savedRecordsPage = new SavedRecordsPage();
+    savedRecordsPage.clickViewDigitalItem();
+    browser.waitForAngular();
+    browser.getAllWindowHandles().then(function (handles) {
+      var newWindowHandle = handles[2];
+      browser.switchTo().window(newWindowHandle).then(function () {
+        browser.ignoreSynchronization = true;
+        expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
+        browser.ignoreSynchronization = false;
+      });
+    });
+  });
 });

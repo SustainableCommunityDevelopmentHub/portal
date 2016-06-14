@@ -33,11 +33,10 @@ describe('Search Results', function() {
   });
 
   it('should send user to digital item upon clicking of View Digital Item button', function() {
-    resultsPage.submitNewSearchTerm('Handbook of arms and armor');
+    resultsPage.submitNewSearchTerm('gri_9921790980001551');
     resultsPage.viewDigitalItem();
     browser.getAllWindowHandles().then(function (handles) {
-      var newWindowHandle = handles[2]; // this is your new window
-
+      var newWindowHandle = handles[3]; // this is your new window
       browser.switchTo().window(newWindowHandle).then(function () {
         browser.ignoreSynchronization = true;
         expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
