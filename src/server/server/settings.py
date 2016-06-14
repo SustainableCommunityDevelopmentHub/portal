@@ -53,9 +53,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware'
+    #'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.common.CommonMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware'
 )
 
 ROOT_URLCONF = 'server.urls'
@@ -91,7 +91,8 @@ DATABASES = {
 
 
 # Cache
-
+# Only needed in production instance
+'''
 CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -102,7 +103,7 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 60*60*24*7
 CACHE_MIDDLEWARE_KEY_PREFIX = 'portal'
-
+'''
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
