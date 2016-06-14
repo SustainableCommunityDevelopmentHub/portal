@@ -11,75 +11,69 @@
     </div><!-- row -->
 
     <div ng-app="myApp" ng-controller="FeedbackFormCtrl">
-      <form name="feedbackForm" novalidate ng-submit="feedbackForm.$valid && feedbackForm.submit()">
-        <p class="ff-error-msg" ng-model="feedbackErrors" ng-show="!feedbackForm.$valid && feedbackForm.$submitted">Please correct errors below before submitting.</p>
+      <form ng-model="user" novalidate ng-submit="feedbackForm.$valid && feedbackForm.submit() && feedbackForm.sendMail()" name="feedbackForm">
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p>* First name:</p>
-                <input name="firstName" ng-minlength="1" type="text" ng-model="user.firstName" required>
-                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.firstName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
+                <input ng-model="user.first_name" type="text" ng-minlength="1" name="first_name" required>
+                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.first_name.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Last name:</p>
-                <input name="lastName" ng-minlength="1" type="text" ng-model="user.lastName" required>
-                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.lastName.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
+                <input ng-model="user.last_name" id="last_name" type="text" name="last_name" ng-minlength="1" required>
+                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.last_name.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
-
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Email:</p>
-                <input name="email" type="email" ng-model="user.email" required>
+                <input ng-model="user.email" id="email" type="email" name="email" required>
                 <p class="ff-error-msg invalid-email" ng-model="feedbackErrors" ng-show="!feedbackForm.email.$valid && feedbackForm.$submitted">{{feedbackErrors[1].msg}}</p>
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">* Confirm Email:</p>
-                <input name="confirmationEmail" type="email" ng-model="user.confirmationEmail">
-                <p class="ff-error-msg invalid-email" ng-model="feedbackErrors" ng-show="!feedbackForm.confirmationEmail.$valid && feedbackForm.$submitted">{{feedbackErrors[1].msg}}</p>
+                <input ng-model="user.confirmation_email" id="confirmation_email" type="email" name="confirmation_email" required>
+                <p class="ff-error-msg invalid-email" ng-model="feedbackErrors" ng-show="!feedbackForm.confirmation_email.$valid && feedbackForm.$submitted">{{feedbackErrors[1].msg}}</p>
                 <p class="ff-error-msg mismatch-email" ng-model="feedbackErrors" ng-show="feedbackForm.$submitted && !isMatch()">{{feedbackErrors[2].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
-
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="fb-field">
                 <p class="fb-field">Organization:</p>
-                <input type="text" ng-model="user.organizationName">
+                <input ng-model="user.organization" id="organization" type="text" name="organization">
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
-              <div ng-controller="FeedbackFieldController" class="fb-field">
+              <div ng-controller="FeedbackFormCtrl" class="fb-field">
                 <p class="fb-field"> I have a:</p>
-                <select class="select-field" ng-model="myFeedbackField" ng-options="feedbackField.name for feedbackField in feedbackFields">
+                <select class="select-field" ng-init="user.type_of_feedback = feedbackFields[0]" ng-model="user.type_of_feedback" ng-options="feedbackField for feedbackField in feedbackFields"">
                 </select>
               </div>
             </div>
           </div><!-- row -->
-
           <div class="row">
             <div class="col-xs-12">
               <div class="user-feedback">
                 <p class="ur-fb">* Feedback:</p><br>
-                <textarea name="feedback" ng-minlength="1" class="user-feedback" type="text" ng-model="user.yourFeedback" required></textarea><p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.feedback.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
+                <textarea ng-model="user.user_feedback" id="user_feedback" type="text" name="user_feedback" required></textarea>
+                <p class="ff-error-msg req" ng-model="feedbackErrors" ng-show="feedbackForm.user_feedback.$error.required && feedbackForm.$submitted">{{feedbackErrors[0].msg}}</p>
               </div>
             </div>
           </div><!-- row -->
-
           <div class="row">
             <div class="col-xs-12">
-              <input type="submit" id="feedback-submit" value="Submit">
+              <input id="feedback-submit" ng-click="sendMail()" type="submit" value="Submit" />
             </div>
-          </div><!-- row -->
-
-      </form>
+        </form>
+      </div><!-- row -->
   </div><!-- /container -->
 </div>
-</div ng-app="app" class="app">

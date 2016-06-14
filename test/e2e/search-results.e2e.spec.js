@@ -33,11 +33,16 @@ describe('Search Results', function() {
   });
 
   it('should send user to digital item upon clicking of View Digital Item button', function() {
-    resultsPage.submitNewSearchTerm('Handbook of arms and armor');
+    resultsPage.submitNewSearchTerm('gri_9921790980001551');
     resultsPage.viewDigitalItem();
-    browser.ignoreSynchronization = true;
-    expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
-    browser.ignoreSynchronization = false;
+    browser.getAllWindowHandles().then(function (handles) {
+      var newWindowHandle = handles[3]; // this is your new window
+      browser.switchTo().window(newWindowHandle).then(function () {
+        browser.ignoreSynchronization = true;
+        expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
+        browser.ignoreSynchronization = false;
+      });
+    });
   });
 
   it('should not display active facets in sidebar', function(){
@@ -126,39 +131,6 @@ describe('Search Results', function() {
     expect(bookmarkRemoved).toBe(true);
   });
 
-  it('should update bookmarks for records saved in other tabs', function() {
-    resultsPage.submitNewSearchTerm('bpt6k63442281');
-    resultsPage.toggleSavingRecord(0);
-    resultsPage.getBookMark(0).getAttribute('class').then(function(classes){
-      var classNames = classes.split(' ');
-      var saved = classNames.indexOf('saved');
-      expect(saved).toBeGreaterThan(-1);
-    });
-    resultsPage.clickBookLink(0);
-
-    browser.getAllWindowHandles().then(function (handles) {
-      var newWindowHandle = handles[1]; // this is your new window
-
-      browser.switchTo().window(newWindowHandle).then(function () {
-        var bookDetailPage = new BookDetailPage();
-        bookDetailPage.clickBookmark(0);
-      });
-    });
-    browser.getAllWindowHandles().then(function(handles) {
-      var newWindowHandle = handles[0];
-
-      browser.switchTo().window(newWindowHandle).then(function () {
-        expect(browser.driver.getCurrentUrl()).toContain("search");
-        var bookmark = resultsPage.getBookMark(0);
-        bookmark.getAttribute('class').then(function(classes){
-          var classNames = classes.split(' ');
-          var bookmarkRemoved = classNames.indexOf('saved') === -1;
-          expect(bookmarkRemoved).toBe(true);
-        });
-      });
-    });
-  });
-
   it('should have the search bar focused after each action', function(){
     browser.waitForAngular();
     expect(resultsPage.searchResultsInput.getAttribute("id")).toEqual(resultsPage.getFocusedElement.getAttribute("id"));
@@ -222,6 +194,25 @@ describe('Search Results', function() {
     expect(resultsPage.getFacetChip(0).getText()).toEqual('skin-nay! (Keyword)');
     resultsPage.getHits().then(function(hits) {
       expect(hits.length).toBe(1);
+    });
+  });
+
+  it('should work when facets have ampersands in them', function() {
+    resultsPage.submitNewSearchTerm('Harper & Brothers');
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(1);
+    });
+    resultsPage.addFacetOption('creator', 'Harper & Brothers');
+    resultsPage.getQueryTerms().get(0).click();
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(1);
+    });
+  });
+
+  it('should work when facets have semicolons in them', function(){
+    resultsPage.addFacetOption('language', 'Spanish; Castilian');
+    resultsPage.numTotalHits.then(function(hits) {
+      expect(hits).toEqual(24);
     });
   });
 

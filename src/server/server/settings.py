@@ -53,6 +53,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware'
 )
 
 ROOT_URLCONF = 'server.urls'
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['static'],
+        'DIRS': ['static', 'src/client/app/partials'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +88,20 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+# Cache
+
+CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60*60*24*7
+CACHE_MIDDLEWARE_KEY_PREFIX = 'portal'
 
 
 # Internationalization
@@ -122,3 +139,11 @@ CORS_ORIGIN_WHITELIST = (
 # Elasticsearch host and port
 ELASTICSEARCH_HOST = 'local.portal.dev'
 ELASTICSEARCH_PORT = '9200'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.getty.edu'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+EMAIL_TO = 'portal@getty.edu'
+
+ADMINS = [('Joshua Gomez', 'jgomez@getty.edu')]

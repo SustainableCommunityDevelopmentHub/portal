@@ -3,63 +3,46 @@
   'use strict';
 
   angular.module('app.controller', ['ui.bootstrap'])
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'bookData', 'dcRec',
-    function($scope, $stateParams, $window, bookData, dcRec) {
-
-      $scope.book = bookData;
-      $scope.dc = dcRec;
-
-      $scope.saveAsJson = function (data, filename) {
-
-        if (!data) {
-          console.error('No data');
-          return;
-        }
-
-        if (!filename) {
-          filename = 'book.json';
-        }
-
-        if (typeof data === 'object') {
-          data = angular.toJson(data, undefined, 2);
-          $scope.fileContents = data;
-        }
-
-        var blob = new Blob([data], {type: 'text/json'}),
-          e = document.createEvent('MouseEvents'),
-          a = document.createElement('a');
-
-        a.download = filename;
-        a.href = window.URL.createObjectURL(blob);
-        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-        e.initMouseEvent('click', true, false, window,
-          0, 0, 0, 0, 0, false, false, false, false, 0, null);
-        a.dispatchEvent(e);
-      };
-
-      $scope.redirect = function(){
-        $window.location.assign($scope.book._source._record_link);
-        return false;
-      };
-
-    }])
-
     .controller('SearchHelpCtrl', ['config', '$scope', function (config, $scope) {
       $scope.searchHelp = {name: "searchhelp.html", url: config.app.root + "/partials/help.html"};
+      $scope.showSpinner = false;
     }])
 
-    .controller('FeedbackFormCtrl', ['$scope', function ($scope) {
-      $scope.master = {firstName: "", lastName: "", email: "", confirmationEmail: "", organizationName: "", yourFeedback: ""};
+    .controller('FeedbackFormCtrl', ['config', '$scope', '$state', '$http', '$location', '$window', function (config, $scope, $state, $http, $location, $window) {
+      $scope.showSpinner = false;
+      $scope.feedbackFields = ['Problem','Question','Comment'];
+      $scope.master = {first_name: "", last_name: "", email: "", confirmation_email: "", organization: "", type_of_feedback: $scope.feedbackFields[0], user_feedback: ""};
       $scope.reset = function() {
         $scope.user = angular.copy($scope.master);
         $scope.isMatch = function() {
-          if ($scope.user.email === $scope.user.confirmationEmail) {
+          if ($scope.user.email === $scope.user.confirmation_email) {
             return true;
           }
           return false;
         };
       };
       $scope.reset();
+      $scope.sendMail = function () {
+        if ($scope.feedbackForm.$valid && $scope.isMatch()) {
+          var data = $scope.user;
+          var req = {
+            method: 'POST',
+            url: config.django.host + ':' + config.django.port + '/api/send-email/',
+            headers: { 'Content-Type': 'application/json' },
+            data: data,
+          };
+          $http(req).then(function (response) {
+            console.log(data);
+            console.log("message successfully sent");
+            $state.go('thanks');
+          }, function (response) {
+            $state.go('thanks');
+          }); 
+        }
+        else {
+          $scope.feedbackForm.$submitted = true
+        }
+      };             
       $scope.feedbackErrors =[
         {msg: 'This field is required.'},
         {msg: 'Please enter a valid email address.'},
@@ -68,14 +51,6 @@
 
     }])
 
-    .controller('FeedbackFieldController', ['$scope', function($scope) {
-      $scope.feedbackFields = [
-        {name:'Problem'},
-        {name:'Question'},
-        {name:'Comment'}
-      ];
-      $scope.myFeedbackField = $scope.feedbackFields[0];
-    }])
   .controller('FacetModalCtrl', ['$scope', '$rootScope', 'config', '$uibModal', function ($scope, $rootScope, config, $uibModal){
     $scope.openFacetModal = function(facets, category) {
       var modalInstance = $uibModal.open({

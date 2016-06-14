@@ -23,7 +23,9 @@
     <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
     <script src="bower_components/angular-print/angularPrint.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.js"></script>
+    <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.min.js"></script>
+    <script src="bower_components/spin.js/spin.min.js"></script>
+    <script src="bower_components/angular-spinner/angular-spinner.min.js"></script>
 
     <!--Environment Config Settings-->
     <script src="app/app.env.config.js"></script>
@@ -72,9 +74,32 @@
     <script src="app/contributors/contributors.module.js"></script>
     <script src="app/contributors/contributors.controller.js"></script>
 
+    <!--Book Detail Page-->
+    <script src="app/book_detail/book-detail.module.js"></script>
+    <script src="app/book_detail/book-detail.controller.js"></script>
+
     <!--Controllers for various pages. Directives-->
     <script src="app/app.controller.js"></script>
     <script src="app/app.directive.js"></script>
+
+    <!-- Google Analytics snippet r1, start -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push([ '_setAccount', 'UA-8087223-1' ]);
+        _gaq.push([ '_trackPageview' ]);
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+                    : 'http://www')
+                    + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- Google Analytics snippet r1, end -->    
+    
   </head>
 
   <body>
@@ -85,7 +110,44 @@
           <div data-ng-include="'app/partials/header.html'"></div>
         </div>
       </header>
-      <div ui-view></div>
+      <noscript>
+        <div class="header">
+        <div class="container">
+        <div class="row">
+            <div class="col-xs-2 col-md-2">
+            <a href="http://www.getty.edu/"><img src="assets/images/getty_logo.gif" alt="Getty Logo" class="getty-logo"></a>
+            </div>
+
+            <div class="col-xs-8  col-md-8">
+            <div class="gri-logo"><a href="index.html"><img src="assets/images/GRI-Portal-logo.png" alt="GRI Portal Logo" class="gri-portal-logo"></a>
+            </div>
+            </div>
+        </div><!-- /row --> 
+        </div><!-- /container -->
+        <hr class="faqs-hr">
+        <p class="noscript">We have detected that JavaScript is not enabled. Please enable JavaScript to view this web page.</p>
+        <div class="footer">
+        <hr class="footer-hr">
+        <div class="container">
+        <div class ="row">
+            <div class="col-xs-12 col-md-3">
+            <a href="http://www.getty.edu/"><p class="footer-logo"><img src="assets/images/getty_logo.gif" alt="Getty Logo" class="getty-logo">The J. Paul Getty Trust</p></a>
+        </div>
+        <div class="col-xs-12 col-md-6">    
+            <ul class="footer-list">
+            <li class="j-paul-getty-trust-cr">&copy; The J. Paul Getty Trust</li>
+            <li><a id="privacy-policy" href="http://www.getty.edu/legal/privacy.html">Privacy Policy</a></li>
+            <li><a id="terms-of-use" href="http://www.getty.edu/legal/copyright.html">Terms of Use</a></li>
+            <li><a id="contact-us" href="http://www.getty.edu/about/contact_us.html">Contact Us</a></li>
+            </ul>
+        </div>
+        </div>
+        </div><!-- /row -->
+        </div><!-- /container -->
+        </div>
+      </noscript>
+      <div ui-view us-spinner spinner-on="showSpinner">
+      </div>
       <footer>
         <div data-ng-include="'app/partials/footer.html'"></div>
       </footer>

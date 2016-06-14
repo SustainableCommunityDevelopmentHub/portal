@@ -15,6 +15,7 @@
       getContributors: getContributors,
       getBookData: getBookData,
       getDcRec: getDcRec,
+      getRisRec: getRisRec,
       search: search
     };
 
@@ -87,30 +88,22 @@
      * @returns promise with data from django api
      */
     function getBookData(bookID){
-      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
-      var deferred = $q.defer();
-      bookPromise.success(function (data) {
-        var bookData = data._source;
-        bookData._id = data._id;
-        deferred.resolve(bookData);
-      }).error(function () {
-        deferred.reject(arguments);
-      });
-      return deferred.promise;
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
     }
 
+    /**
+     * Gets data from django api for particular book record
+     * @param bookID {string} id of record to get
+     * @param format {{'' | 'json' | 'ris'} format to return record data in. null or empty string is default and should be used for book detail page info.
+     * @returns promise with data from django api
+     */
+    function getRisRec(bookID){
+      console.log('getting ris record');
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID + '.ris');
+    }
 
     function getDcRec(bookID){
-      console.log('getting DC record');
-      var bookPromise = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
-      var deferred = $q.defer();
-      bookPromise.success(function (data) {
-        var dcRec = data;
-        deferred.resolve(dcRec);
-      }).error(function () {
-        deferred.reject(arguments);
-      });
-      return deferred.promise;
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
     }
   }
 })();
