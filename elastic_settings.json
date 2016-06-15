@@ -7,11 +7,11 @@
       },
       "folding": {
         "tokenizer": "icu_tokenizer",
-        "filter": [ "lowercase", "icu_folding" ]
+        "filter": [ "icu_folding" ]
       }, 
       "stemming": {
         "tokenizer": "icu_tokenizer",
-        "filter": [ "lowercase", "stem", "icu_folding" ]
+        "filter": [ "icu_folding", "stem" ]
       }
     },
     "filter": {
@@ -32,6 +32,6 @@
     }
   },
   "index": {
-    "max_result_window": 500000
+    "max_result_window": 150000
   }
 }
