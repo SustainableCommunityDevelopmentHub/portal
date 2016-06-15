@@ -3,15 +3,15 @@
     "analyzer": {
       "sortable": {
         "tokenizer": "keyword",
-        "filter": [ "strip_quotes", "strip_bracket", "asciifolding" ] 
+        "filter": [ "strip_quotes", "strip_bracket", "icu_folding" ] 
       },
       "folding": {
-        "tokenizer": "standard",
-        "filter": [ "lowercase", "asciifolding" ]
+        "tokenizer": "icu_tokenizer",
+        "filter": [ "icu_folding" ]
       }, 
       "stemming": {
-        "tokenizer": "standard",
-        "filter": [ "lowercase", "asciifolding", "stem" ]
+        "tokenizer": "icu_tokenizer",
+        "filter": [ "icu_folding", "stem" ]
       }
     },
     "filter": {
@@ -32,6 +32,6 @@
     }
   },
   "index": {
-    "max_result_window": 500000
+    "max_result_window": 150000
   }
 }
