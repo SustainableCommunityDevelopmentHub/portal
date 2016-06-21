@@ -27,8 +27,12 @@
   })
   .directive('focusSearchInput', function(){
     return function(scope, elem, attr){
-      elem[0].querySelector('#facet-chip-input').focus();
-      elem.addClass('input-div-focus');
+
+      var width = document.documentElement.clientWidth;
+      if (width > 767) {
+        elem[0].querySelector('#facet-chip-input').focus();
+        elem.addClass('input-div-focus');
+      }
 
       $(document).on("click", function(e) {
         if (!$(e.target).hasClass("facet-search") && !$(e.target).is("a") && !$(e.target).is("button") && e.target.type !== "checkbox") {
