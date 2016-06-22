@@ -183,9 +183,9 @@
     <!--Search Results Data-->
       <storage-event-listener></storage-event-listener>
       <li dir-paginate="book in hits | itemsPerPage: pagination.size" current-page="pagination.page" total-items="numTotalHits"  class="book-listing">
-        <save-record-button></save-record-button>
+        <save-record-button no-hover-mobile></save-record-button>
         <div class="book-info">
-          <a ui-sref="books({bookID: book._id})" class="book-title">{{book._title_display}}</a>
+          <a ui-sref="books({bookID: book._id})" class="book-title" no-hover-mobile>{{book._title_display}}</a>
           <div class="display-data">
             <div class="results-data" ng-show="book._creator_display">
               <b>Creator: </b>
@@ -207,7 +207,7 @@
               <b>From: </b><p class="results-data-val">{{book._grp_contributor}}</p>
             </div>
           </div>
-          <a ng-href="{{book._record_link}}" target="_blank"><button class="btn" type="button" id="view-digital-item">View Digital Item</button></a>
+          <a ng-href="{{book._record_link}}" target="_blank" no-hover-mobile><button class="btn" type="button" id="view-digital-item">View Digital Item</button></a>
         </div>
       </li>
 

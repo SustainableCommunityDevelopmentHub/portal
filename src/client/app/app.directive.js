@@ -111,5 +111,17 @@
         }
       };
     }
-    ]);
+    ])
+    .directive('noHoverMobile', function() {
+      return function(scope, elem, attr){
+        $(document).ready(function() {
+
+          $('a').on('touchend', function(e) {
+            var el = $(this);
+            var link = el.attr('href');
+            window.location = link;
+          });
+        });
+      };
+    });
 })();

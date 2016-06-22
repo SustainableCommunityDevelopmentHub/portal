@@ -37,12 +37,30 @@ describe('Search Results', function() {
     resultsPage.viewDigitalItem();
     browser.getAllWindowHandles().then(function (handles) {
       var newWindowHandle = handles[3]; // this is your new window
-      browser.switchTo().window(newWindowHandle).then(function () {
-        browser.ignoreSynchronization = true;
+      browser.ignoreSynchronization = true;
+      browser.switchTo().window(newWindowHandle).then(function () {       
         expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
         browser.ignoreSynchronization = false;
       });
     });
+  });
+
+  it('should remove hover effect in mobile', function() {
+    resultsPage.submitNewSearchTerm('gri_9921790980001551');
+    resultsPage.toggleSavingRecord(0);
+    resultsPage.clickBookLink(0);
+    browser.ignoreSynchronization = true;
+    browser.getAllWindowHandles().then(function (handles) {
+      var newWindowHandle = handles[3]; // this is your new window
+      browser.switchTo().window(newWindowHandle).then(function () {
+        var windowWidth = newWindowHandle.innerWidth;
+        if (windowWidth < 960) {        
+          expect(browser.getCurrentUrl()).toContain('https://archive.org/details/handbookofarmsar00metr_0');
+          browser.ignoreSynchronization = false;
+        }
+      });
+    });
+    browser.ignoreSynchronization = false;
   });
 
   it('should not display active facets in sidebar', function(){
