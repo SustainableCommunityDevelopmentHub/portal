@@ -186,12 +186,7 @@
         url: '/error',
         templateUrl: config.app.root + '/error/error.html',
         controller: 'ErrorCtrl',
-        params: {
-          error: {
-            error: 'DEFAULT',
-            data: {}
-          }
-        }
+
 
       });
 

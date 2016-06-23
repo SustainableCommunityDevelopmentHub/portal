@@ -57,27 +57,22 @@
       var deferred = $q.defer();
 
       searchPromise
-        .success(success)
-        .error(reject);
+        .success(function(data) {
+          try {
+            var parsedData = data[0];
+            parsedData.aggregations = data[1].aggregations;
+            var results = SearchService.setResultsData(parsedData);
+            deferred.resolve(results);
+          }
+          catch(error) {
+            console.log('DataService::search -- bad ES result -- error: ' + JSON.stringify(error));
+            deferred.reject({error: 'DEFAULT', data: error});
+          }
 
-      function success(data){
-        // handle if ES successfully returns but its data is an error state or otherwise bad
-        try{
-          var parsedData = data[0];
-          parsedData.aggregations = data[1].aggregations;
-          var results = SearchService.setResultsData(parsedData);
-          deferred.resolve(results);
-        }
-        catch(error) {
-          console.log('DataService::search -- bad ES result -- error: ' + JSON.stringify(error));
-          deferred.reject({type: 'DEFAULT', data: error});
-        }
-      }
-
-      function reject(data){
-        deferred.reject(arguments);
-        console.log('DataService::search -- error: ' + JSON.stringify(data));
-      }
+        })
+        .error(function() {
+          deferred.reject(arguments);
+        });
 
       return deferred.promise;
     }
@@ -113,7 +108,6 @@
      * @returns promise with data from django api
      */
     function getRisRec(bookID){
-      console.log('getting ris record');
       return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID + '.ris');
     }
 
