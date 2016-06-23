@@ -55,15 +55,30 @@
       var queryPath = query.join("&");
       var searchPromise = $http.get(config.django.host + ':' + config.django.port + '/api/books/' + queryPath);
       var deferred = $q.defer();
-      searchPromise.success(function(data) {
-        var parsedData = data[0];
-        parsedData.aggregations = data[1].aggregations;
-        var results = SearchService.setResultsData(parsedData);
-        deferred.resolve(results);
-      }).error(function(response) {
+
+      searchPromise
+        .success(success)
+        .error(reject);
+
+      function success(data){
+        // handle if ES successfully returns but its data is an error state or otherwise bad
+        try{
+          var parsedData = data[0];
+          parsedData.aggregations = data[1].aggregations;
+          var results = SearchService.setResultsData(parsedData);
+          deferred.resolve(results);
+        }
+        catch(error) {
+          console.log('DataService::search -- bad ES result -- error: ' + JSON.stringify(error));
+          deferred.reject({type: 'DEFAULT', data: error});
+        }
+      }
+
+      function reject(data){
         deferred.reject(arguments);
-        console.log('DataService::search -- error: ' + JSON.stringify(response));
-      });
+        console.log('DataService::search -- error: ' + JSON.stringify(data));
+      }
+
       return deferred.promise;
     }
 
