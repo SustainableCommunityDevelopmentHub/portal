@@ -43,7 +43,7 @@
     }
   }])
 
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
+  .run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -51,6 +51,14 @@
     // assign this here to persist open tabs across stage changes
     $rootScope.$activeTabs = [];
     $rootScope.showSpinnner = false;
+
+    // Initialize Google Analytics
+    $window.ga('create', 'UA-8087223-1', 'auto');
+
+    // track pageview on state change
+    $rootScope.$on('$stateChangeSuccess', function (event) {
+      $window.ga('send', 'pageview', $location.path());
+    });
   }]);
 
 })();
