@@ -16,7 +16,7 @@ webserver:
   command: bash -c "bash portal_init.sh && npm install -g bower --unsafe-perm && npm update --unsafe-perm && bower --allow-root install && npm start"
 
 elasticsearch:
-  image: elasticsearch:2.1
+  build: ./docker_files/elasticsearch
   ports:
     - "9200:9200"
   # enable CORS
