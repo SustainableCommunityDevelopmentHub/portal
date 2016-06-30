@@ -123,5 +123,14 @@
           });
         });
       };
+    })
+    .directive('removeClick', function() {
+      return function(scope, elem, attr){
+        $(document).ready(function() {
+          $(this).on('touch', function(e) {
+            $(this).unbind('click').click();
+          });
+        });
+      };
     });
 })();

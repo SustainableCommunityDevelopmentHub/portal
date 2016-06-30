@@ -19,7 +19,8 @@
     'AngularPrint',
     'smoothScroll',
     'ngAnimate',
-    'angularSpinner'
+    'angularSpinner',
+    'ngTouch'
   ])
 
   .config(['$httpProvider', function($httpProvider) {
