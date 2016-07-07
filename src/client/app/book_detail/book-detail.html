@@ -10,7 +10,7 @@
               <button class="btn btn-primary" uib-dropdown-toggle><a href="#" id="exportBtn">Export<span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></a></button>
               <ul uib-dropdown-menu role="menu" class="dropdown-menu">
                 <li><a class="saveRis" ng-click="saveAsRis(ris)">RIS</a><p ng-hide="fileContentsRis">{{fileContentsRis}}</p></li>
-                <li><a class="saveJson" ng-click="saveAsJson(dc)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
+                <li><a class="saveJson" ng-click="cheese(dc)">DC-JSON</a><p ng-hide="fileContents">{{fileContents}}</p></li>
               </ul>
             </div>
             <button class="btn btn-primary" id="printBtn" print-btn>Print</button>
@@ -689,16 +689,16 @@
             <div class="cat-title">From</div>
             <div class="cat-value">
               <ul class="specs" ng-show="book._grp_contributor">
-                <li class="book-field-val">{{book._grp_contributor}}</li>
+                <a ng-click="contribHome()"><li class="book-field-val">{{book._grp_contributor}}</li></a>
               </ul>
             </div>
           </div>
+          
 
         </li>
       </ul>
     </div>
   </div><!-- /.row -->
-
   <div class="row row-centered question">
     <div class="col-xs-12 col-centered">
       <div id="emailGRI">

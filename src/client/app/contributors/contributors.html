@@ -11,7 +11,7 @@
       <li ng-repeat="contributor in institutions">
         <div class="contributor-list-item">
           <div class="col-xs-12 col-sm-6">
-            <p class="name-contrib">{{contributor.key}}</p>
+            <a ng-click="contribWebsite(contributor.key)"><p class="name-contrib">{{contributor.key}}</p></a>
             <div class="contrib-vl-center" ng-show="$even"></div>
             <div class="contrib-vl-right" ng-show="$odd"></div>
             <a ng-click="contribSearch(contributor.key)" class="num-contrib">{{contributor.doc_count}} Records</a>

@@ -3,11 +3,12 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'book', 'DataService', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$window', 'book', 'DataService', '$http', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, book, DataService, risRec) {
+  function BookDetailCtrl($scope, $rootScope, $stateParams, $window, book, DataService, $http, risRec) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
+    $scope.contribHome = contribHome;
 
     $scope.showSpinner = true;
     $scope.book = book;
@@ -21,9 +22,7 @@
 
     function saveAsJson() {
       var filename = 'book.json';
-      $scope.showSpinner = true;
       DataService.getDcRec($scope.book._id).success(function(data) {
-
         if (typeof data === 'object') {
           data = angular.toJson(data, undefined, 2);
           $scope.fileContents = data;
@@ -58,10 +57,19 @@
       a.dispatchEvent(e);
     }
 
+    // fetches websites from json file, using $scope.book._grp_contributor as key
+    function contribHome() {
+      $http.get('/app/contributors/contributor_websites.json').success(function(data) {
+        var websites = data;
+        window.location = websites[$scope.book._grp_contributor];
+      });
+    };
+
     $scope.redirect = function(){
-      $window.location.assign($scope.book._source._record_link);
+      $window.location.assign(book._source._record_link);
       return false;
     };
+
   }
 
 })();
