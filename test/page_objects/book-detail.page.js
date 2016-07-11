@@ -1,6 +1,5 @@
 'use strict';
 
-
 var BookDetailPage = function() {
   browser.get('');
   var firstResult = element.all(by.css('.book-title')).first();
@@ -31,6 +30,9 @@ BookDetailPage.prototype = Object.create({}, {
   }},
   clickViewDigitalItem: { value: function() {
   	element(by.id('viewDigitalItem')).click();
+  }},
+  clickContributorLink: { value: function() {
+    element(by.css('.contribLink')).click();
   }}
 });
 
