@@ -70,7 +70,6 @@ describe('Book Detail', function() {
     bookDetailPage.clickViewDigitalItem();
     browser.getAllWindowHandles().then(function (handles) {
       var newWindowHandle = handles[1]; // this is your new window
-
       browser.switchTo().window(newWindowHandle).then(function () {
         browser.ignoreSynchronization = true;
         expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
