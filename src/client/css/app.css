@@ -485,6 +485,10 @@ hr.thin {
   font-size: 18px;
   cursor: pointer;
   margin-left: 10px;
+  padding-right: 0;
+
+  border: none;
+  background: none;
 }
 
 .add-field-glyph {
@@ -648,6 +652,31 @@ hr.thin {
 
 .results-data-val {
   display: inline;
+}
+
+.adv-span {
+  display: block;
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+.adv-input {
+  width: 100%;
+  height: 29px;
+  border-radius: 2px;
+  text-indent: 4px;
+}
+
+.adv-search-results {
+  margin-bottom: 9px;
+}
+
+.adv-search-results .plus-button {
+  float: right;
+}
+
+.adv-search-results .btn-group {
+  float: left;
 }
 
 .adv-drawer {
@@ -1857,6 +1886,8 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .search-bar-results-container-col {
       padding-right: 0;
     }
+
+
 
     .go-btn-results-col {
       padding-left: 10px;

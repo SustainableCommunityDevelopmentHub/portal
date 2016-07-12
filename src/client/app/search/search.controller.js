@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -49,6 +49,7 @@
     $scope.savedRecords = SavedRecordsService.getRecords();
 
     $scope.bookMarkText = "";
+    $scope.showAdvDrawer = false;
     saveSearch(ss.opts, $scope.numTotalHits);
 
 
@@ -58,6 +59,10 @@
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
+    $scope.advFields = ADVANCED_SEARCH;
+    console.log($scope.advFields);
+    $scope.selectedAdvField = ADVANCED_SEARCH.title;
+    $scope.advSearchTerm = "";
 
     ///////////////////////////
     //Private/Helper Functions
@@ -239,5 +244,24 @@
       ss.opts.date = {};
       updateSearch({from: 0});
     };
+
+    $scope.addAdvSearchTerm = function() {
+      console.log($scope.advSearchTerm);
+      if ($scope.advSearchTerm) {
+        var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
+        ss.opts.advancedFields.push(newField);
+        ss.transitionStateAndSearch();
+      }
+    }
+
+    $scope.setSelectedAdvField = function(field) {
+      console.log('field');
+      $scope.selectedAdvField = field;
+    }
+
+    $scope.toggleAdvDrawer = function() {
+      $scope.showAdvDrawer = !$scope.showAdvDrawer;
+      console.log($scope.showAdvDrawer);
+    }
   }
 })();
