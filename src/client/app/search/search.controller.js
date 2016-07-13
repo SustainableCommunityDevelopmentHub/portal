@@ -246,22 +246,19 @@
     };
 
     $scope.addAdvSearchTerm = function() {
-      console.log($scope.advSearchTerm);
       if ($scope.advSearchTerm) {
         var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
         ss.opts.advancedFields.push(newField);
         ss.transitionStateAndSearch();
       }
-    }
+    };
 
     $scope.setSelectedAdvField = function(field) {
-      console.log('field');
       $scope.selectedAdvField = field;
-    }
+    };
 
     $scope.toggleAdvDrawer = function() {
       $scope.showAdvDrawer = !$scope.showAdvDrawer;
-      console.log($scope.showAdvDrawer);
-    }
+    };
   }
 })();
