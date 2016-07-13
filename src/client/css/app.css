@@ -486,7 +486,6 @@ hr.thin {
   cursor: pointer;
   margin-left: 10px;
   padding-right: 0;
-
   border: none;
   background: none;
 }
@@ -1886,8 +1885,6 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     .search-bar-results-container-col {
       padding-right: 0;
     }
-
-
 
     .go-btn-results-col {
       padding-left: 10px;

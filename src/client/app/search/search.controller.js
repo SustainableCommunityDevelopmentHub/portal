@@ -60,7 +60,6 @@
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
     $scope.advFields = ADVANCED_SEARCH;
-    console.log($scope.advFields);
     $scope.selectedAdvField = ADVANCED_SEARCH.title;
     $scope.advSearchTerm = "";
 
