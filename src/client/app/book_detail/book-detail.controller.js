@@ -53,7 +53,6 @@
     }
 
     function createBlobAndDownload(data, MimeType, filename){
-      console.log("blob");
       var blob = new Blob([data], {type: MimeType}),
         e = document.createEvent('MouseEvents'),
         a = document.createElement('a');

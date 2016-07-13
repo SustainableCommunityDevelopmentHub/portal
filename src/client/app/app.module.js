@@ -57,14 +57,8 @@
     $rootScope.showSpinner = false;
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-      var errorObj = {
-        error: 'DEFAULT',
-        data: {}
-      };
-
       event.preventDefault();
-      $state.go('error', {error: errorObj});
+      $state.go('error');
     });
   }
-
 })();

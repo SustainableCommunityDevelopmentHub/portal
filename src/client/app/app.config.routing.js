@@ -186,8 +186,6 @@
         url: '/error',
         templateUrl: config.app.root + '/error/error.html',
         controller: 'ErrorCtrl',
-
-
       });
 
     // for nicer URLs w/out '#'. Note: <base> tag required on index.html with html5Mode
