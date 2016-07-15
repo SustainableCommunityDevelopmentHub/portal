@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="es_ES">Diaz Rengifo, Juan</dcvalue>
+  <dcvalue element="coverage" qualifier="spatial" language="es_ES">España Madrid</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-05-17T08:27:53Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-05-17T08:27:53Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="es_ES">1703</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/3088</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Port. con orla tip.</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">-2[calderón]4, A-Z4, 2A-2Z4, 3A-3P4</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Digitalizada en formato pdf</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">CCPB000233898</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-05-17T08:27:53Z (GMT). No. of bitstreams: 1
+14026399.pdf: 385578788 bytes, checksum: 1a5b093d02dd818beb3f5087e2f5d0c6 (MD5)
+  Previous issue date: 1703</dcvalue>
+  <dcvalue element="format" qualifier="extent" language="es_ES">[26], 483, [4] 4̆</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">En Barcelona : en la imprenta de Ioseph Texidò ...</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Arte poetica española con una fertilissima sylva de consonantes comunes, propios ...</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

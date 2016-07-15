@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Neuman, Henry</dcvalue>
+  <dcvalue element="contributor" qualifier="other" language="">Baretti, Giuseppe</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-06-01T11:11:27Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-06-01T11:11:27Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">1837</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/3126</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2010-06-01T11:11:27Z
+No. of bitstreams: 3
+license_rdf: 12466 bytes, checksum: 702a1044398dc8ac83d24a81ba8f6932 (MD5)
+license_text: 20399 bytes, checksum: aaaed2f011b82b6c36349e5443ef6073 (MD5)
+Neuman.pdf: 45450364 bytes, checksum: bd83d70e07a4c5ee60c286aff9152ca7 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-06-01T11:11:27Z (GMT). No. of bitstreams: 3
+license_rdf: 12466 bytes, checksum: 702a1044398dc8ac83d24a81ba8f6932 (MD5)
+license_text: 20399 bytes, checksum: aaaed2f011b82b6c36349e5443ef6073 (MD5)
+Neuman.pdf: 45450364 bytes, checksum: bd83d70e07a4c5ee60c286aff9152ca7 (MD5)
+  Previous issue date: 1837</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">Hilliard, Gray and Co.,</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Español - Diccionarios - Inglés - Obras anteriores a 1900</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Neuman and Baretti's dictionary of the Spanish and English languages: wherein the words are correctly expalined, agreeably to their different meanings, and a great variety of terms, relating to the arts, sciences, manufactures, merchandise, navigation and trade, elucidated. Vol. I, Spanish and English</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

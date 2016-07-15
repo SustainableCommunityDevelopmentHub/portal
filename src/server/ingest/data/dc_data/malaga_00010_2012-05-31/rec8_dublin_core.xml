@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Gómez Gómez, Agustín</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-04-13T10:22:23Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-04-13T10:22:23Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">2006</dcvalue>
+  <dcvalue element="identifier" qualifier="citation" language="">Paradigma,vol.1,2006,p.12-15</dcvalue>
+  <dcvalue element="identifier" qualifier="issn" language="">18857604</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/942</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2010-04-13T10:22:14Z
+No. of bitstreams: 3
+Gómez Gómez, A..pdf: 124427 bytes, checksum: 05c621d83f70022ee7fe5ca141a22505 (MD5)
+license_text: 19804 bytes, checksum: 71892dada5d59e83859450f8db8a6410 (MD5)
+license_rdf: 12170 bytes, checksum: 28c18d8d50ea5f68c8c3d89546d38e8d (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Approved for entry into archive by Maria Jose Requena Barea(mjrequena@uma.es) on 2010-04-13T10:22:23Z (GMT) No. of bitstreams: 3
+Gómez Gómez, A..pdf: 124427 bytes, checksum: 05c621d83f70022ee7fe5ca141a22505 (MD5)
+license_text: 19804 bytes, checksum: 71892dada5d59e83859450f8db8a6410 (MD5)
+license_rdf: 12170 bytes, checksum: 28c18d8d50ea5f68c8c3d89546d38e8d (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-04-13T10:22:23Z (GMT). No. of bitstreams: 3
+Gómez Gómez, A..pdf: 124427 bytes, checksum: 05c621d83f70022ee7fe5ca141a22505 (MD5)
+license_text: 19804 bytes, checksum: 71892dada5d59e83859450f8db8a6410 (MD5)
+license_rdf: 12170 bytes, checksum: 28c18d8d50ea5f68c8c3d89546d38e8d (MD5)
+  Previous issue date: 2005</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="">Universidad de Málaga</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Cine y arte</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Trampantojos cinematográficos o el diálogo entre las artes</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Article</dcvalue>
+</dublin_core>

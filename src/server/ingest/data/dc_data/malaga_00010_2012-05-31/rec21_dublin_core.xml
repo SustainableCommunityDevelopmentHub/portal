@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Fernández de los Ríos, Ángel</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-11-05T13:14:36Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-11-05T13:14:36Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">1849</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/4111</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Digitalizada en formato pdf</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Donación de J. L. Estrada (Biblioteca General)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2010-11-05T13:14:36Z
+No. of bitstreams: 3
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Album.pdf: 48475250 bytes, checksum: 9aa6e9d12120bf6687508f4de415ee65 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-11-05T13:14:36Z (GMT). No. of bitstreams: 3
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Album.pdf: 48475250 bytes, checksum: 9aa6e9d12120bf6687508f4de415ee65 (MD5)
+  Previous issue date: 1849</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">[S.l. :s.n.]</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Biografías - S. XIX</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Álbum biográfico: museo universal de retratos y noticias : de la celebridades actuales de todos los paises, en las ciencias, la política, las letras, las artes, la industria, las armas, etc</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author">Heredia Guerrero, José Alejandro</dcvalue>
+  <dcvalue element="date" qualifier="accessioned">2011-02-17T08:46:41Z</dcvalue>
+  <dcvalue element="date" qualifier="available">2011-02-17T08:46:41Z</dcvalue>
+  <dcvalue element="date" qualifier="issued">2011</dcvalue>
+  <dcvalue element="identifier" qualifier="citation" language="es_ES">Paradigma, vol.10, 2011, p.41</dcvalue>
+  <dcvalue element="identifier" qualifier="issn">18857604</dcvalue>
+  <dcvalue element="identifier" qualifier="uri">http://hdl.handle.net/10630/4546</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2011-02-02T11:44:53Z
+No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20882 bytes, checksum: 142df18103c5d878b7248c982b5cadaf (MD5)
+Paradigma 10-18.pdf: 1524120 bytes, checksum: 12ff2536bbd9c0bbe3d336e9c1d6e304 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Approved for entry into archive by Gracia Guardeño(gguardeno@uma.es) on 2011-02-17T08:46:41Z (GMT) No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20882 bytes, checksum: 142df18103c5d878b7248c982b5cadaf (MD5)
+Paradigma 10-18.pdf: 1524120 bytes, checksum: 12ff2536bbd9c0bbe3d336e9c1d6e304 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2011-02-17T08:46:41Z (GMT). No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20882 bytes, checksum: 142df18103c5d878b7248c982b5cadaf (MD5)
+Paradigma 10-18.pdf: 1524120 bytes, checksum: 12ff2536bbd9c0bbe3d336e9c1d6e304 (MD5)
+  Previous issue date: 2011</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">Universidad de Málaga</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Arte contemporáneo</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Vanguardismo</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Sobre el arte actual</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Article</dcvalue>
+</dublin_core>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Rodríguez Martín, Victoria Eugenia</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="">Senés Rodríguez, Gema</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="">Alfaro Bech, Virginia</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-10-13T10:49:14Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-10-13T10:49:14Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">2009</dcvalue>
+  <dcvalue element="identifier" qualifier="citation" language="es_ES">Uciencia</dcvalue>
+  <dcvalue element="identifier" qualifier="issn" language="">18897568</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/4062</dcvalue>
+  <dcvalue element="description" qualifier="abstract" language="es_ES">A lo largo de la historia la simbología ha jugado un papel muy importante en la sociedad. La paloma, la liebre o el gato son sólo una muestra de los imaginarios colectivos que se extendieron en las culturas a través de la tradición y de su presencia en obras tan dispares como el Nuevo Testamento, la pintura renacentista o los últimos estrenos de Hollywood.</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by   (sedoc@uma.es) on 2010-10-13T10:31:10Z
+No. of bitstreams: 3
+license_rdf: 30832 bytes, checksum: abb331a16288547ccfff92a786f0f52a (MD5)
+license_text: 20285 bytes, checksum: 455f1333960ff51a395c21fa0a90c6d9 (MD5)
+investigacion2.pdf: 7824412 bytes, checksum: 966d09d3f9d4a48eb61469c6f1dfe46a (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Approved for entry into archive by Maria Jose Requena Barea(mjrequena@uma.es) on 2010-10-13T10:49:14Z (GMT) No. of bitstreams: 3
+license_rdf: 30832 bytes, checksum: abb331a16288547ccfff92a786f0f52a (MD5)
+license_text: 20285 bytes, checksum: 455f1333960ff51a395c21fa0a90c6d9 (MD5)
+investigacion2.pdf: 7824412 bytes, checksum: 966d09d3f9d4a48eb61469c6f1dfe46a (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-10-13T10:49:14Z (GMT). No. of bitstreams: 3
+license_rdf: 30832 bytes, checksum: abb331a16288547ccfff92a786f0f52a (MD5)
+license_text: 20285 bytes, checksum: 455f1333960ff51a395c21fa0a90c6d9 (MD5)
+investigacion2.pdf: 7824412 bytes, checksum: 966d09d3f9d4a48eb61469c6f1dfe46a (MD5)
+  Previous issue date: 2009-07</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">UMA. SEDOC</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Signos y símbolos</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Filología latina</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Simbolismo en la Biblia</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Un mundo de símbolos</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Article</dcvalue>
+</dublin_core>

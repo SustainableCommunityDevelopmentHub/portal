@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+	<dcvalue element="contributor" qualifier="author" language="es_ES">Bustamante, Nicolás de</dcvalue>
+	<dcvalue element="date" qualifier="accessioned" language="">2010-05-17T08:26:38Z</dcvalue>
+	<dcvalue element="date" qualifier="available" language="">2010-05-17T08:26:38Z</dcvalue>
+	<dcvalue element="date" qualifier="issued" language="es_ES">1847</dcvalue>
+	<dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/3070</dcvalue>
+	<dcvalue element="description" qualifier="none" language="es_ES">Digitalizada en formato pdf</dcvalue>
+	<dcvalue element="description" qualifier="none" language="es_ES">Donación J.L. Estrada (Biblioteca General)</dcvalue>
+	<dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-05-17T08:26:38Z (GMT). No. of bitstreams: 1
+12633677.pdf: 3495965 bytes, checksum: c749ea7c3e0a8976b879045298c5805b (MD5)
+  Previous issue date: 1847</dcvalue>
+	<dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+	<dcvalue element="publisher" qualifier="none" language="es_ES">Barcelona : Viuda é Hijos de Mayol,</dcvalue>
+	<dcvalue element="subject" qualifier="none" language="es_ES">Vino - Obras anteriores a 1900</dcvalue>
+	<dcvalue element="title" qualifier="none" language="es_ES">Arte de hacer vinos ó sea tratado completo sobre el cultivo de las viñas : dividido en tres partes</dcvalue>
+	<dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Fourcroy, Antoine-François de, Comte</dcvalue>
+  <dcvalue element="contributor" qualifier="other" language="">Olive, Pedro María</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-11-15T10:10:37Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-11-15T10:10:37Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">1808</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/4166</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Digitalizada en formato pdf</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Contiene: t. I a t. X</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Depósito SMC t 2-10</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Donación J.L. Estrada (Biblioteca General) t.1</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2010-11-15T10:10:37Z
+No. of bitstreams: 3
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Sistemas.pdf: 13417552 bytes, checksum: 9207c288b36dea90f9bdde2e414e6cc9 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-11-15T10:10:37Z (GMT). No. of bitstreams: 3
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Sistemas.pdf: 13417552 bytes, checksum: 9207c288b36dea90f9bdde2e414e6cc9 (MD5)
+  Previous issue date: 1808</dcvalue>
+  <dcvalue element="format" qualifier="extent" language="es_ES">10 t. ; 21 cm</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">Madrid : Imprenta Real</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Química - Obras anteriores a 1900</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Sistemas de los conocimientos químicos, y de sus aplicaciones á los fenómenos de la naturaleza y del arte</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

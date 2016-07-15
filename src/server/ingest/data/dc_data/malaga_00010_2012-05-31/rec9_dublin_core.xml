@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="author" language="">Autor desconocido</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2010-11-11T10:45:19Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2010-11-11T10:45:19Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">1880</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/4136</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Digitalizada en formato pdf, 1888-89 (v1) ; 1890-91 (v2)</dcvalue>
+  <dcvalue element="description" qualifier="none" language="es_ES">Es donación de J.L. Estrada</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Maria Jose Requena Barea (mjrequena@uma.es) on 2010-11-11T10:45:19Z
+No. of bitstreams: 4
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Ateneo t2.pdf: 299330950 bytes, checksum: fc38f83f12968d4b63149bc335ff0de9 (MD5)
+Ateneo t1.pdf: 232852438 bytes, checksum: 54dab2487a8e8ba9701e3ee78d8ad95a (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2010-11-11T10:45:19Z (GMT). No. of bitstreams: 4
+license_rdf: 19710 bytes, checksum: aa65da15f424ff71c620a992a187295c (MD5)
+license_text: 20924 bytes, checksum: 2007e731b83279338882cd4d9f98fc08 (MD5)
+Ateneo t2.pdf: 299330950 bytes, checksum: fc38f83f12968d4b63149bc335ff0de9 (MD5)
+Ateneo t1.pdf: 232852438 bytes, checksum: 54dab2487a8e8ba9701e3ee78d8ad95a (MD5)
+  Previous issue date: 1880</dcvalue>
+  <dcvalue element="format" qualifier="extent" language="es_ES">Semanal</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">Málaga : [s. n.]</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Cultura - Difusión - Publicaciones periódicas</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">El ateneo: revista semanal de literatura, jurisprudencia y artes</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Book</dcvalue>
+</dublin_core>

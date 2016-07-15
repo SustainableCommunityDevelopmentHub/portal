@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<dublin_core schema="dc">
+  <dcvalue element="contributor" qualifier="advisor" language="">Sauret Guerrero, María Teresa</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="">Galicia Gandulla, Tomás</dcvalue>
+  <dcvalue element="contributor" qualifier="other" language="es_ES">Historia del Arte</dcvalue>
+  <dcvalue element="date" qualifier="accessioned" language="">2011-03-28T12:25:23Z</dcvalue>
+  <dcvalue element="date" qualifier="available" language="">2011-03-28T12:25:23Z</dcvalue>
+  <dcvalue element="date" qualifier="issued" language="">2001</dcvalue>
+  <dcvalue element="identifier" qualifier="isbn" language="">9788497475969</dcvalue>
+  <dcvalue element="identifier" qualifier="uri" language="">http://hdl.handle.net/10630/4587</dcvalue>
+  <dcvalue element="description" qualifier="abstract" language="es_ES">El estudio de esta Tesis Doctoral se centra en el ambiente de la pintura ecléctica que se desarrolla a fines del siglo XIX, vinculada a la promoción que de ella hace la burguesía. 
+Es justamente el principal objetivo de este trabajo el papel que juega Pedro Sáenz dentro del ambiente cultural que se desarrolla en la ciudad en estos momentos, junto a la visión de la mujer en un contexto cultural determinado. A partir de este estudio es posible ratificar de forma categórica datos concretos sobre su biografía, a la vez que reafirmar el papel predominante que juega el artista como introductor del Modernismo en el ambiente pictórico de la Málaga de comienzos del siglo XX, con sello propio e influencias predominantes del foco madrileño en que se desenvuelve la principal etapa de su producción
+Se produce una revitalización del panorama artístico tanto en la ciudad como a nivel estatal, factor en el que tuvo mucha incidencia el influjo de las celebraciones de Exposiciones de Bellas Artes, realmente una nueva forma de mecenazgo artístico en cuya competitividad radica parte de esa ansia de originalidad así como el cansancio hacia las formas preestablecidas que se materializó en fenómenos como el Decadentismo Fin de Siglo o en todos los fenómenos de revisión de la tradición pictórica asociada a las Vanguardias.
+
+	Este estudio sobre la vida y obra de Pedro Sáenz y Sáenz pretende justificar la carrera artística de un pintor plenamente identificado con una época concreta y con el mundo que le rodeó, de tal forma que ese ambiente cultural y económico condiciona gran parte de su trabajo. Es en la trayectoria profesional de Sáenz donde se observa un recorrido que comienza desde una orientación de claro Eclecticismo pictórico decimonónico, evolucionando hasta el Modernismo, formas hacia las que impone la actitud que defiende un sector crítico que dirige la producción artística enfocada hacia la actitud de ser modernos, rompiendo con los esquemas establecidos.</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Submitted by Javier Sanchez Pardavila (jsanchezp@uma.es) on 2011-03-25T08:53:15Z
+No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20904 bytes, checksum: e09bf99e64678e4285abf3ef3e05412d (MD5)
+TD Tomas Galicia Gandulla maquetada.pdf: 14543031 bytes, checksum: e475f8b1bfcd3afc9beb27cce47197e2 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Approved for entry into archive by Gracia Guardeño(gguardeno@uma.es) on 2011-03-28T12:25:22Z (GMT) No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20904 bytes, checksum: e09bf99e64678e4285abf3ef3e05412d (MD5)
+TD Tomas Galicia Gandulla maquetada.pdf: 14543031 bytes, checksum: e475f8b1bfcd3afc9beb27cce47197e2 (MD5)</dcvalue>
+  <dcvalue element="description" qualifier="provenance" language="en">Made available in DSpace on 2011-03-28T12:25:23Z (GMT). No. of bitstreams: 3
+license_rdf: 22564 bytes, checksum: ff373f1ad387898ef8ba4f8bc9e37073 (MD5)
+license_text: 20904 bytes, checksum: e09bf99e64678e4285abf3ef3e05412d (MD5)
+TD Tomas Galicia Gandulla maquetada.pdf: 14543031 bytes, checksum: e475f8b1bfcd3afc9beb27cce47197e2 (MD5)
+  Previous issue date: 2011</dcvalue>
+  <dcvalue element="language" qualifier="iso" language="es_ES">es</dcvalue>
+  <dcvalue element="publisher" qualifier="none" language="es_ES">Universidad de Málaga, Servicio de Publicaciones</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Sáenz Sáenz, Pedro - Crítica e interpretación - Tesis doctorales</dcvalue>
+  <dcvalue element="subject" qualifier="none" language="es_ES">Pintura española - S. XIX - Teis doctorales</dcvalue>
+  <dcvalue element="title" qualifier="none" language="es_ES">Pedro Sáenz y Sáenz: biografía y obra. La visión de la mujer fin de siglo a través de su pintura</dcvalue>
+  <dcvalue element="type" qualifier="none" language="es_ES">Thesis</dcvalue>
+</dublin_core>
