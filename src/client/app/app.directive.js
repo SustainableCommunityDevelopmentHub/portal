@@ -127,8 +127,13 @@
     .directive('removeClick', function() {
       return function(scope, elem, attr){
         $(document).ready(function() {
-          $(this).on('touch', function(e) {
-            $(this).unbind('click').click();
+          var flag = false;
+          $(this).bind('click', function(){
+            if (!flag) {
+              flag = true;
+              setTimeout(function(){ flag = false; }, 300);
+            }
+            return false;
           });
         });
       };
