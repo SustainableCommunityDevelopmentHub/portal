@@ -21,10 +21,10 @@ class Command(BaseCommand):
 		print(env)
 		if env == 'LOCAL':
 			ES = LOCAL
-		'''elif env == 'DEV':
+		elif env == 'DEV':
 			ES = DEV
 		elif env == 'PROD':
-			ES = PROD'''
+			ES = PROD
 		print(ES)
 
 		ES_BULK = ES + "/_bulk"
