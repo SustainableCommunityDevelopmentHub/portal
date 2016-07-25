@@ -12,75 +12,9 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="bower_components/angular-print/angularPrint.css">
 
-    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="vendor.min.js"></script>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/lodash/lodash.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
-    <script src="bower_components/angular-print/angularPrint.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.min.js"></script>
-    <script src="bower_components/spin.js/spin.min.js"></script>
-    <script src="bower_components/angular-spinner/angular-spinner.min.js"></script>
-
-    <!--Environment Config Settings-->
-    <script src="app/app.env.config.js"></script>
-    <!--Main app-->
-    <script src="app/app.module.js"></script>
-    <script src="app/app.config.routing.js"></script>
-
-    <!--Core: DataService, constants, etc -->
-    <script src="app/core/core.module.js"></script>
-    <script src="app/core/constants.js"></script>
-
-    <!--Must include in order of dependence: SearchService, DataService-->
-    <script src="app/core/search-res-parser.js"></script>
-    <script src="app/core/search-service.js"></script>
-    <script src="app/core/data-service.js"></script>
-    <script src="app/core/saved-records-service.js"></script>
-    <script src="app/core/storage-service.js"></script>
-
-    <!--Widgets: Helpers, Animation, etc-->
-    <script src="app/widgets/widgets.module.js"></script>
-    <script src="app/widgets/config.js"></script>
-    <script src="app/widgets/scroll.js"></script>
-    <script src="app/widgets/animations.js"></script>
-    <script src="app/widgets/utils.js"></script>
-
-    <!--HomePage-->
-    <script src="app/home/home.module.js"></script>
-    <script src="app/home/home.controller.js"></script>
-
-    <!--Search-->
-    <script src="app/search/search.module.js"></script>
-    <script src="app/search/search.controller.js"></script>
-    <script src="app/search/search.directive.js"></script>
-
-    <!--Saved Records-->
-    <script src="app/saved_records/saved-records.module.js"></script>
-    <script src="app/saved_records/saved-records.controller.js"></script>
-    <script src="app/saved_records/constants.js"></script>
-
-    <!--Advanced Search-->
-    <script src="app/advanced_search/advanced-search.module.js"></script>
-    <script src="app/advanced_search/advanced-search.controller.js"></script>
-    <script src="app/advanced_search/constants.js"></script>
-
-    <!--Contributors-->
-    <script src="app/contributors/contributors.module.js"></script>
-    <script src="app/contributors/contributors.controller.js"></script>
-
-    <!--Book Detail Page-->
-    <script src="app/book_detail/book-detail.module.js"></script>
-    <script src="app/book_detail/book-detail.controller.js"></script>
-
-    <!--Controllers for various pages. Directives-->
-    <script src="app/app.controller.js"></script>
-    <script src="app/app.directive.js"></script>
+    <script src="app_core.min.js"></script>
 
     <!-- Google Analytics snippet r1, start -->
     <script type="text/javascript">
@@ -104,7 +38,7 @@
 
   <body>
     <div class="getty-portal-app">
-    <div ng-app="app" class="app">
+    <div ng-app="app" class="app" ng-strict-di>
       <header>
         <div class="container-fluid" id="container-test">
           <div data-ng-include="'app/partials/header.html'"></div>
