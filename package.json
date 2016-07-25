@@ -13,7 +13,16 @@
     "bower": "^1.6.3",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-bytediff": "^1.0.0",
+    "gulp-clean-css": "^2.0.9",
+    "gulp-concat": "^2.6.0",
+    "gulp-ignore": "^2.0.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
     "gulp-ng-config": "^1.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
     "http-server": "^0.8.5",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
@@ -47,5 +56,77 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor test/protractor.config.js"
+  },
+  "paths": {
+    "angularConfigLocal": "./config/local/app.env.config.json",
+    "angularConfigDevelop": "./config/develop/app.env.config.json",
+    "angularConfigProd": "./config/prod/app.env.config.json",
+    "angularConfigFilePath": "./src/client/app/app.env.config.js",
+    "angularSource": "./src/client/app",
+    "vendorjs": [
+      "./src/client/bower_components/angularUtils-pagination/dirPagination.js",
+      "./src/client/bower_components/angular-print/angularPrint.js"
+    ],
+    "minified_vendorjs": [
+      "./src/client/bower_components/angular/angular.min.js",
+      "./src/client/bower_components/jquery/dist/jquery.min.js",
+      "./src/client/bower_components/lodash/lodash.min.js",
+      "./src/client/bower_components/angular-animate/angular-animate.min.js",
+      "./src/client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
+      "./src/client/bower_components/angular-resource/angular-resource.min.js",
+      "./src/client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+      "./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js",
+      "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js",
+      "./src/client/bower_components/spin.js/spin.min.js",
+      "./src/client/bower_components/angular-spinner/angular-spinner.min.js"
+    ],
+    "vendorcss": [
+      "./src/client/bower_components/bootstrap/dist/css/bootstrap.css",
+      "./src/client/bower_components/angular-print/angularPrint.css"
+    ],
+    "css": [
+      "./src/client/css/app.css",
+      "./src/client/css/animations.css"
+    ],
+    "js_core": [
+      "./src/client/app/*.js",
+      "./src/client/app/core/*.js"
+    ],
+    "js": [
+      "./src/client/app/app.module.js",
+      "./src/client/app/app.config.routing.js",
+      "./src/client/app/app.env.config.js",
+      "./src/client/app/core/core.module.js",
+      "./src/client/app/core/constants.js",
+      "./src/client/app/core/es-client.js",
+      "./src/client/app/core/es-query-builder.js",
+      "./src/client/app/core/data-service.js",
+      "./src/client/app/core/search-res-parser.js",
+      "./src/client/app/core/search-service.js",
+      "./src/client/app/core/saved-records-service.js",
+      "./src/client/app/core/storage-service.js",
+      "./src/client/app/widgets/widgets.module.js",
+      "./src/client/app/widgets/config.js",
+      "./src/client/app/widgets/scroll.js",
+      "./src/client/app/widgets/animations.js",
+      "./src/client/app/widgets/utils.js",
+      "./src/client/app/home/home.module.js",
+      "./src/client/app/home/home.controller.js",
+      "./src/client/app/search/search.module.js",
+      "./src/client/app/search/search.controller.js",
+      "./src/client/app/search/search.directive.js",
+      "./src/client/app/saved_records/saved-records.module.js",
+      "./src/client/app/saved_records/saved-records.controller.js",
+      "./src/client/app/saved_records/constants.js",
+      "./src/client/app/advanced_search/advanced-search.module.js",
+      "./src/client/app/advanced_search/advanced-search.controller.js",
+      "./src/client/app/advanced_search/constants.js",
+      "./src/client/app/contributors/contributors.module.js",
+      "./src/client/app/contributors/contributors.controller.js",
+      "./src/client/app/app.controller.js",
+      "./src/client/app/app.directive.js"
+    ],
+    "build": "./src/client/",
+    "stage": "./src/client/stage"
   }
 }
