@@ -63,7 +63,7 @@
     "angularConfigProd": "./config/prod/app.env.config.json",
     "angularConfigFilePath": "./src/client/app/app.env.config.js",
     "angularSource": "./src/client/app",
-    "vendorjs": [
+    "unminified_vendorjs": [
       "./src/client/bower_components/angularUtils-pagination/dirPagination.js",
       "./src/client/bower_components/angular-print/angularPrint.js"
     ],
@@ -78,7 +78,8 @@
       "./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js",
       "./src/client/bower_components/ngSmoothScroll/angular-smooth-scroll.min.js",
       "./src/client/bower_components/spin.js/spin.min.js",
-      "./src/client/bower_components/angular-spinner/angular-spinner.min.js"
+      "./src/client/bower_components/angular-spinner/angular-spinner.min.js",
+      "./src/client/more_vendors.min.js"
     ],
     "vendorcss": [
       "./src/client/bower_components/bootstrap/dist/css/bootstrap.css",

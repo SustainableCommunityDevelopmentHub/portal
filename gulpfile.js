@@ -45,7 +45,7 @@ gulp.task('config:prod', function() {
  * Minify javascript
  */
 
-gulp.task('minify_js', ['minify_vendorjs', 'concat_vendorjs', 'minify:app:core'], function(){
+gulp.task('minify_js', ['concat_vendorjs', 'minify:app:core'], function(){
   console.log('Vendor javascript should now be minified and you should see in src/client/app the files vendor.min.js and more_vendors.min.js.');
 });
 
@@ -62,7 +62,7 @@ gulp.task('minify:app:core', function() {
 
 // Minify and concat unminified vendorjs
 gulp.task('minify_vendorjs', function() {
-  return gulp.src(pkg.paths.vendorjs)
+  return gulp.src(pkg.paths.unminified_vendorjs)
     .pipe(sourcemaps.init())
       .pipe(plug.concat('more_vendors.min.js'))
       .pipe(plug.uglify())
@@ -71,7 +71,7 @@ gulp.task('minify_vendorjs', function() {
 });
 
 // concat the already minified vendors
-gulp.task('concat_vendorjs', function() {
+gulp.task('concat_vendorjs', ['minify_vendorjs'], function() {
   return gulp.src(pkg.paths.minified_vendorjs)
     .pipe(sourcemaps.init())
       .pipe(plug.concat('vendor.min.js'))
