@@ -3,9 +3,9 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'book', 'DataService', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'book', 'DataService', 'SearchService', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, book, DataService, risRec) {
+  function BookDetailCtrl($scope, $stateParams, $window, book, DataService, SearchService) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
 
@@ -62,6 +62,15 @@
       $window.location.assign($scope.book._source._record_link);
       return false;
     };
+
+    $scope.searchWithFacet = function(category, facetValue) {
+      console.log(facetValue);
+      SearchService.resetOpts();
+      var facet = SearchService.buildFacet(category, facetValue);
+      console.log(facetValue);
+      SearchService.activateFacet(facet);
+      SearchService.transitionStateAndSearch();
+    }
   }
 
 })();

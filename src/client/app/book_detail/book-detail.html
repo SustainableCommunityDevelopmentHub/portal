@@ -57,7 +57,9 @@
               <div class="cat-title" >Creator</div>
               <div class="cat-value">
                 <ul class="specs" ng-show="book.dublin_core.creator" ng-repeat="entry in book.dublin_core.creator">
-                  <li class="book-field-val">{{entry.value}}</li>
+                  <li class="book-field-val">
+                    <a ng-click="searchWithFacet('creator', entry.value)">{{entry.value}}</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -66,7 +68,7 @@
               <div class="cat-title">Contributor</div>
               <div class="cat-value">
                 <ul class="specs" ng-show="book.dublin_core.contributor" ng-repeat="entry in book.dublin_core.contributor">
-                  <li class="book-field-val">{{entry.value}}</li>
+                  <li class="book-field-val">{{entry.value}}></li>
                 </ul>
               </div>
             </div>
@@ -246,7 +248,9 @@
               <div class="cat-title">Language</div>
               <div class="cat-value">
                 <ul class="specs" ng-show="book.dublin_core.language" ng-repeat="entry in book.dublin_core.language">
-                  <li class="book-field-val">{{entry.value}}</li>
+                  <li class="book-field-val" ng-click="searchWithFacet('language', entry.value)">
+                    <a ng-click="searchWithFacet('language', entry.value)">{{entry.value}}</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -255,7 +259,9 @@
               <div class="cat-title">Subject</div>
               <div class="cat-value">
                 <ul class="specs" ng-show="book.dublin_core.subject" ng-repeat="entry in book.dublin_core.subject">
-                  <li class="book-field-val">{{entry.value}}</li>
+                  <li class="book-field-val">
+                    <a ng-click="searchWithFacet('subject', entry.value)">{{entry.value}}</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -689,7 +695,9 @@
             <div class="cat-title">From</div>
             <div class="cat-value">
               <ul class="specs" ng-show="book._grp_contributor">
-                <li class="book-field-val">{{book._grp_contributor}}</li>
+                <li class="book-field-val">
+                  <a ng-click="searchWithFacet('grp_contributor', book._grp_contributor)">{{book._grp_contributor}}</a>
+                </li>
               </ul>
             </div>
           </div>
