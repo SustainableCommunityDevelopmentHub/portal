@@ -92,17 +92,15 @@
       "./src/client/app/*.js",
       "./src/client/app/core/*.js"
     ],
-    "js": [
+    "app_js": [
+      "./src/client/app/app.env.config.js",
       "./src/client/app/app.module.js",
       "./src/client/app/app.config.routing.js",
-      "./src/client/app/app.env.config.js",
       "./src/client/app/core/core.module.js",
       "./src/client/app/core/constants.js",
-      "./src/client/app/core/es-client.js",
-      "./src/client/app/core/es-query-builder.js",
-      "./src/client/app/core/data-service.js",
       "./src/client/app/core/search-res-parser.js",
       "./src/client/app/core/search-service.js",
+      "./src/client/app/core/data-service.js",
       "./src/client/app/core/saved-records-service.js",
       "./src/client/app/core/storage-service.js",
       "./src/client/app/widgets/widgets.module.js",
@@ -123,6 +121,8 @@
       "./src/client/app/advanced_search/constants.js",
       "./src/client/app/contributors/contributors.module.js",
       "./src/client/app/contributors/contributors.controller.js",
+      "./src/client/app/book_detail/book-detail.module.js",
+      "./src/client/app/book_detail/book-detail.controller.js",
       "./src/client/app/app.controller.js",
       "./src/client/app/app.directive.js"
     ],

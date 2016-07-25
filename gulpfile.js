@@ -52,7 +52,7 @@ gulp.task('minify_js', ['minify_vendorjs', 'concat_vendorjs', 'minify:app:core']
 // Minify and concat js of application core
 // Make sure app start and core are executed in browser before rest of the application
 gulp.task('minify:app:core', function() {
-  return gulp.src(['./src/client/app/app.module.js', './src/client/app/app.env.config.js', '!./src/client/**/*.spec.js'])
+  return gulp.src(pkg.paths.app_js)
     .pipe(sourcemaps.init())
       .pipe(plug.concat('app_core.min.js'))
       .pipe(plug.uglify())
