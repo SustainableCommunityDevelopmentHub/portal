@@ -63,20 +63,18 @@
       return false;
     };
 
-    $scope.searchWithFacet = function(category, facetValue) {
-      console.log(facetValue);
+    $scope.searchWithFacet = function(category, term) {
       SearchService.resetOpts();
-      var field = SearchService.buildAdvancedField(ADVANCED_SEARCH[category], facetValue);
-      console.log(facetValue);
+      var field = SearchService.buildAdvancedField(ADVANCED_SEARCH[category], term);
       SearchService.opts.advancedFields.push(field);
       SearchService.transitionStateAndSearch();
-    }
+    };
 
     $scope.searchWithKeyword = function(keyword) {
       SearchService.resetOpts();
       SearchService.opts.q.push(keyword);
       SearchService.transitionStateAndSearch();
-    }
+    };
   }
 
 })();
