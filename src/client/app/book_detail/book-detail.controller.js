@@ -3,9 +3,9 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', 'book', 'DataService', 'SearchService', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$window', 'book', 'DataService', 'SearchService', 'ADVANCED_SEARCH', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, book, DataService, SearchService) {
+  function BookDetailCtrl($scope, $window, book, DataService, SearchService, ADVANCED_SEARCH) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
 
@@ -66,9 +66,15 @@
     $scope.searchWithFacet = function(category, facetValue) {
       console.log(facetValue);
       SearchService.resetOpts();
-      var facet = SearchService.buildFacet(category, facetValue);
+      var field = SearchService.buildAdvancedField(ADVANCED_SEARCH[category], facetValue);
       console.log(facetValue);
-      SearchService.activateFacet(facet);
+      SearchService.opts.advancedFields.push(field);
+      SearchService.transitionStateAndSearch();
+    }
+
+    $scope.searchWithKeyword = function(keyword) {
+      SearchService.resetOpts();
+      SearchService.opts.q.push(keyword);
       SearchService.transitionStateAndSearch();
     }
   }
