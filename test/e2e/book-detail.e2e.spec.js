@@ -91,5 +91,26 @@ describe('Book Detail', function() {
     expect(result).toBe(true);
   });
 
+  it('should run a search after clicking contributor link', function() {
+    bookDetailPage.clickLink('Houssaye, Édouard. Directeur de publication');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(77);
+    });
+  });
+
+  it('should run a search after clicking language link', function() {
+    bookDetailPage.clickLink('French');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(270);
+    });
+  });
+
+  it('should run a search after clicking from link', function() {
+    bookDetailPage.clickLink('Gallica - Bibliothèque nationale de France');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(100);
+    });
+  });
+
 
 });
