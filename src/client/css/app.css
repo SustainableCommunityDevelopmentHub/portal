@@ -855,7 +855,6 @@ li.book-listing {
   }
 
   .date-range-container form{
-    display: flex;
     align-items: flex-end;
     justify-content: space-between;
   }
@@ -876,6 +875,7 @@ li.book-listing {
     height: 30px;
     font-size: 12px;
   }
+
 
   #date-btn-results {
     height: 30px;

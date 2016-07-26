@@ -77,7 +77,7 @@
           </uib-accordion>
 
           <h5>Date range</h5>
-          <div class="date-range-container">
+          <div class="date-range-container">          
             <form ng-submit="setDateRange(fromDate, toDate)">
               <div class="date-range">
                 <p>From:</p>
@@ -86,6 +86,9 @@
               <div class="date-range">
                 <p>To:</p>
                 <input ng-model="toDate" maxlength="4" type="number">
+              </div>
+              <div>
+              <rzslider rz-slider-model="fromDate" rz-slider-high="toDate" rz-slider-options="dateSlider.options"></rzslider>
               </div>
               <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
             </form>

@@ -159,6 +159,13 @@
       updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
     };
 
+    $scope.dateSlider = {
+      options: {
+        floor: 0,
+        ceil: 2016
+      }
+    };
+
     /**
      * trigger search to populate new page and update $scope / state
      */
