@@ -558,6 +558,7 @@ hr.thin {
 
 .facet-chip a {
   color: white;
+  display: block;
 }
 
 .facet-chip a:hover {

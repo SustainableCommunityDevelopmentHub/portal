@@ -119,16 +119,16 @@
                 </li>
                 <li class="facet-search" ng-repeat="advancedField in advancedFields">
                   <div class="facet-chip">
-                    <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+                    <a class="facet-search" ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
                   </div>
                 </li>
                 <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
                   <div class="facet-chip">
-                    <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></a>
+                    <a class="facet-search" ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></a>
                   </div>
                 </li>
                 <li>
-                  <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size myFocus>
+                  <input class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size myFocus>
                 </li>
               </ul>
             </div>
