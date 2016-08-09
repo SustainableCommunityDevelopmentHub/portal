@@ -270,7 +270,7 @@ ResultsPage.prototype = Object.create({}, {
     element(by.css('.search-filters')).sendKeys(term);
   }},
   closeModal: { value: function() {
-    element(by.css(".close-modal")).click();
+    element.all(by.css(".close-modal")).first().click();
   }}
 });
 

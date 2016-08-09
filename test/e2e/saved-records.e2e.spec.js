@@ -57,7 +57,6 @@ describe('Saved Records Page', function() {
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.selectSortMode(3);
     savedRecordsPage.getAllDates().then(function(dates) {
-      console.log(dates);
       var sortedDates = dates.sort();
       expect(dates).toEqual(sortedDates);
     });

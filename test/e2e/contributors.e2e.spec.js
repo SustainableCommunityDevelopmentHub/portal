@@ -34,7 +34,8 @@ describe('Contributors Page', function() {
 			});
 			expect(browser.getCurrentUrl()).toContain('/search?');
 			var numContribResults;
-			$('.showing').evaluate('numTotalHits').then(function(value) {
+			var contribResultsCount = element.all(by.css('.showing')).first();
+			contribResultsCount.evaluate('numTotalHits').then(function(value) {
 				numContribResults = value;
 				expect(numContribResults).toEqual(44);
 			});
