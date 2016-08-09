@@ -70,21 +70,6 @@ describe("Advanced Search", function(){
     });
   });
 
-  it("should, going to advanced search from search results, clear any pre-existing Search Options before searching", function(){
-    // execute normal search, takes us to Search Results page, apply date filter
-    advancedPage.submitAdvancedSearch();
-    advancedPage.submitDateRange(1900, 1920);
-    expect(advancedPage.numTotalHits).toEqual(125);
-    expect(advancedPage.facetChips.count()).toEqual(1);
-
-    // execute advanced search, confirm previously applied search opt is gone
-    advancedPage.clickAdvancedSearchLink();
-    advancedPage.addFilterSearches([['Language', 'English']]);
-    advancedPage.submitAdvancedSearch();
-    expect(advancedPage.numTotalHits).toEqual(45);
-    expect(advancedPage.facetChips.count()).toEqual(1);
-  });
-
   it("should, going directly to advanced search, clear any pre-existing Search Options before searching", function(){
     // execute normal search, takes us to Search Results page, apply date filter
     advancedPage.submitAdvancedSearch();

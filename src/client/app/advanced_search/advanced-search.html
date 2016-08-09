@@ -37,10 +37,10 @@
         <div class="col-xs-8 col-md-6 sbf-input-col">
           <div ng-repeat="filter in filters">
             <div class="filter-item">
-              <input class="sf-input" ng-model="filter.term" placeholder="Enter text"></input>
-              <div ng-show="filter.lastFilter" ng-click="addFilter()" class="plus-button">
+              <input class="sf-input" ng-model="filter.term" placeholder="Enter text">
+              <button type="button" ng-show="filter.lastFilter" ng-click="addFilter()" class="plus-button">
                 <i class="glyphicon-plus glyphicon"></i>
-              </div>
+              </button>
             </div>
           </div>
         </div>
