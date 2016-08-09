@@ -112,11 +112,20 @@
       // for state transitions this needed if inherit = true to prevent zombie query params.
       // keep as check against regression or change.
       this.advancedFieldsList.forEach(function(name){
-        queryParams[ ADVANCED_SEARCH[name].paramName ]  = [];
+        if (name != 'keyword') {
+          queryParams[ ADVANCED_SEARCH[name].paramName ]  = [];
+        }
+
       });
 
       this.opts.advancedFields.forEach(function(advField){
-        queryParams[advField.field.paramName].push(advField.term);
+        console.log(advField.field.paramName);
+        if (advField.field.paramName == 'adv_keyword') {
+          queryParams["q"].push(advField.term);
+        }
+        else {
+          queryParams[advField.field.paramName].push(advField.term);
+        }
       });
 
       console.log('SearchService::buildQueryParams - queryParams: ' + JSON.stringify(queryParams));
