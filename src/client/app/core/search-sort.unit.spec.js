@@ -11,7 +11,6 @@ describe("Sorting tests", function() {
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
     module('app');
     module('app.search');
