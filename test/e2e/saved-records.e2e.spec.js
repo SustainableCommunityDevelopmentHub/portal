@@ -57,7 +57,6 @@ describe('Saved Records Page', function() {
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.selectSortMode(3);
     savedRecordsPage.getAllDates().then(function(dates) {
-      console.log(dates);
       var sortedDates = dates.sort();
       expect(dates).toEqual(sortedDates);
     });
@@ -149,10 +148,6 @@ describe('Saved Records Page', function() {
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
     browser.waitForAngular();
-
-    // 2 saved searches in addition to ones created here,
-    // because: new ResultsPage() initiates an empty search,
-    // and the beforeEach() executes a search.
     expect(savedRecordsPage.getAllSearches().count()).toBe(7);
     savedRecordsPage.removeSearch(0);
     expect(savedRecordsPage.getAllSearches().count()).toBe(6);

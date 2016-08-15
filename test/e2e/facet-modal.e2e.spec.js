@@ -73,9 +73,9 @@ describe("Facet Modal", function(){
       var labels = element.all(by.css(".filter-labels"));
       labels.get(0).click();
 
-      var categoryTab = element(by.css('.selected-facet-tabs'));
-      expect(categoryTab).toBeDefined();
-      expect(categoryTab.getText()).toEqual("Subject");
+      var firstCategoryTab = element.all(by.css('.selected-facet-tabs')).first();
+      expect(firstCategoryTab).toBeDefined();
+      expect(firstCategoryTab.getText()).toEqual("Subject");
     });
 
     it("should display only checked facets when 'See Only Checked' is clicked", function(){

@@ -307,7 +307,7 @@ describe('SearchService Unit Tests', function(){
   describe('Advanced Search Functions', function() {
     it('should populate and expose advancedFieldsList array', function(){
       expect(SearchService.advancedFieldsList).toBeTruthy();
-      expect(SearchService.advancedFieldsList.length).toEqual(6);
+      expect(SearchService.advancedFieldsList.length).toEqual(7);
       expect(SearchService.advancedFieldsList.indexOf('language')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('subject')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('grp_contributor')).toBeGreaterThan(-1);
@@ -374,9 +374,11 @@ describe('SearchService Unit Tests', function(){
 
       var qParams = SearchService.buildQueryParams();
       SearchService.advancedFieldsList.forEach(function(name, i){
-        var paramVals = qParams[ ADVANCED_SEARCH[name].paramName ];
-        expect(paramVals.length).toEqual(1);
-        expect(paramVals[0]).toEqual(advFieldVals[i]);
+        if (i != 6) {
+          var paramVals = qParams[ ADVANCED_SEARCH[name].paramName ];
+          expect(paramVals.length).toEqual(1);
+          expect(paramVals[0]).toEqual(advFieldVals[i]);
+        }
       });
     });
   });
