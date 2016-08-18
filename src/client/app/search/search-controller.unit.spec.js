@@ -17,7 +17,6 @@ describe("Search Controller", function(){
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
     module('app');
     module('app.search');
@@ -301,6 +300,32 @@ describe("Search Controller", function(){
 
       scope.clearSearchOpts();
       expect(SearchService.opts.advancedFields).toEqual([]);
+    });
+  });
+
+  describe("Advanced Search", function() {
+
+    it('should toggle showing advanced search drawer', function() {
+      scope.showAdvDrawer = false;
+      scope.toggleAdvDrawer();
+      expect(scope.showAdvDrawer).toBe(true);
+      scope.toggleAdvDrawer();
+      expect(scope.showAdvDrawer).toBe(false);
+    });
+
+    it('should set correct advanced field', function() {
+      var field = ADVANCED_SEARCH.language;
+      scope.setSelectedAdvField(field);
+      expect(scope.selectedAdvField).toEqual(field);
+    });
+
+    it('should build advanced facets correctly', function() {
+      scope.selectedAdvField = ADVANCED_SEARCH.language;
+      scope.advSearchTerm = 'English';
+      var newField = SearchService.buildAdvancedField(scope.selectedAdvField, scope.advSearchTerm);
+      scope.addAdvSearchTerm();
+      expect(SearchService.opts.advancedFields.length).toBe(1);
+      expect(SearchService.opts.advancedFields[0]).toEqual(newField);
     });
   });
 });

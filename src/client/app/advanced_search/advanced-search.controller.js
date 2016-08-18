@@ -23,6 +23,7 @@
 
       // objs w/settings for each available adv field
       $scope.fields = [
+          ADVANCED_SEARCH.keyword,
           ADVANCED_SEARCH.title,
           ADVANCED_SEARCH.creator,
           ADVANCED_SEARCH.date,
@@ -31,6 +32,7 @@
           ADVANCED_SEARCH.grp_contributor,
         ];
     });
+
 
     /**
      * Adds new filter object to the filters array, which angular
@@ -57,7 +59,9 @@
      * @param {Object} field - the field object containing display and elastic search data
      */
     function selectField(filter, field) {
-      filter.field = field;
+      if (filter.field.display != 'Keyword') {
+        filter.field = field;
+      }
     }
 
     /**
@@ -75,7 +79,10 @@
       }
 
       $scope.filters.forEach(function(filter){
-        if(filter.term && filter.field !== initialField){
+        if (filter.term && filter.field == 'keyword') {
+          query.push(filter.term);
+        }
+        else if (filter.term && filter.field !== initialField ){
           advFields.push(
             SearchService.buildAdvancedField(filter.field, filter.term)
           );
