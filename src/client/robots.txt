@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /feedback
+Disallow: /saved
+Disallow: /search
+Allow: /faq
+Allow: /help
+
