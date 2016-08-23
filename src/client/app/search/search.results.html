@@ -167,7 +167,7 @@
           </div>
         </div>
       </div>
-      <div class="search-container" ng-show="showAdvDrawer">
+      <div class="search-container" ng-show="showAdvDropDown">
         <div class="adv-search-results">
           <form ng-submit="addAdvSearchTerm()" class="">
             <div class="btn-group" uib-dropdown>
@@ -192,7 +192,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3">
-      <a class= "adv-drawer" ng-click="toggleAdvDrawer()">Advanced Search</a>
+      <a class="adv-drawer" ng-click="toggleAdvDropDown()">{{ advDropDownText }}</a>
     </div>
 
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">

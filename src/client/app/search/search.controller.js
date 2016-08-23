@@ -49,7 +49,12 @@
     $scope.savedRecords = SavedRecordsService.getRecords();
 
     $scope.bookMarkText = "";
-    $scope.showAdvDrawer = false;
+    $scope.showAdvDropDown = SearchService.showAdvDropDown;
+    if ($scope.showAdvDropDown) {
+        $scope.advDropDownText = "Close";
+      } else {
+        $scope.advDropDownText = "Advanced Search"
+      }
     saveSearch(ss.opts, $scope.numTotalHits);
 
 
@@ -248,6 +253,7 @@
       if ($scope.advSearchTerm) {
         var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
         ss.opts.advancedFields.push(newField);
+        ss.opts.from = 0;
         ss.transitionStateAndSearch();
       }
     };
@@ -256,8 +262,14 @@
       $scope.selectedAdvField = field;
     };
 
-    $scope.toggleAdvDrawer = function() {
-      $scope.showAdvDrawer = !$scope.showAdvDrawer;
+    $scope.toggleAdvDropDown = function() {
+      $scope.showAdvDropDown = !$scope.showAdvDropDown;
+      SearchService.showAdvDropDown = $scope.showAdvDropDown;
+      if ($scope.showAdvDropDown) {
+        $scope.advDropDownText = "Close";
+      } else {
+        $scope.advDropDownText = "Advanced Search"
+      }
     };
   }
 })();
