@@ -129,10 +129,8 @@ describe('Saved Records Page', function() {
     browser.waitForAngular();
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
-
     //click on the search with no search term and no facets
     savedRecordsPage.clickSearch(3);
-
     browser.waitForAngular();
     expect(resultsPage.getQueryTerms().count()).toBe(1);
     expect(resultsPage.facetChips.count()).toBe(1);

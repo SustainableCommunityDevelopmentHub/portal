@@ -121,7 +121,6 @@ describe("Saved Records Service", function() {
       SavedRecordsService.saveSearch(search, numResults, timestamp);
       var searches = JSON.parse(localStorage.getItem(searchKey))[searchKey];
       expect(searches.length).toEqual(1);
-
     });
 
     it('should return searches', function() {
