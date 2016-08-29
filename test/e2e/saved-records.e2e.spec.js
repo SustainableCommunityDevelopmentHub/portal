@@ -98,7 +98,7 @@ describe('Saved Records Page', function() {
 
     savedRecordsPage.clickRecentSearches();
     var searches = savedRecordsPage.getAllSearches();
-    expect(searches.count()).toBe(4);
+    expect(searches.count()).toBe(3);
     expect(savedRecordsPage.getSearchTerm(0).getText()).toEqual('art');
   });
 
@@ -115,10 +115,9 @@ describe('Saved Records Page', function() {
     savedRecordsPage.clickSearch(2);
     expect(resultsPage.facetChips.get(0).getText()).toEqual('art (Keyword)');
     expect(resultsPage.facetChips.get(1).getText()).toEqual('Russia (Subject)');
-    expect(resultsPage.facetChips.get(2).getText()).toEqual('Art collections (Subject)');
 
     resultsPage.getHits().then(function(hits) {
-      expect(hits.length).toEqual(24);
+      expect(hits.length).toEqual(13);
       });
     });
 
@@ -130,11 +129,13 @@ describe('Saved Records Page', function() {
     browser.waitForAngular();
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
+
     //click on the search with no search term and no facets
-    savedRecordsPage.clickSearchByText('No search term');
+    savedRecordsPage.clickSearch(3);
+
     browser.waitForAngular();
-    expect(resultsPage.getQueryTerms().count()).toBe(0);
-    expect(resultsPage.facetChips.count()).toBe(0);
+    expect(resultsPage.getQueryTerms().count()).toBe(1);
+    expect(resultsPage.facetChips.count()).toBe(1);
   });
 
   it('should remove searches when clicking the remove button', function () {
@@ -148,10 +149,9 @@ describe('Saved Records Page', function() {
     savedRecordsPage = new SavedRecordsPage();
     savedRecordsPage.clickRecentSearches();
     browser.waitForAngular();
-    expect(savedRecordsPage.getAllSearches().count()).toBe(7);
-    savedRecordsPage.removeSearch(0);
     expect(savedRecordsPage.getAllSearches().count()).toBe(6);
-    savedRecordsPage.removeSearch(1);
+    savedRecordsPage.removeSearch(0);
+    expect(savedRecordsPage.getAllSearches().count()).toBe(5);
     savedRecordsPage.removeSearch(1);
     savedRecordsPage.removeSearch(1);
     savedRecordsPage.removeSearch(1);
