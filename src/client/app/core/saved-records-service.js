@@ -25,6 +25,9 @@
      * @returns {boolean} whether searches match
      */
     function searchesMatch(oldSearch, newSearch) {
+      if (!oldSearch) {
+        return false;
+      }
       if (oldSearch.q !== newSearch.q) {
         return false;
       }
@@ -53,20 +56,22 @@
      */
     function saveSearch(searchOpts, results, timestamp) {
       var searches = getSearches();
-      var lastSearchOpts = DEFAULTS.searchOpts;
-      if (searches && searches.length > 0) {
-        var lastSearch = searches[searches.length - 1].opts;
-        if (lastSearch) {
-          lastSearchOpts = lastSearch;
-        }
+      var lastSearchOpts;
+      if (searchOpts.q.length == 0 && searchOpts.facets.length == 0 && searchOpts.advancedFields.length == 0) {
+        return false;
       }
-      if(!searchesMatch(lastSearchOpts, searchOpts)) {
-        var newSearch = {
+      if (searches && searches.length > 0) {
+        var lastSearchOpts = searches[searches.length - 1].opts;
+        if (searchesMatch(lastSearchOpts, searchOpts)) {
+        return false;
+        } else {
+          var newSearch = {
           opts: searchOpts,
           numResults: results,
           time: timestamp
-        };
-        saveItem(SAVED_ITEMS.searchKey, newSearch);
+          };
+          saveItem(SAVED_ITEMS.searchKey, newSearch);
+        }
       }
     }
 
