@@ -82,8 +82,9 @@ describe("Saved Records Service", function() {
       testFacet = {"facet":"type","option":"Text","count":249,"active":true};
       localStorage.removeItem(searchKey);
       opts = {
-        q: 'art',
-        facets: [testFacet]
+        q: ['art'],
+        facets: [testFacet],
+        advancedFields: []
       };
       numResults = 309;
       localStorage.removeItem(searchKey);
@@ -107,6 +108,20 @@ describe("Saved Records Service", function() {
       SavedRecordsService.saveSearch(opts, numResults, timestamp);
       var searches = JSON.parse(localStorage.getItem(searchKey))[searchKey];
       expect(searches.length).toEqual(1);
+    });
+
+    it('should not save searches with no terms ("see all" searches)', function() {
+      var search = {
+        q: [],
+        facets: [],
+        advancedFields: []
+      };
+      var timestamp = Date.now();
+      SavedRecordsService.saveSearch(opts, numResults, timestamp);
+      SavedRecordsService.saveSearch(search, numResults, timestamp);
+      var searches = JSON.parse(localStorage.getItem(searchKey))[searchKey];
+      expect(searches.length).toEqual(1);
+
     });
 
     it('should return searches', function() {

@@ -28,7 +28,9 @@
       if (!oldSearch) {
         return false;
       }
-      if (oldSearch.q !== newSearch.q) {
+      if (!_.isEqual(oldSearch.q, newSearch.q)) {
+        console.log(oldSearch);
+        console.log(newSearch);
         return false;
       }
       if(newSearch.facets && newSearch.facets.length > 0){
@@ -64,15 +66,14 @@
         var lastSearchOpts = searches[searches.length - 1].opts;
         if (searchesMatch(lastSearchOpts, searchOpts)) {
         return false;
-        } else {
-          var newSearch = {
-          opts: searchOpts,
-          numResults: results,
-          time: timestamp
-          };
-          saveItem(SAVED_ITEMS.searchKey, newSearch);
         }
       }
+      var newSearch = {
+        opts: searchOpts,
+        numResults: results,
+        time: timestamp
+      };
+      saveItem(SAVED_ITEMS.searchKey, newSearch);
     }
 
     /**
