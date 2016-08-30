@@ -176,7 +176,9 @@
           },
           searches: function($q, SavedRecordsService) {
             return $q.when(SavedRecordsService.getSearches()).then(function(searches){
-              return searches;
+              return searches.filter(function(search) {
+                return search.opts.q.length > 0;
+              });
             });
           }
         }

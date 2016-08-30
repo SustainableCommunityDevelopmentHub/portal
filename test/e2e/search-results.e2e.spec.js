@@ -506,6 +506,15 @@ describe('Search Results', function() {
         expect(hits).toEqual(452);
       });
     });
+
+    it('should keep advanced search drop down open after adding an option', function() {
+      resultsPage.clickAdvancedSearchLink();
+      resultsPage.getAdvancedSearchInput().sendKeys('handbook');
+      resultsPage.clickAdvAddButton();
+      expect(resultsPage.getAdvancedSearchInput().isDisplayed()).toBeTruthy();
+      resultsPage.clickAdvancedSearchLink();
+      expect(resultsPage.getAdvancedSearchInput().isDisplayed()).toEqual(false);
+    });
   });
 
 });

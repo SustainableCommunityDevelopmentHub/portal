@@ -17,7 +17,6 @@ describe("Search Controller", function(){
   beforeEach(function(){
     module('ui.router');
     module('ui.bootstrap');
-    module('elasticsearch');
     module('app.core');
     module('app');
     module('app.search');
@@ -307,11 +306,11 @@ describe("Search Controller", function(){
   describe("Advanced Search", function() {
 
     it('should toggle showing advanced search drawer', function() {
-      scope.showAdvDrawer = false;
-      scope.toggleAdvDrawer();
-      expect(scope.showAdvDrawer).toBe(true);
-      scope.toggleAdvDrawer();
-      expect(scope.showAdvDrawer).toBe(false);
+      scope.showAdvDropDown = false;
+      scope.toggleAdvDropDown();
+      expect(scope.showAdvDropDown).toBe(true);
+      scope.toggleAdvDropDown();
+      expect(scope.showAdvDropDown).toBe(false);
     });
 
     it('should set correct advanced field', function() {

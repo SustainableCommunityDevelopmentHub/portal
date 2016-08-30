@@ -3,9 +3,9 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$stateParams', '$window', '$state', 'book', 'DataService', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$window', '$state', 'book', 'DataService', 'SearchService', 'ADVANCED_SEARCH', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $stateParams, $window, $state, book, DataService) {
+  function BookDetailCtrl($scope, $window, $state, book, DataService, SearchService, ADVANCED_SEARCH) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
 
@@ -64,6 +64,24 @@
         0, 0, 0, 0, 0, false, false, false, false, 0, null);
       a.dispatchEvent(e);
     }
+
+    $scope.redirect = function(){
+      $window.location.assign($scope.book._source._record_link);
+      return false;
+    };
+
+    $scope.searchWithFacet = function(category, term) {
+      SearchService.resetOpts();
+      var field = SearchService.buildAdvancedField(ADVANCED_SEARCH[category], term);
+      SearchService.opts.advancedFields.push(field);
+      SearchService.transitionStateAndSearch();
+    };
+
+    $scope.searchWithKeyword = function(keyword) {
+      SearchService.resetOpts();
+      SearchService.opts.q.push(keyword);
+      SearchService.transitionStateAndSearch();
+    };
   }
 
 })();

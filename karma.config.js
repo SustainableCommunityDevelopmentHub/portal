@@ -19,7 +19,6 @@ module.exports = function(config) {
       'src/client/bower_components/angular/angular.js',
       'src/client/bower_components/angular-ui-router/release/angular-ui-router.js',
       'src/client/bower_components/angular-resource/angular-resource.js',
-      'src/client/bower_components/elasticsearch/elasticsearch.angular.js',
       'src/client/bower_components/angular-animate/angular-animate.js',
       'src/client/bower_components/angularUtils-pagination/dirPagination.js',
       'src/client/bower_components/angular-print/angularPrint.js',
@@ -42,6 +41,7 @@ module.exports = function(config) {
       'src/client/app/advanced_search/*.js',
       'src/client/app/partials/save-record-button.html',
       'src/client/app/saved_records/*.js',
+      'src/client/app/book_detail/*.js',
 
       // helpers for jasmine, etc
       'test/mockData.js'
