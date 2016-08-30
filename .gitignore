@@ -19,4 +19,5 @@ ENV
 __pycache__/
 
 
-src/server/ingest/data/
+src/server/ingest/test_data/
+src/server/ingest/production_data

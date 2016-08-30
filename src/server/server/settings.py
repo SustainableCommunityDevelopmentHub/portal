@@ -149,3 +149,7 @@ EMAIL_USE_TLS = False
 EMAIL_TO = 'portal@getty.edu'
 
 ADMINS = [('Joshua Gomez', 'jgomez@getty.edu')]
+
+# Ingest data directories
+TEST_DATA_PATH = os.path.join(BASE_DIR, 'ingest/test_data')
+PRODUCTION_DATA_PATH = os.path.join(BASE_DIR, 'ingest/production_data')
