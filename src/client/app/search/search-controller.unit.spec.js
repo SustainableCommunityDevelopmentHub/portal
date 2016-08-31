@@ -306,11 +306,11 @@ describe("Search Controller", function(){
   describe("Advanced Search", function() {
 
     it('should toggle showing advanced search drawer', function() {
-      scope.showAdvDrawer = false;
-      scope.toggleAdvDrawer();
-      expect(scope.showAdvDrawer).toBe(true);
-      scope.toggleAdvDrawer();
-      expect(scope.showAdvDrawer).toBe(false);
+      scope.showAdvDropDown = false;
+      scope.toggleAdvDropDown();
+      expect(scope.showAdvDropDown).toBe(true);
+      scope.toggleAdvDropDown();
+      expect(scope.showAdvDropDown).toBe(false);
     });
 
     it('should set correct advanced field', function() {

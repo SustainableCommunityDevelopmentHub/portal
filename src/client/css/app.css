@@ -676,7 +676,8 @@ hr.thin {
   text-decoration: underline;
   background-color: #eee;
   padding: 5px 10px 10px;
-  min-width: 131px;
+
+  text-align: center;
 }
 
 .results-pagination {

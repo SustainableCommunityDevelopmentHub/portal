@@ -54,6 +54,7 @@
       buildQueryParams: buildQueryParams,
       transitionStateAndSearch: transitionStateAndSearch,
       setResultsData: setResultsData,
+      showAdvDropDown: false,
     };
 
     return service;

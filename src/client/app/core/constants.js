@@ -72,7 +72,7 @@
     .constant('SORT_DEFAULT', 'relevance')
     .constant('DEFAULTS', {
       searchOpts: {
-        q: '',
+        q: [],
         size: 25,
         from: 0,
         facets: [],
