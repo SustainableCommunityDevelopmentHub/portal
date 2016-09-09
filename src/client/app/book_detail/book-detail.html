@@ -69,7 +69,7 @@
               <div class="cat-value">
                 <ul class="specs" ng-show="book.dublin_core.contributor" ng-repeat="entry in book.dublin_core.contributor">
                   <li class="book-field-val">
-                    <a ng-click="searchWithKeyword(entry.value)">{{entry.value}}</a>
+                    <a ng-click="searchWithFacet('creator', entry.value)">{{entry.value}}</a>
                   </li>
                 </ul>
               </div>
