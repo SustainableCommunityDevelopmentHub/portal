@@ -51,11 +51,11 @@ describe('Contributors Page', function() {
     	browser.getAllWindowHandles().then(function (handles) {
       		var newWindowHandle = handles[1]; // this is your new window
       		browser.switchTo().window(newWindowHandle).then(function () {
-        	browser.ignoreSynchronization = true;
-        	expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/');
-        	browser.ignoreSynchronization = false;
-      });
-    });
+        	    browser.ignoreSynchronization = true;
+        	    expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/');
+        	    browser.ignoreSynchronization = false;
+            });
+        });
   	});
 		
 
