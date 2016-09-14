@@ -32,7 +32,9 @@ BookDetailPage.prototype = Object.create({}, {
   	element(by.id('viewDigitalItem')).click();
   }},
   clickContributorLink: { value: function() {
-    element(by.css('.contribLink')).click();
+    element(by.css('.contribLink')).click(),
+  clickLink: { value: function(text) {
+    element(by.linkText(text)).click();
   }}
 });
 

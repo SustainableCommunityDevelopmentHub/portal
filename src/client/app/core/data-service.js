@@ -55,15 +55,25 @@
       var queryPath = query.join("&");
       var searchPromise = $http.get(config.django.host + ':' + config.django.port + '/api/books/' + queryPath);
       var deferred = $q.defer();
-      searchPromise.success(function(data) {
-        var parsedData = data[0];
-        parsedData.aggregations = data[1].aggregations;
-        var results = SearchService.setResultsData(parsedData);
-        deferred.resolve(results);
-      }).error(function(response) {
-        deferred.reject(arguments);
-        console.log('DataService::search -- error: ' + JSON.stringify(response));
-      });
+
+      searchPromise
+        .success(function(data) {
+          try {
+            var parsedData = data[0];
+            parsedData.aggregations = data[1].aggregations;
+            var results = SearchService.setResultsData(parsedData);
+            deferred.resolve(results);
+          }
+          catch(error) {
+            console.log('DataService::search -- bad ES result -- error: ' + JSON.stringify(error));
+            deferred.reject({error: 'DEFAULT', data: error});
+          }
+
+        })
+        .error(function() {
+          deferred.reject(arguments);
+        });
+
       return deferred.promise;
     }
 
@@ -98,7 +108,6 @@
      * @returns promise with data from django api
      */
     function getRisRec(bookID){
-      console.log('getting ris record');
       return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID + '.ris');
     }
 

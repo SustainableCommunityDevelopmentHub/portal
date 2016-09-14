@@ -7,9 +7,6 @@ var AdvancedPage = function() {
 };
 
 AdvancedPage.prototype = Object.create(ResultsPage.prototype, {
-    addKeywordTerm: { value: function(term) {
-        element(by.model('queryTerm')).sendKeys(term);
-    }},
     submitAdvancedSearch: { value: function() {
         element.all(by.css('.search-btn')).get(0).click();
     }},
@@ -17,7 +14,7 @@ AdvancedPage.prototype = Object.create(ResultsPage.prototype, {
         element(by.css('.search-btn')).sendKeys(protractor.Key.ENTER);
     }},
     submitFiltersWithEnter: { value: function() {
-        element(by.model('filter.term')).sendKeys(protractor.Key.ENTER);
+        element.all(by.model('filter.term')).first().sendKeys(protractor.Key.ENTER);
     }},
     openFieldSelector: { value: function(position) {
         element.all(by.css('.filter-dropdown')).get(position).click();
