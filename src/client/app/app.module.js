@@ -20,8 +20,7 @@
     'AngularPrint',
     'smoothScroll',
     'ngAnimate',
-    'angularSpinner',
-    'rzModule'
+    'angularSpinner'
   ])
 
   .config(['$httpProvider', function($httpProvider) {
