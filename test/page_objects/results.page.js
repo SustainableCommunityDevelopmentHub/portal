@@ -67,6 +67,18 @@ ResultsPage.prototype = Object.create({}, {
   getQueryTerms: { value: function() {
     return element.all(by.repeater("queryTerm in queryTerms"));
   }},
+  getAdvancedSearchContainer: { value: function() {
+    return element.all(by.css(".adv-search-results")).get(0);
+  }},
+  clickAdvSearchDropdown: { value: function() {
+    element.all(by.css('.adv-search-results button')).get(0).click();
+  }},
+  getAdvancedSearchInput: { value: function() {
+    return element.all(by.css('.adv-input')).get(0);
+  }},
+  clickAdvAddButton: { value: function() {
+    element.all(by.css('.adv-search-results .plus-button')).get(0).click();
+  }},
 
   // Sorting
   sortOptions: { get: function() {
@@ -258,7 +270,7 @@ ResultsPage.prototype = Object.create({}, {
     element(by.css('.search-filters')).sendKeys(term);
   }},
   closeModal: { value: function() {
-    element(by.css(".close-modal")).click();
+    element.all(by.css(".close-modal")).first().click();
   }}
 });
 

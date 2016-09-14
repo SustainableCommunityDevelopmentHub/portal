@@ -31,8 +31,8 @@
 }
 
 .col-centered {
-  display:inline-block;
-  float:none;
+  display: inline-block;
+  float: none;
 }
 
 body {
@@ -485,6 +485,9 @@ hr.thin {
   font-size: 18px;
   cursor: pointer;
   margin-left: 10px;
+  padding-right: 0;
+  border: none;
+  background: none;
 }
 
 .add-field-glyph {
@@ -504,15 +507,6 @@ hr.thin {
 
 /* Search Results */
 
-/*.search-bar-results {
-  width: 100%;
-  display: inline-block;
-}
-
-.search-bar-results form {
-  display: flex;
-  justify-content: center;
-*/
 
 .facet-chip-search-bar {
   min-height: 40px;
@@ -547,15 +541,15 @@ hr.thin {
 }
 
 #facet-chip-input:focus {
-  border:none;
+  border: none;
   outline: none;
 }
 
 .input-div-focus {
   outline-color: #5EA1FF;
   outline-style: auto;
-  border:none;
-  box-shadow: 0px 0px 8px  #5EA1FF;;
+  border: none;
+  box-shadow: 0px 0px 8px  #5EA1FF;
 }
 
 .facet-chip {
@@ -567,6 +561,7 @@ hr.thin {
 
 .facet-chip a {
   color: white;
+  display: block;
 }
 
 .facet-chip a:hover {
@@ -636,7 +631,7 @@ hr.thin {
 
 .dropdown-menu > li > a {
   padding: 10px 20px;
-  border-bottom: 1px solid #ddd
+  border-bottom: 1px solid #ddd;
 }
 
 .showing {
@@ -650,13 +645,39 @@ hr.thin {
   display: inline;
 }
 
+.adv-span {
+  display: block;
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+.adv-input {
+  width: 100%;
+  height: 29px;
+  border-radius: 2px;
+  text-indent: 4px;
+}
+
+.adv-search-results {
+  margin-bottom: 9px;
+}
+
+.adv-search-results .plus-button {
+  float: right;
+}
+
+.adv-search-results .btn-group {
+  float: left;
+}
+
 .adv-drawer {
   display: inline-block;
   float: right;
   text-decoration: underline;
   background-color: #eee;
   padding: 5px 10px 10px;
-  min-width: 131px;
+
+  text-align: center;
 }
 
 .results-pagination {
@@ -681,7 +702,7 @@ hr.thin {
 }
 
 .glyphicon-bookmark.inside {
-  position:absolute;
+  position: absolute;
   font-size: 43px;
   color: white;
   color: white;
@@ -690,7 +711,7 @@ hr.thin {
 }
 
 .glyphicon-bookmark.inside.saved {
-  position:absolute;
+  position: absolute;
   font-size: 42px;
   color: #f68c20;
   left: 1.5px;
@@ -773,7 +794,7 @@ li.book-listing {
   }
 
   #left_sidebar_accordion__container {
-    float:left;
+    float: left;
     position: relative;
     width: 100%;
     margin-bottom: 10px;
@@ -1192,7 +1213,7 @@ ul.specs {
   clear: both;
   margin: 0;
   padding: 0;
-  list-style: none
+  list-style: none;
 }
 
 li.book-field-val {
@@ -1319,7 +1340,7 @@ hr.footer-hr {
 .footer {
   width: 100%;
   font-size: .9em;
-  clear:both;
+  clear: both;
 }
 
 .footer .getty-logo{
@@ -1481,35 +1502,38 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
 /* Feedback */
 
+.top-copy {
+  margin-bottom: 35px;
+}
+
 .fb-field {
-  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.fb-field p {
+  margin-bottom: 5px;
 }
 
 .fb-field input{
   width: 100%;
+  height: 40px;
+  padding: 10px;
 }
 
 .fb-field select {
   width: 100%;
+  margin-bottom: 20px;
 }
 
-.fbfields {
-  display: inline-block;
-}
-
-.ff-error-msg {
-  color: red;
-  margin-top: 5px;
+.user-feedback p {
+  margin-bottom: 5px;
 }
 
 .user-feedback textarea {
   height: 150px;
   width: 100%;
-}
-
-.ur-fb {
-  margin-top: 15px;
-  margin-bottom: -5px;
+  border: 1px solid #ddd;
+  padding: 10px;
 }
 
 #feedback-submit {
@@ -1517,6 +1541,17 @@ a.well.well-sm:hover, a.well.well-sm:focus {
   display: block;
   width: 150px;
   height: 40px;
+  background-color: #5998c9;
+  color: #fff;
+}
+
+input#feedback-submit {
+  border: none;
+}
+
+.ff-error-msg {
+  color: red;
+  margin-top: 5px;
 }
 
 .thanks {
@@ -1722,7 +1757,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     #announcement {
-      width: 50%
+      width: 50%;
     }
 
     /* Search Results */
@@ -1949,6 +1984,23 @@ a.well.well-sm:hover, a.well.well-sm:focus {
       padding-left: 10px;
     }
 
+    .row {
+      margin-right: -10px;
+      margin-left: -10px;
+    }
+
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    .container > .navbar-header {
+      margin-right: -10px;
+      margin-left: -10px;
+    }
+
+
+
     /* Disabled Hover states */
     .bookmark-text {
       display: none !important;
@@ -2012,11 +2064,11 @@ a.well.well-sm:hover, a.well.well-sm:focus {
     }
 
     #announcement {
-      width: 60%
+      width: 60%;
     }
 
     .stats .box { 
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
 
     /* Search Results */
@@ -2064,12 +2116,12 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     .go-btn-results-col {
       padding-right: 10px;
-      padding-left: 10px
+      padding-left: 10px;
     }
 
     #go-btn-results {
       float: right;
-      width: 100%
+      width: 100%;
     }
 
     .paging {
@@ -2190,7 +2242,7 @@ a.well.well-sm:hover, a.well.well-sm:focus {
 
     .view-export-print {
       display: block;
-      float: left;
+      float: none;
       margin: 0 0 10px;
     }
 

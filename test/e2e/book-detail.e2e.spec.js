@@ -27,8 +27,8 @@ describe('Book Detail', function() {
     var testData = require('../../mocks/book.json');
     bookDetailPage.clickExport();
     $('.saveJson').click();
-    var fileContents = $('.saveJson').evaluate('fileContents').then(function(data){
-      return JSON.parse(data);
+    var fileContents = $('.saveJson').evaluate('fileContents').then(function(response){
+      return JSON.parse(response).data;
     });
     expect(fileContents).toEqual(testData);
   });
@@ -46,9 +46,9 @@ describe('Book Detail', function() {
     // The return object from fs.readFile does not have expected String funcs like .slice()
     // ...and newLines are not in the string.
     // Had to handle inside callback like this for things to work.
-    var fileContentsRis = $('.saveRis').evaluate('fileContentsRis').then(function(data){
-      return data.slice(
-        (data.indexOf('UR  - ') + 6), data.indexOf('N1')
+    var fileContentsRis = $('.saveRis').evaluate('fileContentsRis').then(function(response){
+      return response['data'].slice(
+        (response['data'].indexOf('UR  - ') + 6), response['data'].indexOf('N1')
       ).trim();
     });
 
@@ -89,6 +89,27 @@ describe('Book Detail', function() {
       elm.click();
     }, bookDetailPage.getPrintButton().getWebElement());
     expect(result).toBe(true);
+  });
+
+  it('should run a search after clicking contributor link', function() {
+    bookDetailPage.clickLink('Houssaye, Édouard. Directeur de publication');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(77);
+    });
+  });
+
+  it('should run a search after clicking language link', function() {
+    bookDetailPage.clickLink('French');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(270);
+    });
+  });
+
+  it('should run a search after clicking from link', function() {
+    bookDetailPage.clickLink('Gallica - Bibliothèque nationale de France');
+    element.all(by.css('.showing')).get(0).evaluate('numTotalHits').then(function(hits) {
+      expect(hits).toEqual(100);
+    });
   });
 
 

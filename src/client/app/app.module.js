@@ -16,6 +16,7 @@
     'app.controller',
     'app.contributors',
     'app.book-detail',
+    'app.error',
     'AngularPrint',
     'smoothScroll',
     'ngAnimate',
@@ -43,15 +44,28 @@
       console.log('In ' + config.env + '. Debug mode enabled');
     }
   }])
+  
+  // app initialization
+  .run(runBlock);
 
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams){
+  runBlock.$inject = ['$rootScope', '$state', '$stateParams', '$window'];
+  function runBlock($rootScope, $state, $stateParams, $window){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-
     // assign this here to persist open tabs across stage changes
     $rootScope.$activeTabs = [];
-    $rootScope.showSpinnner = false;
-  }]);
+    $rootScope.showSpinner = false;
 
+    // track pageview on state change
+    $rootScope.$on('$stateChangeSuccess', function (event) {
+      $window.ga('send', 'pageview', $location.path());
+    });
+
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+      event.preventDefault();
+      $state.go('error');
+    });
+
+  }
 })();

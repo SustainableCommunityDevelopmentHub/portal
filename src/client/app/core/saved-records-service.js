@@ -25,7 +25,12 @@
      * @returns {boolean} whether searches match
      */
     function searchesMatch(oldSearch, newSearch) {
-      if (oldSearch.q !== newSearch.q) {
+      if (!oldSearch) {
+        return false;
+      }
+      if (!_.isEqual(oldSearch.q, newSearch.q)) {
+        console.log(oldSearch);
+        console.log(newSearch);
         return false;
       }
       if(newSearch.facets && newSearch.facets.length > 0){
@@ -53,21 +58,22 @@
      */
     function saveSearch(searchOpts, results, timestamp) {
       var searches = getSearches();
-      var lastSearchOpts = DEFAULTS.searchOpts;
+      var lastSearchOpts;
+      if (searchOpts.q.length == 0 && searchOpts.facets.length == 0 && searchOpts.advancedFields.length == 0) {
+        return false;
+      }
       if (searches && searches.length > 0) {
-        var lastSearch = searches[searches.length - 1].opts;
-        if (lastSearch) {
-          lastSearchOpts = lastSearch;
+        var lastSearchOpts = searches[searches.length - 1].opts;
+        if (searchesMatch(lastSearchOpts, searchOpts)) {
+        return false;
         }
       }
-      if(!searchesMatch(lastSearchOpts, searchOpts)) {
-        var newSearch = {
-          opts: searchOpts,
-          numResults: results,
-          time: timestamp
-        };
-        saveItem(SAVED_ITEMS.searchKey, newSearch);
-      }
+      var newSearch = {
+        opts: searchOpts,
+        numResults: results,
+        time: timestamp
+      };
+      saveItem(SAVED_ITEMS.searchKey, newSearch);
     }
 
     /**

@@ -33,5 +33,10 @@
         display: 'From',
         searchKey: '_grp_contributor'
       },
+      keyword: {
+        paramName: 'adv_keyword',
+        display: 'Keyword',
+        searchKey: 'keyword'
+      }
     });
 })();

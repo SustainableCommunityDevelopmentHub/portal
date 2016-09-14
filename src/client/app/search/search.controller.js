@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -49,6 +49,12 @@
     $scope.savedRecords = SavedRecordsService.getRecords();
 
     $scope.bookMarkText = "";
+    $scope.showAdvDropDown = SearchService.showAdvDropDown;
+    if ($scope.showAdvDropDown) {
+        $scope.advDropDownText = "Close";
+      } else {
+        $scope.advDropDownText = "Advanced Search"
+      }
     saveSearch(ss.opts, $scope.numTotalHits);
 
 
@@ -58,6 +64,9 @@
     $scope.allPageSizeOptions = [10,25,50,100];
     $scope.validSortModes = SORT_MODES;
     $scope.validPageSizeOptions = getValidPageSizeOptions($scope.numTotalHits);
+    $scope.advFields = ADVANCED_SEARCH;
+    $scope.selectedAdvField = ADVANCED_SEARCH.title;
+    $scope.advSearchTerm = "";
 
     ///////////////////////////
     //Private/Helper Functions
@@ -245,6 +254,29 @@
     $scope.clearDateRange = function() {
       ss.opts.date = {};
       updateSearch({from: 0});
+    };
+
+    $scope.addAdvSearchTerm = function() {
+      if ($scope.advSearchTerm) {
+        var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
+        ss.opts.advancedFields.push(newField);
+        ss.opts.from = 0;
+        ss.transitionStateAndSearch();
+      }
+    };
+
+    $scope.setSelectedAdvField = function(field) {
+      $scope.selectedAdvField = field;
+    };
+
+    $scope.toggleAdvDropDown = function() {
+      $scope.showAdvDropDown = !$scope.showAdvDropDown;
+      SearchService.showAdvDropDown = $scope.showAdvDropDown;
+      if ($scope.showAdvDropDown) {
+        $scope.advDropDownText = "Close";
+      } else {
+        $scope.advDropDownText = "Advanced Search"
+      }
     };
   }
 })();

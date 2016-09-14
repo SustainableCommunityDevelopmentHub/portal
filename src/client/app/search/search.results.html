@@ -122,16 +122,16 @@
                 </li>
                 <li class="facet-search" ng-repeat="advancedField in advancedFields">
                   <div class="facet-chip">
-                    <a ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+                    <a class="facet-search" ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
                   </div>
                 </li>
                 <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">
                   <div class="facet-chip">
-                    <a ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></a>
+                    <a class="facet-search" ng-click="clearDateRange()">{{ dateRange.gte }} - {{ dateRange.lte }} <i>(Date)</i><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></a>
                   </div>
                 </li>
                 <li>
-                  <input autofocus class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size myFocus>
+                  <input class="facet-search" ng-model="newQueryTerm" id="facet-chip-input" type="text" adjust-size myFocus>
                 </li>
               </ul>
             </div>
@@ -170,6 +170,22 @@
           </div>
         </div>
       </div>
+      <div class="search-container" ng-show="showAdvDropDown">
+        <div class="adv-search-results">
+          <form ng-submit="addAdvSearchTerm()" class="">
+            <div class="btn-group" uib-dropdown>
+              <button class="btn btn-primary search-dropdown dropdown-toggle" uib-dropdown-toggle type="button">{{ selectedAdvField.display }} <span class="glyphicon glyphicon-triangle-bottom" style="color:white"></span></button>
+                <ul uib-dropdown-menu role="menu" class="dropdown-menu">
+                  <li ng-repeat="advField in advFields">
+                    <a ng-click="setSelectedAdvField(advField)">{{ advField.display }}</a>
+                  </li>
+                </ul>
+            </div>
+            <button class="plus-button" type="submit"><i class="glyphicon-plus glyphicon"></i></button>
+            <span class="adv-span"><input type="text" class="adv-input" ng-model="advSearchTerm"></span>
+          </form>
+        </div>
+      </div>
     </div>
 
     <div class="col-xs-6 col-sm-5">
@@ -179,7 +195,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3">
-      <a class= "adv-drawer" href="/advanced">Advanced Search</a>
+      <a class="adv-drawer" ng-click="toggleAdvDropDown()">{{ advDropDownText }}</a>
     </div>
 
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">

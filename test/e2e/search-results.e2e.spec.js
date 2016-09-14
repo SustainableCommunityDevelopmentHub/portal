@@ -490,4 +490,31 @@ describe('Search Results', function() {
     });
   });
 
+  describe('Advanced Search', function(){
+
+    it('should should allow users to add advanced search options from the results page', function() {
+      resultsPage.clickAdvancedSearchLink();
+      resultsPage.getAdvancedSearchInput().sendKeys('handbook');
+      resultsPage.clickAdvAddButton();
+      resultsPage.numTotalHits.then(function(hits) {
+        expect(hits).toEqual(8);
+      });
+      expect(resultsPage.advancedFacetChips.count()).toEqual(1);
+      resultsPage.advancedFacetChips.get(0).click();
+      expect(resultsPage.advancedFacetChips.count()).toEqual(0);
+      resultsPage.numTotalHits.then(function(hits) {
+        expect(hits).toEqual(452);
+      });
+    });
+
+    it('should keep advanced search drop down open after adding an option', function() {
+      resultsPage.clickAdvancedSearchLink();
+      resultsPage.getAdvancedSearchInput().sendKeys('handbook');
+      resultsPage.clickAdvAddButton();
+      expect(resultsPage.getAdvancedSearchInput().isDisplayed()).toBeTruthy();
+      resultsPage.clickAdvancedSearchLink();
+      expect(resultsPage.getAdvancedSearchInput().isDisplayed()).toEqual(false);
+    });
+  });
+
 });
