@@ -122,6 +122,8 @@
       "./src/client/app/advanced_search/constants.js",
       "./src/client/app/contributors/contributors.module.js",
       "./src/client/app/contributors/contributors.controller.js",
+      "./src/client/app/error/error.module.js",
+      "./src/client/app/error/error.controller.js",
       "./src/client/app/book_detail/book-detail.module.js",
       "./src/client/app/book_detail/book-detail.controller.js",
       "./src/client/app/app.controller.js",
