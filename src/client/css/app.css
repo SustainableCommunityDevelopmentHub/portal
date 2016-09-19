@@ -404,6 +404,14 @@ hr.thin {
   content: " ";
 }
 
+.new-contributors-list {
+  padding-left: 0;
+}
+
+.new-contributors-item {
+  list-style: none;
+}
+
   /* Stat Boxes */
 
     .stats {

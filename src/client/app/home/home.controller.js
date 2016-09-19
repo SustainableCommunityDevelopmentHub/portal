@@ -3,14 +3,15 @@
 
   angular
   .module('app.home')
-  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'SORT_MODES', 'config', HomePageCtrl]);
+  .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'SORT_MODES', 'config', 'NEW_CONTRIBUTORS', HomePageCtrl]);
 
-  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, config) {
+  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, config, NEW_CONTRIBUTORS) {
     $scope.totalTitles = config.numTotalTitles;
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
     $scope.showSpinner = false;
+    $scope.contributors = NEW_CONTRIBUTORS;
 
     function newSearch(opts) {
       SearchService.resetOpts();
