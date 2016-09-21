@@ -44,12 +44,12 @@
       console.log('In ' + config.env + '. Debug mode enabled');
     }
   }])
-  
+
   // app initialization
   .run(runBlock);
 
-  runBlock.$inject = ['$rootScope', '$state', '$stateParams', '$window'];
-  function runBlock($rootScope, $state, $stateParams, $window){
+  runBlock.$inject = ['$rootScope', '$state', '$stateParams', '$window', '$location'];
+  function runBlock($rootScope, $state, $stateParams, $window, $location){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;

@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', 'config', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH, config){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -170,7 +170,7 @@
 
     $scope.dateSlider = {
       options: {
-        floor: 0,
+        floor: config.oldestDate,
         ceil: 2016
       }
     };
