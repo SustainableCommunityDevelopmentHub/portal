@@ -229,6 +229,12 @@ ResultsPage.prototype = Object.create({}, {
     element.all(by.id("date-btn-results")).get(0).click();
   }},
 
+  submitSliderRange: { value: function(xCoordinate) {
+    var slider = element(by.css('.rz-pointer-max'));
+    browser.actions().dragAndDrop(slider, {x: xCoordinate, y:0}).perform();
+    element.all(by.id("date-btn-results")).get(0).click();
+  }},
+
   // Facet Modal
   openFacetModal: { value: function(facet) {
     element(by.id("see-all-"+facet)).click();

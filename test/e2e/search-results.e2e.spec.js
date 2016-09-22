@@ -100,7 +100,7 @@ describe('Search Results', function() {
     resultsPage.submitDateRange('1800', '');
     expect(resultsPage.numTotalHits).toEqual(26);
     resultsPage.getQueryString().then(function(queryString){
-      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1800');
+      expect(queryString).toEqual('q=paintings&from=0&size=25&sort=relevance&date_gte=1800&date_lte=0');
     });
 
     resultsPage.getHits().then(function(hits) {
@@ -110,6 +110,11 @@ describe('Search Results', function() {
        }
      });
   });
+
+  it('should filter results by date when you use date range slider', function(){
+    resultsPage.submitSliderRange(100);
+    expect(resultsPage.numTotalHits).toEqual(2);
+  })
 
   it('should save book records', function () {
     resultsPage.submitNewSearchTerm('paintings');

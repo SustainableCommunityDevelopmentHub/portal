@@ -170,8 +170,10 @@
 
     $scope.dateSlider = {
       options: {
+        minLimit: config.oldestDate,
+        maxLimit: new Date().getFullYear(),
         floor: config.oldestDate,
-        ceil: 2016
+        ceil: new Date().getFullYear()
       }
     };
 
