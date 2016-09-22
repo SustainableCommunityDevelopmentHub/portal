@@ -173,7 +173,11 @@
         minLimit: config.oldestDate,
         maxLimit: new Date().getFullYear(),
         floor: config.oldestDate,
-        ceil: new Date().getFullYear()
+        floorLabel: config.oldestDate,
+        ceil: new Date().getFullYear(),
+        ceilLabel: new Date().getFullYear(),
+        pushRange: true,
+        step: 1
       }
     };
 

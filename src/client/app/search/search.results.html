@@ -81,11 +81,11 @@
             <form ng-submit="setDateRange(fromDate, toDate)">
               <div class="date-range">
                 <p>From:</p>
-                <input ng-model="fromDate" maxlength="4"  type="text" value="">
+                <input ng-model="fromDate" max=" {{ toDate - 1}}" maxlength="4"  type="text">
               </div>
               <div class="date-range">
                 <p>To:</p>
-                <input ng-model="toDate" maxlength="4" type="text" value="">
+                <input ng-model="toDate" min=" {{ fromDate + 1}}" maxlength="4" type="text">
               </div>
               <div>
               <rzslider rz-slider-model="fromDate" rz-slider-high="toDate" rz-slider-options="dateSlider.options"></rzslider>
