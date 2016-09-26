@@ -54,31 +54,28 @@ SAMPLE_DATA = [
 ]
 
 def create_source(data_path):
-	#create_source_marc(data_path)
 	create_source_marc(data_path)
 	#create_source_dc(data_path)
-	#create_source_dc(data_path)
-	#create_source_mets(data_path)
 	#create_source_mets(data_path)
 
+def assign_directories(data_path, contrib_dir):
+	inst = contrib_dir.split('/')[-1].split('_')[0]
+	idate = contrib_dir.split('/')[-1].split('_')[-1]
+	inst_dir = os.path.join(data_path, 'source_data', inst)
+	if not os.path.isdir(inst_dir):
+		os.mkdir(inst_dir)
+	date_dir = os.path.join(inst_dir, idate)
+	if not os.path.isdir(date_dir):
+		os.mkdir(date_dir)
+	return inst, idate, date_dir
+
 def create_source_marc(data_path):
-	in_dir = os.path.join(data_path, 'contributed_data/marc_data')
-	for contrib_dir in os.listdir(in_dir):
-		if contrib_dir == '.DS_Store':
-			continue
-		inst = contrib_dir.split('_')[0]
-		idate = contrib_dir.split('_')[-1]
-		inst_dir = os.path.join(data_path, 'source_data', inst)
-		if not os.path.isdir(inst_dir):
-			os.mkdir(inst_dir)
-		date_dir = os.path.join(inst_dir, idate)
-		if not os.path.isdir(date_dir):
-			os.mkdir(date_dir)
-		for f in os.listdir(os.path.join(in_dir, contrib_dir)):
-			if f == '.DS_Store':
-				continue
-			file_path = os.path.join(in_dir, contrib_dir, f)
-			marc_list = helpers.get_marc_list(file_path)
+	contrib_dirs = '{}/contributed_data/marc_data/*'.format(data_path)
+	for contrib_dir in glob(contrib_dirs):
+		inst, idate, date_dir = assign_directories(data_path, contrib_dir)
+		infs = '{}/*'.format(contrib_dir)
+		for f in glob(infs):
+			marc_list = helpers.get_marc_list(f)
 			for record in marc_list:
 				recid = helpers.get_id(inst, record)
 				outname = '{}.mrc'.format(recid)
