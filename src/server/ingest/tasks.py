@@ -54,8 +54,8 @@ SAMPLE_DATA = [
 ]
 
 def create_source(data_path):
-	create_source_marc(data_path)
-	#create_source_dc(data_path)
+	#create_source_marc(data_path)
+	create_source_dc(data_path)
 	#create_source_mets(data_path)
 
 def assign_directories(data_path, contrib_dir):
@@ -77,7 +77,7 @@ def create_source_marc(data_path):
 		for f in glob(infs):
 			marc_list = helpers.get_marc_list(f)
 			for record in marc_list:
-				recid = helpers.get_id(inst, record)
+				recid = helpers.get_marc_id(inst, record)
 				outname = '{}.mrc'.format(recid)
 				try:
 					with open(os.path.join(date_dir, outname), 'wb') as outf:
@@ -85,7 +85,7 @@ def create_source_marc(data_path):
 						writer.write(record)
 					print('Created source record {}'.format(os.path.join(date_dir, outname)))
 				except UnicodeEncodeError:
-					if inst.startswith('gri') and record.leader[9] == ' ':
+					if inst == 'gri' and record.leader[9] == ' ':
 						record.leader = record.leader[0:9] + 'a' + record.leader[10:]
 						with open(os.path.join(date_dir, outname), 'wb') as outf:
 							writer = MARCWriter(outf)
@@ -93,72 +93,27 @@ def create_source_marc(data_path):
 						print('Created source record {}'.format(os.path.join(date_dir, outname)))
 
 def create_source_dc(data_path):
-	in_dir = os.path.join(data_path, 'contributed_data/dc_data')
-	for harvest_dir in os.listdir(in_dir):
-		if harvest_dir == '.DS_Store':
-			continue
-		inst = harvest_dir.split('_')[0]
-		idate = harvest_dir.split('_')[-1]
-		inst_dir = os.path.join(data_path, 'source_data', inst)
-		if not os.path.isdir(inst_dir):
-			os.mkdir(inst_dir)
-		date_dir = os.path.join(inst_dir, idate)
-		if not os.path.isdir(date_dir):
-			os.mkdir(date_dir)
-		for f in os.listdir(os.path.join(in_dir, harvest_dir)):
-			if f == '.DS_Store':
-				continue
-			with open(os.path.join(in_dir, harvest_dir, f), 'rb') as inf:
+	contrib_dirs = '{}/contributed_data/dc_data/*'.format(data_path)
+	for contrib_dir in glob(contrib_dirs):
+		inst, idate, date_dir = assign_directories(data_path, contrib_dir)
+		infs = '{}/*'.format(contrib_dir)
+		for f in glob(infs):
+			with open(f, 'rb') as inf:
 				record = etree.parse(inf)
 				root = record.getroot()
 				nsmap = root.nsmap
-				if inst.startswith('met'):
-					if root.xpath('dc:rights', namespaces=nsmap):
-						if root.xpath('dc:format', namespaces=nsmap):
-							identifiers = root.xpath('dc:identifier', namespaces=nsmap)
-							for field in identifiers:
-								value = field.text
-								if value is None:
-									continue
-								if value.startswith('http'):
-									recid = '{}_{}_{}'.format(inst, value.split('/')[-3], value.split('/')[-1])
-									outname = '{}.xml'.format(recid)
-									with open(os.path.join(date_dir, outname), 'wb') as outf:
-										record.write(outf, encoding='UTF-8')
-									print('Created source record {}'.format(os.path.join(date_dir, outname)))
-				elif inst.startswith('malaga'):
-					identifiers = root.xpath('dcvalue[@element=\'identifier\'][@qualifier=\'uri\']', namespaces=nsmap)
-					for field in identifiers:
-						value = field.text
-						if value is None:
-							continue
-						recid = '{}_{}_{}'.format(inst, value.split('/')[-2], value.split('/')[-1])
-						outname = '{}.xml'.format(recid)
-						with open(os.path.join(date_dir, outname), 'wb') as outf:
-							record.write(outf, encoding='UTF-8')
-						print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				if inst == 'met':
+					ident = helpers.get_met_id(record, root, nsmap)
+				elif inst == 'malaga':
+					ident = helpers.get_malaga_id(record, root, nsmap)
 				else:
-					identifiers = root.xpath('dc:identifier', namespaces=nsmap)
-					for field in identifiers:
-						value = field.text
-						if value is None:
-							continue
-						if value.startswith('http'):
-							if inst.startswith('wolf'):
-								f = f.rstrip('_')
-								recid = '{}_{}'.format(inst, f.split('_')[-1])
-							elif inst.startswith('clark'):
-								recid = '{}_{}_{}'.format(inst, value.split('/')[-3], value.split('/')[-1])
-							else:
-								recid = value.split('/')[-1]
-								if recid == 'date':
-									recid = '{}_{}'.format(inst, value.split('/')[-2])
-								else:
-									recid = '{}_{}'.format(inst, recid)
-							outname = '{}.xml'.format(recid)
-							with open(os.path.join(date_dir, outname), 'wb') as outf:
-								record.write(outf, encoding='UTF-8')
-							print('Created source record {}'.format(os.path.join(date_dir, outname)))
+					ident = helpers.get_dc_id(inst, f, record, root, nsmap)
+			if ident is not None:
+				recid = '{}_{}'.format(inst, ident)
+				outname = '{}.xml'.format(recid)
+				with open(os.path.join(date_dir, outname), 'wb') as outf:
+					record.write(outf, encoding='UTF-8')
+				print('Created source record {}'.format(os.path.join(date_dir, outname)))
 
 def create_source_mets(data_path):
 	in_dir = os.path.join(data_path, 'contributed_data/mets_data')
