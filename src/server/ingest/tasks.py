@@ -5,11 +5,12 @@ import requests
 import filecmp
 
 from django.conf import settings
-from pymarc import MARCReader, XmlHandler, parse_xml, MARCWriter
+from pymarc import MARCWriter
 from lxml import etree
 
 from funnel import marc, dublin_core, mets
 from ingest.models import Record, Contributor
+from ingest import helpers
 
 
 MARC_INST = [
@@ -56,9 +57,9 @@ def create_source(data_path):
 	#create_source_marc(data_path)
 	create_source_marc(data_path)
 	#create_source_dc(data_path)
-	create_source_dc(data_path)
+	#create_source_dc(data_path)
 	#create_source_mets(data_path)
-	create_source_mets(data_path)
+	#create_source_mets(data_path)
 
 def create_source_marc(data_path):
 	in_dir = os.path.join(data_path, 'contributed_data/marc_data')
@@ -76,36 +77,19 @@ def create_source_marc(data_path):
 		for f in os.listdir(os.path.join(in_dir, contrib_dir)):
 			if f == '.DS_Store':
 				continue
-			if f.endswith('.xml'):
-				handler = XmlHandler()
-				parse_xml(os.path.join(in_dir, contrib_dir, f), handler)
-				for record in handler.records:
-					if inst == 'warburg' or inst == 'artic':
-						recid = '{}_{}'.format(inst, record['907']['a'])
-					else:
-						recid = '{}_{}'.format(inst, record['001'].format_field())
-					outname = '{}.mrc'.format(recid)
-					try:
-						with open(os.path.join(date_dir, outname), 'wb') as outf:
-							writer = MARCWriter(outf)
-							writer.write(record)
-						print('Created source record {}'.format(os.path.join(date_dir, outname)))
-					except UnicodeEncodeError:
-						if inst.startswith('gri') and record.leader[9] == ' ':
-							record.leader = record.leader[0:9] + 'a' + record.leader[10:]
-							with open(os.path.join(date_dir, outname), 'wb') as outf:
-								writer = MARCWriter(outf)
-								writer.write(record)
-							print('Created source record {}'.format(os.path.join(date_dir, outname)))
-			else:
-				with open(os.path.join(in_dir, contrib_dir, f), 'rb') as inf:
-					reader = MARCReader(inf, to_unicode=True)
-					for record in reader:
-						if inst == 'warburg' or inst == 'artic':
-							recid = '{}_{}'.format(inst, record['907']['a'])
-						else:
-							recid = '{}_{}'.format(inst, record['001'].format_field())
-						outname = '{}.mrc'.format(recid)
+			file_path = os.path.join(in_dir, contrib_dir, f)
+			marc_list = helpers.get_marc_list(file_path)
+			for record in marc_list:
+				recid = helpers.get_id(inst, record)
+				outname = '{}.mrc'.format(recid)
+				try:
+					with open(os.path.join(date_dir, outname), 'wb') as outf:
+						writer = MARCWriter(outf)
+						writer.write(record)
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except UnicodeEncodeError:
+					if inst.startswith('gri') and record.leader[9] == ' ':
+						record.leader = record.leader[0:9] + 'a' + record.leader[10:]
 						with open(os.path.join(date_dir, outname), 'wb') as outf:
 							writer = MARCWriter(outf)
 							writer.write(record)
@@ -349,8 +333,8 @@ def load_es(es, recid, rec):
 def main():
 	create_source(settings.TEST_DATA)
 	#create_source(settings.PRODUCTION_DATA)
-	create_index(settings.LOCAL)
-	process_data(settings.TEST_DATA, settings.LOCAL)
+	#create_index(settings.LOCAL)
+	#process_data(settings.TEST_DATA, settings.LOCAL)
 
 
 if __name__ == '__main__':
