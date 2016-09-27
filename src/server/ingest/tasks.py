@@ -163,67 +163,66 @@ def create_index(es):
 	r = requests.put(ES_BOOK_MAP, json=data)
 	print('Creating Book mapping...{}'.format(r.status_code))
 
-def process_data(source_path, es):
-	source = os.path.join(source_path, 'source_data')
-	for inst in os.listdir(source):
-		if inst == '.DS_Store':
-			continue
-		inst_dir = os.path.join(source, inst)
-		for idate in os.listdir(inst_dir):
-			if idate == '.DS_Store':
-				continue
-			date_dir = os.path.join(inst_dir, idate)
-			print(date_dir + '\n\n')
-			for inf in os.listdir(date_dir):
-				if inf == '.DS_Store':
-					continue
-				recid = inf.split('.')[0]
-				fpath = os.path.join(date_dir, inf)
-				print('{}\n'.format(fpath))
+def process_data(data_path, es):
+	source_dirs = '{}/source_data/*'.format(data_path)
+	for source_dir in glob(source_dirs):
+		inst = source_dir.split('/')[-1]
+		date_dirs = '{}/*'.format(source_dir)
+		for date_dir in glob(date_dirs):
+			idate = date_dir.split('/')[-1]
+			fpaths = '{}/*'.format(date_dir)
+			for fpath in glob(fpaths):
+				recid = fpath.split('/')[-1].split('.')[0]
 				erec = Record.objects.filter(pk=recid)
 				if len(erec) == 0:
-					contrib = Contributor.objects.get(pk=inst)
-					if inst in MARC_INST:
-						Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='MA')
-						rec = marc.main(fpath)
-					elif inst in DC_INST:
-						Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='DC')
-						rec = dublin_core.main(fpath)
-					elif inst in METS_INST:
-						Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
-						rec = mets.main(fpath)
-					if es == 'http://local.portal.dev:9200':
-						if inst == 'gri' and idate == '2015-10-19':
-							load_es(es, recid, rec)
-						elif inst in SAMPLE_DATA:
-							load_es(es, recid, rec)
-					else:
-						load_es(es, recid, rec)
+					process_new_rec(inst, recid, idate, fpath, es)
 				elif len(erec) == 1:
 					oldrec = erec[0]
-					oldpath = oldrec.source_path
-					print(oldpath)
-					diff = filecmp.cmp(fpath, oldpath, shallow=False)
-					if diff is False:
-						print('Update Record')
-						oldrec.updated_date = idate
-						oldrec.source_path = fpath
-						oldrec.save()
-						if inst in MARC_INST:
-							rec = marc.main(fpath)
-						elif inst in DC_INST:
-							rec = dublin_core.main(fpath)
-						elif inst in METS_INST:
-							rec = mets.main(fpath)
-						if es == 'http://local.portal.dev:9200':
-							if inst == 'gri' and idate == '2015-10-19':
-								load_es(es, recid, rec)
-							elif inst in SAMPLE_DATA:
-								load_es(es, recid, rec)
-						else:
-							load_es(es, recid, rec)
-					else:
-						print('No Diff, Do Nothing')		
+					process_dupe_rec(oldrec, inst, recid, idate, fpath, es)
+
+def process_new_rec(inst, recid, idate, fpath, es):
+	contrib = Contributor.objects.get(pk=inst)
+	if inst in MARC_INST:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='MA')
+		rec = marc.main(fpath)
+	elif inst in DC_INST:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='DC')
+		rec = dublin_core.main(fpath)
+	elif inst in METS_INST:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
+		rec = mets.main(fpath)
+	if es == 'http://local.portal.dev:9200':
+		if inst == 'gri' and idate == '2015-10-19':
+			load_es(es, recid, rec)
+		elif inst in SAMPLE_DATA:
+			load_es(es, recid, rec)
+	else:
+		load_es(es, recid, rec)
+
+def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
+	oldpath = oldrec.source_path
+	print(oldpath)
+	diff = filecmp.cmp(fpath, oldpath, shallow=False)
+	if diff is False:
+		print('Update Record')
+		oldrec.updated_date = idate
+		oldrec.source_path = fpath
+		oldrec.save()
+		if inst in MARC_INST:
+			rec = marc.main(fpath)
+		elif inst in DC_INST:
+			rec = dublin_core.main(fpath)
+		elif inst in METS_INST:
+			rec = mets.main(fpath)
+		if es == 'http://local.portal.dev:9200':
+			if inst == 'gri' and idate == '2015-10-19':
+				load_es(es, recid, rec)
+			elif inst in SAMPLE_DATA:
+				load_es(es, recid, rec)
+		else:
+			load_es(es, recid, rec)
+	else:
+		print('No Diff, Do Nothing')
 
 def load_es(es, recid, rec):
 	ES_DOC = '{}/portal/book/{}'.format(es, recid)
@@ -236,10 +235,10 @@ def load_es(es, recid, rec):
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
 
 def main():
-	#create_source(settings.TEST_DATA)
-	create_source(settings.PRODUCTION_DATA)
-	#create_index(settings.LOCAL)
-	#process_data(settings.TEST_DATA, settings.LOCAL)
+	create_source(settings.TEST_DATA)
+	#create_source(settings.PRODUCTION_DATA)
+	create_index(settings.LOCAL)
+	process_data(settings.TEST_DATA, settings.LOCAL)
 
 
 if __name__ == '__main__':
