@@ -4,6 +4,7 @@ from glob import glob
 import json
 import requests
 import filecmp
+from datetime import datetime
 
 from django.conf import settings
 from pymarc import MARCWriter
@@ -23,8 +24,7 @@ SAMPLE_DATA = [
 
 class Contribution(object):
 
-	def __init__(self, data_path, metadata_type, in_dir, es, update_es=False):
-		print(update_es)
+	def __init__(self, data_path, metadata_type, in_dir, es, update_es=False, create_source=False):
 		if data_path == 'test':
 			self.data_path = settings.TEST_DATA
 		elif data_path == 'production':
@@ -46,6 +46,7 @@ class Contribution(object):
 		elif es == 'production':
 			self.es = settings.PROD
 		self.update_es = update_es
+		self.create_source = create_source
 
 	def create_source_marc(self):
 		infs = '{}/*'.format(self.supplied_dir)
@@ -121,7 +122,13 @@ class Contribution(object):
 				self.process_new_rec(recid, fpath)
 			elif len(erec) == 1:
 				oldrec = erec[0]
-				self.process_dupe_rec(oldrec, recid, fpath)
+				if oldrec.updated_date:
+					old_date = oldrec.updated_date
+				else:
+					old_date = oldrec.ingest_date
+				idate = datetime.strptime(self.idate, '%Y-%m-%d').date()
+				if idate >= old_date:
+					self.process_dupe_rec(oldrec, recid, fpath)
 
 	def process_new_rec(self, recid, fpath):
 		contrib = Contributor.objects.get(pk=self.inst)
@@ -189,30 +196,22 @@ def main():
 	parser.add_argument('metadata_type', choices=['marc', 'dc', 'mets'])
 	parser.add_argument('in_dir', help='name of new supplied_data dir')
 	parser.add_argument('-u', '--update', dest='update_es', action='store_true', help='reprocess data and push updated doc to ES')
+	parser.add_argument('-c', '--create', dest='create_source', action='store_true', help='create source records from supplied data')
 	#parser.add_argument('-u', '--update', dest='update_es', choices=[True, False], default=False, help='reprocess data and push updated doc to ES')
 
 	args = parser.parse_args()
 
 	contribution = Contribution(**vars(args))
 
-	if contribution.metadata_type == 'marc':
-		contribution.create_source_marc()
-	elif contribution.metadata_type == 'dc':
-		contribution.create_source_dc()
-	elif contribution.metadata_type == 'mets':
-		contribution.create_source_mets()
+	if contribution.create_source  is True:
+		if contribution.metadata_type == 'marc':
+			contribution.create_source_marc()
+		elif contribution.metadata_type == 'dc':
+			contribution.create_source_dc()
+		elif contribution.metadata_type == 'mets':
+			contribution.create_source_mets()
 
 	contribution.process_data()
-	'''job = sys.argv[1]
-	data_path = sys.argv[2]
-	es = sys.argv[3]
-	if job == 'full':
-		full_ingest(data_path, es)
-	elif job == 'new':
-		relative_path = sys.argv[4]
-		if len(sys.argv) == 6:
-			update_es = sys.argv[5]
-		new_ingest(data_path, es, relative_path, update_es=False)'''
 
 
 if __name__ == '__main__':
