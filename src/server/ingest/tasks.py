@@ -187,7 +187,16 @@ class Contribution(object):
 			raise
 		print('Uploading {}...{}\n'.format(recid, resp.status_code))
 
+	def contribute(self):
+		if self.create_source  is True:
+			if self.metadata_type == 'marc':
+				self.create_source_marc()
+			elif self.metadata_type == 'dc':
+				self.create_source_dc()
+			elif self.metadata_type == 'mets':
+				self.create_source_mets()
 
+		self.process_data()
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -197,21 +206,13 @@ def main():
 	parser.add_argument('in_dir', help='name of new supplied_data dir')
 	parser.add_argument('-u', '--update', dest='update_es', action='store_true', help='reprocess data and push updated doc to ES')
 	parser.add_argument('-c', '--create', dest='create_source', action='store_true', help='create source records from supplied data')
-	#parser.add_argument('-u', '--update', dest='update_es', choices=[True, False], default=False, help='reprocess data and push updated doc to ES')
 
 	args = parser.parse_args()
 
 	contribution = Contribution(**vars(args))
+	contribution.contribute()
 
-	if contribution.create_source  is True:
-		if contribution.metadata_type == 'marc':
-			contribution.create_source_marc()
-		elif contribution.metadata_type == 'dc':
-			contribution.create_source_dc()
-		elif contribution.metadata_type == 'mets':
-			contribution.create_source_mets()
-
-	contribution.process_data()
+	
 
 
 if __name__ == '__main__':
