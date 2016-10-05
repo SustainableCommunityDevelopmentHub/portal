@@ -135,10 +135,10 @@
     $scope.newQuerySearch = function(query){
       var newQuery;
       if (query) {
-        query = query.trim();
-        if ($scope.queryTerms.indexOf(query) === -1){
-          $scope.queryTerms.push(query.toLowerCase());
-        }
+        query = query.match(/\w+|"[^"]+"/g);
+        for (var i = 0; i < query.length; i++) {
+          $scope.queryTerms.push(query[i].toLowerCase());
+        }        
       }
       var opts = {
         q: $scope.queryTerms,
