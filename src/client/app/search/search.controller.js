@@ -135,9 +135,9 @@
     $scope.newQuerySearch = function(query){
       var newQuery;
       if (query) {
-        query = query.match(/\w+|"[^"]+"/g);
-        for (var i = 0; i < query.length; i++) {
-          $scope.queryTerms.push(query[i].toLowerCase());
+        var distinctTerms = query.match(/\w+|"[^"]+"/g);
+        for (var i = 0; i < distinctTerms.length; i++) {
+          $scope.queryTerms.push(distinctTerms[i].strip().toLowerCase());
         }        
       }
       var opts = {
