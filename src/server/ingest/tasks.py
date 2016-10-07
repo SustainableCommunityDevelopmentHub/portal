@@ -36,6 +36,7 @@ MARC_DATA = [
 
 DC_DATA = [
 	'bnf',
+	'casa',
 	'clark',
 	'inha',
 	'malaga',
