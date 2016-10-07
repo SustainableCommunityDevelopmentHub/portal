@@ -1,7 +1,23 @@
+import os
+
 from pymarc import MARCReader, XmlHandler, parse_xml
 from lxml import etree
 
 
+
+def fix_lbi(inf, supplied_dir):
+	string_data = inf.read().replace(b' xmlns="http://www.loc.gov/MARC21/slim"', b'')
+	root = etree.fromstring(string_data)
+	for bad in root.xpath('//controlfield[@tag=\'FMT\']'):
+		bad.getparent().remove(bad)
+	for bad in root.xpath('//controlfield[@tag=\'LDR\']'):
+		bad.getparent().remove(bad)
+	record = etree.ElementTree(root)
+	print(record)
+	temp_path = os.path.join(supplied_dir, 'temp.xml')
+	with open(temp_path, 'wb') as temp:
+		record.write(temp, encoding='UTF-8', pretty_print=True)
+	return temp_path
 
 def get_marc_list(f):
 	if f.endswith('.xml'):
