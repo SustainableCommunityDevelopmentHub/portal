@@ -11,9 +11,6 @@ class Command(BaseCommand):
 	def add_arguments(self, parser):
 		parser.add_argument('data_path', choices=['test', 'production'])
 		parser.add_argument('es', choices=['local', 'dev', 'production'])
-		#parser.add_argument('metadata_type', choices=['marc', 'dc', 'mets'])
-		#parser.add_argument('in_dir', help='name of new supplied_data dir')
-		#parser.add_argument('-u', '--update', dest='update_es', action='store_true', help='reprocess data and push updated doc to ES')
 		parser.add_argument('-n', '--new', dest='new', action='store_true', help='process only new contributions')
 
 	def handle(self, *args, **options):
