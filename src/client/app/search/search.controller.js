@@ -137,8 +137,9 @@
       if (query) {
         var distinctTerms = query.match(/\w+|"[^"]+"/g);
         for (var i = 0; i < distinctTerms.length; i++) {
-          $scope.queryTerms.push(distinctTerms[i].strip().toLowerCase());
-        }        
+          var noQuotes = distinctTerms[i].replace(/['"]+/g, '');
+          $scope.queryTerms.push(noQuotes);
+        }
       }
       var opts = {
         q: $scope.queryTerms,
