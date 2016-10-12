@@ -133,12 +133,13 @@
      * Adding new query term to previous query term
      */
     $scope.newQuerySearch = function(query){
-      var newQuery;
       if (query) {
         var distinctTerms = query.match(/\w+|"[^"]+"/g);
         for (var i = 0; i < distinctTerms.length; i++) {
           var noQuotes = distinctTerms[i].replace(/['"]+/g, '');
-          $scope.queryTerms.push(noQuotes);
+          if ($scope.queryTerms.indexOf(noQuotes) === -1){
+            $scope.queryTerms.push(noQuotes.trim());
+          }
         }
       }
       var opts = {
@@ -149,6 +150,7 @@
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
+
 
     /**
      * update pagesize. init new search if pagesize increases
