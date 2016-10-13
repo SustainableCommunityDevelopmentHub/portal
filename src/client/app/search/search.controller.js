@@ -140,7 +140,7 @@
         var mergedArrays = replaceArray.concat(quotedTerms);
         for (var i = 0; i < mergedArrays.length; i++) {
           if (mergedArrays[i] != null) {
-            var noQuotes = mergedArrays[i].replace(/['"]+/g, '');
+            var noQuotes = mergedArrays[i].replace(/['"]+/g, '').toLowerCase();
             if ($scope.queryTerms.indexOf(mergedArrays[i]) === -1) {
               $scope.queryTerms.push(noQuotes);
             }
