@@ -25,6 +25,7 @@ MARC_DATA = [
 	'frick',
 	'gpvl',
 	'gri',
+	'lbi',
 	'menil',
 	'ngcanada',
 	'osci',
@@ -35,6 +36,7 @@ MARC_DATA = [
 
 DC_DATA = [
 	'bnf',
+	'casa',
 	'clark',
 	'inha',
 	'malaga',
@@ -80,7 +82,16 @@ def assign_directories(data_path, supplied_dir):
 def create_source_marc(data_path, supplied_dir, inst, idate, date_dir, es):
 	infs = '{}/*'.format(supplied_dir)
 	for f in glob(infs):
-		marc_list = helpers.get_marc_list(f)
+		print(f)
+		if inst == 'lbi':
+			with open(f, 'rb') as inf:
+				print(inst)
+				temp = helpers.fix_lbi(inf, supplied_dir)
+				print(temp)
+				marc_list = helpers.get_marc_list(temp)
+			os.remove(temp)
+		else:
+			marc_list = helpers.get_marc_list(f)
 		for record in marc_list:
 			recid = helpers.get_marc_id(inst, record)
 			outname = '{}.mrc'.format(recid)
