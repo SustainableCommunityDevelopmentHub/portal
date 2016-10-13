@@ -26,9 +26,14 @@ describe('Search Results', function() {
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(28);
   });
+  it('should split keywords unless quoted', function() {
+    resultsPage.submitNewSearchTerm('french \"art history\" skin-nay! \"of the\"');
+    expect(resultsPage.numTotalHits).toEqual(20);
+    expect(resultsPage.facetChips.get(1).getText()).toEqual("art history");
+  })
 
   it('should show decoded urls in search bar', function() {
-    resultsPage.submitNewSearchTerm("\"http://www.getty.edu/research/\"");
+    resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
     expect(resultsPage.facetChips.get(0).getText()).toEqual("http://www.getty.edu/research/ (Keyword)");
   });
 
@@ -190,7 +195,7 @@ describe('Search Results', function() {
       expect(hits).toEqual(343);
     });
     resultsPage.getFacetChip(0).click();
-    resultsPage.submitNewSearchTerm('\"skin-nay!\"');
+    resultsPage.submitNewSearchTerm("skin-nay!");
     expect(resultsPage.getFacetChip(0).getText()).toEqual('skin-nay! (Keyword)');
     resultsPage.getHits().then(function(hits) {
       expect(hits.length).toBe(1);

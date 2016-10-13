@@ -134,11 +134,36 @@
      */
     $scope.newQuerySearch = function(query){
       if (query) {
-        var distinctTerms = query.match(/\w+|"[^"]+"/g);
-        for (var i = 0; i < distinctTerms.length; i++) {
-          var noQuotes = distinctTerms[i].replace(/['"]+/g, '');
-          if ($scope.queryTerms.indexOf(noQuotes) === -1){
-            $scope.queryTerms.push(noQuotes.trim());
+        
+        // isolates quoted terms into their own array
+        var quotedTerms = query.match(/".*?"/g);
+        
+        // removes quoted terms from original query string and replaces with white space
+        var replace = query.replace(/".*?"/g, " ");
+        
+        // takes replace string and splits it into an array based on white space
+        var replaceArray = replace.split(" ");
+
+        // takes replaceArray and removes empty values
+        var replaceFilter = replaceArray.filter(Boolean);
+
+        // merges replaceFilter array and quotedTerms array
+        var mergedArrays = replaceFilter.concat(quotedTerms);
+
+        console.log("quoted terms: " + quotedTerms);
+        console.log("replace filter: " + replaceFilter);
+        console.log("merged arrays: " + mergedArrays);
+
+        // Loops through mergedArray
+        for (var i = 0; i < mergedArrays.length; i++) {
+          // skip nyll values
+          if (mergedArrays[i] != null) {
+            // strip quotes from terms
+            var noQuotes = mergedArrays[i].replace(/['"]+/g, '');
+            // push each items from array onto queryTerms
+            if ($scope.queryTerms.indexOf(mergedArrays[i]) === -1) {
+              $scope.queryTerms.push(noQuotes);
+            }
           }
         }
       }
