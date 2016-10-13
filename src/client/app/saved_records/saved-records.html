@@ -11,7 +11,7 @@
   </div><!-- /.row -->
 </div><!-- /.container -->
 
-<div ng-show="recordsActive" class="container" ng-cloak>
+<div ng-show="recordsActive" class="container ng-cloak">
   <div class="row">
     <div class="col-xs-12">
       <div class="record-sorting">
@@ -29,7 +29,7 @@
   </div><!-- /.row -->
 
   <!-- My Records -->
-  <div class="row">
+  <div class="row ng-cloak">
     <div class="col-xs-12">
       <ul class="saved-records-list">
         <storage-event-listener></storage-event-listener>
@@ -55,7 +55,7 @@
 </div><!-- /.container -->
 
 <!-- Recent Searches -->
-<div ng-show="searchesActive" class="container">
+<div ng-show="searchesActive" class="container ng-cloak">
   <div class="row">
     <div class="col-xs-12">
       <ul class="saved-searches-list">
