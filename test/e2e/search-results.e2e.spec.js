@@ -29,8 +29,9 @@ describe('Search Results', function() {
   it('should split keywords unless quoted', function() {
     resultsPage.submitNewSearchTerm('french \"art history\" skin-nay! \"of the\"');
     expect(resultsPage.numTotalHits).toEqual(20);
-    expect(resultsPage.facetChips.get(1).getText()).toEqual("art history");
-  })
+    expect(resultsPage.facetChips.get(1).getText()).toEqual("skin-nay! (Keyword)");
+    expect(resultsPage.facetChips.get(2).getText()).toEqual("art history (Keyword)");
+  });
 
   it('should show decoded urls in search bar', function() {
     resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
