@@ -1,6 +1,7 @@
-<div class="getty-portal-app">
-  <div  id="item-details" class="container">
+<div class="getty-portal-app" ng-cloak>
+  <div id="item-details" class="container">
     <us-spinner spinner-on="showSpinner"></us-spinner>
+    
     <div class="row record-detail">
       <div class="col-xs-12">
         <h3>Record Detail</h3>
@@ -18,6 +19,7 @@
         <hr class="sr-top">
       </div>
     </div><!-- /.row -->
+    
     <div class="row" print-section>
       <div class="col-xs-12">
         <div class="record-summary">
@@ -30,7 +32,10 @@
               <ul class="summary-value" ng-show="book.dublin_core.creator" ng-repeat="entry in book.dublin_core.creator">
                 <li class="book-field-val">{{entry.value}}</li>
               </ul>
-              <div class="date-display"><b class="summary-field-title" ng-show="book._date_display">Date:</b><div class="summary-value">{{book._date_display}}</div></div>
+              <div class="date-display">
+                <b class="summary-field-title" ng-show="book._date_display">Date:</b>
+                <div class="summary-value">{{book._date_display}}</div>
+              </div>
               </ul>
             </div>
           </div>
@@ -704,20 +709,19 @@
             </div>
           </div>
 
-        </li>
-      </ul>
-    </div>
-  </div><!-- /.row -->
-
-  <div class="row row-centered question">
-    <div class="col-xs-12 col-centered">
-      <div id="emailGRI">
-        <h4>Question about this record?</h4>
-        <button class="btn btn-primary"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
+          </li>
+        </ul>
       </div>
-    </div>
-  </div><!-- /.row -->
+    </div><!-- /.row -->
 
-</div> <!-- /.container -->
+    <div class="row row-centered question">
+      <div class="col-xs-12 col-centered">
+        <div id="emailGRI">
+          <h4>Question about this record?</h4>
+          <button class="btn btn-primary"><a ng-href="mailto:portal@getty.edu?subject=Book ID: {{book._id}}">Email the GRI</a></button>
+        </div>
+      </div>
+    </div><!-- /.row -->
 
-<div ng-app="app" class="app">
+  </div> <!-- /.container -->
+</div>
