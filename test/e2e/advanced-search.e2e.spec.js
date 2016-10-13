@@ -58,6 +58,15 @@ describe("Advanced Search", function(){
     expect(resultsMatch).toBe(true);
   });
 
+  it("should search both creator and contributor fields when running Creator searches", function() {
+    advancedPage.addFilterSearches([
+      ['Creator', 'corinth']]
+    );
+    advancedPage.submitAdvancedSearch();
+    expect(advancedPage.numTotalHits).toEqual(1);
+
+  });
+
   it("should submit search fields with enter button", function() {
     advancedPage.addFilterSearches([
       ['Keyword', 'art'],
