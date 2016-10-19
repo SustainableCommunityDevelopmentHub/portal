@@ -39,8 +39,8 @@ def create_advanced_filters(field, terms):
               'adv_date': ['_date_facet.folded', '_date_facet.stemmed', 'dublin_core.date.value', 'dublin_core.date.value.folded', 'dublin_core.date.value.stemmed'],
               'adv_language': ['dublin_core.language.value', 'dublin_core.language.value.folded', 'dublin_core.language.value.stemmed'],
               'adv_title': ['dublin_core.title.value', 'dublin_core.title.value.folded', 'dublin_core.title.value.stemmed'],
-              'adv_suject': ['dublin_core.subject.value', 'dublin_core.subject.value.folded', 'dublin_core.subject.value.stemmed'],
-              'adv_creator': ['dublin_core.creator.value', 'dublin_core.creator.value.folded', 'dublin_core.creator.value.stemmed']}
+              'adv_subject': ['dublin_core.subject.value', 'dublin_core.subject.value.folded', 'dublin_core.subject.value.stemmed'],
+              'adv_creator': ['dublin_core.creator.value', 'dublin_core.creator.value.folded', 'dublin_core.creator.value.stemmed', 'dublin_core.contributor.value', 'dublin_core.contributor.value.folded', 'dublin_core.contributor.value.stemmed']}
     field_term = fields.get(field)
     filters = []
     for term in terms:
