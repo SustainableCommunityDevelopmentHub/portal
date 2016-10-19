@@ -216,6 +216,13 @@ describe('Search Results', function() {
     });
   });
 
+  it('should return results with queries containing api, such as tapissiers', function() {
+    resultsPage.submitNewSearchTerm('tapissiers');
+    resultsPage.numTotalHits.then(function(hits){
+      expect(hits).toEqual(1);
+    });
+  });
+
   describe('Pagination', function(){
     var query = '';
 
