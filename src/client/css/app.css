@@ -1125,6 +1125,12 @@ li.book-listing {
 text-decoration: none;
 }
 
+#viewDigitalItem {
+  margin-top: 15px;
+  width: 130px;
+  float: left;
+}
+
 #exportBtn .glyphicon {
   margin-left: 5px;
   top: 3px;
