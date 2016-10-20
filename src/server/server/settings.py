@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import django
+django.setup
+
 
 # Application definition
 
@@ -40,7 +43,8 @@ INSTALLED_APPS = (
     'api',
     'rest_framework',
     'rest_framework_xml',
-    'corsheaders'
+    'corsheaders',
+    'ingest'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -148,3 +152,12 @@ EMAIL_USE_TLS = False
 EMAIL_TO = 'portal@getty.edu'
 
 ADMINS = [('Joshua Gomez', 'jgomez@getty.edu')]
+
+# Ingest data directories
+TEST_DATA = os.path.join(BASE_DIR, 'ingest/test_data')
+PRODUCTION_DATA = os.path.join(BASE_DIR, 'ingest/production_data')
+
+# Elasticsearch
+LOCAL = 'http://local.portal.dev:9200'  #LOCAL
+DEV = 'http://grpdev.getty.edu:9200'  #DEV
+PROD = 'http://portal.getty.edu:9200'  #PROD
