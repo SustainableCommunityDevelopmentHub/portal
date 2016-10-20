@@ -74,10 +74,10 @@
 .rzslider .rz-pointer {
   top: -8px;
   z-index: 3;
-  width: 20px;
+  width: 15px;
   height: 28px;
   cursor: pointer;
-  background-color: #666;
+  background-color: #aaa;
   -webkit-border-radius: 4px;
      -moz-border-radius: 16px;
           border-radius: 4px;
@@ -93,7 +93,7 @@
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
-  content: '';
+  /*content: '';*/
 }
 
 .rzslider .rz-pointer:hover:after {

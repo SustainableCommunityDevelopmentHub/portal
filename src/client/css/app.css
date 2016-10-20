@@ -882,8 +882,8 @@ li.book-listing {
 
   .date-range {
     display: inline-block;
-    width: 45%;
-    margin-right: 5px;
+    width: 43%;
+    margin-right: 3px;
   }
 
   .date-range p {
@@ -894,6 +894,7 @@ li.book-listing {
   .date-range input {
     width: 100%;
     height: 30px;
+    padding: 10px;
     font-size: 12px;
   }
 
