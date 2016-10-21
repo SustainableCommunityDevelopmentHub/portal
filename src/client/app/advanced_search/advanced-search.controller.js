@@ -22,15 +22,7 @@
       $scope.filters = [{field: initialField, term: "", lastFilter: true}];
 
       // objs w/settings for each available adv field
-      $scope.fields = [
-          ADVANCED_SEARCH.keyword,
-          ADVANCED_SEARCH.title,
-          ADVANCED_SEARCH.creator,
-          ADVANCED_SEARCH.date,
-          ADVANCED_SEARCH.language,
-          ADVANCED_SEARCH.subject,
-          ADVANCED_SEARCH.grp_contributor,
-        ];
+      $scope.fields = ADVANCED_SEARCH;
     });
 
 
