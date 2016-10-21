@@ -5,103 +5,83 @@
     .constant('ADVANCED_SEARCH', {
       title: {
         paramName: 'adv_title',
-        display: 'Title',
-        searchKey: 'dublin_core.title'
+        display: 'Title'
       },
       creator: {
         paramName: 'adv_creator',
-        display: 'Creator',
-        searchKey: 'dublin_core.creator'
+        display: 'Creator'
       },
       date: {
         paramName: 'adv_date',
-        display: 'Date',
-        searchKey: 'dublin_core.date'
+        display: 'Date'
       },
       language: {
         paramName: 'adv_language',
-        display: 'Language',
-        searchKey: 'dublin_core.language'
+        display: 'Language'
       },
       subject: {
         paramName: 'adv_subject',
-        display: 'Subject',
-        searchKey: 'dublin_core.subject'
+        display: 'Subject'
       },
       grp_contributor: {
         paramName: 'adv_grp_contributor',
-        display: 'From',
-        searchKey: '_grp_contributor'
+        display: 'From'
       },
       keyword: {
         paramName: 'adv_keyword',
-        display: 'Keyword',
-        searchKey: 'keyword'
+        display: 'Keyword'
       },
       identifier: {
         paramName: 'adv_identifier',
-        display: 'Identifier',
-        searchKey: 'dublin_core.identifier'
+        display: 'Identifier'
       },
       publisher: {
         paramName: 'adv_publisher',
-        display: 'Publisher',
-        searchKey: 'dublin_core.publisher'
+        display: 'Publisher'
       },
       format: {
         paramName: 'adv_format',
-        display: 'Format',
-        searchKey: 'dublin_core.format'
+        display: 'Format'
       },
       type: {
         paramName: 'adv_type',
-        display: 'Type',
-        searchKey: 'dublin_core.type'
+        display: 'Type'
       },
       description: {
         paramName: 'adv_description',
-        display: 'Description',
-        searchKey: 'dublin_core.description'
+        display: 'Description'
       },
       provenance: {
         paramName: 'adv_provenance',
-        display: 'Provenance',
-        searchKey: 'dublin_core.provenance'
+        display: 'Provenance'
       },
       coverage: {
         paramName: 'adv_coverage',
-        display: 'Coverage',
-        searchKey: 'dublin_core.coverage'
+        display: 'Coverage'
       },
       relation: {
         paramName: 'adv_relation',
-        display: 'Relation',
-        searchKey: 'dublin_core.relation'
+        display: 'Relation'
       },
       source: {
         paramName: 'adv_source',
-        display: 'Source',
-        searchKey: 'dublin_core.source'
+        display: 'Source'
       },
       rights: {
         paramName: 'adv_rights',
-        display: 'Rights',
-        searchKey: 'dublin_core.rights'
+        display: 'Rights'
       },
       accrualMethod: {
         paramName: 'adv_accrualMethod',
-        display: 'Accrual Method',
-        searchKey: 'dublin_core.accrualMethod'
+        display: 'Accrual Method'
       },
       accrualPeriodicity: {
         paramName: 'adv_accrualPeriodicity',
-        display: 'Accrual Periodicity',
-        searchKey: 'dublin_core.accrualPeriodicity'
+        display: 'Accrual Periodicity'
       },
       audience: {
         paramName: 'adv_audience',
-        display: 'Audience',
-        searchKey: 'dublin_core.audience'
+        display: 'Audience'
       }
     });
 })();
