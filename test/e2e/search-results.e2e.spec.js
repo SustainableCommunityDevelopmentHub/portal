@@ -513,6 +513,17 @@ describe('Search Results', function() {
       });
     });
 
+    it('should split terms unless quoted', function() {
+      resultsPage.clickAdvancedSearchLink();
+      resultsPage.getAdvancedSearchInput().sendKeys('handbook \"in kent\"');
+      resultsPage.clickAdvAddButton();
+      resultsPage.numTotalHits.then(function(hits) {
+        expect(hits).toEqual(2);
+        expect(resultsPage.facetChips.get(0).getText()).toEqual("handbook (Keyword: Title)");
+        expect(resultsPage.facetChips.get(1).getText()).toEqual("in kent (Keyword: Title)");
+      });
+    });
+
     it('should keep advanced search drop down open after adding an option', function() {
       resultsPage.clickAdvancedSearchLink();
       resultsPage.getAdvancedSearchInput().sendKeys('handbook');
