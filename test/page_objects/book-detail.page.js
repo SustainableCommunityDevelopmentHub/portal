@@ -31,8 +31,8 @@ BookDetailPage.prototype = Object.create({}, {
   clickViewDigitalItem: { value: function() {
   	element(by.id('viewDigitalItem')).click();
   }},
-  clickContributorLink: { value: function() {
-    element(by.css('.contribLink')).click();
+  clickTitle: { value: function() {
+    element(by.css('.book-detail-title')).click();
   }},
   clickLink: { value: function(text) {
     element(by.linkText(text)).click();

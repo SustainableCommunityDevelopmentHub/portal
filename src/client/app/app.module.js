@@ -47,8 +47,8 @@
   // app initialization
   .run(runBlock);
 
-  runBlock.$inject = ['$rootScope', '$state', '$stateParams', '$window'];
-  function runBlock($rootScope, $state, $stateParams, $window){
+  runBlock.$inject = ['$rootScope', '$state', '$stateParams', '$location', '$window'];
+  function runBlock($rootScope, $state, $stateParams, $location, $window){
     // Convenience to access things any scope w/out injection
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -58,7 +58,7 @@
 
     // track pageview on state change
     $rootScope.$on('$stateChangeSuccess', function (event) {
-      $window.ga('send', 'pageview', $location.path());
+      $window.ga('send', 'pageview', $location.url());
     });
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
