@@ -18,7 +18,7 @@
 
     // fetches websites from json file, using institutions as keys
     $scope.contribWebsite = function (contributor) {
-      $http.get('/app/contributors/contributor_websites.json').success(function(data) {
+      $http.get('/contributor_websites.json').success(function(data) {
         $scope.websites = data;
         for (var i = 0; i < $scope.institutions.length; i++) {
           if (contributor == $scope.institutions[i].key) {
