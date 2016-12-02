@@ -168,18 +168,54 @@
       updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
     };
 
+
+
+    $('#from_date').on('input propertychange paste', function (e) {
+      var reg = /^0+/gi;
+      var currentYear = new Date().getFullYear();
+      $scope.toDate = currentYear;
+      if (this.value.match(reg)) {
+        this.value = this.value.replace(reg, '');
+      }
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0,4); 
+      }
+      if(this.value > currentYear || isNaN(this.value)) {
+        this.value = 0;
+      }
+      //if ($scope.toDate < this.value) {
+        //return
+      //}
+    });
+
+
+    $('#to_date').on('input propertychange paste', function (e) {
+      var reg = /^0+/gi;
+      var from_date_value = $('#from_date').value;
+      if (this.value.match(reg)) {
+        this.value = this.value.replace(reg, '');
+      }
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0,4); 
+      }
+
+    });
+
+
     $scope.dateSlider = {
       options: {
         minLimit: config.oldestDate,
         maxLimit: new Date().getFullYear(),
         floor: config.oldestDate,
-        floorLabel: config.oldestDate,
         ceil: new Date().getFullYear(),
-        ceilLabel: new Date().getFullYear(),
-        pushRange: true,
-        step: 1
       }
     };
+
+    $scope.$on("slideEnded", function() {
+      if ($scope.toDate < $scope.fromDate) {
+        $scope.toDate = $scope.fromDate+1;
+      }
+    });
 
     /**
      * trigger search to populate new page and update $scope / state
