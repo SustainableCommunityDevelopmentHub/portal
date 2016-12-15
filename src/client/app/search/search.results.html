@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-cloak>
   <div class="row">
     <div class="col-xs-12">
       <h3>Search Results</h3>
@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<div class="container"> 
+<div class="container" ng-cloak> 
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4">
       <div id="facets-mobile-wrapper">
@@ -87,10 +87,10 @@
                 <p>To:</p>
                 <input class="date_box" ng-model="toDate" min="0" max="2016" type="number">
               </div>
+              <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
               <div>
               <rzslider rz-slider-model="dateSlider.min" rz-slider-high="dateSlider.max" rz-slider-options="dateSlider.options" id="slider"></rzslider>
               </div>
-              <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
             </form>
           </div>
 
