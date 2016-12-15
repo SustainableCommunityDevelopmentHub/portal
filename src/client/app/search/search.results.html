@@ -81,14 +81,14 @@
             <form ng-submit="setDateRange(fromDate, toDate)">
               <div class="date-range">
                 <p>From:</p>
-                <input id="from_date" ng-model="fromDate"  min="0" max="2016" type="number">
+                <input class="date_box" ng-model="fromDate" min="0" max="2016" type="number">
               </div>
               <div class="date-range">
                 <p>To:</p>
-                <input id="to_date" ng-model="toDate" min="0" max="2016" type="number" >
+                <input class="date_box" ng-model="toDate" min="0" max="2016" type="number">
               </div>
               <div>
-              <rzslider rz-slider-always-show-bar="false" rz-slider-model="fromDate" rz-slider-high="toDate" rz-slider-options="dateSlider.options"></rzslider>
+              <rzslider rz-slider-model="dateSlider.min" rz-slider-high="dateSlider.max" rz-slider-options="dateSlider.options" id="slider"></rzslider>
               </div>
               <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
             </form>

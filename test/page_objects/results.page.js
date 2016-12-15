@@ -230,7 +230,7 @@ ResultsPage.prototype = Object.create({}, {
   }},
 
   submitSliderRange: { value: function(xCoordinate) {
-    var slider = element(by.css('.rz-pointer-max'));
+    var slider = element(by.css('.rz-pointer-min'));
     browser.actions().dragAndDrop(slider, {x: xCoordinate, y:0}).perform();
     element.all(by.id("date-btn-results")).get(0).click();
   }},

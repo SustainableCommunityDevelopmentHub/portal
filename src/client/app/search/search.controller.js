@@ -169,11 +169,13 @@
     };
 
 
-
-    $('#from_date').on('input propertychange paste', function (e) {
+    /**
+     * control formatting of date range boxes
+     * while receiving input
+     */
+    $('.date_box').on('input propertychange paste', function (e) {
       var reg = /^0+/gi;
       var currentYear = new Date().getFullYear();
-      $scope.toDate = currentYear;
       if (this.value.match(reg)) {
         this.value = this.value.replace(reg, '');
       }
@@ -183,39 +185,30 @@
       if(this.value > currentYear || isNaN(this.value)) {
         this.value = 0;
       }
-      //if ($scope.toDate < this.value) {
-        //return
-      //}
     });
 
 
-    $('#to_date').on('input propertychange paste', function (e) {
-      var reg = /^0+/gi;
-      var from_date_value = $('#from_date').value;
-      if (this.value.match(reg)) {
-        this.value = this.value.replace(reg, '');
-      }
-      if (this.value.length > 4) {
-        this.value = this.value.slice(0,4); 
-      }
-
-    });
-
-
+    /**
+     * set parameters for date range slider
+     * and tie values to fromDate and toDate
+     */
     $scope.dateSlider = {
+      min: config.oldestDate,
+      max: new Date().getFullYear(),
       options: {
-        minLimit: config.oldestDate,
-        maxLimit: new Date().getFullYear(),
+        id: "drSlider",
         floor: config.oldestDate,
         ceil: new Date().getFullYear(),
+        onChange: function(sliderId, modelValue, highValue, pointerType) {
+          $scope.fromDate = modelValue;
+          $scope.toDate = highValue;
+        },
+        noSwitching: true,
+        minRange: 1,
+        pushRange: true
       }
     };
 
-    $scope.$on("slideEnded", function() {
-      if ($scope.toDate < $scope.fromDate) {
-        $scope.toDate = $scope.fromDate+1;
-      }
-    });
 
     /**
      * trigger search to populate new page and update $scope / state
