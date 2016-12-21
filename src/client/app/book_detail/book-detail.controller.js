@@ -26,12 +26,16 @@
       var filename = 'book.json';
       $scope.showSpinner = true;
       DataService.getDcRec($scope.book._id).then(function(data) {
-
         if (typeof data === 'object') {
-          data = angular.toJson(data, undefined, 2);
-          $scope.fileContents = data;
+          data = angular.toJson(data);
+          var json = JSON.parse(data)
+          delete json["status"]
+          delete json["config"]
+          delete json["statusText"]
+          var trimmedJson = JSON.stringify(json, null, 2);
+          $scope.fileContents = trimmedJson;
         }
-        createBlobAndDownload(data, 'text/json', filename);
+        createBlobAndDownload(trimmedJson, 'text/json', filename);
       }, function() {
         $state.go('error');
       }).finally(function() {
