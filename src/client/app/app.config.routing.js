@@ -18,7 +18,7 @@
         controller: 'HomePageCtrl'
       })
       .state('searchResults', {
-        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title',
+        url: '/search?q&from&size&sort&creator&grp_contributor&language&subject&date_gte&date_lte&adv_creator&adv_date&adv_grp_contributor&adv_language&adv_subject&adv_title&adv_identifier&adv_publisher&adv_format&adv_type&adv_description&adv_provenance&adv_coverage&adv_relation&adv_source&adv_rights&adv_accrualMethod&adv_accrualPeriodicity&adv_audience',
         controller: 'SearchCtrl',
         templateUrl: config.app.root + '/search/search.results.html',
         params: {
@@ -34,7 +34,20 @@
           adv_language: { array: true },
           adv_subject: { array: true },
           adv_date: { array: true },
-          adv_title: { array: true }
+          adv_title: { array: true },
+          adv_identifier: { array: true },
+          adv_publisher: { array: true },
+          adv_format: { array: true },
+          adv_type: { array: true },
+          adv_description: { array: true },
+          adv_provenance: { array: true },
+          adv_coverage: { array: true },
+          adv_relation: { array: true },
+          adv_source: { array: true },
+          adv_rights: { array: true },
+          adv_accrualMethod: { array: true },
+          adv_accrualPeriodicity: { array: true },
+          adv_audience: { array: true }
         },
         resolve: {
           searchResults: function($rootScope, $stateParams, SearchService, DataService, SORT_MODES, ADVANCED_SEARCH){
