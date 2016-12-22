@@ -44,7 +44,7 @@
       $scope.showSpinner = true;
       DataService.getRisRec($scope.book._id).then(function(data) {
         $scope.fileContentsRis = data;
-        createBlobAndDownload(data, 'application/x-research-info-systems', filename);
+        createBlobAndDownload(data.data, 'application/x-research-info-systems', filename);
       }, function() {
         $state.go('error');
       }).finally(function() {
