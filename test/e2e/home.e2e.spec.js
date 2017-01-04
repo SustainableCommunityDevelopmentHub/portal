@@ -32,6 +32,15 @@ describe('Home Page', function() {
     });
   });
 
+  it('Should split keywords unless quoted', function() {
+    homePage.submitHomePageQuery('french \"art history\" skin-nay! \"of the\"');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(20);
+      expect(homePage.facetChips.get(1).getText()).toEqual("skin-nay! (Keyword)");
+      expect(homePage.facetChips.get(2).getText()).toEqual("art history (Keyword)");
+    });
+  });
+
   it('Should have functioning contact us link in footer', function() {
     homePage.contactUs();
     browser.ignoreSynchronization = true;

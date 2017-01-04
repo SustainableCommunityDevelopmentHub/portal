@@ -30,6 +30,9 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     }},
     termsOfUse: { value: function() {
         element(by.id('terms-of-use')).click();
+    }},
+    facetChips: { get: function() {
+      return element.all(by.css(".facet-chip a"));
     }}
 });
 
