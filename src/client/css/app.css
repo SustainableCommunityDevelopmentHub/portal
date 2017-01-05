@@ -582,6 +582,20 @@ hr.thin {
   text-decoration: line-through;
 }
 
+#oldest-date {
+  float:left;
+  padding-left: 2px;
+  font-size: .87em;
+  color: black;
+}
+
+#current-year {
+  text-align: right;
+  padding-right: 2px;
+  font-size: .87em;
+  color: black;
+}
+
 .search-container {
   display: block;
   background-color: #eee;

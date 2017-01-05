@@ -112,8 +112,8 @@ describe('Search Results', function() {
   });
 
   it('should filter results by date when you use date range slider', function(){
-    resultsPage.submitSliderRange(150);
-    expect(resultsPage.numTotalHits).toEqual(44);
+    resultsPage.submitSliderRange(150, 200);
+    expect(resultsPage.numTotalHits).toEqual(42);
   })
 
   it('should save book records', function () {

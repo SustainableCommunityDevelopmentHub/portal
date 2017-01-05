@@ -164,9 +164,12 @@
     };
 
      $scope.setDateRange = function(fromDate, toDate) {
-      console.log("fromDate: " + fromDate + ", toDate: " + toDate);
-      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
+      console.log("fromDate: " + fromDate + ", toDate: " + toDate);    
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});      
     };
+
+    $scope.currentYear = new Date().getFullYear();
+    $scope.oldestDate = config.oldestDate;
 
 
     /**
@@ -175,14 +178,13 @@
      */
     $('.date_box').on('input propertychange paste', function (e) {
       var reg = /^0+/gi;
-      var currentYear = new Date().getFullYear();
       if (this.value.match(reg)) {
         this.value = this.value.replace(reg, '');
       }
       if (this.value.length > 4) {
         this.value = this.value.slice(0,4); 
       }
-      if(this.value > currentYear || isNaN(this.value)) {
+      if(this.value > $scope.currentYear || isNaN(this.value)) {
         this.value = 0;
       }
     });
@@ -193,8 +195,8 @@
      * and tie values to fromDate and toDate
      */
     $scope.dateSlider = {
-      min: config.oldestDate,
-      max: new Date().getFullYear(),
+      min: $scope.fromDate,
+      max: $scope.toDate,
       options: {
         id: "drSlider",
         floor: config.oldestDate,
@@ -205,7 +207,8 @@
         },
         noSwitching: true,
         minRange: 1,
-        pushRange: true
+        pushRange: true,
+        hideLimitLabels: true
       }
     };
 
