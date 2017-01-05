@@ -8,4 +8,4 @@ python-memcached
 pymarc
 lxml
 requests
-git+https://github.com/gri-is/funnel.git@refactor/changes-for-portal-ingest-app/60
+git+https://github.com/gri-is/funnel.git
