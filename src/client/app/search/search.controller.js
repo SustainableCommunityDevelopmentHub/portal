@@ -208,7 +208,8 @@
         noSwitching: true,
         minRange: 1,
         pushRange: true,
-        hideLimitLabels: true
+        hideLimitLabels: true,
+        hidePointerLabels: true
       }
     };
 
