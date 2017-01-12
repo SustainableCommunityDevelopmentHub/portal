@@ -19,15 +19,16 @@ def fix_lbi(inf, supplied_dir):
 		record.write(temp, encoding='UTF-8', pretty_print=True)
 	return temp_path
 
-def get_marc_list(f):
-	if f.endswith('.xml'):
-		handler = XmlHandler()
-		parse_xml(f, handler)
-		marc_list = handler.records
-	else:
-		inf = open(f, 'rb')
-		inf = inf.read()
-		marc_list = MARCReader(inf, to_unicode=True)
+def get_marc_list_xml(f):
+	handler = XmlHandler(normalize_form='NFKC')
+	parse_xml(f, handler)
+	marc_list = handler.records
+	return marc_list
+
+def get_marc_list_mrc(f):
+	inf = open(f, 'rb')
+	inf = inf.read()
+	marc_list = MARCReader(inf, to_unicode=True)
 	return marc_list
 
 def get_marc_id(inst, record):

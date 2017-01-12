@@ -8,4 +8,4 @@ python-memcached
 pymarc
 lxml
 requests
-git+https://github.com/gri-is/funnel.git
+git+https://github.com/gri-is/funnel.git@refactor/add-marc-xml-reader

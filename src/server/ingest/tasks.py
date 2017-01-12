@@ -5,10 +5,11 @@ from glob import glob
 import requests
 import filecmp
 from datetime import datetime
+import traceback
 
 from django.db import models
 from django.conf import settings
-from pymarc import MARCWriter
+from pymarc import MARCWriter, XMLWriter
 from lxml import etree
 
 from funnel import marc, dublin_core, mets
@@ -59,6 +60,8 @@ SAMPLE_DATA = [
 	'uh'
 ]
 
+logf = open('ingest/error.log', 'w')
+
 def create_source(data_path, supplied_dir, es):
 	inst, idate, date_dir = assign_directories(data_path, supplied_dir)
 	if inst in MARC_DATA:
@@ -83,30 +86,45 @@ def create_source_marc(data_path, supplied_dir, inst, idate, date_dir, es):
 	infs = '{}/*'.format(supplied_dir)
 	for f in glob(infs):
 		print(f)
-		if inst == 'lbi':
-			with open(f, 'rb') as inf:
-				print(inst)
-				temp = helpers.fix_lbi(inf, supplied_dir)
-				print(temp)
-				marc_list = helpers.get_marc_list(temp)
-			os.remove(temp)
-		else:
-			marc_list = helpers.get_marc_list(f)
-		for record in marc_list:
-			recid = helpers.get_marc_id(inst, record)
-			outname = '{}.mrc'.format(recid)
-			try:
-				with open(os.path.join(date_dir, outname), 'wb') as outf:
-					writer = MARCWriter(outf)
+		if f.endswith('.xml'):
+			if inst == 'lbi':
+				with open(f, 'rb') as inf:
+					print(inst)
+					temp = helpers.fix_lbi(inf, supplied_dir)
+					print(temp)
+					marc_list = helpers.get_marc_list_xml(temp)
+				os.remove(temp)
+			else:
+				marc_list = helpers.get_marc_list_xml(f)
+			for record in marc_list:
+				recid = helpers.get_marc_id(inst, record)
+				outname = '{}.xml'.format(recid)
+				try:
+					writer = XMLWriter(open(os.path.join(date_dir, outname), 'wb'))
 					writer.write(record)
-				print('Created source record {}'.format(os.path.join(date_dir, outname)))
-			except UnicodeEncodeError:
-				if inst == 'gri' and record.leader[9] == ' ':
-					record.leader = record.leader[0:9] + 'a' + record.leader[10:]
+					writer.close()
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except UnicodeEncodeError:
+					if inst == 'gri' and record.leader[9] == ' ':
+						record.leader = record.leader[0:9] + 'a' + record.leader[10:]
+						writer = XMLWriter(open(os.path.join(date_dir, outname), 'wb'))
+						writer.write(record)
+						writer.close()
+						print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
+		else:
+			marc_list = helpers.get_marc_list_mrc(f)
+			for record in marc_list:
+				recid = helpers.get_marc_id(inst, record)
+				outname = '{}.mrc'.format(recid)
+				try:
 					with open(os.path.join(date_dir, outname), 'wb') as outf:
 						writer = MARCWriter(outf)
 						writer.write(record)
 					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
 
@@ -126,9 +144,12 @@ def create_source_dc(data_path, supplied_dir, inst, idate, date_dir, es):
 		if ident is not None:
 			recid = '{}_{}'.format(inst, ident)
 			outname = '{}.xml'.format(recid)
-			with open(os.path.join(date_dir, outname), 'wb') as outf:
-				record.write(outf, encoding='UTF-8')
-			print('Created source record {}'.format(os.path.join(date_dir, outname)))
+			try:
+				with open(os.path.join(date_dir, outname), 'wb') as outf:
+					record.write(outf, encoding='UTF-8')
+				print('Created source record {}'.format(os.path.join(date_dir, outname)))
+			except Exception as e:
+				logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
 
@@ -154,9 +175,12 @@ def create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es):
 				else:
 					recid = '{}_{}'.format(inst, ident)
 				outname = '{}.xml'.format(recid)
-				with open(os.path.join(date_dir, outname), 'wb') as outf:
-					record.write(outf, encoding='UTF-8')
-				print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				try:
+					with open(os.path.join(date_dir, outname), 'wb') as outf:
+						record.write(outf, encoding='UTF-8')
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
 
@@ -178,17 +202,20 @@ def process_data(inst, date_dir, es):
 	for fpath in glob(fpaths):
 		recid = fpath.split('/')[-1].split('.')[0]
 		erec = Record.objects.filter(pk=recid)
-		if len(erec) == 0:
-			process_new_rec(inst, recid, idate, fpath, es)
-		elif len(erec) == 1:
-			oldrec = erec[0]
-			if oldrec.updated_date:
-				old_date = oldrec.updated_date
-			else:
-				old_date = oldrec.ingest_date
-			idate_obj = datetime.strptime(idate, '%Y-%m-%d').date()
-			if idate_obj >= old_date:
-				process_dupe_rec(oldrec, inst, recid, idate, fpath, es)
+		try:
+			if len(erec) == 0:
+				process_new_rec(inst, recid, idate, fpath, es)
+			elif len(erec) == 1:
+				oldrec = erec[0]
+				if oldrec.updated_date:
+					old_date = oldrec.updated_date
+				else:
+					old_date = oldrec.ingest_date
+				idate_obj = datetime.strptime(idate, '%Y-%m-%d').date()
+				if idate_obj >= old_date:
+					process_dupe_rec(oldrec, inst, recid, idate, fpath, es)
+		except Exception as e:
+			logf.write('Failed to transform {}: {}\n'.format(fpath, traceback.print_exc()))
 
 def process_new_rec(inst, recid, idate, fpath, es):
 	contrib = Contributor.objects.get(pk=inst)
@@ -208,6 +235,7 @@ def process_new_rec(inst, recid, idate, fpath, es):
 			load_es(recid, rec, es)
 	else:
 		load_es(recid, rec, es)
+	#load_es(recid, rec, es)
 
 def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
 	print('Duplicate Record Found')
@@ -233,6 +261,7 @@ def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
 			load_es(recid, rec, es)
 	else:
 		load_es(recid, rec, es)
+	#load_es(recid, rec, es)
 
 def load_es(recid, rec, es):
 	ES_DOC = '{}/portal/book/{}'.format(es, recid)
@@ -243,6 +272,9 @@ def load_es(recid, rec, es):
 		print(recid)
 		raise
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
+	if resp.status_code != 201 and resp.status_code != 200:
+		logf.write('Uploading {}...{}\n'.format(recid, resp.status_code))
+
 
 
 
