@@ -27,10 +27,10 @@ describe('Book Detail', function() {
     var testData = require('../../mocks/book.json');
     bookDetailPage.clickExport();
     $('.saveJson').click();
-    var fileContents = $('.saveJson').evaluate('fileContents').then(function(response){
-      return JSON.parse(response).data;
-    });
-    expect(fileContents).toEqual(testData);
+    $('.saveJson').evaluate('fileContents').then(function(response){
+      var fileContents = JSON.parse(response);
+      expect(fileContents).toEqual(testData);
+    });    
   });
 
   it('should download correct RIS record on click', function() {
