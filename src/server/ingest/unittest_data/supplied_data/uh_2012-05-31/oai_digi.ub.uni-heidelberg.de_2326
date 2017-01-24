@@ -1,0 +1,908 @@
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwork="http://www.ub.uni-heidelberg.de/__NO_SUCH_SCHEMA__" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/mets/mets.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+  <mets:metsHdr>
+    <mets:agent TYPE="ORGANIZATION" ROLE="CREATOR">
+      <mets:name>Universitätsbibliothek Heidelberg</mets:name></mets:agent></mets:metsHdr>
+  <mets:dmdSec ID="dmd">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title own="">Kladderadatsch in Paris: Humor und Satyre auf die Industrie-Ausstellung</mods:title></mods:titleInfo>
+          <mods:originInfo>
+            <mods:place>
+              <mods:placeTerm type="text">Berlin</mods:placeTerm></mods:place>
+            <mods:dateIssued encoding="w3cdtf" keyDate="yes">1855</mods:dateIssued>
+            <mods:dateIssued>1855</mods:dateIssued></mods:originInfo>
+          <mods:originInfo>
+            <mods:edition>[Electronic ed.]</mods:edition>
+            <mods:publisher>Universitätsbibliothek Heidelberg</mods:publisher></mods:originInfo>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin></mods:physicalDescription>
+          <mods:language>
+            <mods:languageTerm type="code" authority="iso639-2b">ger</mods:languageTerm></mods:language>
+          <mods:relatedItem type="host">
+            <mods:recordInfo>
+              <mods:recordIdentifier>urn:nbn:de:bsz:16-diglit-87563</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:part type="host" order="">
+            <mods:detail>
+              <mods:number>1-5</mods:number></mods:detail></mods:part>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>Informationen zur Zeitschrift</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Informationen zur Zeitschrift">http://kladderadatsch.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>Further information on the journal</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Further information on the journal">http://kladderadatsch.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>art journals – Kunst- und Satirezeitschriften</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Kunst- und Satirezeitschriften" dwork_showOnSinglePageView="true">http://artjournals.uni-hd.de/</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>art journals – Illustrated art and satire periodicals</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Illustrated art and satire periodicals" dwork_showOnSinglePageView="true">http://www.ub.uni-heidelberg.de/Englisch/helios/fachinfo/www/kunst/digilit/artjournals/Welcome.html</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Druckschriften</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">druckschriften</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Heidelberger historische Bestände — digital: Illustrierte Kunst- und Satirezeitschriften des 19. und frühen 20. Jahrhunderts</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">sammlung5</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:location>
+            <mods:physicalLocation>Universitätsbibliothek Heidelberg</mods:physicalLocation>
+            <mods:url access="object in context">http://digi.ub.uni-heidelberg.de/diglit/KlaParis1855</mods:url></mods:location>
+          <mods:identifier type="urn">urn:nbn:de:bsz:16-diglit-23261</mods:identifier>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="urn">urn:nbn:de:bsz:16-diglit-23261</mods:recordIdentifier></mods:recordInfo>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/>
+          <mods:subject>
+            <mods:titleInfo authority="gnd" valueURI="http://d-nb.info/gnd/4163982-0" authorityURI="http://d-nb.info/gnd/">
+              <mods:title>Kladderadatsch</mods:title></mods:titleInfo>
+            <mods:geographic authority="gnd" valueURI="http://d-nb.info/gnd/4044660-8" authorityURI="http://d-nb.info/gnd/">Paris</mods:geographic>
+            <mods:genre>Zeitschrift</mods:genre></mods:subject>
+          <mods:subject/>
+          <mods:subject authority="geonames" valueURI="http://api.geonames.org/get?username=demo&amp;style=full&amp;lang=de&amp;geonameId=2988507" authorityURI="http://www.geonames.org/">
+            <mods:hierarchicalGeographic lang="ger">
+              <mods:continent>Europa</mods:continent>
+              <mods:country>Frankreich</mods:country>
+              <mods:city>Paris</mods:city></mods:hierarchicalGeographic>
+            <mods:hierarchicalGeographic lang="eng">
+              <mods:continent>Europe</mods:continent>
+              <mods:country>France</mods:country>
+              <mods:city>Paris</mods:city></mods:hierarchicalGeographic>
+            <mods:cartographics>
+              <mods:projection>WGS 84</mods:projection>
+              <mods:coordinates>48.85341 2.3488</mods:coordinates></mods:cartographics></mods:subject></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dc">
+    <mets:mdWrap MDTYPE="DC" LABEL="Dublin Core Metadata" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dc:title>Kladderadatsch in Paris: Humor und Satyre auf die Industrie-Ausstellung</dc:title>
+        <dcterms:isPartOf>Sammlung5 - Kunstzeitschriften</dcterms:isPartOf>
+        <dc:language>ger</dc:language>
+        <dc:type>Text</dc:type>
+        <dc:identifier>urn:nbn:de:bsz:16-diglit-87563</dc:identifier></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dwork">
+    <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="private/dwork" LABEL="dwork specific" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dwork:dwork>
+          <dwork:projectname>KlaParis1855</dwork:projectname>
+          <dwork:introImageUrl>http://digi.ub.uni-heidelberg.de/diglitData/introimage/KlaParis1855.jpg</dwork:introImageUrl>
+          <dwork:layoutTemplate>druck</dwork:layoutTemplate>
+          <dwork:sammlung>5</dwork:sammlung>
+          <dwork:geschuetzt/>
+          <dwork:kein_oai/>
+          <dwork:kein_urn/>
+          <dwork:kein_pdfdownload/>
+          <dwork:annotationen>0</dwork:annotationen>
+          <dwork:lizenz/>
+          <dwork:footer>UB</dwork:footer></dwork:dwork></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd00001">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title>Erstes Heft</mods:title></mods:titleInfo>
+          <mods:originInfo/>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>1-8</mods:extent></mods:physicalDescription>
+          <mods:location/>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd00002">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title>Zweites Heft</mods:title></mods:titleInfo>
+          <mods:originInfo/>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>9-16</mods:extent></mods:physicalDescription>
+          <mods:location/>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd00003">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title>Drittes Heft</mods:title></mods:titleInfo>
+          <mods:originInfo/>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>17-24</mods:extent></mods:physicalDescription>
+          <mods:location/>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd00004">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title>Viertes Heft</mods:title></mods:titleInfo>
+          <mods:originInfo/>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>25-32</mods:extent></mods:physicalDescription>
+          <mods:location/>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd00005">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title>Fünftes Heft</mods:title></mods:titleInfo>
+          <mods:originInfo/>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>33-40</mods:extent></mods:physicalDescription>
+          <mods:location/>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:amdSec ID="amdSec_complete_01">
+    <mets:rightsMD ID="rightsMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Heidelberg</dv:owner>
+            <dv:ownerLogo>http://digi.ub.uni-heidelberg.de/diglitData/image/logo-dfgviewer.gif</dv:ownerLogo>
+            <dv:ownerSiteURL>http://www.ub.uni-heidelberg.de/</dv:ownerSiteURL></dv:rights></mets:xmlData></mets:mdWrap></mets:rightsMD>
+    <mets:digiprovMD ID="digiprovMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:presentation>http://digi.ub.uni-heidelberg.de/diglit/KlaParis1855</dv:presentation></dv:links></mets:xmlData></mets:mdWrap></mets:digiprovMD></mets:amdSec>
+  <mets:fileSec>
+    <mets:fileGrp USE="INTROIMAGE">
+      <mets:file MIMETYPE="image/jpg" ID="INTROIMAGE">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/introimage/KlaParis1855.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp>
+    
+    <mets:fileGrp USE="MIN">
+      <mets:file MIMETYPE="image/jpg" ID="filemin00001">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/01.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00002">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/02.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00003">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/03.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00004">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/04.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00005">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/05.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00006">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/06.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00007">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/07.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00008">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/08.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00009">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/09.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00010">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/10.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00011">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/11.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00012">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/12.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00013">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/13.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00014">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/14.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00015">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/15.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00016">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/16.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00017">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/17.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00018">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/18.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00019">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/19.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00020">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/20.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00021">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/21.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00022">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/22.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00023">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/23.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00024">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/24.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00025">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/25.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00026">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/26.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00027">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/27.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00028">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/28.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00029">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/29.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00030">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/30.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00031">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/31.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00032">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/32.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00033">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/33.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00034">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/34.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00035">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/35.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00036">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/36.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00037">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/37.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00038">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/38.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00039">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/39.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemin00040">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/1/40.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp>
+    <mets:fileGrp USE="MINPLUS">
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00001">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/01.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00002">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/02.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00003">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/03.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00004">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/04.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00005">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/05.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00006">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/06.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00007">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/07.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00008">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/08.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00009">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/09.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00010">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/10.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00011">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/11.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00012">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/12.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00013">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/13.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00014">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/14.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00015">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/15.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00016">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/16.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00017">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/17.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00018">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/18.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00019">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/19.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00020">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/20.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00021">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/21.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00022">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/22.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00023">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/23.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00024">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/24.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00025">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/25.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00026">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/26.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00027">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/27.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00028">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/28.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00029">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/29.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00030">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/30.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00031">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/31.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00032">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/32.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00033">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/33.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00034">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/34.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00035">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/35.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00036">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/36.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00037">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/37.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00038">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/38.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00039">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/39.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="fileminplus00040">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/2/40.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp>
+    
+    <mets:fileGrp USE="DEFAULT">
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00001">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/01.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00002">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/02.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00003">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/03.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00004">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/04.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00005">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/05.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00006">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/06.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00007">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/07.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00008">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/08.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00009">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/09.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00010">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/10.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00011">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/11.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00012">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/12.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00013">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/13.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00014">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/14.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00015">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/15.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00016">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/16.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00017">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/17.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00018">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/18.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00019">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/19.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00020">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/20.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00021">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/21.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00022">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/22.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00023">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/23.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00024">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/24.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00025">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/25.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00026">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/26.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00027">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/27.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00028">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/28.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00029">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/29.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00030">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/30.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00031">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/31.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00032">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/32.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00033">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/33.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00034">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/34.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00035">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/35.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00036">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/36.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00037">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/37.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00038">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/38.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00039">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/39.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filedefault00040">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/3/40.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp>
+    <mets:fileGrp USE="MAX">
+      <mets:file MIMETYPE="image/jpg" ID="filemax00001">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/01.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00002">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/02.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00003">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/03.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00004">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/04.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00005">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/05.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00006">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/06.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00007">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/07.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00008">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/08.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00009">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/09.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00010">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/10.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00011">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/11.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00012">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/12.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00013">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/13.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00014">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/14.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00015">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/15.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00016">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/16.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00017">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/17.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00018">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/18.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00019">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/19.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00020">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/20.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00021">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/21.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00022">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/22.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00023">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/23.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00024">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/24.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00025">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/25.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00026">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/26.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00027">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/27.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00028">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/28.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00029">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/29.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00030">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/30.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00031">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/31.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00032">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/32.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00033">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/33.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00034">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/34.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00035">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/35.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00036">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/36.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00037">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/37.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00038">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/38.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00039">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/39.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filemax00040">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/4/40.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp>
+    <mets:fileGrp USE="THUMBS">
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00001">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/01.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00002">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/02.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00003">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/03.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00004">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/04.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00005">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/05.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00006">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/06.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00007">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/07.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00008">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/08.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00009">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/09.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00010">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/10.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00011">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/11.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00012">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/12.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00013">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/13.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00014">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/14.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00015">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/15.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00016">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/16.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00017">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/17.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00018">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/18.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00019">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/19.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00020">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/20.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00021">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/21.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00022">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/22.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00023">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/23.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00024">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/24.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00025">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/25.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00026">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/26.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00027">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/27.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00028">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/28.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00029">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/29.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00030">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/30.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00031">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/31.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00032">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/32.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00033">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/33.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00034">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/34.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00035">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/35.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00036">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/36.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00037">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/37.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00038">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/38.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00039">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/39.jpg" LOCTYPE="URL"/></mets:file>
+      <mets:file MIMETYPE="image/jpg" ID="filethumb00040">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/image/KlaParis1855/thumb/40.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp></mets:fileSec>
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div TYPE="periodical" LABEL="Kladderadatsch in Paris">
+      <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/KlaParis/mets" LOCTYPE="URL"/>
+      <mets:div TYPE="volume" DMDID="dmd" LABEL="Band 1-5; Berlin, 1855" ID="log" ADMID="amdSec_complete_01">
+        <mets:div TYPE="issue" DMDID="dmd00001" LABEL="Erstes Heft" ID="log00001"/>
+        <mets:div TYPE="issue" DMDID="dmd00002" LABEL="Zweites Heft" ID="log00002"/>
+        <mets:div TYPE="issue" DMDID="dmd00003" LABEL="Drittes Heft" ID="log00003"/>
+        <mets:div TYPE="issue" DMDID="dmd00004" LABEL="Viertes Heft" ID="log00004"/>
+        <mets:div TYPE="issue" DMDID="dmd00005" LABEL="Fünftes Heft" ID="log00005"/></mets:div></mets:div></mets:structMap>
+  
+  <mets:structMap TYPE="PHYSICAL">
+    <mets:div TYPE="physSequence" ID="phys0">
+      <mets:div TYPE="page" ORDERLABEL="1" ID="phys00001" ORDER="1">
+        <mets:fptr FILEID="filemin00001"/>
+        <mets:fptr FILEID="fileminplus00001"/>
+        <mets:fptr FILEID="filedefault00001"/>
+        <mets:fptr FILEID="filemax00001"/>
+        <mets:fptr FILEID="filethumb00001"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="2" ID="phys00002" ORDER="2">
+        <mets:fptr FILEID="filemin00002"/>
+        <mets:fptr FILEID="fileminplus00002"/>
+        <mets:fptr FILEID="filedefault00002"/>
+        <mets:fptr FILEID="filemax00002"/>
+        <mets:fptr FILEID="filethumb00002"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="3" ID="phys00003" ORDER="3">
+        <mets:fptr FILEID="filemin00003"/>
+        <mets:fptr FILEID="fileminplus00003"/>
+        <mets:fptr FILEID="filedefault00003"/>
+        <mets:fptr FILEID="filemax00003"/>
+        <mets:fptr FILEID="filethumb00003"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="4" ID="phys00004" ORDER="4">
+        <mets:fptr FILEID="filemin00004"/>
+        <mets:fptr FILEID="fileminplus00004"/>
+        <mets:fptr FILEID="filedefault00004"/>
+        <mets:fptr FILEID="filemax00004"/>
+        <mets:fptr FILEID="filethumb00004"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="5" ID="phys00005" ORDER="5">
+        <mets:fptr FILEID="filemin00005"/>
+        <mets:fptr FILEID="fileminplus00005"/>
+        <mets:fptr FILEID="filedefault00005"/>
+        <mets:fptr FILEID="filemax00005"/>
+        <mets:fptr FILEID="filethumb00005"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="6" ID="phys00006" ORDER="6">
+        <mets:fptr FILEID="filemin00006"/>
+        <mets:fptr FILEID="fileminplus00006"/>
+        <mets:fptr FILEID="filedefault00006"/>
+        <mets:fptr FILEID="filemax00006"/>
+        <mets:fptr FILEID="filethumb00006"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="7" ID="phys00007" ORDER="7">
+        <mets:fptr FILEID="filemin00007"/>
+        <mets:fptr FILEID="fileminplus00007"/>
+        <mets:fptr FILEID="filedefault00007"/>
+        <mets:fptr FILEID="filemax00007"/>
+        <mets:fptr FILEID="filethumb00007"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="8" ID="phys00008" ORDER="8">
+        <mets:fptr FILEID="filemin00008"/>
+        <mets:fptr FILEID="fileminplus00008"/>
+        <mets:fptr FILEID="filedefault00008"/>
+        <mets:fptr FILEID="filemax00008"/>
+        <mets:fptr FILEID="filethumb00008"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="9" ID="phys00009" ORDER="9">
+        <mets:fptr FILEID="filemin00009"/>
+        <mets:fptr FILEID="fileminplus00009"/>
+        <mets:fptr FILEID="filedefault00009"/>
+        <mets:fptr FILEID="filemax00009"/>
+        <mets:fptr FILEID="filethumb00009"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="10" ID="phys00010" ORDER="10">
+        <mets:fptr FILEID="filemin00010"/>
+        <mets:fptr FILEID="fileminplus00010"/>
+        <mets:fptr FILEID="filedefault00010"/>
+        <mets:fptr FILEID="filemax00010"/>
+        <mets:fptr FILEID="filethumb00010"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="11" ID="phys00011" ORDER="11">
+        <mets:fptr FILEID="filemin00011"/>
+        <mets:fptr FILEID="fileminplus00011"/>
+        <mets:fptr FILEID="filedefault00011"/>
+        <mets:fptr FILEID="filemax00011"/>
+        <mets:fptr FILEID="filethumb00011"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="12" ID="phys00012" ORDER="12">
+        <mets:fptr FILEID="filemin00012"/>
+        <mets:fptr FILEID="fileminplus00012"/>
+        <mets:fptr FILEID="filedefault00012"/>
+        <mets:fptr FILEID="filemax00012"/>
+        <mets:fptr FILEID="filethumb00012"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="13" ID="phys00013" ORDER="13">
+        <mets:fptr FILEID="filemin00013"/>
+        <mets:fptr FILEID="fileminplus00013"/>
+        <mets:fptr FILEID="filedefault00013"/>
+        <mets:fptr FILEID="filemax00013"/>
+        <mets:fptr FILEID="filethumb00013"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="14" ID="phys00014" ORDER="14">
+        <mets:fptr FILEID="filemin00014"/>
+        <mets:fptr FILEID="fileminplus00014"/>
+        <mets:fptr FILEID="filedefault00014"/>
+        <mets:fptr FILEID="filemax00014"/>
+        <mets:fptr FILEID="filethumb00014"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="15" ID="phys00015" ORDER="15">
+        <mets:fptr FILEID="filemin00015"/>
+        <mets:fptr FILEID="fileminplus00015"/>
+        <mets:fptr FILEID="filedefault00015"/>
+        <mets:fptr FILEID="filemax00015"/>
+        <mets:fptr FILEID="filethumb00015"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="16" ID="phys00016" ORDER="16">
+        <mets:fptr FILEID="filemin00016"/>
+        <mets:fptr FILEID="fileminplus00016"/>
+        <mets:fptr FILEID="filedefault00016"/>
+        <mets:fptr FILEID="filemax00016"/>
+        <mets:fptr FILEID="filethumb00016"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="17" ID="phys00017" ORDER="17">
+        <mets:fptr FILEID="filemin00017"/>
+        <mets:fptr FILEID="fileminplus00017"/>
+        <mets:fptr FILEID="filedefault00017"/>
+        <mets:fptr FILEID="filemax00017"/>
+        <mets:fptr FILEID="filethumb00017"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="18" ID="phys00018" ORDER="18">
+        <mets:fptr FILEID="filemin00018"/>
+        <mets:fptr FILEID="fileminplus00018"/>
+        <mets:fptr FILEID="filedefault00018"/>
+        <mets:fptr FILEID="filemax00018"/>
+        <mets:fptr FILEID="filethumb00018"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="19" ID="phys00019" ORDER="19">
+        <mets:fptr FILEID="filemin00019"/>
+        <mets:fptr FILEID="fileminplus00019"/>
+        <mets:fptr FILEID="filedefault00019"/>
+        <mets:fptr FILEID="filemax00019"/>
+        <mets:fptr FILEID="filethumb00019"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="20" ID="phys00020" ORDER="20">
+        <mets:fptr FILEID="filemin00020"/>
+        <mets:fptr FILEID="fileminplus00020"/>
+        <mets:fptr FILEID="filedefault00020"/>
+        <mets:fptr FILEID="filemax00020"/>
+        <mets:fptr FILEID="filethumb00020"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="21" ID="phys00021" ORDER="21">
+        <mets:fptr FILEID="filemin00021"/>
+        <mets:fptr FILEID="fileminplus00021"/>
+        <mets:fptr FILEID="filedefault00021"/>
+        <mets:fptr FILEID="filemax00021"/>
+        <mets:fptr FILEID="filethumb00021"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="22" ID="phys00022" ORDER="22">
+        <mets:fptr FILEID="filemin00022"/>
+        <mets:fptr FILEID="fileminplus00022"/>
+        <mets:fptr FILEID="filedefault00022"/>
+        <mets:fptr FILEID="filemax00022"/>
+        <mets:fptr FILEID="filethumb00022"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="23" ID="phys00023" ORDER="23">
+        <mets:fptr FILEID="filemin00023"/>
+        <mets:fptr FILEID="fileminplus00023"/>
+        <mets:fptr FILEID="filedefault00023"/>
+        <mets:fptr FILEID="filemax00023"/>
+        <mets:fptr FILEID="filethumb00023"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="24" ID="phys00024" ORDER="24">
+        <mets:fptr FILEID="filemin00024"/>
+        <mets:fptr FILEID="fileminplus00024"/>
+        <mets:fptr FILEID="filedefault00024"/>
+        <mets:fptr FILEID="filemax00024"/>
+        <mets:fptr FILEID="filethumb00024"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="25" ID="phys00025" ORDER="25">
+        <mets:fptr FILEID="filemin00025"/>
+        <mets:fptr FILEID="fileminplus00025"/>
+        <mets:fptr FILEID="filedefault00025"/>
+        <mets:fptr FILEID="filemax00025"/>
+        <mets:fptr FILEID="filethumb00025"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="26" ID="phys00026" ORDER="26">
+        <mets:fptr FILEID="filemin00026"/>
+        <mets:fptr FILEID="fileminplus00026"/>
+        <mets:fptr FILEID="filedefault00026"/>
+        <mets:fptr FILEID="filemax00026"/>
+        <mets:fptr FILEID="filethumb00026"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="27" ID="phys00027" ORDER="27">
+        <mets:fptr FILEID="filemin00027"/>
+        <mets:fptr FILEID="fileminplus00027"/>
+        <mets:fptr FILEID="filedefault00027"/>
+        <mets:fptr FILEID="filemax00027"/>
+        <mets:fptr FILEID="filethumb00027"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="28" ID="phys00028" ORDER="28">
+        <mets:fptr FILEID="filemin00028"/>
+        <mets:fptr FILEID="fileminplus00028"/>
+        <mets:fptr FILEID="filedefault00028"/>
+        <mets:fptr FILEID="filemax00028"/>
+        <mets:fptr FILEID="filethumb00028"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="29" ID="phys00029" ORDER="29">
+        <mets:fptr FILEID="filemin00029"/>
+        <mets:fptr FILEID="fileminplus00029"/>
+        <mets:fptr FILEID="filedefault00029"/>
+        <mets:fptr FILEID="filemax00029"/>
+        <mets:fptr FILEID="filethumb00029"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="30" ID="phys00030" ORDER="30">
+        <mets:fptr FILEID="filemin00030"/>
+        <mets:fptr FILEID="fileminplus00030"/>
+        <mets:fptr FILEID="filedefault00030"/>
+        <mets:fptr FILEID="filemax00030"/>
+        <mets:fptr FILEID="filethumb00030"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="31" ID="phys00031" ORDER="31">
+        <mets:fptr FILEID="filemin00031"/>
+        <mets:fptr FILEID="fileminplus00031"/>
+        <mets:fptr FILEID="filedefault00031"/>
+        <mets:fptr FILEID="filemax00031"/>
+        <mets:fptr FILEID="filethumb00031"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="32" ID="phys00032" ORDER="32">
+        <mets:fptr FILEID="filemin00032"/>
+        <mets:fptr FILEID="fileminplus00032"/>
+        <mets:fptr FILEID="filedefault00032"/>
+        <mets:fptr FILEID="filemax00032"/>
+        <mets:fptr FILEID="filethumb00032"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="33" ID="phys00033" ORDER="33">
+        <mets:fptr FILEID="filemin00033"/>
+        <mets:fptr FILEID="fileminplus00033"/>
+        <mets:fptr FILEID="filedefault00033"/>
+        <mets:fptr FILEID="filemax00033"/>
+        <mets:fptr FILEID="filethumb00033"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="34" ID="phys00034" ORDER="34">
+        <mets:fptr FILEID="filemin00034"/>
+        <mets:fptr FILEID="fileminplus00034"/>
+        <mets:fptr FILEID="filedefault00034"/>
+        <mets:fptr FILEID="filemax00034"/>
+        <mets:fptr FILEID="filethumb00034"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="35" ID="phys00035" ORDER="35">
+        <mets:fptr FILEID="filemin00035"/>
+        <mets:fptr FILEID="fileminplus00035"/>
+        <mets:fptr FILEID="filedefault00035"/>
+        <mets:fptr FILEID="filemax00035"/>
+        <mets:fptr FILEID="filethumb00035"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="36" ID="phys00036" ORDER="36">
+        <mets:fptr FILEID="filemin00036"/>
+        <mets:fptr FILEID="fileminplus00036"/>
+        <mets:fptr FILEID="filedefault00036"/>
+        <mets:fptr FILEID="filemax00036"/>
+        <mets:fptr FILEID="filethumb00036"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="37" ID="phys00037" ORDER="37">
+        <mets:fptr FILEID="filemin00037"/>
+        <mets:fptr FILEID="fileminplus00037"/>
+        <mets:fptr FILEID="filedefault00037"/>
+        <mets:fptr FILEID="filemax00037"/>
+        <mets:fptr FILEID="filethumb00037"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="38" ID="phys00038" ORDER="38">
+        <mets:fptr FILEID="filemin00038"/>
+        <mets:fptr FILEID="fileminplus00038"/>
+        <mets:fptr FILEID="filedefault00038"/>
+        <mets:fptr FILEID="filemax00038"/>
+        <mets:fptr FILEID="filethumb00038"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="39" ID="phys00039" ORDER="39">
+        <mets:fptr FILEID="filemin00039"/>
+        <mets:fptr FILEID="fileminplus00039"/>
+        <mets:fptr FILEID="filedefault00039"/>
+        <mets:fptr FILEID="filemax00039"/>
+        <mets:fptr FILEID="filethumb00039"/></mets:div>
+      <mets:div TYPE="page" ORDERLABEL="40" ID="phys00040" ORDER="40">
+        <mets:fptr FILEID="filemin00040"/>
+        <mets:fptr FILEID="fileminplus00040"/>
+        <mets:fptr FILEID="filedefault00040"/>
+        <mets:fptr FILEID="filemax00040"/>
+        <mets:fptr FILEID="filethumb00040"/></mets:div></mets:div></mets:structMap>
+  <mets:structLink>
+    <mets:smLink xlink:from="log" xlink:to="phys0"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00001"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00002"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00003"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00004"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00005"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00006"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00007"/>
+    <mets:smLink xlink:from="log00001" xlink:to="phys00008"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00009"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00010"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00011"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00012"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00013"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00014"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00015"/>
+    <mets:smLink xlink:from="log00002" xlink:to="phys00016"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00017"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00018"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00019"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00020"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00021"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00022"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00023"/>
+    <mets:smLink xlink:from="log00003" xlink:to="phys00024"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00025"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00026"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00027"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00028"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00029"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00030"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00031"/>
+    <mets:smLink xlink:from="log00004" xlink:to="phys00032"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00033"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00034"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00035"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00036"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00037"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00038"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00039"/>
+    <mets:smLink xlink:from="log00005" xlink:to="phys00040"/></mets:structLink></mets:mets>

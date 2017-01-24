@@ -1,0 +1,201 @@
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwork="http://www.ub.uni-heidelberg.de/__NO_SUCH_SCHEMA__" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/mets/mets.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+  <mets:metsHdr>
+    <mets:agent TYPE="ORGANIZATION" ROLE="CREATOR">
+      <mets:name>Universitätsbibliothek Heidelberg</mets:name></mets:agent></mets:metsHdr>
+  <mets:dmdSec ID="dmd">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title own="L' art pour tous">L' art pour tous</mods:title>
+            <mods:subTitle>encyclopédie de l'art industriel et décoratif</mods:subTitle></mods:titleInfo>
+          <mods:originInfo>
+            <mods:place>
+              <mods:placeTerm type="text">Paris</mods:placeTerm></mods:place>
+            <mods:dateIssued encoding="w3cdtf" keyDate="yes" point="start">1861</mods:dateIssued>
+            <mods:dateIssued encoding="w3cdtf" point="end">1905</mods:dateIssued>
+            <mods:dateIssued>1.1861 - 44.1905</mods:dateIssued></mods:originInfo>
+          <mods:originInfo>
+            <mods:edition>[Electronic ed.]</mods:edition>
+            <mods:publisher>Universitätsbibliothek Heidelberg</mods:publisher></mods:originInfo>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>Online-Ressource</mods:extent></mods:physicalDescription>
+          <mods:language>
+            <mods:languageTerm type="code" authority="iso639-2b">ger</mods:languageTerm></mods:language>
+          <mods:language>
+            <mods:languageTerm type="code" authority="iso639-2b">fre</mods:languageTerm></mods:language>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>Informationen zur Zeitschrift</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Informationen zur Zeitschrift">http://art-pour-tous.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>Further information on the journal</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Further information on the journal">http://art-pour-tous.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>art journals – Kunst- und Satirezeitschriften</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Kunst- und Satirezeitschriften" dwork_showOnSinglePageView="true">http://artjournals.uni-hd.de/</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>art journals – Illustrated art and satire periodicals</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Illustrated art and satire periodicals" dwork_showOnSinglePageView="true">http://www.ub.uni-heidelberg.de/Englisch/helios/fachinfo/www/kunst/digilit/artjournals/Welcome.html</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Druckschriften</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">druckschriften</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Heidelberger historische Bestände — digital: Illustrierte Kunst- und Satirezeitschriften des 19. und frühen 20. Jahrhunderts</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">sammlung5</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:location>
+            <mods:physicalLocation>Universitätsbibliothek Heidelberg</mods:physicalLocation>
+            <mods:url access="object in context">http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous</mods:url></mods:location>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="swb-ppn">368306925</mods:recordIdentifier></mods:recordInfo>
+          <mods:identifier type="urn">urn:nbn:de:bsz:16-diglit-165231</mods:identifier>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="urn">urn:nbn:de:bsz:16-diglit-165231</mods:recordIdentifier></mods:recordInfo>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dc">
+    <mets:mdWrap MDTYPE="DC" LABEL="Dublin Core Metadata" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dc:title>L' art pour tous: encyclopédie de l'art industriel et décoratif</dc:title>
+        <dcterms:isPartOf>Sammlung5 - Kunstzeitschriften</dcterms:isPartOf>
+        <dc:language>ger</dc:language>
+        <dc:language>fre</dc:language>
+        <dc:type>Text</dc:type></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dwork">
+    <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="private/dwork" LABEL="dwork specific" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dwork:dwork>
+          <dwork:projectname>art_pour_tous</dwork:projectname>
+          <dwork:introImageUrl>http://digi.ub.uni-heidelberg.de/diglitData/introimage/art_pour_tous1861.jpg</dwork:introImageUrl>
+          <dwork:layoutTemplate>druck</dwork:layoutTemplate>
+          <dwork:sammlung>5</dwork:sammlung>
+          <dwork:geschuetzt/>
+          <dwork:kein_oai/>
+          <dwork:kein_urn/>
+          <dwork:kein_pdfdownload/>
+          <dwork:annotationen>0</dwork:annotationen>
+          <dwork:lizenz/>
+          <dwork:footer>UB</dwork:footer></dwork:dwork></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:amdSec ID="amdSec_complete_01">
+    <mets:rightsMD ID="rightsMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Heidelberg</dv:owner>
+            <dv:ownerLogo>http://digi.ub.uni-heidelberg.de/diglitData/image/logo-dfgviewer.gif</dv:ownerLogo>
+            <dv:ownerSiteURL>http://www.ub.uni-heidelberg.de/</dv:ownerSiteURL></dv:rights></mets:xmlData></mets:mdWrap></mets:rightsMD>
+    <mets:digiprovMD ID="digiprovMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>http://katalog.ub.uni-heidelberg.de/cgi-bin/search.cgi?query=si%3A368306925+-(teil:ezblf)&amp;pos=1</dv:reference>
+            <dv:presentation>http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous</dv:presentation></dv:links></mets:xmlData></mets:mdWrap></mets:digiprovMD></mets:amdSec>
+  <mets:fileSec>
+    <mets:fileGrp USE="INTROIMAGE">
+      <mets:file MIMETYPE="image/jpg" ID="INTROIMAGE">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/introimage/art_pour_tous1861.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp></mets:fileSec>
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div TYPE="periodical" DMDID="dmd" LABEL="L' art pour tous: encyclopédie de l'art industriel et décoratif; Paris, 1.1861 - 44.1905" ID="log" ADMID="amdSec_complete_01">
+      <mets:div LABEL="Band 1; 1861">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1861/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 2; 1862">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1862/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 3; 1863">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1863/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 4; 1864">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1864/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 5; 1865">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1865_1866/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 6; 1866">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1866_1867/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 7; 1867-1868">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1867_1868/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 8; 1868-1869">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1868_1869/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 9; 1869-1870">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1869_1870/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 10; 1870-1871">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1870_1871/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 11; 1872">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1872/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 12; 1873">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1873/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 13; 1874">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1874/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 14; 1875">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1875/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 15; 1876">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1876/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 16; 1877">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1877/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 17; 1878">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1878/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 18; 1879">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1879/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 19; 1880">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1880/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 20; 1881">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1881/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 21; 1882">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1882/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 22; 1883">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1883/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 23; 1884">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1884/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 24; 1885">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1885/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 25; 1886">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1886/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 26; 1887">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1887/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 27; 1888">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1888/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 28; 1889">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1889/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 29; 1890">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1890/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 30; 1891">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1891/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 31; 1892">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1892/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 32; 1893">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1893/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 33; 1894">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1894/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 34; 1895">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1895/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 35; 1896">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1896/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 36; 1897">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1897/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 37; 1898">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1898/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 38; 1899">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1899/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 39; 1900">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1900/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 40; 1901">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1901/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 41; 1902">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1902/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 42; 1903">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1903/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 43; 1904">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1904/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 44; 1905">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/art_pour_tous1905/mets" LOCTYPE="URL"/></mets:div></mets:div></mets:structMap></mets:mets>

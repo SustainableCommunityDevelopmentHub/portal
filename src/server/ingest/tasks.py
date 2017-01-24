@@ -225,6 +225,7 @@ def process_new_rec(inst, recid, idate, fpath, es):
 	elif inst in DC_DATA:
 		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='DC')
 		rec = dublin_core.main(fpath)
+		print(rec)
 	elif inst in METS_DATA:
 		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
 		rec = mets.main(fpath)
@@ -268,12 +269,15 @@ def load_es(recid, rec, es):
 
 	try:
 		resp = requests.put(ES_DOC, data=rec.encode('utf-8'))
-	except:
-		print(recid)
-		raise
+		resp.raise_for_status()
+		return resp
+	except requests.exceptions.HTTPError as err:
+		logf.write('Uploading {}...{}\n'.format(recid, err))
+	except requests.exceptions.RequestException as e:
+		logf.write('Uploading {}...{}\n'.format(recid, e))
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
-	if resp.status_code != 201 and resp.status_code != 200:
-		logf.write('Uploading {}...{}\n'.format(recid, resp.status_code))
+
+		
 
 
 
