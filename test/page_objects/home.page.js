@@ -33,6 +33,9 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     }},
     facetChips: { get: function() {
       return element.all(by.css(".facet-chip a"));
+    }},
+    clickHome: { value: function() {
+      element(by.id('home')).click();
     }}
 });
 

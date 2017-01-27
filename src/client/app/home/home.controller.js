@@ -24,8 +24,8 @@
     function newSearch(opts){
       SearchService.resetOpts();
       if (opts.q) {
+        $scope.queryTerms = [];
         var distinctQueries = splitQuotedQueries(opts.q);
-        console.log(distinctQueries);
         for (var i = 0; i < distinctQueries.length; i++) {
           if (distinctQueries[i] != null) {
             if ($scope.queryTerms.indexOf(distinctQueries[i]) === -1) {
@@ -41,7 +41,6 @@
         sort: SORT_MODES[SORT_DEFAULT]
       };
       SearchService.updateOpts(opts);
-      $scope.queryTerms = "";
       SearchService.transitionStateAndSearch();
       $scope.showSpinner = true;
     };
