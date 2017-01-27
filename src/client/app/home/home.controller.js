@@ -5,13 +5,14 @@
   .module('app.home')
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'SORT_MODES', 'config', HomePageCtrl]);
 
-  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, config) {
+  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, config, NEW_CONTRIBUTORS) {
     $scope.totalTitles = config.numTotalTitles;
+    $scope.contributors = config.newContributors;
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
     $scope.showSpinner = false;
-
+    
     function newSearch(opts) {
       SearchService.resetOpts();
       SearchService.updateOpts(opts);
