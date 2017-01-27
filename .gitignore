@@ -19,4 +19,5 @@ __pycache__/
 
 src/server/ingest/test_data/
 src/server/ingest/production_data
-src/server/ingest/error.log
+
+*/fake.txt
