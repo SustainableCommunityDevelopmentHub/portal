@@ -112,7 +112,14 @@
     }
 
     function getDcRec(bookID){
-      return $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
+      var response = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
+      var deferred = $q.defer();
+      response.success(function (data) {
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject(arguments);
+      });
+      return deferred.promise;
     }
   }
 })();

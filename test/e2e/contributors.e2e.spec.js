@@ -1,15 +1,14 @@
 //contributors.e2e.spec.js
 /* global by */
 
+var ContributorsPage = require('../page_objects/contributors.page.js');
+
 describe('Contributors Page', function() {
 
-	var seeAllContribsLink = element(by.uiSref('contributors'));
+	var contributorsPage;
 
 	beforeEach(function() {
-		browser.get('');
-		seeAllContribsLink.click().then(function() {
-			browser.waitForAngular();
-		});
+		contributorsPage = new ContributorsPage();
 	});
 
 	it('Should change to contributors state', function() {
@@ -46,6 +45,18 @@ describe('Contributors Page', function() {
 			});
 		});
 	});
+
+	it('should send user to contributor homepage on click of contributor name', function() {
+    	contributorsPage.getContributor(0).click();
+    	browser.getAllWindowHandles().then(function (handles) {
+      		var newWindowHandle = handles[1]; // this is your new window
+      		browser.switchTo().window(newWindowHandle).then(function () {
+        	    browser.ignoreSynchronization = true;
+        	    expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/');
+        	    browser.ignoreSynchronization = false;
+            });
+        });
+  	});
 		
 
 });

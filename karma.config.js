@@ -28,6 +28,7 @@ module.exports = function(config) {
       'src/client/bower_components/angular-mocks/angular-mocks.js',
       'src/client/bower_components/spin.js/spin.js',
       'src/client/bower_components/angular-spinner/angular-spinner.js',
+      'src/client/bower_components/angularjs-slider/dist/rzslider.js',
 
       'src/client/app/*.module.js',
       'src/client/app/**/*.module.js',

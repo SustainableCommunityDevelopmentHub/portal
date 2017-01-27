@@ -1,6 +1,5 @@
 'use strict';
 
-
 var BookDetailPage = function() {
   browser.get('');
   var firstResult = element.all(by.css('.book-title')).first();

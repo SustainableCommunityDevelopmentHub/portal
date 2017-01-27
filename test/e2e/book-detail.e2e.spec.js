@@ -27,10 +27,10 @@ describe('Book Detail', function() {
     var testData = require('../../mocks/book.json');
     bookDetailPage.clickExport();
     $('.saveJson').click();
-    var fileContents = $('.saveJson').evaluate('fileContents').then(function(response){
-      return JSON.parse(response).data;
-    });
-    expect(fileContents).toEqual(testData);
+    $('.saveJson').evaluate('fileContents').then(function(response){
+      var fileContents = JSON.parse(response);
+      expect(fileContents).toEqual(testData);
+    });    
   });
 
   it('should download correct RIS record on click', function() {
@@ -70,7 +70,6 @@ describe('Book Detail', function() {
     bookDetailPage.clickViewDigitalItem();
     browser.getAllWindowHandles().then(function (handles) {
       var newWindowHandle = handles[1]; // this is your new window
-
       browser.switchTo().window(newWindowHandle).then(function () {
         browser.ignoreSynchronization = true;
         expect(browser.getCurrentUrl()).toContain('http://gallica.bnf.fr/ark:/12148/bpt6k63442281');
