@@ -117,6 +117,11 @@ describe('Search Results', function() {
      });
   });
 
+  it('should filter results by date when you use date range slider', function(){
+    resultsPage.submitSliderRange(150, 200);
+    expect(resultsPage.numTotalHits).toEqual(42);
+  })
+
   it('should save book records', function () {
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.toggleSavingRecord(2);
@@ -219,6 +224,13 @@ describe('Search Results', function() {
     resultsPage.addFacetOption('language', 'Spanish; Castilian');
     resultsPage.numTotalHits.then(function(hits) {
       expect(hits).toEqual(24);
+    });
+  });
+
+  it('should return results with queries containing api, such as tapissiers', function() {
+    resultsPage.submitNewSearchTerm('tapissiers');
+    resultsPage.numTotalHits.then(function(hits){
+      expect(hits).toEqual(1);
     });
   });
 

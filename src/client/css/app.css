@@ -404,6 +404,14 @@ hr.thin {
   content: " ";
 }
 
+.new-contributors-list {
+  padding-left: 0;
+}
+
+.new-contributors-item {
+  list-style: none;
+}
+
   /* Stat Boxes */
 
     .stats {
@@ -580,6 +588,20 @@ hr.thin {
 .facet-chip-no-results {
   background-color: #ccc;
   text-decoration: line-through;
+}
+
+#oldest-date {
+  float:left;
+  padding-left: 2px;
+  font-size: .87em;
+  color: black;
+}
+
+#current-year {
+  text-align: right;
+  padding-right: 2px;
+  font-size: .87em;
+  color: black;
 }
 
 .search-container {
@@ -876,15 +898,14 @@ li.book-listing {
   }
 
   .date-range-container form{
-    display: flex;
     align-items: flex-end;
     justify-content: space-between;
   }
 
   .date-range {
     display: inline-block;
-    width: 45%;
-    margin-right: 5px;
+    width: 43%;
+    margin-right: 3px;
   }
 
   .date-range p {
@@ -895,8 +916,10 @@ li.book-listing {
   .date-range input {
     width: 100%;
     height: 30px;
+    padding: 10px;
     font-size: 12px;
   }
+
 
   #date-btn-results {
     height: 30px;
@@ -1115,6 +1138,12 @@ li.book-listing {
 
 .view-export-print a:hover {
 text-decoration: none;
+}
+
+#viewDigitalItem {
+  margin-top: 15px;
+  width: 130px;
+  float: left;
 }
 
 #exportBtn .glyphicon {

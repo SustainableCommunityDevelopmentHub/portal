@@ -36,6 +36,9 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     }},
     clickHome: { value: function() {
       element(by.id('home')).click();
+    }},
+    newContributors: { get: function() {
+        return element.all(by.css(".new-contributors-item"));
     }}
 });
 

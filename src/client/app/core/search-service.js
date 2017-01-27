@@ -262,9 +262,9 @@
      * @param {string} term - value to filter for within the advanced field
      */
     function buildAdvancedField(field, term){
-      if(!field.searchKey){
+      if(!field.paramName){
         field = ADVANCED_SEARCH[field];
-        if(!field.searchKey){
+        if(!field.paramName){
           return false;
         }
       }

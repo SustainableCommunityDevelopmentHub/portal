@@ -5,8 +5,9 @@
   .module('app.home')
   .controller('HomePageCtrl', ['$scope', 'SearchService', '$state', 'SORT_MODES', 'SORT_DEFAULT', 'config', HomePageCtrl]);
 
-  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, SORT_DEFAULT, config) {
+  function HomePageCtrl($scope, SearchService, $state, SORT_MODES, SORT_DEFAULT, config, NEW_CONTRIBUTORS) {
     $scope.totalTitles = config.numTotalTitles;
+    $scope.contributors = config.newContributors;
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
@@ -20,8 +21,8 @@
       var mergedArrays = replaceArray.concat(quotedTerms);
       return mergedArrays;
     }
-
-    function newSearch(opts){
+    
+    function newSearch(opts) {
       SearchService.resetOpts();
       if (opts.q) {
         $scope.queryTerms = [];

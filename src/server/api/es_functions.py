@@ -39,8 +39,21 @@ def create_advanced_filters(field, terms):
               'adv_date': ['_date_facet.folded', '_date_facet.stemmed', 'dublin_core.date.value', 'dublin_core.date.value.folded', 'dublin_core.date.value.stemmed'],
               'adv_language': ['dublin_core.language.value', 'dublin_core.language.value.folded', 'dublin_core.language.value.stemmed'],
               'adv_title': ['dublin_core.title.value', 'dublin_core.title.value.folded', 'dublin_core.title.value.stemmed'],
-              'adv_suject': ['dublin_core.subject.value', 'dublin_core.subject.value.folded', 'dublin_core.subject.value.stemmed'],
-              'adv_creator': ['dublin_core.creator.value', 'dublin_core.creator.value.folded', 'dublin_core.creator.value.stemmed']}
+              'adv_subject': ['dublin_core.subject.value', 'dublin_core.subject.value.folded', 'dublin_core.subject.value.stemmed'],
+              'adv_creator': ['dublin_core.creator.value', 'dublin_core.creator.value.folded', 'dublin_core.creator.value.stemmed', 'dublin_core.contributor.value', 'dublin_core.contributor.value.folded', 'dublin_core.contributor.value.stemmed'],
+              'adv_identifier': ['dublin_core.identifier.value', 'dublin_core.identifier.value.folded', 'dublin_core.identifier.value.stemmed'],
+              'adv_publisher': ['dublin_core.publisher.value', 'dublin_core.publisher.value.folded', 'dublin_core.publisher.value.stemmed'],
+              'adv_format': ['dublin_core.format.value', 'dublin_core.format.value.folded', 'dublin_core.format.value.stemmed'],
+              'adv_type': ['dublin_core.type.value', 'dublin_core.type.value.folded', 'dublin_core.type.value.stemmed'],
+              'adv_description': ['dublin_core.description.value', 'dublin_core.description.value.folded', 'dublin_core.description.value.stemmed'],
+              'adv_provenance': ['dublin_core.provenance.value', 'dublin_core.provenance.value.folded', 'dublin_core.provenance.value.stemmed'],
+              'adv_coverage': ['dublin_core.coverage.value', 'dublin_core.coverage.value.folded', 'dublin_core.coverage.value.stemmed'],
+              'adv_relation': ['dublin_core.relation.value', 'dublin_core.relation.value.folded', 'dublin_core.relation.value.stemmed'],
+              'adv_source': ['dublin_core.source.value', 'dublin_core.source.value.folded', 'dublin_core.source.value.stemmed'],
+              'adv_rights': ['dublin_core.rights.value', 'dublin_core.rights.value.folded', 'dublin_core.rights.value.stemmed'],
+              'adv_accrualMethod': ['dublin_core.accrualMethod.value', 'dublin_core.accrualMethod.value.folded', 'dublin_core.accrualMethod.value.stemmed'],
+              'adv_accrualPeriodicity': ['dublin_core.accrualPeriodicity.value', 'dublin_core.accrualPeriodicity.value.folded', 'dublin_core.accrualPeriodicity.value.stemmed'],
+              'adv_audience': ['dublin_core.audience.value', 'dublin_core.audience.value.folded', 'dublin_core.audience.value.stemmed']}
     field_term = fields.get(field)
     filters = []
     for term in terms:
