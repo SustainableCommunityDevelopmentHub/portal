@@ -8,4 +8,5 @@ python-memcached
 pymarc
 lxml
 requests
+responses
 git+https://github.com/gri-is/funnel.git
