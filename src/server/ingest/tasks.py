@@ -75,7 +75,10 @@ def create_source(data_path, supplied_dir, es):
 def assign_directories(data_path, supplied_dir):
 	inst = supplied_dir.split('/')[-1].split('_')[0]
 	idate = supplied_dir.split('/')[-1].split('_')[-1]
-	inst_dir = os.path.join(data_path, 'source_data', inst)
+	source_top = os.path.join(data_path, 'source_data')
+	if not os.path.isdir(source_top):
+		os.mkdir(source_top)
+	inst_dir = os.path.join(source_top, inst)
 	if not os.path.isdir(inst_dir):
 		os.mkdir(inst_dir)
 	date_dir = os.path.join(inst_dir, idate)
@@ -186,7 +189,10 @@ def create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es):
 	process_data(inst, date_dir, es)
 
 def archive(data_path, inst, supplied_dir):
-	archive_dir = os.path.join(data_path, 'archived_data', inst)
+	archive_top = os.path.join(data_path, 'archived_data')
+	if not os.path.isdir(archive_top):
+		os.mkdir(archive_top)
+	archive_dir = os.path.join(archive_top, inst)
 	if not os.path.isdir(archive_dir):
 		os.mkdir(archive_dir)
 	zipname = supplied_dir.split('/')[-1]
