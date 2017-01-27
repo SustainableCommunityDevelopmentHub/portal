@@ -20,7 +20,8 @@
     'AngularPrint',
     'smoothScroll',
     'ngAnimate',
-    'angularSpinner'
+    'angularSpinner',
+    'rzModule'
   ])
 
   .config(['$httpProvider', function($httpProvider) {
@@ -43,7 +44,7 @@
       console.log('In ' + config.env + '. Debug mode enabled');
     }
   }])
-  
+
   // app initialization
   .run(runBlock);
 

@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', 'config', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH, config){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -164,9 +164,55 @@
     };
 
      $scope.setDateRange = function(fromDate, toDate) {
-      console.log("fromDate: " + fromDate + ", toDate: " + toDate);
-      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
+      console.log("fromDate: " + fromDate + ", toDate: " + toDate);    
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});      
     };
+
+    $scope.currentYear = new Date().getFullYear();
+    $scope.oldestDate = config.oldestDate;
+
+
+    /**
+     * control formatting of date range boxes
+     * while receiving input
+     */
+    $('.date_box').on('input propertychange paste', function (e) {
+      var reg = /^0+/gi;
+      if (this.value.match(reg)) {
+        this.value = this.value.replace(reg, '');
+      }
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0,4); 
+      }
+      if(this.value > $scope.currentYear || isNaN(this.value)) {
+        this.value = 0;
+      }
+    });
+
+
+    /**
+     * set parameters for date range slider
+     * and tie values to fromDate and toDate
+     */
+    $scope.dateSlider = {
+      min: $scope.fromDate,
+      max: $scope.toDate,
+      options: {
+        id: "drSlider",
+        floor: config.oldestDate,
+        ceil: new Date().getFullYear(),
+        onChange: function(sliderId, modelValue, highValue, pointerType) {
+          $scope.fromDate = modelValue;
+          $scope.toDate = highValue;
+        },
+        noSwitching: true,
+        minRange: 1,
+        pushRange: true,
+        hideLimitLabels: true,
+        hidePointerLabels: true
+      }
+    };
+
 
     /**
      * trigger search to populate new page and update $scope / state
