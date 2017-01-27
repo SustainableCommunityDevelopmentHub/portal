@@ -8,8 +8,6 @@ config/prod
 .DS_Store
 
 tmp/
-logs/*
-.log
 
 npm-debug.log
 

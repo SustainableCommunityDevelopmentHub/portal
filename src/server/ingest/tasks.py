@@ -60,7 +60,8 @@ SAMPLE_DATA = [
 	'uh'
 ]
 
-logf = open('ingest/error.log', 'w')
+log_path = os.path.join(settings.BASE_DIR, '../../logs/error.log')
+logf = open(log_path, 'w')
 
 def create_source(data_path, supplied_dir, es):
 	inst, idate, date_dir = assign_directories(data_path, supplied_dir)
