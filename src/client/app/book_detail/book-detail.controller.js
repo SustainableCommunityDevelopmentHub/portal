@@ -28,7 +28,7 @@
       $scope.showSpinner = true;
       DataService.getDcRec($scope.book._id).then(function(data) {
         if (typeof data === 'object') {
-          data = angular.toJson(data, undefined, 2);
+          data = angular.toJson(data);
           $scope.fileContents = data;
         }
         createBlobAndDownload(data, 'text/json', filename);
