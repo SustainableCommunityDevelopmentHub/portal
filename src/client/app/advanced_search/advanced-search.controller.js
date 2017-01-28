@@ -62,22 +62,47 @@
      * Adds those items to an opts object and updates SearchService opts.
      * Then transitions to Search Results state.
      */
+
+    function splitQuotedTerms(query){
+      var quotedTerms = query.match(/".*?"/g);
+      var replace = query.replace(/".*?"/g, " ");
+      var replaceArray = replace.split(" ").filter(Boolean);
+      var mergedArrays = replaceArray.concat(quotedTerms);
+      return mergedArrays;
+    }
+
     function search() {
       $scope.showSpinner = true;
       var advFields = [];
       var query = [];
       if ($scope.queryTerm) {
-        query.push($scope.queryTerm);
+        var distinctTerms = splitQuotedTerms($scope.queryTerm);
+        for (var i = 0; i < distinctTerms.length; i++) {
+          if (distinctTerms[i] != null) {
+            if (query.indexOf(distinctTerms[i]) === -1) {
+              query.push(distinctTerms[i].toLowerCase());
+            }
+          }
+        }
       }
 
       $scope.filters.forEach(function(filter){
-        if (filter.term && filter.field == 'keyword') {
-          query.push(filter.term);
-        }
+        var distinctTerms = splitQuotedTerms(filter.term);;
+        if (filter.term && filter.field.searchKey == 'keyword') {
+          for (var i = 0; i < distinctTerms.length; i++) {
+            if (distinctTerms[i] != null) {
+              query.push(distinctTerms[i].toLowerCase());
+            }
+          }
+        }          
         else if (filter.term && filter.field !== initialField ){
-          advFields.push(
-            SearchService.buildAdvancedField(filter.field, filter.term)
-          );
+          for (var i = 0; i < distinctTerms.length; i++) {
+            if (distinctTerms[i] != null){
+              advFields.push(
+                SearchService.buildAdvancedField(filter.field, distinctTerms[i])
+              );
+            }
+          }
         }
       });
 

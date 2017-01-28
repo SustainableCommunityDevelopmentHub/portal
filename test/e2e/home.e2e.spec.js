@@ -2,6 +2,7 @@
 'use strict';
 
 var HomePage = require('../page_objects/home.page.js');
+var ResultsPage = require('../page_objects/results.page.js');
 
 describe('Home Page', function() {
 	var homePage;
@@ -29,6 +30,30 @@ describe('Home Page', function() {
       homePage.getQueryString().then(function(queryString){
         expect(queryString).toEqual('from=0&size=25&sort=date_added');
       });
+    });
+  });
+
+  it('Should split keywords unless quoted', function() {
+    homePage.submitHomePageQuery('french \"art history\" skin-nay! \"of the\"');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(20);
+      expect(homePage.facetChips.get(1).getText()).toEqual("skin-nay! (Keyword)");
+      expect(homePage.facetChips.get(2).getText()).toEqual("art history (Keyword)");
+    });
+  });
+
+  it('Should clear query terms upon return to home page', function() {
+    homePage.submitHomePageQuery('new york');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(5);
+      expect(homePage.facetChips.get(0).getText()).toEqual("new (Keyword)");
+      expect(homePage.facetChips.get(1).getText()).toEqual("york (Keyword)");
+    });
+    homePage.clickHome();
+    homePage.submitHomePageQuery('\"new york\"');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(5);
+      expect(homePage.facetChips.get(0).getText()).toEqual("new york (Keyword)");
     });
   });
 

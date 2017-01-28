@@ -144,5 +144,15 @@ describe("Advanced Search", function(){
     });
   });
 
+  it('should split keywords unless quoted', function() {
+    advancedPage.addFilterSearches([['Title', 'art \"revue hebdomadaire\"']]);;
+    advancedPage.submitAdvancedSearch();
+    expect(advancedPage.numTotalHits).toEqual(20);
+    expect(advancedPage.facetChips.count()).toEqual(2);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance&adv_title=art&adv_title=%22revue%20hebdomadaire%22');
+    });
+  });
+
 
 });

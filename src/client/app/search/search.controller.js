@@ -67,6 +67,11 @@
     $scope.advFields = ADVANCED_SEARCH;
     $scope.selectedAdvField = ADVANCED_SEARCH.title;
     $scope.advSearchTerm = "";
+    
+    $scope.removeQuotes = function(queryTerm) {
+      var queryTermDisplay = queryTerm.replace(/['"]+/g, '');
+      return queryTermDisplay;
+    }
 
     ///////////////////////////
     //Private/Helper Functions
@@ -132,12 +137,25 @@
      * init search on new query term
      * Adding new query term to previous query term
      */
+
+    function splitQuotedQueries(query){
+      var quotedTerms = query.match(/".*?"/g);
+      var replace = query.replace(/".*?"/g, " ");
+      var replaceArray = replace.split(" ").filter(Boolean);
+      var mergedArrays = replaceArray.concat(quotedTerms);
+      return mergedArrays;
+    }
+
     $scope.newQuerySearch = function(query){
-      var newQuery;
       if (query) {
-        query = query.trim();
-        if ($scope.queryTerms.indexOf(query) === -1){
-          $scope.queryTerms.push(query.toLowerCase());
+        var distinctQueries = splitQuotedQueries(query);
+        for (var i = 0; i < distinctQueries.length; i++) {
+          if (distinctQueries[i] != null) {
+            if ($scope.queryTerms.indexOf(distinctQueries[i]) === -1) {
+              $scope.queryTerms.push(distinctQueries[i].toLowerCase());
+              $scope.noQuotes = distinctQueries[i].trim().toLowerCase();
+            }
+          }
         }
       }
       var opts = {
@@ -148,6 +166,7 @@
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
+
 
     /**
      * update pagesize. init new search if pagesize increases
@@ -297,10 +316,16 @@
 
     $scope.addAdvSearchTerm = function() {
       if ($scope.advSearchTerm) {
-        var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
-        ss.opts.advancedFields.push(newField);
-        ss.opts.from = 0;
-        ss.transitionStateAndSearch();
+        var distinctQueries = splitQuotedQueries($scope.advSearchTerm);
+        for (var i = 0; i < distinctQueries.length; i++) {
+          if (distinctQueries[i] != null) {
+            var newField = ss.buildAdvancedField($scope.selectedAdvField, distinctQueries[i]);
+            ss.opts.advancedFields.push(newField);
+            ss.opts.from = 0;
+            ss.transitionStateAndSearch();
+          }
+        }
+        
       }
     };
 
