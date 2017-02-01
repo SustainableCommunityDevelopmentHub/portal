@@ -4,8 +4,9 @@ import shutil
 from glob import glob
 import requests
 import filecmp
-from datetime import datetime
+import datetime
 import traceback
+import math
 
 from django.db import models
 from django.conf import settings
@@ -218,7 +219,7 @@ def process_data(inst, date_dir, es):
 					old_date = oldrec.updated_date
 				else:
 					old_date = oldrec.ingest_date
-				idate_obj = datetime.strptime(idate, '%Y-%m-%d').date()
+				idate_obj = datetime.datetime.strptime(idate, '%Y-%m-%d').date()
 				if idate_obj >= old_date:
 					process_dupe_rec(oldrec, inst, recid, idate, fpath, es)
 		except Exception as e:
@@ -283,6 +284,48 @@ def load_es(recid, rec, es):
 	except requests.exceptions.RequestException as e:
 		logf.write('Uploading {}...{}\n'.format(recid, e))
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
+
+def build_sitemaps():
+
+	total_recs = Record.objects.all().count()
+	total_recs = float(total_recs)
+	print(total_recs)
+
+	pages = math.ceil(total_recs / 50000)
+
+	print(pages)
+
+	build_sitemap(pages)
+
+
+def build_sitemap(pages):
+	print('here - pages is {}'.format(pages))
+	ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+	index_root = etree.Element('sitemapindex', nsmap=ns)
+	index_doc = etree.ElementTree(index_root)
+	for page in range(1, pages+1): 
+		root = etree.Element('urlset', nsmap=ns)
+		doc = etree.ElementTree(root)
+		for record in Record.objects.all()[page: 50000]:	
+			url = etree.SubElement(root, 'url', nsmap=ns)
+			loc = etree.SubElement(url, 'loc', nsmap=ns)
+			loc.text = 'http://portal.getty.edu/api/books/{}'.format(record.pk)
+			lastmod = etree.SubElement(url, 'lastmod', nsmap=ns)
+			lastmod.text = str(datetime.date.today())
+			priority = etree.SubElement(url, 'priority', nsmap=ns)
+			priority.text = '0.8'
+			out_fname = 'sitemap-{}.xml.gz'.format(str(page))
+			out_fname = os.path.join(settings.BASE_DIR, '../client', out_fname)
+		doc.write(out_fname, xml_declaration=True, encoding='utf-8')
+
+		sitemap = etree.SubElement(index_root, 'sitemap', nsmap=ns)
+		index_loc = etree.SubElement(sitemap, 'loc', nsmap=ns)
+		index_loc.text = 'http://portal.getty.edu/{}'.format(out_fname)
+		index_lastmod = etree.SubElement(sitemap, 'lastmod', nsmap=ns)
+		index_lastmod.text = str(datetime.date.today())
+
+	index_fname = os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml')
+	index_doc.write(index_fname, xml_declaration=True, encoding='utf-8')
 
 		
 
