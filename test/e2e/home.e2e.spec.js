@@ -2,6 +2,7 @@
 'use strict';
 
 var HomePage = require('../page_objects/home.page.js');
+var ResultsPage = require('../page_objects/results.page.js');
 
 describe('Home Page', function() {
 	var homePage;
@@ -11,7 +12,7 @@ describe('Home Page', function() {
 	});
 
   it('Should display all records when user clicks See All button', function() {
-		homePage.seeAll();
+    homePage.seeAll();
     homePage.getHits().then(function(hits) {
       expect(hits.length).toEqual(25);
       expect(homePage.showingResultsDialogue).toEqual('Showing 1 - 25 of 452 results');
@@ -19,7 +20,7 @@ describe('Home Page', function() {
   });
 
   it('Should display all records sorted by most recent when use clicks See New Records link', function() {
-		homePage.seeNewRecords();
+    homePage.seeNewRecords();
     homePage.getHits().then(function(hits) {
       expect(hits.length).toEqual(25);
       expect(homePage.showingResultsDialogue).toEqual('Showing 1 - 25 of 452 results');
@@ -29,6 +30,30 @@ describe('Home Page', function() {
       homePage.getQueryString().then(function(queryString){
         expect(queryString).toEqual('from=0&size=25&sort=date_added');
       });
+    });
+  });
+
+  it('Should split keywords unless quoted', function() {
+    homePage.submitHomePageQuery('french \"art history\" skin-nay! \"of the\"');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(20);
+      expect(homePage.facetChips.get(1).getText()).toEqual("skin-nay! (Keyword)");
+      expect(homePage.facetChips.get(2).getText()).toEqual("art history (Keyword)");
+    });
+  });
+
+  it('Should clear query terms upon return to home page', function() {
+    homePage.submitHomePageQuery('new york');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(5);
+      expect(homePage.facetChips.get(0).getText()).toEqual("new (Keyword)");
+      expect(homePage.facetChips.get(1).getText()).toEqual("york (Keyword)");
+    });
+    homePage.clickHome();
+    homePage.submitHomePageQuery('\"new york\"');
+    homePage.getHits().then(function(hits) {
+      expect(hits.length).toEqual(5);
+      expect(homePage.facetChips.get(0).getText()).toEqual("new york (Keyword)");
     });
   });
 
@@ -46,11 +71,17 @@ describe('Home Page', function() {
     browser.ignoreSynchronization = false;
   });
 
-	it('Should have functioning terms of use link in footer', function() {
-		homePage.termsOfUse();
-		browser.ignoreSynchronization = true;
-  		expect(browser.getCurrentUrl()).toContain('http://www.getty.edu/legal/copyright.html');
-  		browser.ignoreSynchronization = false;
-  	});
+  it('Should have functioning terms of use link in footer', function() {
+	homePage.termsOfUse();
+	browser.ignoreSynchronization = true;
+  	expect(browser.getCurrentUrl()).toContain('http://www.getty.edu/legal/copyright.html');
+  	browser.ignoreSynchronization = false;
+  });
+
+  it('should display new contributors', function() {
+    var contributors = homePage.newContributors;
+    expect(contributors).toBeDefined();
+    expect(contributors.count()).toBeGreaterThan(0);
+  });
 });
 

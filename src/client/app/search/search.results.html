@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-cloak>
   <div class="row">
     <div class="col-xs-12">
       <h3>Search Results</h3>
@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<div class="container"> 
+<div class="container" ng-cloak> 
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-4">
       <div id="facets-mobile-wrapper">
@@ -77,17 +77,21 @@
           </uib-accordion>
 
           <h5>Date range</h5>
-          <div class="date-range-container">
+          <div class="date-range-container">          
             <form ng-submit="setDateRange(fromDate, toDate)">
               <div class="date-range">
                 <p>From:</p>
-                <input ng-model="fromDate" maxlength="4" type="number">
+                <input class="date_box" ng-model="fromDate" min="{{oldestDate}}" max="{{currentYear}}" type="number">
               </div>
               <div class="date-range">
                 <p>To:</p>
-                <input ng-model="toDate" maxlength="4" type="number">
+                <input class="date_box" ng-model="toDate" min="{{oldestDate}}" max="{{currentYear}}" type="number">
               </div>
               <button class="btn btn-primary" type="submit" id="date-btn-results"><span class="glyphicon glyphicon-triangle-right" style="color:white"></span></button>
+              <div>
+              <rzslider rz-slider-model="dateSlider.min" rz-slider-high="dateSlider.max" rz-slider-options="dateSlider.options" id="slider"></rzslider>
+              <div class="col-xs-6" id="oldest-date">{{oldestDate}}</div><div class="col-xs-6" id="current-year">{{currentYear}}</div>
+              </div>
             </form>
           </div>
 
@@ -109,7 +113,7 @@
               <ul class="facet-chip-list facet-search">
                 <li class="facet-search" ng-repeat="queryTerm in queryTerms">
                   <div class="facet-chip">
-                    <a class="facet-search" ng-click="clearQueryTerm(queryTerm)">{{queryTerm}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
+                    <a class="facet-search" ng-click="clearQueryTerm(queryTerm)">{{removeQuotes(queryTerm)}} <i>(Keyword)</i> <span class="glyphicon glyphicon-remove-circle facet-search" style="color:white"></span> </a>
                   </div>
                 </li>
                 <li class="facet-search" ng-repeat="activeFacet in activeFacets">
@@ -119,7 +123,7 @@
                 </li>
                 <li class="facet-search" ng-repeat="advancedField in advancedFields">
                   <div class="facet-chip">
-                    <a class="facet-search" ng-click="clearAdvancedField(advancedField)"> {{ advancedField.term }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
+                    <a class="facet-search" ng-click="clearAdvancedField(advancedField)"> {{ removeQuotes(advancedField.term) }} <i>(Keyword: {{ advancedField.field.display }})</i> <span class="glyphicon glyphicon-remove-circle" style="color:white"></span></a>
                   </div>
                 </li>
                 <li class="facet-search" ng-if="dateRange.gte || dateRange.lte">

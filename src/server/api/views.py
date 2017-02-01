@@ -55,7 +55,10 @@ class Contributors(APIView):
 
 
 class Books(APIView):
-    advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_grp_contributor', 'adv_language']
+    advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_grp_contributor', 'adv_language',
+                       'adv_identifier', 'adv_publisher', 'adv_format', 'adv_type', 'adv_description', 'adv_provenance',
+                       'adv_relation', 'adv_source', 'adv_rights', 'adv_accrualMethod', 'adv_accrualPeriodicity',
+                       'adv_audience']
     facet_categories = ['creator', 'subject', 'grp_contributor', 'language']
 
     def get(self, request, params, format=None):

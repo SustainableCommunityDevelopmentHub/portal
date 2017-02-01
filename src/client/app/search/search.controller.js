@@ -3,9 +3,9 @@
 
   angular
   .module('app.search')
-  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', SearchCtrl]);
+  .controller('SearchCtrl', ['$scope', '$state', 'SearchService', 'SavedRecordsService', 'searchResults', 'SORT_MODES', 'DEFAULTS', 'FACETS', 'SORT_DEFAULT', 'ADVANCED_SEARCH', 'config', SearchCtrl]);
 
-  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH){
+  function SearchCtrl($scope, $state, SearchService, SavedRecordsService, searchResults, SORT_MODES, DEFAULTS, FACETS, SORT_DEFAULT, ADVANCED_SEARCH, config){
     /////////////////////////////////
     //Init
     /////////////////////////////////
@@ -67,6 +67,11 @@
     $scope.advFields = ADVANCED_SEARCH;
     $scope.selectedAdvField = ADVANCED_SEARCH.title;
     $scope.advSearchTerm = "";
+    
+    $scope.removeQuotes = function(queryTerm) {
+      var queryTermDisplay = queryTerm.replace(/['"]+/g, '');
+      return queryTermDisplay;
+    }
 
     ///////////////////////////
     //Private/Helper Functions
@@ -132,12 +137,25 @@
      * init search on new query term
      * Adding new query term to previous query term
      */
+
+    function splitQuotedQueries(query){
+      var quotedTerms = query.match(/".*?"/g);
+      var replace = query.replace(/".*?"/g, " ");
+      var replaceArray = replace.split(" ").filter(Boolean);
+      var mergedArrays = replaceArray.concat(quotedTerms);
+      return mergedArrays;
+    }
+
     $scope.newQuerySearch = function(query){
-      var newQuery;
       if (query) {
-        query = query.trim();
-        if ($scope.queryTerms.indexOf(query) === -1){
-          $scope.queryTerms.push(query.toLowerCase());
+        var distinctQueries = splitQuotedQueries(query);
+        for (var i = 0; i < distinctQueries.length; i++) {
+          if (distinctQueries[i] != null) {
+            if ($scope.queryTerms.indexOf(distinctQueries[i]) === -1) {
+              $scope.queryTerms.push(distinctQueries[i].toLowerCase());
+              $scope.noQuotes = distinctQueries[i].trim().toLowerCase();
+            }
+          }
         }
       }
       var opts = {
@@ -148,6 +166,7 @@
       $scope.newQueryTerm = "";
       updateSearch(opts);
     };
+
 
     /**
      * update pagesize. init new search if pagesize increases
@@ -164,9 +183,55 @@
     };
 
      $scope.setDateRange = function(fromDate, toDate) {
-      console.log("fromDate: " + fromDate + ", toDate: " + toDate);
-      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});
+      console.log("fromDate: " + fromDate + ", toDate: " + toDate);    
+      updateSearch({date: {"gte": fromDate, "lte": toDate}, from: 0});      
     };
+
+    $scope.currentYear = new Date().getFullYear();
+    $scope.oldestDate = config.oldestDate;
+
+
+    /**
+     * control formatting of date range boxes
+     * while receiving input
+     */
+    $('.date_box').on('input propertychange paste', function (e) {
+      var reg = /^0+/gi;
+      if (this.value.match(reg)) {
+        this.value = this.value.replace(reg, '');
+      }
+      if (this.value.length > 4) {
+        this.value = this.value.slice(0,4); 
+      }
+      if(this.value > $scope.currentYear || isNaN(this.value)) {
+        this.value = 0;
+      }
+    });
+
+
+    /**
+     * set parameters for date range slider
+     * and tie values to fromDate and toDate
+     */
+    $scope.dateSlider = {
+      min: $scope.fromDate,
+      max: $scope.toDate,
+      options: {
+        id: "drSlider",
+        floor: config.oldestDate,
+        ceil: new Date().getFullYear(),
+        onChange: function(sliderId, modelValue, highValue, pointerType) {
+          $scope.fromDate = modelValue;
+          $scope.toDate = highValue;
+        },
+        noSwitching: true,
+        minRange: 1,
+        pushRange: true,
+        hideLimitLabels: true,
+        hidePointerLabels: true
+      }
+    };
+
 
     /**
      * trigger search to populate new page and update $scope / state
@@ -251,10 +316,16 @@
 
     $scope.addAdvSearchTerm = function() {
       if ($scope.advSearchTerm) {
-        var newField = ss.buildAdvancedField($scope.selectedAdvField, $scope.advSearchTerm);
-        ss.opts.advancedFields.push(newField);
-        ss.opts.from = 0;
-        ss.transitionStateAndSearch();
+        var distinctQueries = splitQuotedQueries($scope.advSearchTerm);
+        for (var i = 0; i < distinctQueries.length; i++) {
+          if (distinctQueries[i] != null) {
+            var newField = ss.buildAdvancedField($scope.selectedAdvField, distinctQueries[i]);
+            ss.opts.advancedFields.push(newField);
+            ss.opts.from = 0;
+            ss.transitionStateAndSearch();
+          }
+        }
+        
       }
     };
 

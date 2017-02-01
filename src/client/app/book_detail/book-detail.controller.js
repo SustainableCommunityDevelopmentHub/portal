@@ -3,11 +3,12 @@
 
   angular
   .module('app.book-detail')
-  .controller('BookDetailCtrl', ['$scope', '$window', '$state', 'book', 'DataService', 'SearchService', 'ADVANCED_SEARCH', BookDetailCtrl]);
+  .controller('BookDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$window', '$state', 'book', 'DataService', 'SearchService', 'ADVANCED_SEARCH', '$http', BookDetailCtrl]);
 
-  function BookDetailCtrl($scope, $window, $state, book, DataService, SearchService, ADVANCED_SEARCH) {
+  function BookDetailCtrl($scope, $rootScope, $stateParams, $window, $state, book, DataService, SearchService, ADVANCED_SEARCH, $http) {
     $scope.saveAsJson = saveAsJson;
     $scope.saveAsRis = saveAsRis;
+    $scope.contribHome = contribHome;
 
     $scope.showSpinner = true;
     $scope.book = book;
@@ -26,9 +27,8 @@
       var filename = 'book.json';
       $scope.showSpinner = true;
       DataService.getDcRec($scope.book._id).then(function(data) {
-
         if (typeof data === 'object') {
-          data = angular.toJson(data, undefined, 2);
+          data = angular.toJson(data);
           $scope.fileContents = data;
         }
         createBlobAndDownload(data, 'text/json', filename);
@@ -44,7 +44,7 @@
       $scope.showSpinner = true;
       DataService.getRisRec($scope.book._id).then(function(data) {
         $scope.fileContentsRis = data;
-        createBlobAndDownload(data, 'application/x-research-info-systems', filename);
+        createBlobAndDownload(data.data, 'application/x-research-info-systems', filename);
       }, function() {
         $state.go('error');
       }).finally(function() {
@@ -65,8 +65,16 @@
       a.dispatchEvent(e);
     }
 
+    // fetches websites from json file, using $scope.book._grp_contributor as key
+    function contribHome() {
+      $http.get('/app/contributors/contributor_websites.json').success(function(data) {
+        var websites = data;
+        window.location = websites[$scope.book._grp_contributor];
+      });
+    };
+
     $scope.redirect = function(){
-      $window.location.assign($scope.book._source._record_link);
+      $window.location.assign(book._source._record_link);
       return false;
     };
 
@@ -82,6 +90,7 @@
       SearchService.opts.q.push(keyword);
       SearchService.transitionStateAndSearch();
     };
+
   }
 
 })();

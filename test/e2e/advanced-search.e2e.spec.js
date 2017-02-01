@@ -58,6 +58,15 @@ describe("Advanced Search", function(){
     expect(resultsMatch).toBe(true);
   });
 
+  it("should search both creator and contributor fields when running Creator searches", function() {
+    advancedPage.addFilterSearches([
+      ['Creator', 'corinth']]
+    );
+    advancedPage.submitAdvancedSearch();
+    expect(advancedPage.numTotalHits).toEqual(1);
+
+  });
+
   it("should submit search fields with enter button", function() {
     advancedPage.addFilterSearches([
       ['Keyword', 'art'],
@@ -132,6 +141,16 @@ describe("Advanced Search", function(){
     expect(advancedPage.facetChips.count()).toEqual(1);
     advancedPage.getQueryString().then(function(queryString){
       expect(queryString).toEqual('q=art&from=0&size=25&sort=relevance');
+    });
+  });
+
+  it('should split keywords unless quoted', function() {
+    advancedPage.addFilterSearches([['Title', 'art \"revue hebdomadaire\"']]);;
+    advancedPage.submitAdvancedSearch();
+    expect(advancedPage.numTotalHits).toEqual(20);
+    expect(advancedPage.facetChips.count()).toEqual(2);
+    advancedPage.getQueryString().then(function(queryString){
+      expect(queryString).toEqual('from=0&size=25&sort=relevance&adv_title=art&adv_title=%22revue%20hebdomadaire%22');
     });
   });
 

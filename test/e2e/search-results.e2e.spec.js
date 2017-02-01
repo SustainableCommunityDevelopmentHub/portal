@@ -26,6 +26,12 @@ describe('Search Results', function() {
     resultsPage.submitNewSearchTerm('paintings');
     expect(resultsPage.numTotalHits).toEqual(28);
   });
+  it('should split keywords unless quoted', function() {
+    resultsPage.submitNewSearchTerm('french \"art history\" skin-nay! \"of the\"');
+    expect(resultsPage.numTotalHits).toEqual(20);
+    expect(resultsPage.facetChips.get(1).getText()).toEqual("skin-nay! (Keyword)");
+    expect(resultsPage.facetChips.get(2).getText()).toEqual("art history (Keyword)");
+  });
 
   it('should show decoded urls in search bar', function() {
     resultsPage.submitNewSearchTerm("http://www.getty.edu/research/");
@@ -111,6 +117,11 @@ describe('Search Results', function() {
      });
   });
 
+  it('should filter results by date when you use date range slider', function(){
+    resultsPage.submitSliderRange(150, 200);
+    expect(resultsPage.numTotalHits).toEqual(42);
+  })
+
   it('should save book records', function () {
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.toggleSavingRecord(2);
@@ -190,7 +201,7 @@ describe('Search Results', function() {
       expect(hits).toEqual(343);
     });
     resultsPage.getFacetChip(0).click();
-    resultsPage.submitNewSearchTerm('skin-nay!');
+    resultsPage.submitNewSearchTerm("skin-nay!");
     expect(resultsPage.getFacetChip(0).getText()).toEqual('skin-nay! (Keyword)');
     resultsPage.getHits().then(function(hits) {
       expect(hits.length).toBe(1);
@@ -213,6 +224,13 @@ describe('Search Results', function() {
     resultsPage.addFacetOption('language', 'Spanish; Castilian');
     resultsPage.numTotalHits.then(function(hits) {
       expect(hits).toEqual(24);
+    });
+  });
+
+  it('should return results with queries containing api, such as tapissiers', function() {
+    resultsPage.submitNewSearchTerm('tapissiers');
+    resultsPage.numTotalHits.then(function(hits){
+      expect(hits).toEqual(1);
     });
   });
 
@@ -504,6 +522,17 @@ describe('Search Results', function() {
       expect(resultsPage.advancedFacetChips.count()).toEqual(0);
       resultsPage.numTotalHits.then(function(hits) {
         expect(hits).toEqual(452);
+      });
+    });
+
+    it('should split terms unless quoted', function() {
+      resultsPage.clickAdvancedSearchLink();
+      resultsPage.getAdvancedSearchInput().sendKeys('handbook \"in kent\"');
+      resultsPage.clickAdvAddButton();
+      resultsPage.numTotalHits.then(function(hits) {
+        expect(hits).toEqual(2);
+        expect(resultsPage.facetChips.get(0).getText()).toEqual("handbook (Keyword: Title)");
+        expect(resultsPage.facetChips.get(1).getText()).toEqual("in kent (Keyword: Title)");
       });
     });
 

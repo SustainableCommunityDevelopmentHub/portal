@@ -1,0 +1,133 @@
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwork="http://www.ub.uni-heidelberg.de/__NO_SUCH_SCHEMA__" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/mets/mets.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+  <mets:metsHdr>
+    <mets:agent TYPE="ORGANIZATION" ROLE="CREATOR">
+      <mets:name>Universitätsbibliothek Heidelberg</mets:name></mets:agent>
+    <mets:agent TYPE="ORGANIZATION" ROLE="OTHER" OTHERROLE="Sponsor">
+      <mets:name>Deutsche Forschungsgemeinschaft (DFG)</mets:name></mets:agent></mets:metsHdr>
+  <mets:dmdSec ID="dmd">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods>
+          <mods:accessCondition>http://creativecommons.org/licenses/by-sa/3.0/</mods:accessCondition>
+          <mods:titleInfo>
+            <mods:title own="Archivio storico dell'arte">Archivio storico dell'arte</mods:title></mods:titleInfo>
+          <mods:originInfo>
+            <mods:place>
+              <mods:placeTerm type="text">Rom</mods:placeTerm></mods:place>
+            <mods:dateIssued encoding="w3cdtf" keyDate="yes" point="start">1888</mods:dateIssued>
+            <mods:dateIssued encoding="w3cdtf" point="end">1897</mods:dateIssued>
+            <mods:dateIssued>1.1888(1889) - 7.1894; 2.Ser. 1.1895 - 3.1897</mods:dateIssued></mods:originInfo>
+          <mods:originInfo>
+            <mods:edition>[Electronic ed.]</mods:edition>
+            <mods:publisher>Universitätsbibliothek Heidelberg</mods:publisher></mods:originInfo>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+            <mods:extent>Online-Ressource</mods:extent></mods:physicalDescription>
+          <mods:language>
+            <mods:languageTerm type="code" authority="iso639-2b">ita</mods:languageTerm></mods:language>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>Informationen zur Zeitschrift</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Informationen zur Zeitschrift">http://archivio-storico-arte.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="projekturl" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>Further information on the journal</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="Further information on the journal">http://archivio-storico-arte.uni-hd.de</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="ger">
+            <mods:titleInfo>
+              <mods:title>art journals – Kunst- und Satirezeitschriften</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Kunst- und Satirezeitschriften" dwork_showOnSinglePageView="true">http://artjournals.uni-hd.de/</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem dwork_name="url_001" type="series" lang="eng">
+            <mods:titleInfo>
+              <mods:title>art journals – Illustrated art and satire periodicals</mods:title></mods:titleInfo>
+            <mods:location>
+              <mods:url displayLabel="art journals – Illustrated art and satire periodicals" dwork_showOnSinglePageView="true">http://www.ub.uni-heidelberg.de/Englisch/helios/fachinfo/www/kunst/digilit/artjournals/Welcome.html</mods:url></mods:location></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Druckschriften</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">druckschriften</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:relatedItem type="series">
+            <mods:titleInfo>
+              <mods:title>Heidelberger historische Bestände — digital: Illustrierte Kunst- und Satirezeitschriften des 19. und frühen 20. Jahrhunderts</mods:title></mods:titleInfo>
+            <mods:recordInfo>
+              <mods:recordIdentifier source="UBH">sammlung5</mods:recordIdentifier></mods:recordInfo></mods:relatedItem>
+          <mods:location>
+            <mods:physicalLocation>Universitätsbibliothek Heidelberg</mods:physicalLocation>
+            <mods:url access="object in context">http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte</mods:url></mods:location>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="swb-ppn">381809935</mods:recordIdentifier></mods:recordInfo>
+          <mods:identifier type="urn">urn:nbn:de:bsz:16-diglit-173468</mods:identifier>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="urn">urn:nbn:de:bsz:16-diglit-173468</mods:recordIdentifier></mods:recordInfo>
+          <mods:abstract html="" lang="ger"/>
+          <mods:abstract html="" lang="eng"/>
+          <mods:note type="creation/production credits" lang="ger"/>
+          <mods:note type="creation/production credits" lang="eng"/></mods:mods></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dc">
+    <mets:mdWrap MDTYPE="DC" LABEL="Dublin Core Metadata" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dc:title>Archivio storico dell'arte</dc:title>
+        <dcterms:isPartOf>Sammlung5 - Kunstzeitschriften</dcterms:isPartOf>
+        <dc:language>ita</dc:language>
+        <dc:type>Text</dc:type></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:dmdSec ID="dmd__dwork">
+    <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="private/dwork" LABEL="dwork specific" MIMETYPE="text/xml">
+      <mets:xmlData>
+        <dwork:dwork>
+          <dwork:projectname>archivio_storico_arte</dwork:projectname>
+          <dwork:introImageUrl>http://digi.ub.uni-heidelberg.de/diglitData/introimage/archivio_storico_arte1888.jpg</dwork:introImageUrl>
+          <dwork:layoutTemplate>druck</dwork:layoutTemplate>
+          <dwork:sammlung>5</dwork:sammlung>
+          <dwork:geschuetzt/>
+          <dwork:kein_oai/>
+          <dwork:kein_urn/>
+          <dwork:kein_pdfdownload/>
+          <dwork:annotationen>0</dwork:annotationen>
+          <dwork:lizenz/>
+          <dwork:footer>UB+DFG</dwork:footer></dwork:dwork></mets:xmlData></mets:mdWrap></mets:dmdSec>
+  <mets:amdSec ID="amdSec_complete_01">
+    <mets:rightsMD ID="rightsMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Heidelberg</dv:owner>
+            <dv:ownerLogo>http://digi.ub.uni-heidelberg.de/diglitData/image/logo-dfgviewer.gif</dv:ownerLogo>
+            <dv:ownerSiteURL>http://www.ub.uni-heidelberg.de/</dv:ownerSiteURL></dv:rights></mets:xmlData></mets:mdWrap></mets:rightsMD>
+    <mets:digiprovMD ID="digiprovMD_complete_01">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>http://katalog.ub.uni-heidelberg.de/cgi-bin/search.cgi?query=si%3A381809935+-(teil:ezblf)&amp;pos=1</dv:reference>
+            <dv:presentation>http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte</dv:presentation></dv:links></mets:xmlData></mets:mdWrap></mets:digiprovMD></mets:amdSec>
+  <mets:fileSec>
+    <mets:fileGrp USE="INTROIMAGE">
+      <mets:file MIMETYPE="image/jpg" ID="INTROIMAGE">
+        <mets:FLocat xlink:href="http://digi.ub.uni-heidelberg.de/diglitData/introimage/archivio_storico_arte1888.jpg" LOCTYPE="URL"/></mets:file></mets:fileGrp></mets:fileSec>
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div TYPE="periodical" DMDID="dmd" LABEL="Archivio storico dell'arte; Rom, 1.1888(1889) - 7.1894; 2.Ser. 1.1895 - 3.1897" ID="log" ADMID="amdSec_complete_01">
+      <mets:div LABEL="Band 1; 1888">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1888/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 2; 1889">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1889/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 3; 1890">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1890/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 4; 1891">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1891/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 5; 1892">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1892/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 6; 1893">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1893/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 7; 1894">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1894/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 2.Ser. 1; 1895">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1895/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 2.Ser. 2; 1896">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1896/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Band 2.Ser. 3; 1897">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte1897/mets" LOCTYPE="URL"/></mets:div>
+      <mets:div LABEL="Indice generale  dei quarantadue volumi; 1930">
+        <mets:mptr xlink:href="http://digi.ub.uni-heidelberg.de/diglit/archivio_storico_arte_index/mets" LOCTYPE="URL"/></mets:div></mets:div></mets:structMap></mets:mets>

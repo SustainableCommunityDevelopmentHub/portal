@@ -5,4 +5,8 @@ djangorestframework
 djangorestframework-xml
 django-cors-headers
 python-memcached
-
+pymarc
+lxml
+requests
+responses
+git+https://github.com/gri-is/funnel.git

@@ -1,6 +1,6 @@
 <!--home.html Home page / Splash page of site-->
 <div ng-app="app" class="app">
-  <div class="container">
+  <div class="container" ng-cloak>
     <div class="row row-centered">
       <div class="col-xs-12 col-md-8 col-centered">
         <div class="intro-copy">
@@ -46,8 +46,8 @@
 
   </div><!-- /container -->
 
-  <!--Stats for: Total Titles, Lastu Updated, New Contributors-->
-  <div class="container">
+  <!--Stats for: Total Titles, Last Updated, New Contributors-->
+  <div class="container" ng-cloak>
     <div class="row">
       <div class="stats">
         <div class="col-xs-12 col-sm-4">
@@ -68,14 +68,12 @@
           <div class="box">
             <hr class="tlc-hr">
             <h4>New Contributors</h4>
-            <p>The Menil Collection
-              <br>The Warburg Institute University of London
-              <br>Sterling and Francine Clark Institute Library
-              <br>Heidelberg University Library
-              <br>Bibliotheca Hertziana — Max-Planck-Institut für Kunstgeschichte
-              <br>Herzog August Bibliothek in Wolfenbüttel
-              <br>Ryerson &amp; Burnham Libraries – Art Institute of Chicago
-            </p>
+            <ul class="new-contributors-list">
+              <li class="new-contributors-item" ng-repeat="contributor in contributors">{{contributor}}
+
+            </li>
+            </ul>
+
             <a ui-sref="contributors">See All Contributors</a>
           </div>
         </div>

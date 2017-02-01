@@ -307,19 +307,31 @@ describe('SearchService Unit Tests', function(){
   describe('Advanced Search Functions', function() {
     it('should populate and expose advancedFieldsList array', function(){
       expect(SearchService.advancedFieldsList).toBeTruthy();
-      expect(SearchService.advancedFieldsList.length).toEqual(7);
+      expect(SearchService.advancedFieldsList.length).toEqual(20);
       expect(SearchService.advancedFieldsList.indexOf('language')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('subject')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('grp_contributor')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('creator')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('title')).toBeGreaterThan(-1);
       expect(SearchService.advancedFieldsList.indexOf('date')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('identifier')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('publisher')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('format')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('type')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('description')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('provenance')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('coverage')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('relation')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('source')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('rights')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('accrualMethod')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('accrualPeriodicity')).toBeGreaterThan(-1);
+      expect(SearchService.advancedFieldsList.indexOf('audience')).toBeGreaterThan(-1);
     });
     it('should build advanced search field object', function(){
       var advDateFieldProps = {
         paramName: 'adv_date',
-        display: 'Date',
-        searchKey: 'dublin_core.date'
+        display: 'Date'
       };
 
       var advField = SearchService.buildAdvancedField(ADVANCED_SEARCH.date, 1900);

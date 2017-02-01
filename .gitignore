@@ -8,8 +8,6 @@ config/prod
 .DS_Store
 
 tmp/
-logs/*
-.log
 
 npm-debug.log
 
@@ -17,3 +15,8 @@ ENV
 
 # Python cache directories
 __pycache__/
+
+
+src/server/ingest/test_data/
+src/server/ingest/production_data
+
