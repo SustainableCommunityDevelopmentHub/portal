@@ -10,6 +10,7 @@ config/prod
 tmp/
 
 npm-debug.log
+error.log
 
 ENV
 
@@ -19,4 +20,6 @@ __pycache__/
 
 src/server/ingest/test_data/
 src/server/ingest/production_data
+
+src/client/sitemap*
 
