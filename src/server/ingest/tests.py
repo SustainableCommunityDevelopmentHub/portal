@@ -57,10 +57,12 @@ class TaskTests(TestCase):
 			zip_name = zip_file.split('/')[-1].split('.zip')[0]
 			zip_ref = zipfile.ZipFile(zip_file, 'r')
 			zip_ref.extractall(os.path.join(cls.data_path, 'supplied_data', zip_name))
-			zip_ref.close()
+			zip_ref.close() 
 		archive = '{}/archived_data/*'.format(cls.data_path)
 		for arch_inst in glob(archive):
 			shutil.rmtree(arch_inst)
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml'))
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz'))
 
 	def test_assign_directories(self):
 		inst, idate, date_dir = tasks.assign_directories(self.data_path, self.supplied_dir_bnf2)
@@ -259,4 +261,18 @@ class TaskTests(TestCase):
 		self.assertEqual(len(responses.calls), 1)
 		self.assertRaises(requests.exceptions.HTTPError)
 
+	def test_build_sitemaps(self):
+		tasks.build_sitemaps()
+		indexf = os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml')
+		self.assertTrue(os.path.isfile(indexf))
+		index_data = b'<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>http://portal.getty.edu/sitemap-1.xml.gz</loc><lastmod>2017-02-02</lastmod></sitemap></sitemapindex>'
+		with open(indexf, 'rb') as index_inf:
+			index_content = index_inf.read()
+			self.assertEqual(index_data, index_content)
+		map1 = os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz')
+		self.assertTrue(os.path.isfile(map1))
+		map1_data = b'<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/api/books/bnf_bpt6k63442125</loc><lastmod>2017-02-02</lastmod><priority>0.8</priority></url></urlset>'
+		with open(map1, 'rb') as map1_inf:
+			map1_content = map1_inf.read()
+			self.assertEqual(map1_data, map1_content)
 	

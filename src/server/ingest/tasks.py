@@ -10,6 +10,7 @@ import math
 
 from django.db import models
 from django.conf import settings
+from django.core.paginator import Paginator
 from pymarc import MARCWriter, XMLWriter
 from lxml import etree
 
@@ -286,27 +287,17 @@ def load_es(recid, rec, es):
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
 
 def build_sitemaps():
-
-	total_recs = Record.objects.all().count()
-	total_recs = float(total_recs)
-	print(total_recs)
-
-	pages = math.ceil(total_recs / 50000)
-
-	print(pages)
-
-	build_sitemap(pages)
-
-
-def build_sitemap(pages):
-	print('here - pages is {}'.format(pages))
+	recs = Record.objects.all()
+	p = Paginator(recs, 50000)
 	ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 	index_root = etree.Element('sitemapindex', nsmap=ns)
 	index_doc = etree.ElementTree(index_root)
-	for page in range(1, pages+1): 
+	for pg in p.page_range: 
 		root = etree.Element('urlset', nsmap=ns)
 		doc = etree.ElementTree(root)
-		for record in Record.objects.all()[page: 50000]:	
+		current = p.page(pg)
+		for record in current.object_list:	
+			print(record.pk)
 			url = etree.SubElement(root, 'url', nsmap=ns)
 			loc = etree.SubElement(url, 'loc', nsmap=ns)
 			loc.text = 'http://portal.getty.edu/api/books/{}'.format(record.pk)
@@ -314,9 +305,11 @@ def build_sitemap(pages):
 			lastmod.text = str(datetime.date.today())
 			priority = etree.SubElement(url, 'priority', nsmap=ns)
 			priority.text = '0.8'
-			out_fname = 'sitemap-{}.xml.gz'.format(str(page))
-			out_fname = os.path.join(settings.BASE_DIR, '../client', out_fname)
-		doc.write(out_fname, xml_declaration=True, encoding='utf-8')
+		out_fname = 'sitemap-{}.xml.gz'.format(str(pg))
+		print(out_fname)
+		out_path = os.path.join(settings.BASE_DIR, '../client', out_fname)
+		print(out_path)
+		doc.write(out_path, xml_declaration=True, encoding='utf-8')
 
 		sitemap = etree.SubElement(index_root, 'sitemap', nsmap=ns)
 		index_loc = etree.SubElement(sitemap, 'loc', nsmap=ns)
