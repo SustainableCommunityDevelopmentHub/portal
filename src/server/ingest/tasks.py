@@ -305,7 +305,10 @@ def build_sitemaps():
 			loc = etree.SubElement(url, 'loc', nsmap=ns)
 			loc.text = 'http://portal.getty.edu/api/books/{}'.format(record.pk)
 			lastmod = etree.SubElement(url, 'lastmod', nsmap=ns)
-			lastmod.text = str(datetime.date.today())
+			if record.updated_date is not None:
+				lastmod.text = str(record.updated_date)
+			else:
+				lastmod.text = str(record.ingest_date)
 			priority = etree.SubElement(url, 'priority', nsmap=ns)
 			priority.text = '0.8'
 		out_fname = 'sitemap-{}.xml.gz'.format(str(pg))
