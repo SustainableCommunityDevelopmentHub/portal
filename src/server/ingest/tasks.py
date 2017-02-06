@@ -62,7 +62,10 @@ SAMPLE_DATA = [
 	'uh'
 ]
 
-log_path = os.path.join(settings.BASE_DIR, '../../logs/error.log')
+log_dir = os.path.join(settings.BASE_DIR, '../../logs')
+if not os.path.isdir(log_dir):
+	os.mkdir(log_dir)
+log_path = os.path.join(log_dir, 'error.log')
 logf = open(log_path, 'w')
 
 def create_source(data_path, supplied_dir, es):
