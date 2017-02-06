@@ -306,9 +306,7 @@ def build_sitemaps():
 			priority = etree.SubElement(url, 'priority', nsmap=ns)
 			priority.text = '0.8'
 		out_fname = 'sitemap-{}.xml.gz'.format(str(pg))
-		print(out_fname)
 		out_path = os.path.join(settings.BASE_DIR, '../client', out_fname)
-		print(out_path)
 		doc.write(out_path, xml_declaration=True, encoding='utf-8')
 
 		sitemap = etree.SubElement(index_root, 'sitemap', nsmap=ns)
