@@ -20,3 +20,4 @@ __pycache__/
 src/server/ingest/test_data/
 src/server/ingest/production_data
 
+local_settings.py*
