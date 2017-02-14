@@ -130,10 +130,16 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
   'DEFAULT_RENDERER_CLASSES': (
-    'rest_framework.renderers.JSONRenderer',
-    'rest_framework_xml.renderers.XMLRenderer',
-    'rest_framework.renderers.BrowsableAPIRenderer',
-    'api.renderers.RISRenderer',
+    'api.renderers.JSONRenderer',
+    'api.renderers.XMLRenderer',
+    'api.renderers.RawRenderer',
+    'api.renderers.RISRenderer'
+  ),
+  'TEST_REQUEST_RENDERER_CLASSES': (
+    'api.renderers.JSONRenderer',
+    'api.renderers.XMLRenderer',
+    'api.renderers.RawRenderer',
+    'api.renderers.RISRenderer'
   )
 }
 

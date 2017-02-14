@@ -2,6 +2,7 @@ import json
 
 from rest_framework import renderers
 
+from api import transform
 
 
 RIS_MAP = {
@@ -18,6 +19,30 @@ RIS_MAP = {
 	'Still Image': 'ART',
 	'Text': 'BOOK'
 }
+
+class RawRenderer(renderers.BaseRenderer):
+	media_type = 'application/json'
+	format = 'raw'
+
+	def render(self, data, media_type=None, renderer_context=None):
+		return json.dumps(data)
+
+class JSONRenderer(renderers.BaseRenderer):
+	media_type = 'application/json'
+	format = 'json'
+
+	def render(self, data, media_type=None, renderer_context=None):
+		dc_data = transform.dc_export(data)
+		return json.dumps(dc_data)
+
+class XMLRenderer(renderers.BaseRenderer):
+	media_type = 'application/xml'
+	format = 'xml'
+
+	def render(self, data, media_type=None, renderer_context=None):
+		dc_data = transform.dc_export(data)
+		dc_xml = transform.json_to_xml(dc_data)
+		return dc_xml
 
 class RISRenderer(renderers.BaseRenderer):
 	media_type = 'application/x-research-info-systems'

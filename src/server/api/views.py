@@ -15,10 +15,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import es_functions
 from api.transform import dc_export
+from api.renderers import RawRenderer, JSONRenderer, XMLRenderer, RISRenderer
 
 ELASTICSEARCH_ADDRESS = settings.ELASTICSEARCH_HOST + ":" + settings.ELASTICSEARCH_PORT
 
-class Raw(APIView):
+class Book(APIView):
+
+    renderer_classes = (JSONRenderer, XMLRenderer, RawRenderer, RISRenderer)
+
     def get(self, request, id, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
@@ -30,7 +34,7 @@ class Raw(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class Book(APIView):
+'''class Book(APIView):
     def get(self, request, id,  format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         book_id = id
@@ -40,7 +44,7 @@ class Book(APIView):
             return Response(err.info, status=status.HTTP_404_NOT_FOUND)
         dc = dc_export(response)
         data = json.loads(json.dumps(dc))
-        return Response(data, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)'''
 
 
 class Contributors(APIView):

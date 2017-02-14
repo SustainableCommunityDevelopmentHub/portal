@@ -3,15 +3,17 @@ import json
 from django.test import TestCase, RequestFactory
 from rest_framework.test import APIRequestFactory, APITestCase
 from rest_framework import status
+from lxml import etree
 
-from api.views import Book, Raw, Books, Contributors
-from api.renderers import RISRenderer
+from api.views import Book, Books, Contributors
+from api.renderers import RawRenderer, JSONRenderer, XMLRenderer, RISRenderer
 from . import es_functions
 
 
 class APITests(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
+        self.maxDiff = None
 
     def test_contributors(self):
         contributors = Contributors()
@@ -25,35 +27,47 @@ class APITests(APITestCase):
         response = contributors.get(request)
         self.assertEqual(response.data, contributors_data)
 
-    def test_raw(self):
-        book = Raw.as_view()
+    def test_book_raw(self):
+        book = Book.as_view()
         test_id = 'gri_9921975010001551'
-        request = self.factory.get('/api/book/raw/gri_9921975010001551')
-        response = book(request, 'gri_9921975010001551')
+        request = self.factory.get('/api/book/{}.raw'.format(test_id))
+        response = book(request, test_id, format='raw')
+        response.render()
         self.assertEqual(response.data['_id'], test_id)
 
-    def test_book(self):
-        book = Book.as_view()
-        test_id = 'gri_9921975010001551'
-        book_data = {"language":"English","creator":"John Murray (Firm)","isPartOf":"Murray's English handbooks","publisher":"J. Murray","alternative":"Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.","title":"Murray's hand-book eastern counties.","description":["Cover title.","Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."],"issued":"1900","type":"Text","identifier":"https://www.archive.org/details/murrayshandbooke00john"}
-        request = self.factory.get('/api/book/gri_9921975010001551')
-        response = book(request, 'gri_9921975010001551')
-        self.assertEqual(response.data, book_data)
-
-    def test_bad_book_id(self):
+    def test_bad_book_id_raw(self):
         book = Book.as_view()
         test_id = 'bad_book_id'
-        request = self.factory.get('/api/book/' + test_id)
-        response = book(request, test_id)
+        request = self.factory.get('/api/book/{}.raw'.format(test_id))
+        response = book(request, test_id, format='raw')
         self.assertFalse(response.data['found'])
         self.assertEqual(response.data['_id'], test_id)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_ris(self):
-        book = Raw.as_view()
-        ris_data = "TY  - BOOK\r\nLA  - English\r\nET  - 3rd ed.\r\nPB  - J. Murray\r\nPY  - 19--]///\r\nN1  - Cover title.; Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.\r\nUR  - https://www.archive.org/details/murrayshandbooke00john\r\nTI  - Murray's hand-book eastern counties.\r\nAU  - John Murray (Firm)\r\nER  - \r\n"
+    def test_book_json(self):
+        book = Book.as_view()
+        test_id = 'gri_9921975010001551'
+        book_data = {"dc:record": {"dc:language": "English", "dcterms:isPartOf": "Murray's English handbooks", "dc:creator": "John Murray (Firm)", "dc:identifier": "https://www.archive.org/details/murrayshandbooke00john", "dcterms:alternative": "Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.", "dc:type": "Text", "dc:description": ["Cover title.", "Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."], "dcterms:issued": "1900", "dc:publisher": "J. Murray", "dc:title": "Murray's hand-book eastern counties."}}
+        request = self.factory.get('/api/book/{}.json'.format(test_id), format='json')
+        response = book(request, test_id)
+        response.render()
+        self.assertEqual(json.loads(response.content.decode()), book_data)
 
-        request = self.factory.get('/api/book/raw/gri_9921975010001551.ris')
+    def test_book_xml(self):
+        book = Book.as_view()
+        test_id = 'gri_9921975010001551'
+        request = self.factory.get('/api/book/{}.xml'.format(test_id))
+        response = book(request, test_id, format='xml')
+        response.render()
+        root = etree.fromstring(response.content)
+        nsmap = root.nsmap
+        self.assertEqual(root.xpath('dc:title', namespaces=nsmap)[0].text, 'Murray\'s hand-book eastern counties.')
+        self.assertEqual(root.xpath('dcterms:alternative', namespaces=nsmap)[0].text, 'Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.')
+        self.assertEqual(len(root.xpath('dc:description', namespaces=nsmap)), 2)
+
+    def test_book_ris(self):
+        book = Book.as_view()
+        request = self.factory.get('/api/book/gri_9921975010001551.ris')
         response = book(request, 'gri_9921975010001551', format='ris')
         response.render()
         self.assertIn("TY  - BOOK\r\n", (response.content).decode())
