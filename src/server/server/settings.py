@@ -25,7 +25,7 @@ SECRET_KEY = 'u$%9*@ma=0i+@6c4e3ze_@45qc82f_jet-ocynztlut(wypr1_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['grpdev.getty.edu']
 
 import django
 django.setup
@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+'''
 
 # Cache
 # Only needed in production instance
@@ -138,11 +138,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-        'local.portal.dev:8000'
+        'grpdev.getty.edu'
     )
 
 # Elasticsearch host and port
-ELASTICSEARCH_HOST = 'local.portal.dev'
+ELASTICSEARCH_HOST = 'grpdev.getty.edu'
 ELASTICSEARCH_PORT = '9200'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -161,3 +161,10 @@ PRODUCTION_DATA = os.path.join(BASE_DIR, 'ingest/production_data')
 LOCAL = 'http://local.portal.dev:9200'  #LOCAL
 DEV = 'http://grpdev.getty.edu:9200'  #DEV
 PROD = 'http://portal.getty.edu:9200'  #PROD
+
+try:
+    from .local_settings import *
+except Exception as e:
+    print('unable to load local settings')
+    print(e)
+    pass
