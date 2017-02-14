@@ -1,0 +1,240 @@
+- model: ingest.contributor
+  fields:
+    identifier: bnf
+    name: Gallica - Bibliothèque nationale de France
+    city: Paris
+    country: France
+    since: 2015-03-17
+    method: OAI
+    frequency: QU
+    address: http://oai.bnf.fr/oai2/OAIHandler
+- model: ingest.contributor
+  fields:
+    identifier: gri
+    name: Getty Research Institute
+    city: Los Angeles
+    country: United States
+    since: 2012-05-31
+    method: MAN
+    frequency: WE
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: uh
+    name: Heidelberg University Library
+    city: Heidelberg
+    country: Germany
+    since: 2012-05-31
+    method: OAI
+    frequency: QU
+    address: http://digi.ub.uni-heidelberg.de/cgi-bin/digioai.cgi
+- model: ingest.contributor
+  fields:
+    identifier: inha
+    name: Institut National d'Histoire de l'Art
+    city: Paris
+    country: France
+    since: 2012-05-31
+    method: OAI
+    frequency: QU
+    address: http://oai.yoolib.net/inha/index.php
+- model: ingest.contributor
+  fields:
+    identifier: met
+    name: Metropolitan Museum of Art
+    city: New York
+    country: United States
+    since: 2012-05-31
+    method: OAI
+    frequency: QU
+    address: http://cdm16028.contentdm.oclc.org:80/oai/oai.php
+- model: ingest.contributor
+  fields:
+    identifier: smithsonian
+    name: Smithsonian Libraries
+    city: Washington, DC
+    country: United States
+    since: 2014-01-31
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: pma
+    name: Library of the Philadelphia Museum of Art
+    city: Philadelphia
+    country: United States
+    since: 2012-07-01
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: avery
+    name: Avery Architectural & Fine Arts Library at Columbia University
+    city: New York
+    country: United States
+    since: 2012-05-31
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: warburg
+    name: The Warburg Institute University of London
+    city: London
+    country: England
+    since: 2016-02-12
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: wolf
+    name: Herzog August Bibliothek Wolfenbüttel
+    city: Wolfenbüttel
+    country: Germany
+    since: 2016-06-09
+    method: OAI
+    frequency: QU
+    address: http://oai.hab.de
+- model: ingest.contributor
+  fields:
+    identifier: clark
+    name: Sterling and Francine Clark Art Institute. Library
+    city: Williamstown
+    country: United States
+    since: 2012-11-01
+    method: OAI
+    frequency: QU
+    address: http://cdm16245.contentdm.oclc.org:80/oai/oai.php
+- model: ingest.contributor
+  fields:
+    identifier: artic
+    name: Art Institute of Chicago
+    city: Chicago
+    country: United States
+    since: 2016-06-09
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: frick
+    name: Frick Art Reference Library
+    city: New York
+    country: United States
+    since: 2012-05-31
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: khi
+    name: Kunsthistorisches Institut in Florenz
+    city: Florence
+    country: Italy
+    since: 2013-11-04
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: hkhi
+    name: Kunsthistorisches Institut in Florenz
+    city: Florence
+    country: Italy
+    since: 2016-07-27
+    method: OAI
+    frequency: QU
+    address: http://dlc.mpdl.mpg.de/oai/provider
+- model: ingest.contributor
+  fields:
+    identifier: gpvl
+    name: Getty Publications Virtual Library
+    city: Los Angeles
+    country: United States
+    since: 2014-04-09
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: hertz
+    name: Bibliotheca Hertziana â Max Planck Institute for Art History
+    city: Rome
+    country: Italy
+    since: 2016-06-09
+    method: OAI
+    frequency: QU
+    address: http://lupa.biblhertz.it/feed/oai-mets.xml
+- model: ingest.contributor
+  fields:
+    identifier: brooklyn
+    name: Brooklyn Museum Libraries & Archives
+    city: New York
+    country: United States
+    since: 2013-10-16
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: menil
+    name: The Menil Collection
+    city: Houston
+    country: United States
+    since: 2016-02-24
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: cleveland
+    name: The Cleveland Museum of Art, Ingalls Library
+    city: Cleveland
+    country: United States
+    since: 2016-08-23
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: ngcanada
+    name: National Gallery of Canada Library and Archives
+    city: Ottawa
+    country: Canada
+    since: 2013-10-02
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: malaga
+    name: Universidad de Málaga
+    city: Málaga
+    country: Spain
+    since: 2012-05-31
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: osci
+    name: Online Scholarly Catalogue Initiative
+    city: 
+    country: 
+    since: 2014-12-16
+    method: MAN
+    frequency: AN
+    address: 
+- model: ingest.contributor
+  fields:
+    identifier: lbi
+    name: Leo Baeck Institute
+    city: New York
+    country: United States
+    since: 2016-10-01
+    method: MAN
+    frequency: AN
+    address:
