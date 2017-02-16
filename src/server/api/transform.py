@@ -5,11 +5,12 @@ from lxml import etree
 
 def dc_export(response):
 	dc_wrapper = {}
+	dc_wrapper['@context'] = {'dc': 'http://purl.org/dc/elements/1.1/', 'dcterms': 'http://purl.org/dc/terms/'}
+	dc_wrapper['@id'] = 'http://portal.getty.edu/books/{}'.format(response['_id'])
 	dublin_core = {}
 	dc_wrapper['dc:record'] = dublin_core
 
-	source = response['_source']
-	metadata_rec = source['dublin_core']
+	metadata_rec = response['_source']['dublin_core']
 
 	unqualified_fields = [
 		'creator',

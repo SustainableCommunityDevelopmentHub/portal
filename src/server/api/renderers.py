@@ -27,7 +27,7 @@ class RawRenderer(renderers.BaseRenderer):
 	def render(self, data, media_type=None, renderer_context=None):
 		return json.dumps(data)
 
-class JSONRenderer(renderers.BaseRenderer):
+class JSONDCRenderer(renderers.BaseRenderer):
 	media_type = 'application/json'
 	format = 'json'
 
@@ -35,7 +35,7 @@ class JSONRenderer(renderers.BaseRenderer):
 		dc_data = transform.dc_export(data)
 		return json.dumps(dc_data)
 
-class XMLRenderer(renderers.BaseRenderer):
+class XMLDCRenderer(renderers.BaseRenderer):
 	media_type = 'application/xml'
 	format = 'xml'
 

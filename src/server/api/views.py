@@ -14,14 +14,15 @@ from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 
 from . import es_functions
-from api.transform import dc_export
-from api.renderers import RawRenderer, JSONRenderer, XMLRenderer, RISRenderer
+#from api.transform import dc_export
+from api.renderers import RawRenderer, JSONDCRenderer, XMLDCRenderer, RISRenderer
+from rest_framework.renderers import JSONRenderer
 
 ELASTICSEARCH_ADDRESS = settings.ELASTICSEARCH_HOST + ":" + settings.ELASTICSEARCH_PORT
 
 class Book(APIView):
 
-    renderer_classes = (JSONRenderer, XMLRenderer, RawRenderer, RISRenderer)
+    renderer_classes = (RawRenderer, JSONDCRenderer, XMLDCRenderer, RISRenderer, )
 
     def get(self, request, id, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
@@ -48,6 +49,9 @@ class Book(APIView):
 
 
 class Contributors(APIView):
+
+    renderer_classes = (JSONRenderer, )
+
     def get(self, request, format=None):
         es = Elasticsearch([ELASTICSEARCH_ADDRESS])
         query = {'aggregations': {'grp_contributor': {'terms': {'field': '_grp_contributor.raw',
@@ -59,6 +63,9 @@ class Contributors(APIView):
 
 
 class Books(APIView):
+
+    renderer_classes = (JSONRenderer, )
+
     advanced_fields = ['adv_date','adv_creator', 'adv_subject', 'adv_title', 'adv_grp_contributor', 'adv_language',
                        'adv_identifier', 'adv_publisher', 'adv_format', 'adv_type', 'adv_description', 'adv_provenance',
                        'adv_relation', 'adv_source', 'adv_rights', 'adv_accrualMethod', 'adv_accrualPeriodicity',

@@ -6,7 +6,8 @@ from rest_framework import status
 from lxml import etree
 
 from api.views import Book, Books, Contributors
-from api.renderers import RawRenderer, JSONRenderer, XMLRenderer, RISRenderer
+from api.renderers import RawRenderer, JSONDCRenderer, XMLDCRenderer, RISRenderer
+from rest_framework.renderers import JSONRenderer
 from . import es_functions
 
 
@@ -47,9 +48,9 @@ class APITests(APITestCase):
     def test_book_json(self):
         book = Book.as_view()
         test_id = 'gri_9921975010001551'
-        book_data = {"dc:record": {"dc:language": "English", "dcterms:isPartOf": "Murray's English handbooks", "dc:creator": "John Murray (Firm)", "dc:identifier": "https://www.archive.org/details/murrayshandbooke00john", "dcterms:alternative": "Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.", "dc:type": "Text", "dc:description": ["Cover title.", "Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."], "dcterms:issued": "1900", "dc:publisher": "J. Murray", "dc:title": "Murray's hand-book eastern counties."}}
-        request = self.factory.get('/api/book/{}.json'.format(test_id), format='json')
-        response = book(request, test_id)
+        book_data = {"@context": {"dcterms": "http://purl.org/dc/terms/", "dc": "http://purl.org/dc/elements/1.1/"}, "dc:record": {"dc:publisher": "J. Murray", "dcterms:issued": "1900", "dc:identifier": "https://www.archive.org/details/murrayshandbooke00john", "dc:description": ["Cover title.", "Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."], "dcterms:alternative": "Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.", "dc:title": "Murray's hand-book eastern counties.", "dcterms:isPartOf": "Murray's English handbooks", "dc:language": "English", "dc:creator": "John Murray (Firm)", "dc:type": "Text"}, "@id": "http://portal.getty.edu/books/gri_9921975010001551"}
+        request = self.factory.get('/api/book/{}.json'.format(test_id))
+        response = book(request, test_id, format='json')
         response.render()
         self.assertEqual(json.loads(response.content.decode()), book_data)
 
@@ -67,8 +68,9 @@ class APITests(APITestCase):
 
     def test_book_ris(self):
         book = Book.as_view()
-        request = self.factory.get('/api/book/gri_9921975010001551.ris')
-        response = book(request, 'gri_9921975010001551', format='ris')
+        test_id = 'gri_9921975010001551'
+        request = self.factory.get('/api/book/{}.ris'.format(test_id))
+        response = book(request, test_id, format='ris')
         response.render()
         self.assertIn("TY  - BOOK\r\n", (response.content).decode())
         self.assertIn("UR  - https://www.archive.org/details/murrayshandbooke00john\r\n", (response.content).decode())

@@ -25,7 +25,7 @@ SECRET_KEY = 'u$%9*@ma=0i+@6c4e3ze_@45qc82f_jet-ocynztlut(wypr1_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['grpdev.getty.edu']
+ALLOWED_HOSTS = []
 
 import django
 django.setup
@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
+
 
 # Cache
 # Only needed in production instance
@@ -130,25 +130,27 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
   'DEFAULT_RENDERER_CLASSES': (
-    'api.renderers.JSONRenderer',
-    'api.renderers.XMLRenderer',
     'api.renderers.RawRenderer',
-    'api.renderers.RISRenderer'
+    'api.renderers.JSONDCRenderer',
+    'api.renderers.XMLDCRenderer',
+    'api.renderers.RISRenderer',
+    'rest_framework.renderers.JSONRenderer'
   ),
   'TEST_REQUEST_RENDERER_CLASSES': (
-    'api.renderers.JSONRenderer',
-    'api.renderers.XMLRenderer',
     'api.renderers.RawRenderer',
-    'api.renderers.RISRenderer'
+    'api.renderers.JSONDCRenderer',
+    'api.renderers.XMLDCRenderer',
+    'api.renderers.RISRenderer',
+    'rest_framework.renderers.JSONRenderer'
   )
 }
 
 CORS_ORIGIN_WHITELIST = (
-        'grpdev.getty.edu'
+        'local.portal.dev:8000'
     )
 
 # Elasticsearch host and port
-ELASTICSEARCH_HOST = 'grpdev.getty.edu'
+ELASTICSEARCH_HOST = 'local.portal.dev'
 ELASTICSEARCH_PORT = '9200'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
