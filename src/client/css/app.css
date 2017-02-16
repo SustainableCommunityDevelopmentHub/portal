@@ -932,6 +932,42 @@ li.book-listing {
     font-size: 12px;
   }
 
+  .rzslider .rz-pointer {
+    top: -14px;
+    z-index: 3;
+    width: 20px;
+    height: 32px;
+    cursor: pointer;
+    background-color: #848484;
+    border-radius: 3px;
+  }
+
+  .rzslider .rz-pointer:after {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    background: #848484;
+    border-radius: 4px;
+    content: '';
+  }
+
+  .rzslider .rz-pointer:hover:after {
+    background-color: #848484;
+  }
+
+  .rzslider .rz-pointer.rz-active:after {
+    background-color: #848484;
+  }
+
+  .rzslider .rz-bar.rz-selection {
+    z-index: 2;
+    background: #5998c9;
+    border-radius: 2px;
+    height: 6px;
+  }
+
 
   /* Facet Dropdown Mobile */
 
