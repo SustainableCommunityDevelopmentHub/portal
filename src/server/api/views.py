@@ -14,7 +14,6 @@ from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 
 from . import es_functions
-#from api.transform import dc_export
 from api.renderers import RawRenderer, JSONDCRenderer, XMLDCRenderer, RISRenderer
 from rest_framework.renderers import JSONRenderer
 
@@ -33,19 +32,6 @@ class Book(APIView):
             return Response(err.info, status=status.HTTP_404_NOT_FOUND)
         data = json.loads(json.dumps(response))
         return Response(data, status=status.HTTP_200_OK)
-
-
-'''class Book(APIView):
-    def get(self, request, id,  format=None):
-        es = Elasticsearch([ELASTICSEARCH_ADDRESS])
-        book_id = id
-        try:
-            response = es.get(index='portal', doc_type='book', id=book_id, request_timeout=30)
-        except NotFoundError as err:
-            return Response(err.info, status=status.HTTP_404_NOT_FOUND)
-        dc = dc_export(response)
-        data = json.loads(json.dumps(dc))
-        return Response(data, status=status.HTTP_200_OK)'''
 
 
 class Contributors(APIView):
