@@ -65,22 +65,26 @@ def ris_export(data, ris_data):
 	return ris_data
 
 def type_map(data):
-	values = data['_source']['dublin_core']['type']
-	dcmi_types = []
-	for item in values:
-		if 'encoding' in item:
-			if item['encoding'] == 'DCMI Type Vocabulary':
-				value = item['value']
-				dcmi_types.append(value)
+	if 'type' in data['_source']['dublin_core']:
+		values = data['_source']['dublin_core']['type']
+		dcmi_types = []
+		for item in values:
+			if 'encoding' in item:
+				if item['encoding'] == 'DCMI Type Vocabulary':
+					value = item['value']
+					dcmi_types.append(value)
 
-	if len(dcmi_types) == 0:
-		ty = 'TY  - BOOK\r\n'
-	else:
-		value = dcmi_types[0]
-		ris_value = RIS_MAP[value]
-		ty = 'TY  - {}\r\n'.format(ris_value)
+		if len(dcmi_types) == 0:
+			ty = 'TY  - BOOK\r\n'
+		else:
+			value = dcmi_types[0]
+			ris_value = RIS_MAP[value]
+			ty = 'TY  - {}\r\n'.format(ris_value)
 	
-	return ty
+		return ty
+	else:
+		ty = 'TY  - {}\r\n'.format('')
+		return ty
 
 def top_level_data(tag_name, values, ris_data):
 	if isinstance(values, str):
