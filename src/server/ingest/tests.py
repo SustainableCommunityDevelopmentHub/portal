@@ -274,7 +274,7 @@ class TaskTests(TestCase):
 			self.assertEqual(index_data, index_content)
 		map1 = os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz')
 		self.assertTrue(os.path.isfile(map1))
-		map1_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/api/books/bnf_bpt6k63442125</loc><lastmod>{}</lastmod><priority>0.8</priority></url></urlset>'.format(self.dupe.updated_date)
+		map1_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/books/bnf_bpt6k63442125</loc><lastmod>{}</lastmod><priority>0.8</priority></url></urlset>'.format(self.dupe.updated_date)
 		with open(map1, 'r') as map1_inf:
 			map1_content = map1_inf.read()
 			self.assertEqual(map1_data, map1_content)

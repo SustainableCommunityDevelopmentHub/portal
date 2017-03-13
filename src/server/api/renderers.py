@@ -1,4 +1,5 @@
 import json
+import unicodedata
 
 from rest_framework import renderers
 
@@ -25,7 +26,7 @@ class RawRenderer(renderers.BaseRenderer):
 	format = 'raw'
 
 	def render(self, data, media_type=None, renderer_context=None):
-		return json.dumps(data)
+		return json.dumps(data, ensure_ascii=False)
 
 class JSONDCRenderer(renderers.BaseRenderer):
 	media_type = 'application/json'
@@ -33,7 +34,7 @@ class JSONDCRenderer(renderers.BaseRenderer):
 
 	def render(self, data, media_type=None, renderer_context=None):
 		dc_data = transform.dc_export(data)
-		return json.dumps(dc_data)
+		return json.dumps(dc_data, ensure_ascii=False)
 
 class XMLDCRenderer(renderers.BaseRenderer):
 	media_type = 'application/xml'
