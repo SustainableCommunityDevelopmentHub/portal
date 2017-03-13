@@ -27,7 +27,7 @@ src/server/db.sqlite3
 
 local_settings.py*
 
-src/server/json_dump/resource*
-src/server/xml_dump/resource*
+src/client/json_dump/resource*
+src/client/xml_dump/resource*
 
 sitemap*
