@@ -368,7 +368,7 @@ a.adv:hover, a.adv:focus {
 hr.thin {
   border-top: 1px solid #aaa;
   margin: 0;
-  width: 21%;
+  width: 100%;
   display: inline-block;
   margin: auto;
   vertical-align: middle;
@@ -1818,7 +1818,7 @@ input#feedback-submit {
     /* Homepage */
 
     hr.thin {
-      width: 15%;
+      width: 100%;
     }
 
     #announcement {
@@ -1916,7 +1916,7 @@ input#feedback-submit {
     }
 
     hr.thin {
-      width: 17%;
+      width: 100%;
     }
 
     #announcement {
@@ -2125,7 +2125,7 @@ input#feedback-submit {
     }
 
     hr.thin {
-      width: 17%;
+      width: 100%;
     }
 
     #announcement {
@@ -2393,7 +2393,7 @@ input#feedback-submit {
   @media (max-width: 568px) {
 
       hr.thin {
-      width: 20%;
+      width: 100%;
     }
 
     #announcement {
