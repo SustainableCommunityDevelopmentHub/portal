@@ -23,6 +23,7 @@ __pycache__/
 src/server/ingest/test_data/
 src/server/ingest/production_data
 
+src/server/db.sqlite3
 
 local_settings.py*
 

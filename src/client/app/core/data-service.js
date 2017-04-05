@@ -98,7 +98,7 @@
      * @returns promise with data from django api
      */
     function getBookData(bookID){
-      return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID);
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID + '.raw');
     }
 
     /**
@@ -108,11 +108,11 @@
      * @returns promise with data from django api
      */
     function getRisRec(bookID){
-      return $http.get(config.django.host + ':' + config.django.port + '/api/book/raw/' + bookID + '.ris');
+      return $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID + '.ris');
     }
 
     function getDcRec(bookID){
-      var response = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID);
+      var response = $http.get(config.django.host + ':' + config.django.port + '/api/book/' + bookID + '.json');
       var deferred = $q.defer();
       response.success(function (data) {
         deferred.resolve(data);
