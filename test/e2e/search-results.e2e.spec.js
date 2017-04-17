@@ -119,7 +119,7 @@ describe('Search Results', function() {
 
   it('should filter results by date when you use date range slider', function(){
     resultsPage.submitSliderRange(150, 200);
-    expect(resultsPage.numTotalHits).toEqual(42);
+    expect(resultsPage.numTotalHits).toEqual(10);
   })
 
   it('should save book records', function () {
