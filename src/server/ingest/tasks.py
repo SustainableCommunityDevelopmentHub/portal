@@ -331,8 +331,7 @@ def build_dump():
 	build_set('xml')
 
 def build_set(serialization):
-	client_dir = os.path.join(settings.BASE_DIR, '../client')
-	set_dir = os.path.join(client_dir, '{}_dump'.format(serialization))
+	set_dir = os.path.join(settings.RS_DIR, '{}_data'.format(serialization))
 	if not os.path.isdir(set_dir):
 		os.mkdir(set_dir)
 	rs_ns = '{http://www.openarchives.org/rs/terms/}'
@@ -349,7 +348,7 @@ def build_set(serialization):
 	else:
 		rd_root = etree.Element('urlset', nsmap=ns)
 		rd_doc = etree.ElementTree(rd_root)
-		rd_ln = etree.SubElement(rd_root, ln_tag, rel='up', href='http://portal.getty.edu/{}_dump/capabilitylist.xml'.format(serialization), nsmap=ns)
+		rd_ln = etree.SubElement(rd_root, ln_tag, rel='up', href='http://portal.getty.edu/{}_data/capabilitylist.xml'.format(serialization), nsmap=ns)
 		rd_time = str(datetime.datetime.now())
 		rd_md = etree.SubElement(rd_root, md_tag, capability='resourcedump', at=rd_time, nsmap=ns)
 	for pg in p.page_range:
@@ -358,11 +357,11 @@ def build_set(serialization):
 
 		rd_url = etree.SubElement(rd_root, 'url', nsmap=ns)
 		rd_loc = etree.SubElement(rd_url, 'loc', nsmap=ns)
-		rd_loc.text = 'http://portal.getty.edu/{}_dump/resourcedump_{}-part{}.zip'.format(serialization, dump_day, str(pg))
+		rd_loc.text = 'http://portal.getty.edu/{}_data/resourcedump_{}-part{}.zip'.format(serialization, dump_day, str(pg))
 		rd_url_time = str(datetime.datetime.now())
 		rd_url_md = etree.SubElement(rd_url, md_tag, type='application/zip', at=rd_url_time, nsmap=ns)
 		rd_url_ln = etree.SubElement(rd_url, ln_tag, rel='contents', 
-			href='http://portal.getty.edu/{}_dump/resourcedump_{}-part{}/resourcedump_manifest_{}-part{}.xml'.format(serialization, dump_day, str(pg), 
+			href='http://portal.getty.edu/{}_data/resourcedump_{}-part{}/resourcedump_manifest_{}-part{}.xml'.format(serialization, dump_day, str(pg), 
 				dump_day, str(pg)), type='application/xml')
 
 	rd_fname = os.path.join(set_dir, 'resourcedump.xml')
@@ -378,13 +377,13 @@ def build_zip(set_dir, dump_day, pg, p, serialization, ns, ln_tag, md_tag):
 		os.mkdir(resource_dir)
 	root = etree.Element('urlset', nsmap=ns)
 	doc = etree.ElementTree(root)
-	ln = etree.SubElement(root, ln_tag, rel='up', href='http://portal.getty.edu/{}_dump/capabilitylist.xml'.format(serialization), nsmap=ns)
+	ln = etree.SubElement(root, ln_tag, rel='up', href='http://portal.getty.edu/{}_data/capabilitylist.xml'.format(serialization), nsmap=ns)
 	time = str(datetime.datetime.now())
 	md = etree.SubElement(root, md_tag, capability='resourcedump-manifest', at=time, nsmap=ns)
 	current = p.page(pg)
 	for record in current.object_list:	
 		print(record.pk)
-		rec_uri = 'http://127.0.0.1:8000/api/book/{}.{}'.format(record.pk, serialization)
+		rec_uri = '{}/api/book/{}.{}'.format(settings.DJANGO_ADDRESS, record.pk, serialization)
 		print(rec_uri)
 		resp = requests.get(rec_uri)
 		if resp.status_code == 200:
@@ -393,7 +392,7 @@ def build_zip(set_dir, dump_day, pg, p, serialization, ns, ln_tag, md_tag):
 				rec_out.write(resp.content)
 			url = etree.SubElement(root, 'url', nsmap=ns)
 			loc = etree.SubElement(url, 'loc', nsmap=ns)
-			loc.text = 'http://127.0.0.1:8000/api/book/{}.{}'.format(record.pk, serialization)
+			loc.text = 'http://portal.getty.edu/api/book/{}.{}'.format(record.pk, serialization)
 			lastmod = etree.SubElement(url, 'lastmod', nsmap=ns)
 			if record.updated_date is not None:
 				lastmod.text = str(datetime.datetime.combine(record.updated_date, datetime.datetime.min.time()))
