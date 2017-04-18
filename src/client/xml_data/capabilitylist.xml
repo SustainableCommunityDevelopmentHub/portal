@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:rs="http://www.openarchives.org/rs/terms/"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <rs:ln rel="up" href="http://portal.getty.edu/resourcesync_description.xml"/>
+    <rs:md capability="capabilitylist"/>
+    <url>
+        <loc>http://portal.getty.edu/xml_data/resourcedump.xml</loc>
+        <rs:md capability="resourcedump"/>
+    </url>
+</urlset>
+
+
