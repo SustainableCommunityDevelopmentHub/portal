@@ -171,7 +171,7 @@ DEV = 'http://grpdev.getty.edu:9200'  #DEV
 PROD = 'http://portal.getty.edu:9200'  #PROD
 
 # ResourceSync directory
-LOCAL = os.path.join(BASE_DIR, '../client')
+RS_LOCAL = os.path.join(BASE_DIR, '../client')
 
 try:
     from .local_settings import *
