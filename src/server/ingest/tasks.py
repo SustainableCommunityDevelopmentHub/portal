@@ -210,24 +210,18 @@ def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
 			header = next(reader)
 			print(header)
 			for record in reader:
-				recid = helpers.get_csv_id()
-			'''if inst == 'met':
-				ident = helpers.get_met_id(record, root, nsmap)
-			elif inst == 'malaga':
-				ident = helpers.get_malaga_id(record, root, nsmap)
-			else:
-				ident = helpers.get_dc_id(inst, f, record, root, nsmap)
-		if ident is not None:
-			recid = '{}_{}'.format(inst, ident)
-			outname = '{}.xml'.format(recid)
-			try:
-				with open(os.path.join(date_dir, outname), 'wb') as outf:
-					record.write(outf, encoding='UTF-8')
-				print('Created source record {}'.format(os.path.join(date_dir, outname)))
-			except Exception as e:
-				logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
+				recid = helpers.get_csv_id(inst, record)
+				print(recid)
+				outname = '{}.csv'.format(recid)
+				try:
+					with open(os.path.join(date_dir, outname), 'w') as outf:
+						writer = csv.writer(outf)
+						writer.writerow(record)
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
-	process_data(inst, date_dir, es)'''
+	#process_data(inst, date_dir, es)
 
 def archive(data_path, inst, supplied_dir):
 	archive_top = os.path.join(data_path, 'archived_data')

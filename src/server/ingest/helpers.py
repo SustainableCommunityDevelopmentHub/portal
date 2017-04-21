@@ -111,3 +111,7 @@ def get_mets_id(record, root, nsmap, prefix):
 		ident = ident.rstrip(':')
 		return ident
 
+def get_csv_id(inst, record):
+	ident = record[1]
+	recid = '{}_{}'.format(inst, ident)
+	return recid
