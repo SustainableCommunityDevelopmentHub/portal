@@ -8,11 +8,13 @@ import json
 
 import responses
 import requests
+from lxml import etree
 
 from django.test import TestCase
 from django.core.management import call_command
 from django.utils.six import StringIO
 from django.conf import settings
+from django.core.paginator import Paginator
 
 from ingest.models import Contributor, Record
 from ingest import tasks, helpers
@@ -61,8 +63,6 @@ class TaskTests(TestCase):
 		archive = '{}/archived_data/*'.format(cls.data_path)
 		for arch_inst in glob(archive):
 			shutil.rmtree(arch_inst)
-		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml'))
-		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz'))
 
 	def test_assign_directories(self):
 		inst, idate, date_dir = tasks.assign_directories(self.data_path, self.supplied_dir_bnf2)
@@ -146,7 +146,6 @@ class TaskTests(TestCase):
 			self.assertEqual(Record.objects.get(pk='bnf_bpt6k63442125').updated_date, 
 				datetime.datetime.strptime('2015-03-17', '%Y-%m-%d').date())
 			patch_es.assert_called
-
 
 	@responses.activate
 	def test_load_es_new(self):
@@ -274,8 +273,49 @@ class TaskTests(TestCase):
 			self.assertEqual(index_data, index_content)
 		map1 = os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz')
 		self.assertTrue(os.path.isfile(map1))
-		map1_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/api/books/bnf_bpt6k63442125</loc><lastmod>{}</lastmod><priority>0.8</priority></url></urlset>'.format(self.dupe.updated_date)
+		map1_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/books/bnf_bpt6k63442125</loc><lastmod>{}</lastmod><priority>0.8</priority></url></urlset>'.format(self.dupe.updated_date)
 		with open(map1, 'r') as map1_inf:
 			map1_content = map1_inf.read()
 			self.assertEqual(map1_data, map1_content)
-	
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml'))
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz'))
+
+	def test_build_set(self):
+		with mock.patch('ingest.tasks.build_zip') as patch_zip:
+			tasks.build_set('json')
+			patch_zip.assert_called()
+		today = str(datetime.date.today())
+		json_rd = os.path.join(settings.RS_DIR, 'json_data/resourcedump.xml')
+		rd_parser = etree.XMLParser(remove_blank_text=True)
+		rd_doc = etree.parse(json_rd, rd_parser)
+		rd_root = rd_doc.getroot()
+		nsmap = rd_root.nsmap
+		nsmap['sm'] = nsmap[None]
+		del nsmap[None]
+		dump_list = rd_root.xpath('sm:url', namespaces=nsmap)
+		last_dump = dump_list[-1]
+		last_loc = last_dump.xpath('sm:loc', namespaces=nsmap)[0].text
+		self.assertEqual(last_loc, 'http://portal.getty.edu/json_data/resourcedump_{}-part1.zip'.format(today))
+		if len(dump_list) > 1:
+			last_dump.getparent().remove(last_dump)
+			rd_doc.write(json_rd, xml_declaration=True, encoding='utf-8', pretty_print=True)
+		else:
+			os.remove(json_rd)
+
+	def test_build_zip(self):
+		today = '{}_test'.format(str(datetime.date.today()))
+		set_dir = os.path.join(settings.RS_DIR, 'json_data')
+		recs = Record.objects.all()
+		p = Paginator(recs, 50000)
+		rs_ns = '{http://www.openarchives.org/rs/terms/}'
+		ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'rs': 'http://www.openarchives.org/rs/terms/'}
+		ln_tag = '{}{}'.format(rs_ns, 'ln')
+		md_tag = '{}{}'.format(rs_ns, 'md')
+		tasks.build_zip(set_dir, today, 1, p, 'json', ns, ln_tag, md_tag)
+		json_zip = os.path.join(set_dir, 'resourcedump_{}-part1.zip'.format(today))
+		self.assertTrue(os.path.isfile(json_zip))
+		with zipfile.ZipFile(json_zip) as ziptest:
+			self.assertEqual(ziptest.namelist(), ['resourcedump_manifest_{}-part1.xml'.format(today), 'resources/bnf_bpt6k63442125'])
+		os.remove(json_zip)
+
+		

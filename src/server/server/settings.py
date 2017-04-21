@@ -149,6 +149,9 @@ CORS_ORIGIN_WHITELIST = (
         'local.portal.dev:8000'
     )
 
+# Django host and port
+DJANGO_ADDRESS = 'http://127.0.0.1:8000'
+
 # Elasticsearch host and port
 ELASTICSEARCH_HOST = 'local.portal.dev'
 ELASTICSEARCH_PORT = '9200'
@@ -169,6 +172,10 @@ PRODUCTION_DATA = os.path.join(BASE_DIR, 'ingest/production_data')
 LOCAL = 'http://local.portal.dev:9200'  #LOCAL
 DEV = 'http://grpdev.getty.edu:9200'  #DEV
 PROD = 'http://portal.getty.edu:9200'  #PROD
+
+# ResourceSync directory
+RS_DIR = os.path.join(BASE_DIR, '../client')
+
 
 try:
     from .local_settings import *
