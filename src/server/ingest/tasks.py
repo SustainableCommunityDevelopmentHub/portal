@@ -7,6 +7,7 @@ import filecmp
 import datetime
 import traceback
 import math
+import csv
 
 from django.db import models
 from django.conf import settings
@@ -54,6 +55,10 @@ METS_DATA = [
 	'uh'
 ]
 
+CSV_DATA = [
+	'nrit'
+]
+
 SAMPLE_DATA = [
 	'bnf',
 	'inha',
@@ -76,6 +81,8 @@ def create_source(data_path, supplied_dir, es):
 		create_source_dc(data_path, supplied_dir, inst, idate, date_dir, es)
 	elif inst in METS_DATA:
 		create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es)
+	elif inst in CSV_DATA:
+		create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es)
 
 def assign_directories(data_path, supplied_dir):
 	inst = supplied_dir.split('/')[-1].split('_')[0]
@@ -192,6 +199,35 @@ def create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es):
 					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
+
+def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
+	infs = '{}/*'.format(supplied_dir)
+	for f in glob(infs):
+		with open(f, 'r', encoding='utf-8') as inf:
+			reader = csv.reader(inf)
+			next(reader)
+			next(reader)
+			header = next(reader)
+			print(header)
+			for record in reader:
+				recid = helpers.get_csv_id()
+			'''if inst == 'met':
+				ident = helpers.get_met_id(record, root, nsmap)
+			elif inst == 'malaga':
+				ident = helpers.get_malaga_id(record, root, nsmap)
+			else:
+				ident = helpers.get_dc_id(inst, f, record, root, nsmap)
+		if ident is not None:
+			recid = '{}_{}'.format(inst, ident)
+			outname = '{}.xml'.format(recid)
+			try:
+				with open(os.path.join(date_dir, outname), 'wb') as outf:
+					record.write(outf, encoding='UTF-8')
+				print('Created source record {}'.format(os.path.join(date_dir, outname)))
+			except Exception as e:
+				logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
+	archive(data_path, inst, supplied_dir)
+	process_data(inst, date_dir, es)'''
 
 def archive(data_path, inst, supplied_dir):
 	archive_top = os.path.join(data_path, 'archived_data')
