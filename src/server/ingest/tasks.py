@@ -15,7 +15,7 @@ from django.core.paginator import Paginator
 from pymarc import MARCWriter, XMLWriter
 from lxml import etree
 
-from funnel import marc, dublin_core, mets
+from funnel import marc, dublin_core, mets, csv_file
 from ingest import helpers
 from ingest.models import Contributor, Record
 
@@ -221,7 +221,7 @@ def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
 				except Exception as e:
 					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
 	archive(data_path, inst, supplied_dir)
-	#process_data(inst, date_dir, es)
+	process_data(inst, date_dir, es)
 
 def archive(data_path, inst, supplied_dir):
 	archive_top = os.path.join(data_path, 'archived_data')
@@ -271,6 +271,9 @@ def process_new_rec(inst, recid, idate, fpath, es):
 	elif inst in METS_DATA:
 		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='CS')
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
@@ -297,6 +300,8 @@ def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
 		rec = dublin_core.main(fpath)
 	elif inst in METS_DATA:
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
