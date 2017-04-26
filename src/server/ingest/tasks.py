@@ -208,10 +208,8 @@ def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
 			next(reader)
 			next(reader)
 			header = next(reader)
-			print(header)
 			for record in reader:
 				recid = helpers.get_csv_id(inst, record)
-				print(recid)
 				outname = '{}.csv'.format(recid)
 				try:
 					with open(os.path.join(date_dir, outname), 'w') as outf:
