@@ -43,6 +43,7 @@ class TaskTests(TestCase):
 		cls.supplied_dir_bnf2 = os.path.join(cls.data_path, 'supplied_data/bnf_2015-03-17')
 		cls.supplied_dir_frick = os.path.join(cls.data_path, 'supplied_data/frick_2012-05-31')
 		cls.supplied_dir_uh = os.path.join(cls.data_path, 'supplied_data/uh_2012-05-31')
+		cls.supplied_dir_nrit = os.path.join(cls.data_path, 'supplied_data/nrit_2017-04-20')
 		cls.es = settings.LOCAL
 		cls.bnf = Contributor.objects.create(identifier='bnf', name='Bibliothèque nationale de France', city='Paris',
 			country='France', since='2015-03-16', address='http://oai.bnf.fr/oai2/OAIHandler', method='OAI', frequency='QU')
@@ -83,6 +84,9 @@ class TaskTests(TestCase):
 		with mock.patch('ingest.tasks.create_source_mets') as patch_mets:
 			tasks.create_source(self.data_path, self.supplied_dir_uh, self.es)
 			patch_mets.assert_called()
+		with mock.patch('ingest.tasks.create_source_csv') as patch_csv:
+			tasks.create_source(self.data_path, self.supplied_dir_nrit, self.es)
+			patch_csv.assert_called()
 
 	def test_create_source_marc(self):
 		with mock.patch('ingest.tasks.process_data') as patch_process:
@@ -123,6 +127,17 @@ class TaskTests(TestCase):
 			zipf = os.path.join(self.data_path, 'archived_data/uh/uh_2012-05-31.zip')
 			self.assertTrue(os.path.isfile(zipf))
 			self.assertFalse(os.path.isdir(self.supplied_dir_uh))
+			patch_process.assert_called()
+
+	def test_create_source_csv(self):
+		with mock.patch('ingest.tasks.process_data') as patch_process:
+			tasks.create_source_csv(self.data_path, self.supplied_dir_nrit, 'nrit', '2017-04-20', os.path.join(self.data_path,
+				'source_data/nrit/2017-04-20'), self.es)
+			self.assertEqual(90, len(os.listdir(os.path.join(self.data_path,
+				'source_data/nrit/2017-04-20'))))
+			zipf = os.path.join(self.data_path, 'archived_data/nrit/nrit_2017-04-20.zip')
+			self.assertTrue(os.path.isfile(zipf))
+			self.assertFalse(os.path.isdir(self.supplied_dir_nrit))
 			patch_process.assert_called()
 
 	def test_process_data(self):

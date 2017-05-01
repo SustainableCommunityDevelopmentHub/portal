@@ -39,7 +39,8 @@ class Record(models.Model):
 	SOURCE_SCHEMA_CHOICES = (
 		('MA', 'MARC'),
 		('DC', 'Dublin Core'),
-		('ME', 'METS')
+		('ME', 'METS'),
+		('CS', 'CSV')
 	)
 	source_schema = models.CharField(
 		max_length = 2,

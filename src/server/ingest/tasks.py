@@ -7,6 +7,7 @@ import filecmp
 import datetime
 import traceback
 import math
+import csv
 
 from django.db import models
 from django.conf import settings
@@ -15,7 +16,7 @@ from pymarc import MARCWriter, XMLWriter
 from lxml import etree
 from pytz import timezone
 
-from funnel import marc, dublin_core, mets
+from funnel import marc, dublin_core, mets, csv_file
 from ingest import helpers
 from ingest.models import Contributor, Record
 
@@ -55,6 +56,10 @@ METS_DATA = [
 	'uh'
 ]
 
+CSV_DATA = [
+	'nrit'
+]
+
 SAMPLE_DATA = [
 	'bnf',
 	'inha',
@@ -77,6 +82,8 @@ def create_source(data_path, supplied_dir, es):
 		create_source_dc(data_path, supplied_dir, inst, idate, date_dir, es)
 	elif inst in METS_DATA:
 		create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es)
+	elif inst in CSV_DATA:
+		create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es)
 
 def assign_directories(data_path, supplied_dir):
 	inst = supplied_dir.split('/')[-1].split('_')[0]
@@ -194,6 +201,27 @@ def create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es):
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
 
+def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
+	infs = '{}/*'.format(supplied_dir)
+	for f in glob(infs):
+		with open(f, 'r', encoding='utf-8') as inf:
+			reader = csv.reader(inf)
+			next(reader)
+			next(reader)
+			header = next(reader)
+			for record in reader:
+				recid = helpers.get_csv_id(inst, record)
+				outname = '{}.csv'.format(recid)
+				try:
+					with open(os.path.join(date_dir, outname), 'w') as outf:
+						writer = csv.writer(outf)
+						writer.writerow(record)
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
+	archive(data_path, inst, supplied_dir)
+	process_data(inst, date_dir, es)
+
 def archive(data_path, inst, supplied_dir):
 	archive_top = os.path.join(data_path, 'archived_data')
 	if not os.path.isdir(archive_top):
@@ -242,6 +270,9 @@ def process_new_rec(inst, recid, idate, fpath, es):
 	elif inst in METS_DATA:
 		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='CS')
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
@@ -268,6 +299,8 @@ def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
 		rec = dublin_core.main(fpath)
 	elif inst in METS_DATA:
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
