@@ -3,16 +3,18 @@ import shutil
 from glob import glob
 import mock
 import zipfile
-from datetime import datetime
+import datetime
 import json
 
 import responses
 import requests
+from lxml import etree
 
 from django.test import TestCase
 from django.core.management import call_command
 from django.utils.six import StringIO
 from django.conf import settings
+from django.core.paginator import Paginator
 
 from ingest.models import Contributor, Record
 from ingest import tasks, helpers
@@ -41,6 +43,7 @@ class TaskTests(TestCase):
 		cls.supplied_dir_bnf2 = os.path.join(cls.data_path, 'supplied_data/bnf_2015-03-17')
 		cls.supplied_dir_frick = os.path.join(cls.data_path, 'supplied_data/frick_2012-05-31')
 		cls.supplied_dir_uh = os.path.join(cls.data_path, 'supplied_data/uh_2012-05-31')
+		cls.supplied_dir_nrit = os.path.join(cls.data_path, 'supplied_data/nrit_2017-04-20')
 		cls.es = settings.LOCAL
 		cls.bnf = Contributor.objects.create(identifier='bnf', name='Bibliothèque nationale de France', city='Paris',
 			country='France', since='2015-03-16', address='http://oai.bnf.fr/oai2/OAIHandler', method='OAI', frequency='QU')
@@ -57,7 +60,7 @@ class TaskTests(TestCase):
 			zip_name = zip_file.split('/')[-1].split('.zip')[0]
 			zip_ref = zipfile.ZipFile(zip_file, 'r')
 			zip_ref.extractall(os.path.join(cls.data_path, 'supplied_data', zip_name))
-			zip_ref.close()
+			zip_ref.close() 
 		archive = '{}/archived_data/*'.format(cls.data_path)
 		for arch_inst in glob(archive):
 			shutil.rmtree(arch_inst)
@@ -81,6 +84,9 @@ class TaskTests(TestCase):
 		with mock.patch('ingest.tasks.create_source_mets') as patch_mets:
 			tasks.create_source(self.data_path, self.supplied_dir_uh, self.es)
 			patch_mets.assert_called()
+		with mock.patch('ingest.tasks.create_source_csv') as patch_csv:
+			tasks.create_source(self.data_path, self.supplied_dir_nrit, self.es)
+			patch_csv.assert_called()
 
 	def test_create_source_marc(self):
 		with mock.patch('ingest.tasks.process_data') as patch_process:
@@ -123,6 +129,17 @@ class TaskTests(TestCase):
 			self.assertFalse(os.path.isdir(self.supplied_dir_uh))
 			patch_process.assert_called()
 
+	def test_create_source_csv(self):
+		with mock.patch('ingest.tasks.process_data') as patch_process:
+			tasks.create_source_csv(self.data_path, self.supplied_dir_nrit, 'nrit', '2017-04-20', os.path.join(self.data_path,
+				'source_data/nrit/2017-04-20'), self.es)
+			self.assertEqual(90, len(os.listdir(os.path.join(self.data_path,
+				'source_data/nrit/2017-04-20'))))
+			zipf = os.path.join(self.data_path, 'archived_data/nrit/nrit_2017-04-20.zip')
+			self.assertTrue(os.path.isfile(zipf))
+			self.assertFalse(os.path.isdir(self.supplied_dir_nrit))
+			patch_process.assert_called()
+
 	def test_process_data(self):
 		with mock.patch('ingest.tasks.process_new_rec') as patch_new, mock.patch('ingest.tasks.process_dupe_rec') as patch_dupe:
 			tasks.process_data('bnf', os.path.join(self.data_path, 'source_data/bnf/2015-03-17'), self.es)
@@ -142,9 +159,8 @@ class TaskTests(TestCase):
 			tasks.process_dupe_rec(self.dupe, 'bnf', 'bnf_bpt6k63442125', '2015-03-17', 
 				os.path.join(self.data_path, 'source_data/bnf/2015-03-17/bnf_bpt6k63442125.xml'), self.es)
 			self.assertEqual(Record.objects.get(pk='bnf_bpt6k63442125').updated_date, 
-				datetime.strptime('2015-03-17', '%Y-%m-%d').date())
+				datetime.datetime.strptime('2015-03-17', '%Y-%m-%d').date())
 			patch_es.assert_called
-
 
 	@responses.activate
 	def test_load_es_new(self):
@@ -259,4 +275,62 @@ class TaskTests(TestCase):
 		self.assertEqual(len(responses.calls), 1)
 		self.assertRaises(requests.exceptions.HTTPError)
 
-	
+	def test_build_sitemaps(self):
+		today = str(datetime.date.today())
+		self.dupe.updated_date = datetime.datetime.strptime('2015-03-17', '%Y-%m-%d').date()
+		self.dupe.save()
+		tasks.build_sitemaps()
+		indexf = os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml')
+		self.assertTrue(os.path.isfile(indexf))
+		index_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>http://portal.getty.edu/sitemap-1.xml.gz</loc><lastmod>{}</lastmod></sitemap></sitemapindex>'.format(today)
+		with open(indexf, 'r') as index_inf:
+			index_content = index_inf.read()
+			self.assertEqual(index_data, index_content)
+		map1 = os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz')
+		self.assertTrue(os.path.isfile(map1))
+		map1_data = '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://portal.getty.edu/books/bnf_bpt6k63442125</loc><lastmod>{}</lastmod><priority>0.8</priority></url></urlset>'.format(self.dupe.updated_date)
+		with open(map1, 'r') as map1_inf:
+			map1_content = map1_inf.read()
+			self.assertEqual(map1_data, map1_content)
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-index.xml'))
+		os.remove(os.path.join(settings.BASE_DIR, '../client/sitemap-1.xml.gz'))
+
+	def test_build_set(self):
+		with mock.patch('ingest.tasks.build_zip') as patch_zip:
+			tasks.build_set('json')
+			patch_zip.assert_called()
+		today = str(datetime.date.today())
+		json_rd = os.path.join(settings.RS_DIR, 'json_data/resourcedump.xml')
+		rd_parser = etree.XMLParser(remove_blank_text=True)
+		rd_doc = etree.parse(json_rd, rd_parser)
+		rd_root = rd_doc.getroot()
+		nsmap = rd_root.nsmap
+		nsmap['sm'] = nsmap[None]
+		del nsmap[None]
+		dump_list = rd_root.xpath('sm:url', namespaces=nsmap)
+		last_dump = dump_list[-1]
+		last_loc = last_dump.xpath('sm:loc', namespaces=nsmap)[0].text
+		self.assertEqual(last_loc, 'http://portal.getty.edu/json_data/resourcedump_{}-part1.zip'.format(today))
+		if len(dump_list) > 1:
+			last_dump.getparent().remove(last_dump)
+			rd_doc.write(json_rd, xml_declaration=True, encoding='utf-8', pretty_print=True)
+		else:
+			os.remove(json_rd)
+
+	def test_build_zip(self):
+		today = '{}_test'.format(str(datetime.date.today()))
+		set_dir = os.path.join(settings.RS_DIR, 'json_data')
+		recs = Record.objects.all()
+		p = Paginator(recs, 50000)
+		rs_ns = '{http://www.openarchives.org/rs/terms/}'
+		ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'rs': 'http://www.openarchives.org/rs/terms/'}
+		ln_tag = '{}{}'.format(rs_ns, 'ln')
+		md_tag = '{}{}'.format(rs_ns, 'md')
+		tasks.build_zip(set_dir, today, 1, p, 'json', ns, ln_tag, md_tag)
+		json_zip = os.path.join(set_dir, 'resourcedump_{}-part1.zip'.format(today))
+		self.assertTrue(os.path.isfile(json_zip))
+		with zipfile.ZipFile(json_zip) as ziptest:
+			self.assertEqual(ziptest.namelist(), ['resourcedump_manifest_{}-part1.xml'.format(today), 'resources/bnf_bpt6k63442125'])
+		os.remove(json_zip)
+
+		

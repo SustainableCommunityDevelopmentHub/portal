@@ -4,15 +4,19 @@ import shutil
 from glob import glob
 import requests
 import filecmp
-from datetime import datetime
+import datetime
 import traceback
+import math
+import csv
 
 from django.db import models
 from django.conf import settings
+from django.core.paginator import Paginator
 from pymarc import MARCWriter, XMLWriter
 from lxml import etree
+from pytz import timezone
 
-from funnel import marc, dublin_core, mets
+from funnel import marc, dublin_core, mets, csv_file
 from ingest import helpers
 from ingest.models import Contributor, Record
 
@@ -52,6 +56,10 @@ METS_DATA = [
 	'uh'
 ]
 
+CSV_DATA = [
+	'nrit'
+]
+
 SAMPLE_DATA = [
 	'bnf',
 	'inha',
@@ -60,7 +68,10 @@ SAMPLE_DATA = [
 	'uh'
 ]
 
-log_path = os.path.join(settings.BASE_DIR, '../../logs/error.log')
+log_dir = os.path.join(settings.BASE_DIR, '../../logs')
+if not os.path.isdir(log_dir):
+	os.mkdir(log_dir)
+log_path = os.path.join(log_dir, 'error.log')
 logf = open(log_path, 'w')
 
 def create_source(data_path, supplied_dir, es):
@@ -71,6 +82,8 @@ def create_source(data_path, supplied_dir, es):
 		create_source_dc(data_path, supplied_dir, inst, idate, date_dir, es)
 	elif inst in METS_DATA:
 		create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es)
+	elif inst in CSV_DATA:
+		create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es)
 
 def assign_directories(data_path, supplied_dir):
 	inst = supplied_dir.split('/')[-1].split('_')[0]
@@ -188,6 +201,27 @@ def create_source_mets(data_path, supplied_dir, inst, idate, date_dir, es):
 	archive(data_path, inst, supplied_dir)
 	process_data(inst, date_dir, es)
 
+def create_source_csv(data_path, supplied_dir, inst, idate, date_dir, es):
+	infs = '{}/*'.format(supplied_dir)
+	for f in glob(infs):
+		with open(f, 'r', encoding='utf-8') as inf:
+			reader = csv.reader(inf)
+			next(reader)
+			next(reader)
+			header = next(reader)
+			for record in reader:
+				recid = helpers.get_csv_id(inst, record)
+				outname = '{}.csv'.format(recid)
+				try:
+					with open(os.path.join(date_dir, outname), 'w') as outf:
+						writer = csv.writer(outf)
+						writer.writerow(record)
+					print('Created source record {}'.format(os.path.join(date_dir, outname)))
+				except Exception as e:
+					logf.write('Failed to create source record {}: {}\n'.format(os.path.join(date_dir, outname), traceback.print_exc()))
+	archive(data_path, inst, supplied_dir)
+	process_data(inst, date_dir, es)
+
 def archive(data_path, inst, supplied_dir):
 	archive_top = os.path.join(data_path, 'archived_data')
 	if not os.path.isdir(archive_top):
@@ -218,7 +252,7 @@ def process_data(inst, date_dir, es):
 					old_date = oldrec.updated_date
 				else:
 					old_date = oldrec.ingest_date
-				idate_obj = datetime.strptime(idate, '%Y-%m-%d').date()
+				idate_obj = datetime.datetime.strptime(idate, '%Y-%m-%d').date()
 				if idate_obj >= old_date:
 					process_dupe_rec(oldrec, inst, recid, idate, fpath, es)
 		except Exception as e:
@@ -236,6 +270,9 @@ def process_new_rec(inst, recid, idate, fpath, es):
 	elif inst in METS_DATA:
 		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='ME')
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		Record.objects.create(pk=recid, ingest_date=idate, contributor=contrib, source_path=fpath, source_schema='CS')
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
@@ -262,6 +299,8 @@ def process_dupe_rec(oldrec, inst, recid, idate, fpath, es):
 		rec = dublin_core.main(fpath)
 	elif inst in METS_DATA:
 		rec = mets.main(fpath)
+	elif inst in CSV_DATA:
+		rec = csv_file.main(fpath)
 	if es == 'http://local.portal.dev:9200':
 		if inst == 'gri' and idate == '2015-10-19':
 			load_es(recid, rec, es)
@@ -283,6 +322,128 @@ def load_es(recid, rec, es):
 	except requests.exceptions.RequestException as e:
 		logf.write('Uploading {}...{}\n'.format(recid, e))
 	print('Uploading {}...{}\n'.format(recid, resp.status_code))
+
+def build_sitemaps():
+	client_dir = os.path.join(settings.BASE_DIR, '../client')
+	recs = Record.objects.all()
+	p = Paginator(recs, 50000)
+	ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+	index_root = etree.Element('sitemapindex', nsmap=ns)
+	index_doc = etree.ElementTree(index_root)
+	for pg in p.page_range: 
+		root = etree.Element('urlset', nsmap=ns)
+		doc = etree.ElementTree(root)
+		current = p.page(pg)
+		for record in current.object_list:	
+			print(record.pk)
+			url = etree.SubElement(root, 'url', nsmap=ns)
+			loc = etree.SubElement(url, 'loc', nsmap=ns)
+			loc.text = 'http://portal.getty.edu/books/{}'.format(record.pk)
+			lastmod = etree.SubElement(url, 'lastmod', nsmap=ns)
+			if record.updated_date is not None:
+				lastmod.text = str(record.updated_date)
+			else:
+				lastmod.text = str(record.ingest_date)
+			priority = etree.SubElement(url, 'priority', nsmap=ns)
+			priority.text = '0.8'
+		out_fname = 'sitemap-{}.xml.gz'.format(str(pg))
+		out_path = os.path.join(client_dir, out_fname)
+		doc.write(out_path, xml_declaration=True, encoding='utf-8')
+
+		sitemap = etree.SubElement(index_root, 'sitemap', nsmap=ns)
+		index_loc = etree.SubElement(sitemap, 'loc', nsmap=ns)
+		index_loc.text = 'http://portal.getty.edu/{}'.format(out_fname)
+		index_lastmod = etree.SubElement(sitemap, 'lastmod', nsmap=ns)
+		index_lastmod.text = str(datetime.date.today())
+
+	index_fname = os.path.join(client_dir, 'sitemap-index.xml')
+	index_doc.write(index_fname, xml_declaration=True, encoding='utf-8')
+
+def build_dump():
+	build_set('json')
+	build_set('xml')
+
+def build_set(serialization):
+	set_dir = os.path.join(settings.RS_DIR, '{}_data'.format(serialization))
+	if not os.path.isdir(set_dir):
+		os.mkdir(set_dir)
+	rs_ns = '{http://www.openarchives.org/rs/terms/}'
+	ns = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'rs': 'http://www.openarchives.org/rs/terms/'}
+	ln_tag = '{}{}'.format(rs_ns, 'ln')
+	md_tag = '{}{}'.format(rs_ns, 'md')
+	recs = Record.objects.all()
+	p = Paginator(recs, 50000)
+	if os.path.isfile(os.path.join(set_dir, 'resourcedump.xml')):
+		print('resource dump already exists')
+		rd_parser = etree.XMLParser(remove_blank_text=True)
+		rd_doc = etree.parse(os.path.join(set_dir, 'resourcedump.xml'), rd_parser)
+		rd_root = rd_doc.getroot()
+	else:
+		rd_root = etree.Element('urlset', nsmap=ns)
+		rd_doc = etree.ElementTree(rd_root)
+		rd_ln = etree.SubElement(rd_root, ln_tag, rel='up', href='http://portal.getty.edu/{}_data/capabilitylist.xml'.format(serialization), nsmap=ns)
+		rd_time = str(datetime.datetime.now())
+		rd_md = etree.SubElement(rd_root, md_tag, capability='resourcedump', at=rd_time, nsmap=ns)
+	for pg in p.page_range:
+		dump_day = datetime.date.today()
+		build_zip(set_dir, dump_day, pg, p, serialization, ns, ln_tag, md_tag)
+
+		rd_url = etree.SubElement(rd_root, 'url', nsmap=ns)
+		rd_loc = etree.SubElement(rd_url, 'loc', nsmap=ns)
+		rd_loc.text = 'http://portal.getty.edu/{}_data/resourcedump_{}-part{}.zip'.format(serialization, dump_day, str(pg))
+		rd_url_time = str(datetime.datetime.now())
+		rd_url_md = etree.SubElement(rd_url, md_tag, type='application/zip', at=rd_url_time, nsmap=ns)
+		rd_url_ln = etree.SubElement(rd_url, ln_tag, rel='contents', 
+			href='http://portal.getty.edu/{}_data/resourcedump_{}-part{}/resourcedump_manifest_{}-part{}.xml'.format(serialization, dump_day, str(pg), 
+				dump_day, str(pg)), type='application/xml')
+
+	rd_fname = os.path.join(set_dir, 'resourcedump.xml')
+	print(etree.tostring(rd_doc, pretty_print=True))
+	rd_doc.write(rd_fname, xml_declaration=True, encoding='utf-8', pretty_print=True)
+
+def build_zip(set_dir, dump_day, pg, p, serialization, ns, ln_tag, md_tag):
+	rd_dir = os.path.join(set_dir, 'resourcedump_{}-part{}'.format(dump_day, str(pg))) 
+	if not os.path.isdir(rd_dir):
+		os.mkdir(rd_dir)
+	resource_dir = os.path.join(rd_dir, 'resources')
+	if not os.path.isdir(resource_dir):
+		os.mkdir(resource_dir)
+	root = etree.Element('urlset', nsmap=ns)
+	doc = etree.ElementTree(root)
+	ln = etree.SubElement(root, ln_tag, rel='up', href='http://portal.getty.edu/{}_data/capabilitylist.xml'.format(serialization), nsmap=ns)
+	time = str(datetime.datetime.now())
+	md = etree.SubElement(root, md_tag, capability='resourcedump-manifest', at=time, nsmap=ns)
+	current = p.page(pg)
+	for record in current.object_list:	
+		print(record.pk)
+		rec_uri = '{}/api/book/{}.{}'.format(settings.DJANGO_ADDRESS, record.pk, serialization)
+		print(rec_uri)
+		resp = requests.get(rec_uri)
+		if resp.status_code == 200:
+			print(resp.content)
+			with open(os.path.join(resource_dir, record.pk), 'wb') as rec_out:
+				rec_out.write(resp.content)
+			url = etree.SubElement(root, 'url', nsmap=ns)
+			loc = etree.SubElement(url, 'loc', nsmap=ns)
+			loc.text = 'http://portal.getty.edu/api/book/{}.{}'.format(record.pk, serialization)
+			lastmod = etree.SubElement(url, 'lastmod', nsmap=ns)
+			if record.updated_date is not None:
+				lastmod.text = str(datetime.datetime.combine(record.updated_date, datetime.datetime.min.time()))
+			else:
+				lastmod.text = str(datetime.datetime.combine(record.ingest_date, datetime.datetime.min.time()))
+			url_md = etree.SubElement(url, md_tag, type='application/{}'.format(serialization), path='/resources/{}'.format(record.pk))
+	out_fname = 'resourcedump_manifest_{}-part{}.xml'.format(dump_day, str(pg))
+	out_path = os.path.join(rd_dir, out_fname)
+	doc.write(out_path, xml_declaration=True, encoding='utf-8', pretty_print=True)
+	zipname = '{}.zip'.format(rd_dir)
+	with zipfile.ZipFile(zipname, 'w') as rd_zip:
+		for dirname, subdirs, files in os.walk(rd_dir):
+			for filename in files:
+				if dirname.endswith('resources'):
+					rd_zip.write(os.path.join(dirname, filename), os.path.join('resources', os.path.basename(filename)))
+				else:
+					rd_zip.write(os.path.join(dirname, filename), os.path.basename(filename))
+	shutil.rmtree(rd_dir)
 
 		
 

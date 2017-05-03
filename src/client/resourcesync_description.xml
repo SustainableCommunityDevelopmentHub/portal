@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:rs="http://www.openarchives.org/rs/terms/"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <rs:md capability="description"/>
+    <url>
+        <loc>http://portal.getty.edu/json_data/capabilitylist.xml</loc>
+        <rs:md capability="capabilitylist"/>
+    </url>
+    <url>
+        <loc>http://portal.getty.edu/xml_data/capabilitylist.xml</loc>
+        <rs:md capability="capabilitylist"/>
+    </url>
+</urlset>
+

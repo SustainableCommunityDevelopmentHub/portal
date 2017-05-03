@@ -7,8 +7,8 @@ from django.db import models
 class Contributor(models.Model):
 	identifier = models.CharField(max_length=50, primary_key=True)
 	name = models.CharField(max_length=200)
-	city = models.CharField(max_length=100)
-	country = models.CharField(max_length=100)
+	city = models.CharField(max_length=100, null=True)
+	country = models.CharField(max_length=100, null=True)
 	since = models.DateField()
 	address = models.CharField(max_length=100, null=True)
 	METHOD_CHOICES = (
@@ -39,7 +39,8 @@ class Record(models.Model):
 	SOURCE_SCHEMA_CHOICES = (
 		('MA', 'MARC'),
 		('DC', 'Dublin Core'),
-		('ME', 'METS')
+		('ME', 'METS'),
+		('CS', 'CSV')
 	)
 	source_schema = models.CharField(
 		max_length = 2,

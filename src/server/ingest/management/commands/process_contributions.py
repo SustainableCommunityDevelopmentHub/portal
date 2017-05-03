@@ -30,6 +30,7 @@ class Command(BaseCommand):
 			supplied_dirs = '{}/supplied_data/*'.format(data_path)
 			for supplied_dir in glob(supplied_dirs):
 				tasks.create_source(data_path, supplied_dir, es)
+			#tasks.build_sitemaps()
 		else:
 			inst_dirs = '{}/source_data/*'.format(data_path)
 			for inst_dir in glob(inst_dirs):

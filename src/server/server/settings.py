@@ -130,16 +130,27 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
   'DEFAULT_RENDERER_CLASSES': (
-    'rest_framework.renderers.JSONRenderer',
-    'rest_framework_xml.renderers.XMLRenderer',
-    'rest_framework.renderers.BrowsableAPIRenderer',
+    'api.renderers.RawRenderer',
+    'api.renderers.JSONDCRenderer',
+    'api.renderers.XMLDCRenderer',
     'api.renderers.RISRenderer',
+    'rest_framework.renderers.JSONRenderer'
+  ),
+  'TEST_REQUEST_RENDERER_CLASSES': (
+    'api.renderers.RawRenderer',
+    'api.renderers.JSONDCRenderer',
+    'api.renderers.XMLDCRenderer',
+    'api.renderers.RISRenderer',
+    'rest_framework.renderers.JSONRenderer'
   )
 }
 
 CORS_ORIGIN_WHITELIST = (
         'local.portal.dev:8000'
     )
+
+# Django host and port
+DJANGO_ADDRESS = 'http://127.0.0.1:8000'
 
 # Elasticsearch host and port
 ELASTICSEARCH_HOST = 'local.portal.dev'
@@ -161,3 +172,14 @@ PRODUCTION_DATA = os.path.join(BASE_DIR, 'ingest/production_data')
 LOCAL = 'http://local.portal.dev:9200'  #LOCAL
 DEV = 'http://grpdev.getty.edu:9200'  #DEV
 PROD = 'http://portal.getty.edu:9200'  #PROD
+
+# ResourceSync directory
+RS_DIR = os.path.join(BASE_DIR, '../client')
+
+
+try:
+    from .local_settings import *
+except Exception as e:
+    print('unable to load local settings')
+    print(e)
+    pass

@@ -3,13 +3,16 @@ node_modules/
 bower_components/
 
 config/develop
-config/prod
+config/
+
+src/client/app/app.env.config.js
 
 .DS_Store
 
 tmp/
 
 npm-debug.log
+error.log
 
 ENV
 
@@ -20,3 +23,11 @@ __pycache__/
 src/server/ingest/test_data/
 src/server/ingest/production_data
 
+src/server/db.sqlite3
+
+local_settings.py*
+
+src/client/json_data/resource*
+src/client/xml_data/resource*
+
+sitemap*
