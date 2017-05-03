@@ -48,7 +48,7 @@ class APITests(APITestCase):
     def test_book_json(self):
         book = Book.as_view()
         test_id = 'gri_9921975010001551'
-        book_data = {"@context": {"dcterms": "http://purl.org/dc/terms/", "dc": "http://purl.org/dc/elements/1.1/"}, "dc:record": {"dc:publisher": "J. Murray", "dcterms:issued": "1900", "dc:identifier": "https://www.archive.org/details/murrayshandbooke00john", "dc:description": ["Cover title.", "Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."], "dcterms:alternative": "Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.", "dc:title": "Murray's hand-book eastern counties.", "dcterms:isPartOf": "Murray's English handbooks", "dc:language": "English", "dc:creator": "John Murray (Firm)", "dc:type": "Text"}, "@id": "http://portal.getty.edu/books/gri_9921975010001551"}
+        book_data = {"@context": {"dcterms": "http://purl.org/dc/terms/", "dc": "http://purl.org/dc/elements/1.1/"}, "dc:record": {"dc:publisher": "[London : J. Murray", "dcterms:issued": "1900", "dc:identifier": "https://www.archive.org/details/murrayshandbooke00john", "dc:description": ["Cover title.", "Spine title: Hand-book Essex, Suffolk, Norfolk, Cambridgeshire."], "dcterms:alternative": "Hand-book Essex, Suffolk, Norfolk, Cambridgeshire.", "dc:title": "Murray's hand-book eastern counties.", "dcterms:isPartOf": "Murray's English handbooks", "dc:language": "English", "dc:creator": "John Murray (Firm)", "dc:type": "Text"}, "@id": "http://portal.getty.edu/books/gri_9921975010001551"}
         request = self.factory.get('/api/book/{}.json'.format(test_id))
         response = book(request, test_id, format='json')
         response.render()
