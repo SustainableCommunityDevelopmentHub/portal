@@ -30,4 +30,4 @@ local_settings.py*
 src/client/json_data/resource*
 src/client/xml_data/resource*
 
-sitemap*
+src/client/sitemap*
