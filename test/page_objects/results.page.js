@@ -183,6 +183,33 @@ ResultsPage.prototype = Object.create({}, {
       return titles;
     });
   }},
+  getHitsCreators: { value: function() {
+    return this.getHits().then(function(hits) {
+      var creators = [];
+      for(var i = 0; i < hits.length; i++){
+        creators.push(hits[i]._creator_display);
+      }
+      return creators;
+    });
+  }},
+  getHitsGRPContributors: { value: function() {
+    return this.getHits().then(function(hits) {
+      var contributors = [];
+      for(var i = 0; i < hits.length; i++){
+        contributors.push(hits[i]._grp_contributor);
+      }
+      return contributors
+    });
+  }},
+  getHitsPublishers: { value: function() {
+    return this.getHits().then(function(hits) {
+      var publishers = [];
+      for(var i = 0; i < hits.length; i++){
+        publishers.push(hits[i].dublin_core.publisher[0].value);
+      }
+      return publishers;
+    });
+  }},
   getBookMark: {value: function(position) {
     return element.all(by.css('.bookmark .inside')).get(position);
   }},

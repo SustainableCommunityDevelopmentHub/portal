@@ -226,6 +226,9 @@
             <div class="results-data">
               <b>From: </b><p class="results-data-val">{{book._grp_contributor}}</p>
             </div>
+            <div class="results-data" ng-show="book.dublin_core.publisher">
+              <b>Publisher: </b><p class="results-data-val">{{book.dublin_core.publisher[0].value}}</p>
+            </div>
           </div>
           <a ng-href="{{book._record_link}}" target="_blank"><button class="btn" type="button" id="view-digital-item">View Digital Item</button></a>
         </div>
