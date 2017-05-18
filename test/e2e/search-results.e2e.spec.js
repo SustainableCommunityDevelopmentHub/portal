@@ -51,6 +51,22 @@ describe('Search Results', function() {
     });
   });
 
+  it('should show user correct information for brief display', function() {
+    resultsPage.submitNewSearchTerm('gri_9921790980001551');
+    resultsPage.getHitsTitles().then(function(titles){
+        expect(titles[0]).toEqual("Handbook of arms and armor, European and Oriental, including the William H. Riggs collection, by Bashford Dean.");
+    });
+    resultsPage.getHitsCreators().then(function(creators){
+        expect(creators[0]).toEqual([ 'Metropolitan Museum of Art (New York, N.Y.)' ]);
+    });
+    resultsPage.getHitsGRPContributors().then(function(contributors){
+        expect(contributors[0]).toEqual("Getty Research Institute");
+    });
+    resultsPage.getHitsPublishers().then(function(publishers){
+        expect(publishers[0]).toEqual("[The Gilliss Press]");
+    });
+  });
+
   it('should not display active facets in sidebar', function(){
     resultsPage.submitNewSearchTerm('paintings');
     resultsPage.addFacetOption('subject', 'Catalogs');
