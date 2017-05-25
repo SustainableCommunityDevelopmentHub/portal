@@ -4,4 +4,7 @@ Disallow: /saved
 Disallow: /search
 Allow: /faq
 Allow: /help
+Sitemap: http://portal.getty.edu/sitemap-index.xml
+Sitemap: http://portal.getty.edu/json_data/resourcedump.xml
+Sitemap: http://portal.getty.edu/xml_data/resourcedump.xml
 
