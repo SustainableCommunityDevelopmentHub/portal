@@ -39,6 +39,9 @@ HomePage.prototype = Object.create(ResultsPage.prototype, {
     }},
     newContributors: { get: function() {
         return element.all(by.css(".new-contributors-item"));
+    }},
+    lastUpdatedDate: { get: function() {
+        return element.all(by.css(".last-updated-date"));
     }}
 });
 

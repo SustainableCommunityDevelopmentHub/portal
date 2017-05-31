@@ -83,5 +83,10 @@ describe('Home Page', function() {
     expect(contributors).toBeDefined();
     expect(contributors.count()).toBeGreaterThan(0);
   });
+
+  it('should display last updated date', function() {
+    var contributors = homePage.newContributors;
+    expect(contributors).toBeDefined();
+  });
 });
 

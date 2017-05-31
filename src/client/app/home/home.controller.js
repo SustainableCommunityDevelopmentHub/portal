@@ -8,6 +8,7 @@
   function HomePageCtrl($scope, SearchService, $state, SORT_MODES, SORT_DEFAULT, config, NEW_CONTRIBUTORS) {
     $scope.totalTitles = config.numTotalTitles;
     $scope.contributors = config.newContributors;
+    $scope.lastUpdatedDate = config.lastUpdatedDate;
 
     $scope.newSearch =  newSearch;
     $scope.mostRecentSearch = mostRecentSearch;
